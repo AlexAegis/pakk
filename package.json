@@ -1,7 +1,7 @@
 {
 	"name": "@alexaegis/workspace",
-	"displayName": "js",
-	"description": "base repo for common stuff in my other js projects",
+	"displayName": "workspace",
+	"description": "Vite plugin",
 	"version": "0.0.1",
 	"license": "mit",
 	"author": {
@@ -9,10 +9,10 @@
 		"email": "alexaegis@gmail.com",
 		"url": "https://github.com/AlexAegis"
 	},
-	"homepage": "https://github.com/AlexAegis/js",
+	"homepage": "https://github.com/AlexAegis/vite-plugin-autolib",
 	"bugs": {
 		"email": "alexaegis@gmail.com",
-		"url": "https://github.com/AlexAegis/js/issues"
+		"url": "https://github.com/AlexAegis/vite-plugin-autolib/issues"
 	},
 	"type": "module",
 	"private": true,
