@@ -30,7 +30,7 @@
 		"typedoc": { "outputs": ["typedoc/**"] },
 		"test": {
 			"env": ["VITEST"],
-			"outputs": ["coverage"],
+			"outputs": ["coverage", "../../coverage"],
 			"dependsOn": ["build"]
 		},
 		"start": {

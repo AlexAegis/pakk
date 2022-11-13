@@ -54,7 +54,6 @@ jobs:
             ${{ steps.pnpm-store.outputs.STORE_PATH }}
             **/node_modules
             **/.turbo
-            **/coverage
           key: ${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-
@@ -94,7 +93,6 @@ jobs:
             ${{ steps.pnpm-store.outputs.STORE_PATH }}
             **/node_modules
             **/.turbo
-            **/coverage
           key: ${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-
@@ -144,7 +142,6 @@ jobs:
             ${{ steps.pnpm-store.outputs.STORE_PATH }}
             **/node_modules
             **/.turbo
-            **/coverage
           key: ${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-
@@ -224,7 +221,6 @@ jobs:
             ${{ steps.pnpm-store.outputs.STORE_PATH }}
             **/node_modules
             **/.turbo
-            **/coverage
           key: ${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-
