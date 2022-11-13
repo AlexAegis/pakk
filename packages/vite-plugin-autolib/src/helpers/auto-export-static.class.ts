@@ -7,6 +7,7 @@ import { copyAllInto } from './copy-all-into.function.js';
 import type { PackageJson } from './package-json.type.js';
 import type { PreparedBuildUpdate } from './prepared-build-update.type.js';
 import { toAbsolute } from './to-absolute.function.js';
+
 export class AutoExportStatic implements PreparedBuildUpdate {
 	private options: Required<AutoExportStaticOptions>;
 	private staticExports: Record<string, string> = {};
