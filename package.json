@@ -2,7 +2,7 @@
 	"name": "@alexaegis/workspace",
 	"displayName": "workspace",
 	"description": "Vite plugin",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"license": "mit",
 	"author": {
 		"name": "Alex Aegis",
@@ -51,6 +51,9 @@
 		"lint:rmd": "turbo run lint:rmd --parallel",
 		"lint:format": "turbo run lint:format --parallel",
 		"_root#lint:format": "prettier --check .",
+		"release": "standard-version",
+		"release:minor": "standard-version --release-as minor",
+		"release:major": "standard-version --release-as major",
 		"postinstall": "turbo run build",
 		"ncu": "ncu --deep --peer --upgrade",
 		"format": "prettier --write .",
