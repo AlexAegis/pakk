@@ -1,0 +1,69 @@
+{
+	"name": "vite-plugin-autolib",
+	"description": "Automatically fills out your package.json",
+	"version": "0.0.1",
+	"license": "MIT",
+	"author": {
+		"email": "alexaegis@gmail.com",
+		"name": "AlexAegis",
+		"url": "https://www.github.com/AlexAegis"
+	},
+	"homepage": "https://www.github.com/AlexAegis/vite-plugin-autolib#readme",
+	"repository": "github:AlexAegis/vite-plugin-autolib",
+	"bugs": {
+		"url": "https://www.github.com/AlexAegis/vite-plugin-autolib/issues"
+	},
+	"keywords": [
+		"vite",
+		"ts",
+		"typescript",
+		"js",
+		"javascript"
+	],
+	"private": false,
+	"config": {
+		"engine-strict": false
+	},
+	"scripts": {
+		"build": "vite build",
+		"test": "vitest --passWithNoTests --coverage --run",
+		"lint:es": "eslint --max-warnings=0 --fix .",
+		"lint:format": "prettier --check .",
+		"typedoc": "typedoc ./src/index.ts --out ./typedoc"
+	},
+	"sideEffects": false,
+	"publishConfig": {
+		"access": "public"
+	},
+	"type": "module",
+	"dependencies": {
+		"vite": "^3.2.3",
+		"vite-plugin-static-copy": "0.12.0",
+		"vite-plugin-dts": "^1.7.0",
+		"@sveltejs/vite-plugin-svelte": "^1.1.1",
+		"globby": "^13.1.2",
+		"fs-extra": "^10.1.0",
+		"rollup": "^3.3.0",
+		"typescript": "^4.8.4",
+		"ts-node": "^10.9.1",
+		"@types/node": "^18.11.9",
+		"kolorist": "^1.6.0",
+		"svelte": "^3.53.1",
+		"prettier": "^2.7.1"
+	},
+	"peerDependencies": {
+		"vite": "^3.2.3"
+	},
+	"devDependencies": {
+		"@types/prettier": "^2.7.1",
+		"@types/fs-extra": "^9.0.13",
+		"@schemastore/package": "^0.0.6"
+	},
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"require": "./dist/index.cjs",
+			"import": "./dist/index.js"
+		}
+	}
+}

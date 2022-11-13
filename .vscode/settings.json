@@ -1,0 +1,68 @@
+{
+	"editor.formatOnSave": true,
+	"editor.autoIndent": "full",
+	"editor.tabCompletion": "off",
+	"liveServer.settings.root": "packages/vite-plugin-autolib/typedoc",
+	"stylelint.enable": true,
+	"stylelint.validate": ["css", "scss", "postcss"],
+	"editor.rulers": [
+		{
+			"color": "#bdbdbd11",
+			"column": 80
+		},
+		{
+			"color": "#6d6d6d75",
+			"column": 100
+		}
+	],
+	"editor.quickSuggestionsDelay": 0,
+	"editor.quickSuggestions": {
+		"other": true,
+		"comments": false,
+		"strings": false
+	},
+	"editor.wordBasedSuggestions": true,
+	"editor.suggest.localityBonus": true,
+	"editor.snippetSuggestions": "bottom",
+	"editor.codeActionsOnSave": {
+		"source.fixAll": true,
+		"source.organizeImports": true,
+		// For ESLint
+		"source.fixAll.eslint": true,
+		// For TSLint
+		"source.fixAll.tslint": true,
+		// For Stylelint
+		"source.fixAll.stylelint": true
+	},
+	"explorer.fileNesting.enabled": true,
+	"explorer.fileNesting.patterns": {
+		"*.ts": "${capture}*",
+		"*.js": "${capture}*",
+		"*.jsx": "${capture}*",
+		"*.tsx": "${capture}*",
+		"*.json": "${capture}*",
+		".eslintrc.*": ".eslintignore",
+		".prettierrc.*": ".prettierignore",
+		".gitignore": ".gitattributes"
+	},
+	"editor.fontLigatures": true,
+	"editor.mouseWheelZoom": true,
+	"files.exclude": {
+		"**/.git": true,
+		"**/.DS_Store": true
+	},
+	"files.associations": {
+		"*.json": "jsonc",
+		".stylelintrc": "jsonc"
+	},
+	"terminal.integrated.windowsEnableConpty": true,
+	"json.schemas": [
+		{
+			"fileMatch": ["typedoc.json"],
+			"url": "https://json.schemastore.org/typedoc"
+		}
+	],
+	"vitest.enable": true,
+	"vitest.commandLine": "npx vitest --coverage",
+	"liveServer.settings.port": 5501
+}
