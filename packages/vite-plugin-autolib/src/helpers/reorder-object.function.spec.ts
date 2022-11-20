@@ -20,6 +20,16 @@ describe('reorderObject', () => {
 		);
 	});
 
+	it('should be able to order an array', () => {
+		const from = ['c', 'a', 'b'];
+
+		const to = ['a', 'b', 'c'];
+
+		expect(JSON.stringify(reorderObject(from), undefined, 2)).toEqual(
+			JSON.stringify(to, undefined, 2)
+		);
+	});
+
 	it('should be able to order simple nested objects in alphabetical order', () => {
 		const from = {
 			c: 'c',
@@ -122,7 +132,7 @@ describe('reorderObject', () => {
 			mode: 'mode',
 			name: 'name',
 			stuff: {
-				c: 'c',
+				c: ['b', 'a', 'c'],
 				b: 'b',
 				a: 'a',
 				['prefixed:c']: 'prefixed:c',
@@ -140,7 +150,7 @@ describe('reorderObject', () => {
 				['prefixed:c']: 'prefixed:c',
 				a: 'a',
 				b: 'b',
-				c: 'c',
+				c: ['a', 'b', 'c'],
 			},
 			zed: 'zed',
 		};
@@ -180,7 +190,54 @@ describe('reorderObject', () => {
 			g: 'g',
 		};
 
-		const result = JSON.stringify(reorderObject(from, ['.*', 'd', 'f']), undefined, 2);
+		const result = JSON.stringify(reorderObject(from, ['.*', 'd', 'f', '.*']), undefined, 2);
 		expect(result).toEqual(JSON.stringify(to, undefined, 2));
+	});
+
+	it('should order based on an ordering preference', () => {
+		const from = {
+			name: 'foo',
+			exports: {
+				'./readme': './readme.md',
+				'./foo': {
+					require: './dist/index.cjs',
+					import: './dist/index.js',
+					types: './dist/index.d.ts',
+				},
+				'.': {
+					require: './dist/index.cjs',
+					import: './dist/index.js',
+					types: './dist/index.d.ts',
+				},
+			},
+		};
+
+		const to = {
+			name: 'foo',
+			exports: {
+				'.': {
+					types: './dist/index.d.ts',
+					import: './dist/index.js',
+					require: './dist/index.cjs',
+				},
+				'./foo': {
+					types: './dist/index.d.ts',
+					import: './dist/index.js',
+					require: './dist/index.cjs',
+				},
+				'./readme': './readme.md',
+			},
+		};
+
+		expect(
+			JSON.stringify(
+				reorderObject(from, [
+					'name',
+					{ key: 'exports', order: [{ key: '.*', order: ['types', '.*'] }] },
+				]),
+				undefined,
+				2
+			)
+		).toEqual(JSON.stringify(to, undefined, 2));
 	});
 });

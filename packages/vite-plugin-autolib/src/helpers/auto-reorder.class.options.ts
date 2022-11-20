@@ -3,6 +3,26 @@ export interface ObjectOrder {
 	order: (string | ObjectOrder)[];
 }
 
+export const DEFAULT_PACKAGE_JSON_ORDER_PREFERENCE: (string | ObjectOrder)[] = [
+	'name',
+	'description',
+	'version',
+	'private',
+	'license',
+	'author',
+	'homepage',
+	'repository',
+	'bugs',
+	'keywords',
+	'type',
+	{ key: 'scripts', order: ['build.*', 'lint.*'] },
+	{ key: 'exports', order: [{ key: '.*', order: ['types', '.*'] }] },
+	'dependencies',
+	'peerDependencies',
+	'optonalDependencies',
+	'devDependencies',
+];
+
 export interface AutoReorderOptions {
 	/**
 	 * Define an order of keys that will be applied to the target object
@@ -11,6 +31,9 @@ export interface AutoReorderOptions {
 	 *
 	 * ! All ordering keys are treated as regular expressions, make sure they
 	 * ! are valid!
+	 *
+	 * To keep your package.json valid some order rules may be overwritten,
+	 * like making sure 'types' is always the first entry in 'exports' objects
 	 *
 	 * By default it orders everything in alphabetical order.
 	 *
@@ -23,8 +46,56 @@ export interface AutoReorderOptions {
 export const normalizeAutoReorderOptions = (
 	options?: AutoReorderOptions
 ): Required<AutoReorderOptions> => {
+	// patch exports
+	let orderPreference: (string | ObjectOrder)[] = [];
+
+	if (options?.orderPreference) {
+		orderPreference = options.orderPreference.some(
+			(orderPreference) =>
+				(typeof orderPreference === 'string' && orderPreference === 'exports') ||
+				(typeof orderPreference === 'object' && orderPreference.key === 'exports')
+		)
+			? options.orderPreference.map((orderPreference) => {
+					if (typeof orderPreference === 'string' && orderPreference === 'exports') {
+						return { key: 'exports', order: [{ key: '.*', order: ['types'] }] };
+					} else if (
+						typeof orderPreference === 'object' &&
+						orderPreference.key === 'exports'
+					) {
+						return {
+							key: 'exports',
+							order: orderPreference.order.map((order) => {
+								if (typeof order === 'string') {
+									return { key: order, order: ['types'] };
+								} else {
+									const existingTypesEntry = order.order.find((o) =>
+										typeof o === 'string' ? o === 'types' : o.key === 'types'
+									);
+									const nonTypesEntries = order.order.filter((o) =>
+										typeof o === 'string' ? o !== 'types' : o.key !== 'types'
+									);
+									return {
+										key: order.key,
+										order: [existingTypesEntry ?? 'types', ...nonTypesEntries],
+									};
+								}
+							}),
+						};
+					}
+					return orderPreference;
+			  })
+			: [
+					...options.orderPreference,
+					{
+						key: 'exports',
+						order: [{ key: '.*', order: ['types'] }],
+					},
+			  ];
+	} else {
+		orderPreference = DEFAULT_PACKAGE_JSON_ORDER_PREFERENCE;
+	}
+
 	return {
-		orderPreference: [],
-		...options,
+		orderPreference,
 	};
 };
