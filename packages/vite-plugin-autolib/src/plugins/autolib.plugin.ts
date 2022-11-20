@@ -2,6 +2,7 @@ import { dirname, join } from 'node:path/posix';
 import { LibraryFormats, mergeConfig, Plugin, UserConfig } from 'vite';
 import { DEFAULT_ENTRY_DIR } from '../helpers/auto-entry.class.options.js';
 import { AutoExportStatic } from '../helpers/auto-export-static.class.js';
+import { AutoOrder } from '../helpers/auto-reorder.class.js';
 import { cloneJsonSerializable } from '../helpers/clone-json-serializable.function.js';
 import { createVitePluginLogger } from '../helpers/create-vite-plugin-logger.function.js';
 import {
@@ -98,6 +99,10 @@ export const autolib = (rawOptions?: AutolibPluginOptions): Plugin => {
 				);
 			}
 
+			if (options.autoOrderPackageJson) {
+				buildUpdates.push(new AutoOrder({ orderPreference: options.autoOrderPackageJson }));
+			}
+
 			const sourcePackageJsonLocation = join(options.cwd, options.sourcePackageJson);
 			const rawPackageJson = await readPackageJson(sourcePackageJsonLocation);
 			if (!rawPackageJson) {
@@ -189,6 +194,11 @@ export const autolib = (rawOptions?: AutolibPluginOptions): Plugin => {
 					);
 
 					packageJsonForArtifact = deepMerge(packageJsonForArtifact, ...pathOffsets);
+
+					packageJsonForArtifact = buildUpdates.reduce(
+						(acc, buildUpdate) => buildUpdate.postprocess?.(acc) ?? acc,
+						packageJsonForArtifact
+					);
 
 					const destination =
 						packageJsonTarget === 'out-to-out'

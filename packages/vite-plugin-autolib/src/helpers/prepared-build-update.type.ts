@@ -40,6 +40,15 @@ export interface PreparedBuildUpdate {
 	) => Awaitable<PackageJson>;
 
 	/**
+	 * A final, synchronous step to modify the packageJson file.
+	 * The returned object will replace the original one completely, no
+	 * merging is happening.
+	 * `postprocess` steps are happening sequentially, in order the
+	 * subplugins are defined.
+	 */
+	postprocess?: (packageJson: PackageJson) => PackageJson;
+
+	/**
 	 * Changes applied to the vite build configuration
 	 */
 	getViteConfigUpdates?: (viteConfig: UserConfig) => Awaitable<Partial<UserConfig>>;

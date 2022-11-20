@@ -240,4 +240,32 @@ describe('reorderObject', () => {
 			)
 		).toEqual(JSON.stringify(to, undefined, 2));
 	});
+
+	it('should order subobjects even if they are not mentioned in detail', () => {
+		const from = {
+			zed: 'zed',
+			mode: 'mode',
+			name: 'name',
+			stuff: {
+				c: 'c',
+				b: 'b',
+				a: 'a',
+			},
+		};
+
+		const to = {
+			name: 'name',
+			mode: 'mode',
+			stuff: {
+				a: 'a',
+				b: 'b',
+				c: 'c',
+			},
+			zed: 'zed',
+		};
+
+		expect(
+			JSON.stringify(reorderObject(from, ['name', 'mode', 'stuff']), undefined, 2)
+		).toEqual(JSON.stringify(to, undefined, 2));
+	});
 });

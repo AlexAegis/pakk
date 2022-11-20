@@ -1,6 +1,10 @@
 import { DEFAULT_BINSHIM_DIR, DEFAULT_BIN_DIR } from '../helpers/auto-bin.class.options.js';
 import { DEFAULT_ENTRY_DIR } from '../helpers/auto-entry.class.options.js';
 import { DEFAULT_STATIC_EXPORT_GLOBS } from '../helpers/auto-export-static.class.options.js';
+import {
+	DEFAULT_PACKAGE_JSON_ORDER_PREFERENCE,
+	ObjectKeyOrder,
+} from '../helpers/auto-reorder.class.options.js';
 import type { WriteJsonOptions } from '../helpers/write-json.function.js';
 
 export const DEFAULT_SRC_DIR = 'src';
@@ -28,11 +32,10 @@ export interface AutolibPluginOptions extends WriteJsonOptions {
 	sourcePackageJson?: string;
 
 	/**
-	 * Whether or not to transform the source package json and in what manner.
-	 * Useful in a monorepo where you want to use the library in
-	 * other packages.
-	 * It's best to let `autoPrettier` be enabled if this is enabled as the
-	 * file would get minified otherwise.
+	 * Whether or not to retarget the paths in the source packageJson
+	 *
+	 * ! It's best to let `autoPrettier` be enabled if this is enabled as the
+	 * ! file would get minified otherwise.
 	 *
 	 * Using `build` targets everything to the `outDir` of your build.
 	 * This implies that your library is always built and rebuilt when using
@@ -67,6 +70,13 @@ export interface AutolibPluginOptions extends WriteJsonOptions {
 	autoExportStaticGlobs?: string[] | false;
 
 	/**
+	 * Automatically order the keys in the packageJson files.
+	 *
+	 * @default DEFAULT_PACKAGE_JSON_ORDER_PREFERENCE
+	 */
+	autoOrderPackageJson?: ObjectKeyOrder | false;
+
+	/**
 	 * Generates bin entries from files under `srcDir` + `autoBinDirectory`
 	 * It also treats all files named as npm hooks as npm hooks, prefixing them
 	 * and adding them as hooks for the npm artifact
@@ -94,6 +104,10 @@ export const normalizeAutolibOptions = (
 			options?.autoExportStaticGlobs === false
 				? false
 				: options?.autoExportStaticGlobs ?? DEFAULT_STATIC_EXPORT_GLOBS,
+		autoOrderPackageJson:
+			options?.autoOrderPackageJson === false
+				? false
+				: options?.autoOrderPackageJson ?? DEFAULT_PACKAGE_JSON_ORDER_PREFERENCE,
 		sourcePackageJson: options?.sourcePackageJson ?? 'package.json',
 		cwd: options?.cwd ?? process.cwd(),
 		dry: options?.dry ?? false,

@@ -3,6 +3,7 @@
 	"description": "Automatically fills out your package.json for both local and published version",
 	"version": "0.0.1",
 	"license": "MIT",
+	"private": false,
 	"author": {
 		"email": "alexaegis@gmail.com",
 		"name": "AlexAegis",
@@ -14,28 +15,35 @@
 		"url": "https://www.github.com/AlexAegis/vite-plugin-autolib/issues"
 	},
 	"keywords": [
-		"vite",
+		"javascript",
+		"js",
 		"ts",
 		"typescript",
-		"js",
-		"javascript"
+		"vite"
 	],
-	"private": false,
+	"type": "module",
+	"sideEffects": false,
 	"config": {
 		"engine-strict": false
 	},
-	"scripts": {
-		"build": "vite build",
-		"test": "vitest --passWithNoTests --coverage --run",
-		"lint:es": "eslint --max-warnings=0 --fix .",
-		"lint:format": "prettier --check .",
-		"typedoc": "typedoc ./src/index.ts --out ./typedoc"
-	},
-	"sideEffects": false,
 	"publishConfig": {
 		"access": "public"
 	},
-	"type": "module",
+	"scripts": {
+		"build": "vite build",
+		"lint:es": "eslint --max-warnings=0 --fix .",
+		"lint:format": "prettier --check .",
+		"test": "vitest --passWithNoTests --coverage --run",
+		"typedoc": "typedoc ./src/index.ts --out ./typedoc"
+	},
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js",
+			"require": "./dist/index.cjs"
+		},
+		"./readme": "./readme.md"
+	},
 	"dependencies": {
 		"@npmcli/package-json": "^3.0.0",
 		"@sveltejs/vite-plugin-svelte": "^1.2.0",
@@ -57,13 +65,5 @@
 		"@types/fs-extra": "^9.0.13",
 		"@types/prettier": "^2.7.1",
 		"@vitest/coverage-istanbul": "^0.25.2"
-	},
-	"exports": {
-		"./readme": "./readme.md",
-		".": {
-			"types": "./dist/index.d.ts",
-			"require": "./dist/index.cjs",
-			"import": "./dist/index.js"
-		}
 	}
 }

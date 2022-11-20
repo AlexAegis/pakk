@@ -1,20 +1,23 @@
 export interface ObjectOrder {
 	key: string;
-	order: (string | ObjectOrder)[];
+	order: ObjectKeyOrder;
 }
 
-export const DEFAULT_PACKAGE_JSON_ORDER_PREFERENCE: (string | ObjectOrder)[] = [
+export const DEFAULT_PACKAGE_JSON_ORDER_PREFERENCE: ObjectKeyOrder = [
 	'name',
 	'description',
 	'version',
-	'private',
 	'license',
+	'private',
 	'author',
 	'homepage',
 	'repository',
 	'bugs',
 	'keywords',
 	'type',
+	'sideEffects',
+	'config',
+	'publishConfig',
 	{ key: 'scripts', order: ['build.*', 'lint.*'] },
 	{ key: 'exports', order: [{ key: '.*', order: ['types', '.*'] }] },
 	'dependencies',
@@ -22,6 +25,8 @@ export const DEFAULT_PACKAGE_JSON_ORDER_PREFERENCE: (string | ObjectOrder)[] = [
 	'optonalDependencies',
 	'devDependencies',
 ];
+
+export type ObjectKeyOrder = (string | ObjectOrder)[];
 
 export interface AutoReorderOptions {
 	/**
@@ -40,14 +45,14 @@ export interface AutoReorderOptions {
 	 * @example ['name', '.*', { key: 'scripts', order: ['start', 'build.*'] }, '.*']
 	 * @default []
 	 */
-	orderPreference?: (string | ObjectOrder)[];
+	orderPreference?: ObjectKeyOrder;
 }
 
 export const normalizeAutoReorderOptions = (
 	options?: AutoReorderOptions
 ): Required<AutoReorderOptions> => {
 	// patch exports
-	let orderPreference: (string | ObjectOrder)[] = [];
+	let orderPreference: ObjectKeyOrder = [];
 
 	if (options?.orderPreference) {
 		orderPreference = options.orderPreference.some(

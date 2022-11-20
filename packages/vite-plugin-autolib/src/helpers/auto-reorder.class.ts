@@ -10,7 +10,7 @@ export class AutoOrder implements PreparedBuildUpdate {
 		this.options = normalizeAutoReorderOptions(options);
 	}
 
-	async update(packageJson: PackageJson): Promise<PackageJson> {
+	postprocess(packageJson: PackageJson): PackageJson {
 		return reorderObject(packageJson, this.options.orderPreference);
 	}
 }
