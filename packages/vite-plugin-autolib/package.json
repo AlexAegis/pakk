@@ -37,25 +37,26 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"vite": "^3.2.3",
-		"vite-plugin-static-copy": "^0.12.0",
-		"vite-plugin-dts": "^1.7.0",
+		"@npmcli/package-json": "^3.0.0",
 		"@sveltejs/vite-plugin-svelte": "^1.1.1",
-		"globby": "^13.1.2",
-		"fs-extra": "^10.1.0",
-		"rollup": "^3.3.0",
-		"typescript": "^4.8.4",
-		"ts-node": "^10.9.1",
 		"@types/node": "^18.11.9",
+		"fs-extra": "^10.1.0",
+		"globby": "^13.1.2",
 		"kolorist": "^1.6.0",
-		"svelte": "^3.53.1",
 		"prettier": "^2.7.1",
-		"@npmcli/package-json": "^3.0.0"
+		"rollup": "^3.3.0",
+		"svelte": "^3.53.1",
+		"ts-node": "^10.9.1",
+		"typescript": "^4.8.4",
+		"vite": "^3.2.3",
+		"vite-plugin-dts": "^1.7.0",
+		"vite-plugin-static-copy": "^0.12.0"
 	},
 	"devDependencies": {
-		"@types/prettier": "^2.7.1",
+		"@schemastore/package": "^0.0.6",
 		"@types/fs-extra": "^9.0.13",
-		"@schemastore/package": "^0.0.6"
+		"@types/prettier": "^2.7.1",
+		"@vitest/coverage-istanbul": "^0.25.2"
 	},
 	"exports": {
 		"./readme": "./readme.md",

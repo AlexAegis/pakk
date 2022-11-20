@@ -37,7 +37,7 @@
 		"node": ">=16.10.0",
 		"vscode": "^1.73.1"
 	},
-	"packageManager": "pnpm@7.15.0",
+	"packageManager": "pnpm@7.16.1",
 	"scripts": {
 		"build": "turbo run build",
 		"start": "turbo run start --parallel",

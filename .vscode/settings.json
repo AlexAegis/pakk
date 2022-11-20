@@ -2,7 +2,7 @@
 	"editor.formatOnSave": true,
 	"editor.autoIndent": "full",
 	"editor.tabCompletion": "off",
-	"liveServer.settings.root": "packages/vite-plugin-autolib/typedoc",
+	"liveServer.settings.root": "/coverage",
 	"stylelint.enable": true,
 	"stylelint.validate": ["css", "scss", "postcss"],
 	"editor.rulers": [
