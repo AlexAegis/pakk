@@ -1,26 +1,26 @@
-import type { ObjectOrder } from './auto-reorder.class.options.js';
 import { closestNumber } from './closest-number.function.js';
+import type { DetailedObjectKeyOrder, ObjectKeyOrder } from './object-key-order.type.js';
 
 /**
  * Creates a copy of an object with it's keys ordered according to a
  * preferred ordering
  */
-export const reorderObject = <T extends object | unknown[]>(
+export const sortObject = <T extends object | unknown[]>(
 	o: T,
-	orderingPreferences: (string | ObjectOrder)[] = []
+	sortPreferences: ObjectKeyOrder = []
 ): T => {
 	if (
-		orderingPreferences.length === 0 ||
-		!orderingPreferences.some((pref) =>
+		sortPreferences.length === 0 ||
+		!sortPreferences.some((pref) =>
 			typeof pref === 'object' ? pref.key === '.*' : pref === '.*'
 		)
 	) {
-		orderingPreferences.push('.*');
+		sortPreferences.push('.*');
 	}
 
 	// orderingPreferences = orderingPreferences.map()
 
-	const plainLevelOrder = orderingPreferences.map((pref) =>
+	const plainLevelOrder = sortPreferences.map((pref) =>
 		typeof pref === 'object' ? pref.key : pref
 	);
 
@@ -64,11 +64,11 @@ export const reorderObject = <T extends object | unknown[]>(
 			}
 
 			if (value !== undefined && value !== null && typeof value === 'object') {
-				const subOrdering = orderingPreferences
-					.filter((pref): pref is ObjectOrder => typeof pref === 'object')
+				const subOrdering = sortPreferences
+					.filter((pref): pref is DetailedObjectKeyOrder => typeof pref === 'object')
 					.find((preference) => new RegExp(preference.key).test(key));
 
-				return [key, reorderObject(value, subOrdering?.order), order];
+				return [key, sortObject(value, subOrdering?.order), order];
 			} else {
 				return [key, value, order];
 			}

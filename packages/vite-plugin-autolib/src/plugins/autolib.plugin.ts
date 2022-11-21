@@ -2,9 +2,9 @@ import { dirname, join } from 'node:path/posix';
 import { LibraryFormats, mergeConfig, Plugin, UserConfig } from 'vite';
 import { DEFAULT_ENTRY_DIR } from '../helpers/auto-entry.class.options.js';
 import { AutoExportStatic } from '../helpers/auto-export-static.class.js';
-import { AutoOrder } from '../helpers/auto-reorder.class.js';
+import { AutoSort } from '../helpers/auto-reorder.class.js';
 import { cloneJsonSerializable } from '../helpers/clone-json-serializable.function.js';
-import { createVitePluginLogger } from '../helpers/create-vite-plugin-logger.function.js';
+import { createLogger } from '../helpers/create-logger.function.js';
 import {
 	AutoBin,
 	AutoEntry,
@@ -16,7 +16,7 @@ import {
 } from '../helpers/index.js';
 import type { PackageJson } from '../helpers/package-json.type.js';
 import type { PreparedBuildUpdate } from '../helpers/prepared-build-update.type.js';
-import { readPackageJson } from '../helpers/read-package-json.function.js';
+import { readJson } from '../helpers/read-package-json.function.js';
 import {
 	AutolibPluginOptions,
 	normalizeAutolibOptions,
@@ -26,8 +26,8 @@ import {
 export const autolib = (rawOptions?: AutolibPluginOptions): Plugin => {
 	const options = normalizeAutolibOptions(rawOptions);
 	const pluginName = 'autolib';
-	const logger = createVitePluginLogger({
-		pluginName,
+	const logger = createLogger({
+		prefix: `vite:${pluginName}`,
 	});
 	logger.log('starting');
 
@@ -100,11 +100,13 @@ export const autolib = (rawOptions?: AutolibPluginOptions): Plugin => {
 			}
 
 			if (options.autoOrderPackageJson) {
-				buildUpdates.push(new AutoOrder({ orderPreference: options.autoOrderPackageJson }));
+				buildUpdates.push(
+					new AutoSort({ sortingPreference: options.autoOrderPackageJson })
+				);
 			}
 
 			const sourcePackageJsonLocation = join(options.cwd, options.sourcePackageJson);
-			const rawPackageJson = await readPackageJson(sourcePackageJsonLocation);
+			const rawPackageJson = await readJson<PackageJson>(sourcePackageJsonLocation);
 			if (!rawPackageJson) {
 				console.warn(
 					`${pluginName} didn't find package.json at ${sourcePackageJsonLocation}!`

@@ -1,7 +1,7 @@
 import { extname } from 'node:path';
 
 import { chmod, lstat, readFile, writeFile } from 'node:fs/promises';
-import type { Logger } from './create-vite-plugin-logger.function.js';
+import type { Logger } from './create-logger.function.js';
 import { toAbsolute } from './to-absolute.function.js';
 
 export const SHEBANG_SEQUENCE = '#!';

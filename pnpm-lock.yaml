@@ -48,6 +48,7 @@ importers:
       '@types/fs-extra': ^9.0.13
       '@types/node': ^18.11.9
       '@types/prettier': ^2.7.1
+      '@types/yargs': ^17.0.13
       '@vitest/coverage-istanbul': ^0.25.2
       fs-extra: ^10.1.0
       globby: ^13.1.2
@@ -81,6 +82,7 @@ importers:
       '@schemastore/package': 0.0.6
       '@types/fs-extra': 9.0.13
       '@types/prettier': 2.7.1
+      '@types/yargs': 17.0.13
       '@vitest/coverage-istanbul': 0.25.2
 
 packages:
@@ -773,6 +775,16 @@ packages:
 
   /@types/semver/7.3.13:
     resolution: {integrity: sha512-21cFJr9z3g5dW8B0CVI9g2O9beqaThGQ6ZFBqHfwhzLDKUxaqTIy3vnfah/UPkfOiF2pLq+tGz+W8RyCskuslw==}
+    dev: true
+
+  /@types/yargs-parser/21.0.0:
+    resolution: {integrity: sha512-iO9ZQHkZxHn4mSakYV0vFHAVDyEOIJQrV2uZ06HxEPcx+mt8swXoZHIbaaJ2crJYFfErySgktuTZ3BeLz+XmFA==}
+    dev: true
+
+  /@types/yargs/17.0.13:
+    resolution: {integrity: sha512-9sWaruZk2JGxIQU+IhI1fhPYRcQ0UuTNuKuCW9bR5fp7qi2Llf7WDzNa17Cy7TKnh3cdxDOiyTu6gaLS0eDatg==}
+    dependencies:
+      '@types/yargs-parser': 21.0.0
     dev: true
 
   /@typescript-eslint/eslint-plugin/5.44.0_fnsv2sbzcckq65bwfk7a5xwslu:

@@ -44,6 +44,9 @@
 		},
 		"./readme": "./readme.md"
 	},
+	"bin": {
+		"reorder-json": "./shims/reorder-json.mjs"
+	},
 	"dependencies": {
 		"@npmcli/package-json": "^3.0.0",
 		"@sveltejs/vite-plugin-svelte": "^1.2.0",
@@ -65,10 +68,7 @@
 		"@schemastore/package": "^0.0.6",
 		"@types/fs-extra": "^9.0.13",
 		"@types/prettier": "^2.7.1",
+		"@types/yargs": "^17.0.13",
 		"@vitest/coverage-istanbul": "^0.25.2"
-	},
-	"bin": {
-		"reorder-json": "./shims/reorder-json.mjs",
-		"semantic-sort-package-json": "./shims/semantic-sort-package-json.mjs"
 	}
 }

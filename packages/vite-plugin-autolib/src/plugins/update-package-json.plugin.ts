@@ -2,7 +2,7 @@ import { writeFile } from 'node:fs/promises';
 import type { Plugin } from 'vite';
 import { getPrettierFormatter, toAbsolute } from '../helpers/index.js';
 import type { PackageJson } from '../helpers/package-json.type.js';
-import { readPackageJson } from '../helpers/read-package-json.function.js';
+import { readJson } from '../helpers/read-package-json.function.js';
 
 export interface UpdatePackageJsonPluginOptions {
 	filename?: string;
@@ -19,7 +19,7 @@ export const updatePackageJsonPlugin = (options: UpdatePackageJsonPluginOptions)
 			const cwd = options.cwd ?? process.cwd();
 			const packageJsonLocation = toAbsolute(options.filename ?? 'package.json', cwd);
 
-			const packageJson = await readPackageJson(packageJsonLocation);
+			const packageJson = await readJson<PackageJson>(packageJsonLocation);
 			if (!packageJson) {
 				console.warn(
 					`updatePackageJsonPlugin didn't find packageJson at ${packageJsonLocation}!`

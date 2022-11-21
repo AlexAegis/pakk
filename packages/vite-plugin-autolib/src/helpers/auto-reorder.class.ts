@@ -1,9 +1,9 @@
 import { AutoReorderOptions, normalizeAutoReorderOptions } from './auto-reorder.class.options.js';
 import type { PackageJson } from './package-json.type.js';
 import type { PreparedBuildUpdate } from './prepared-build-update.type.js';
-import { reorderObject } from './reorder-object.function.js';
+import { sortObject } from './sort-object.function.js';
 
-export class AutoOrder implements PreparedBuildUpdate {
+export class AutoSort implements PreparedBuildUpdate {
 	private options: Required<AutoReorderOptions>;
 
 	constructor(options?: AutoReorderOptions) {
@@ -11,6 +11,6 @@ export class AutoOrder implements PreparedBuildUpdate {
 	}
 
 	postprocess(packageJson: PackageJson): PackageJson {
-		return reorderObject(packageJson, this.options.orderPreference);
+		return sortObject(packageJson, this.options.sortingPreference);
 	}
 }

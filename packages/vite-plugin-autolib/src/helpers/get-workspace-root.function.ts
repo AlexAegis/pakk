@@ -1,4 +1,4 @@
-import { collectPackageJsonLocationsLinearly } from './collect-package-json-locations-linearly.function.js';
+import { collectDirectoriesWithFileUntilRoot } from './collect-directories-with-file-until-root.function.js';
 
 /**
  *
@@ -6,5 +6,5 @@ import { collectPackageJsonLocationsLinearly } from './collect-package-json-loca
  * @returns
  */
 export const getWorkspaceRoot = (cwd: string = process.cwd()): string | undefined => {
-	return collectPackageJsonLocationsLinearly(cwd)[0];
+	return collectDirectoriesWithFileUntilRoot(cwd, 'package.json')[0];
 };

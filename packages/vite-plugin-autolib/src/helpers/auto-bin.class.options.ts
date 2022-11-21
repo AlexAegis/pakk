@@ -1,6 +1,6 @@
 import { DEFAULT_SRC_DIR } from '../plugins/autolib.plugin.options.js';
 import { ALL_NPM_HOOKS } from './auto-bin.class.js';
-import { Logger, noopLogger } from './create-vite-plugin-logger.function.js';
+import { Logger, noopLogger } from './create-logger.function.js';
 import { DEFAULT_OUT_DIR } from './defaults.const.js';
 
 export const DEFAULT_BIN_DIR = 'bin';

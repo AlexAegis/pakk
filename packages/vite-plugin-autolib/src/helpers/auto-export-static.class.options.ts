@@ -1,5 +1,5 @@
 import { DEFAULT_OUT_DIR } from '../index.js';
-import { Logger, noopLogger } from './create-vite-plugin-logger.function.js';
+import { Logger, noopLogger } from './create-logger.function.js';
 
 export const DEFAULT_STATIC_EXPORT_GLOBS = ['readme.md', 'static/**/*', 'export/**/*'];
 

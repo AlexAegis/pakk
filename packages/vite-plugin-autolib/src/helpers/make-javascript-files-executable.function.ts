@@ -1,7 +1,7 @@
 import { globby } from 'globby';
 import type { InternalModuleFormat } from 'rollup';
 import { getBundledFileExtension } from './append-bundle-file-extension.function.js';
-import type { Logger } from './create-vite-plugin-logger.function.js';
+import type { Logger } from './create-logger.function.js';
 
 import { turnIntoExecutable } from './turn-into-executable.function.js';
 

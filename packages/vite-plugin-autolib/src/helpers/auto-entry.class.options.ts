@@ -1,7 +1,7 @@
 import type { LibraryFormats } from 'vite';
 import { DEFAULT_EXPORT_FORMATS, DEFAULT_OUT_DIR } from '../index.js';
 import { DEFAULT_SRC_DIR } from '../plugins/autolib.plugin.options.js';
-import { Logger, noopLogger } from './create-vite-plugin-logger.function.js';
+import { Logger, noopLogger } from './create-logger.function.js';
 
 export const DEFAULT_ENTRY_DIR = './';
 
