@@ -62,11 +62,9 @@ export const offsetPathRecordValues = (
 	return Object.entries(pathRecord).reduce((result, [key, path]) => {
 		if (path) {
 			const enteredPath = enterPathPosix(path, enterCount);
-			if (skipOffset.includes(path)) {
-				result[key] = enteredPath;
-			} else {
-				result[key] = offsetRelativePathPosix(offsetPath, enteredPath);
-			}
+			result[key] = skipOffset.includes(path)
+				? enteredPath
+				: offsetRelativePathPosix(offsetPath, enteredPath);
 		}
 		return result;
 	}, {} as Record<string, string>);

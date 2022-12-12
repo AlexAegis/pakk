@@ -30,6 +30,7 @@ module.exports = {
 		quotes: ['error', 'single', { avoidEscape: true }],
 		'unicorn/no-array-reduce': 'off',
 		'unicorn/prevent-abbreviations': 'off', // no thanks
+		'unicorn/prefer-ternary': 'off', // no thanks
 		'unicorn/prefer-top-level-await': 'off', // Until ES2022 is used as target
 		'unicorn/no-useless-undefined': 'off', // for .catch(() => undefined)
 	},

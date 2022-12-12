@@ -107,13 +107,13 @@ export const autolib = (rawOptions?: AutolibPluginOptions): Plugin => {
 
 			const sourcePackageJsonLocation = join(options.cwd, options.sourcePackageJson);
 			const rawPackageJson = await readJson<PackageJson>(sourcePackageJsonLocation);
-			if (!rawPackageJson) {
+			if (rawPackageJson) {
+				packageJson = rawPackageJson;
+			} else {
 				console.warn(
 					`${pluginName} didn't find package.json at ${sourcePackageJsonLocation}!`
 				);
 				return;
-			} else {
-				packageJson = rawPackageJson;
 			}
 
 			const preUpdates = await Promise.all(

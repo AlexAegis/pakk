@@ -31,16 +31,16 @@ export const writeJson = async (
 	if (autoPrettier) {
 		const formatter = await getPrettierFormatter({ parser: 'json-stringify' });
 		const formatted = formatter(raw);
-		if (!dry) {
-			await writeFile(path, formatted);
-		} else {
+		if (dry) {
 			console.log('dry write to', path, 'file content:', formatted);
+		} else {
+			await writeFile(path, formatted);
 		}
 	} else {
-		if (!dry) {
-			await writeFile(path, raw);
-		} else {
+		if (dry) {
 			console.log('dry, unformatted write to', path, 'file content:', raw);
+		} else {
+			await writeFile(path, raw);
 		}
 	}
 };
