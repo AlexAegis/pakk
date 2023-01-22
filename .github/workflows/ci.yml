@@ -262,4 +262,5 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           pnpm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}"
-          pnpm publish packages/${{ matrix.artifact }}/dist/ --access public
+          # --no-git-checks is enabled because `config set` creates/modifies .npmrc
+          pnpm publish packages/${{ matrix.artifact }}/dist/ --no-git-checks --access public
