@@ -69,6 +69,6 @@
 		"@types/fs-extra": "^11.0.1",
 		"@types/prettier": "^2.7.2",
 		"@types/yargs": "^17.0.20",
-		"@vitest/coverage-istanbul": "^0.27.3"
+		"@vitest/coverage-istanbul": "^0.28.1"
 	}
 }

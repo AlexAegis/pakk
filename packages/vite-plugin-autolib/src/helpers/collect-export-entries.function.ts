@@ -6,6 +6,9 @@ import { existsDirectory } from './exists-directory.function.js';
 import { offsetRelativePathPosix } from './offset-relative-path-posix.function.js';
 import { stripFileExtension } from './strip-file-extension.function.js';
 
+export const isTestFileName = (fileName: string): boolean =>
+	fileName.includes('.spec.') || fileName.includes('.test.');
+
 export const collectImmediate = async (
 	path: string = process.cwd(),
 	kind?: 'file' | 'directory'
@@ -19,7 +22,8 @@ export const collectImmediate = async (
 					  (kind === 'directory' && entry.isDirectory())
 					: true
 			)
-			.map((entry) => entry.name);
+			.map((entry) => entry.name)
+			.filter((fileName) => !isTestFileName(fileName));
 	} else {
 		return [];
 	}
@@ -35,6 +39,7 @@ export const collectFileNamePathEntries = async (
 ): Promise<Record<string, string>> => {
 	const collectPath = join(rootPath, exportPath);
 	const immediateFileNames = await collectImmediate(collectPath, 'file');
+
 	return immediateFileNames.reduce((accumulator, next) => {
 		const fileName = basename(next);
 		const namestub = stripFileExtension(next);
