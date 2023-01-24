@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.5](https://github.com/AlexAegis/vite-plugin-autolib/compare/v0.0.4...v0.0.5) (2023-01-24)
+
+
+### Features
+
+* ignore test files when checking entry and bin points ([75fc10f](https://github.com/AlexAegis/vite-plugin-autolib/commit/75fc10fcfb3cb3b759b0ee476d29695e9d280b2c))
+
 ### [0.0.4](https://github.com/AlexAegis/vite-plugin-autolib/compare/v0.0.3...v0.0.4) (2023-01-22)
 
 ### 0.0.3 (2022-12-12)
