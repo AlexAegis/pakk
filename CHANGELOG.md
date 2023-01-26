@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.6](https://github.com/AlexAegis/vite-plugin-autolib/compare/v0.0.5...v0.0.6) (2023-01-26)
+
+
+### Features
+
+* automatic export path targeting ([3cbdc8f](https://github.com/AlexAegis/vite-plugin-autolib/commit/3cbdc8fa74a334d9c0772f459606d0b0d5397e19))
+
 ### [0.0.5](https://github.com/AlexAegis/vite-plugin-autolib/compare/v0.0.4...v0.0.5) (2023-01-24)
 
 
