@@ -7,3 +7,17 @@
 
 A vite plugin to fill out your `package.json` files for it's local and published
 variants
+
+## The problem of setting up an internal build chain
+
+- Local packages are linked as is to eachothers `node_modules` folders
+- Local packages depending on local packages are seeing eachothers source
+  folder. Not the distribution folder.
+- Since they are seeing eachothers source `package.json`, that have to have a
+  different `exports` configuration than what the actual distributed
+  `package.json` will have
+  - Either pointing to the dist folder.
+    - The problem with this option is that during development, to see type
+      updates, the library has to be rebuilt.
+    - Or
+  - Or to the source folder

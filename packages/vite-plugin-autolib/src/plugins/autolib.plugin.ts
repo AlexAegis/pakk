@@ -20,7 +20,7 @@ import { readJson } from '../helpers/read-package-json.function.js';
 import {
 	AutolibPluginOptions,
 	normalizeAutolibOptions,
-	PackageJsonTarget,
+	PackageJsonKind,
 } from './autolib.plugin.options.js';
 
 export const autolib = (rawOptions?: AutolibPluginOptions): Plugin => {
@@ -177,13 +177,8 @@ export const autolib = (rawOptions?: AutolibPluginOptions): Plugin => {
 
 			packageJson = deepMerge(packageJson, ...updates);
 
-			const packageJsonTargets: PackageJsonTarget[] = ['out-to-out'];
-			if (options.packageJsonTarget) {
-				packageJsonTargets.push(options.packageJsonTarget);
-			}
-
 			await Promise.all(
-				packageJsonTargets.map(async (packageJsonTarget) => {
+				Object.values(PackageJsonKind).map(async (packageJsonTarget) => {
 					let packageJsonForArtifact = cloneJsonSerializable(packageJson);
 					const pathOffsets = await Promise.all(
 						buildUpdates.map((buildUpdate) =>
@@ -203,7 +198,7 @@ export const autolib = (rawOptions?: AutolibPluginOptions): Plugin => {
 					);
 
 					const destination =
-						packageJsonTarget === 'out-to-out'
+						packageJsonTarget === PackageJsonKind.DISTRIBUTION
 							? toAbsolute(join(outDirectory, 'package.json'), options.cwd)
 							: toAbsolute('package.json', options.cwd);
 

@@ -1,6 +1,6 @@
 import { join, posix } from 'node:path';
 import type { UserConfig } from 'vite';
-import type { PackageJsonTarget } from '../plugins/autolib.plugin.options.js';
+import { PackageJsonExportTarget, PackageJsonKind } from '../plugins/autolib.plugin.options.js';
 import { getBundledFileExtension } from './append-bundle-file-extension.function.js';
 import { AutoEntryOptions, normalizeAutoEntryOptions } from './auto-entry.class.options.js';
 import { collectImmediate, offsetPathRecordValues } from './collect-export-entries.function.js';
@@ -66,11 +66,6 @@ export class AutoEntry implements PreparedBuildUpdate {
 					types: typesPath,
 				};
 
-				// Add the source ts file as default, will be removed for dist artifact
-				exportConditions.default = `.${posix.sep}${posix.normalize(
-					`${extensionlessPath}.ts`
-				)}`;
-
 				if (hasUmd) {
 					exportConditions.require = `.${posix.sep}${posix.normalize(
 						`${extensionlessPath}${umdExtension}`
@@ -101,29 +96,25 @@ export class AutoEntry implements PreparedBuildUpdate {
 		return { exports: this.entryExports };
 	}
 
-	adjustPaths(packageJson: PackageJson, packageJsonTarget: PackageJsonTarget): PackageJson {
+	adjustPaths(packageJson: PackageJson, packageJsonKind: PackageJsonKind): PackageJson {
 		const entryExportsOffset = Object.entries(packageJson.exports ?? {}).reduce(
-			(accumulator, [key, exportCondition]) => {
-				if (key in this.entryExports && typeof exportCondition === 'object') {
-					switch (packageJsonTarget) {
-						case 'out-to-out':
-						case 'out': {
-							exportCondition.default = undefined;
-							break;
-						}
-						case 'source': {
-							exportCondition.types = undefined;
-							exportCondition.require = undefined;
-							exportCondition.import = undefined;
-							break;
-						}
-					}
+			(accumulator, [conditionKey, exportCondition]) => {
+				if (conditionKey in this.entryExports && typeof exportCondition === 'object') {
+					accumulator[conditionKey] = Object.entries(exportCondition).reduce(
+						(conditions, [condition, path]) => {
+							const isTypesFieldOfDevPackageJson =
+								packageJsonKind === PackageJsonKind.DEVELOPMENT &&
+								condition === 'types';
 
-					accumulator[key] = Object.entries(exportCondition).reduce(
-						(conditions, [key, path]) => {
 							if (path !== undefined) {
-								conditions[key] = retargetPackageJsonPath(path, {
-									packageJsonTarget,
+								const adjustedExtension = isTypesFieldOfDevPackageJson
+									? path.replace('.d.ts', '.ts')
+									: path;
+								conditions[condition] = retargetPackageJsonPath(adjustedExtension, {
+									packageJsonKind,
+									packageJsonExportTarget: isTypesFieldOfDevPackageJson
+										? PackageJsonExportTarget.SOURCE
+										: PackageJsonExportTarget.DIST,
 									outDir: this.options.outDir,
 								});
 							}
@@ -132,7 +123,7 @@ export class AutoEntry implements PreparedBuildUpdate {
 						{} as PackageJsonExportConditions
 					);
 				} else {
-					accumulator[key] = exportCondition;
+					accumulator[conditionKey] = exportCondition;
 				}
 
 				return accumulator;

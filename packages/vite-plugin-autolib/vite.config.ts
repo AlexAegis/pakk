@@ -2,11 +2,11 @@ import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 import { autolib } from './src/plugins/index.js';
 
+console.log('env', process.env);
+
 export default defineConfig({
 	plugins: [
-		autolib({
-			packageJsonTarget: 'out',
-		}),
+		autolib(),
 		dts({
 			copyDtsFiles: true,
 			insertTypesEntry: true,

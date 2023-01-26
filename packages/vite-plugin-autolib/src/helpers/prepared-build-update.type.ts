@@ -1,6 +1,6 @@
 import type { InternalModuleFormat } from 'rollup';
 import type { UserConfig } from 'vite';
-import type { PackageJsonTarget } from '../plugins/autolib.plugin.options.js';
+import type { PackageJsonKind } from '../plugins/autolib.plugin.options.js';
 import type { Awaitable } from './awaitable.type.js';
 import type { PackageJson } from './package-json.type.js';
 
@@ -35,7 +35,7 @@ export interface PreparedBuildUpdate {
 	 */
 	adjustPaths?: (
 		packageJson: PackageJson,
-		sourcePackageJsonTarget: PackageJsonTarget,
+		sourcePackageJsonTarget: PackageJsonKind,
 		format: InternalModuleFormat
 	) => Awaitable<PackageJson>;
 

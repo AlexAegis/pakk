@@ -3,7 +3,7 @@ import { mkdir, readFile, rename, rm, symlink, writeFile } from 'node:fs/promise
 import { dirname, join, posix, relative } from 'node:path';
 import type { InternalModuleFormat } from 'rollup';
 import type { UserConfig } from 'vite';
-import type { PackageJsonTarget } from '../plugins/autolib.plugin.options.js';
+import { PackageJsonKind } from '../plugins/autolib.plugin.options.js';
 import { getBundledFileExtension } from './append-bundle-file-extension.function.js';
 
 import { AutoBinOptions, normalizeAutoBinOptions } from './auto-bin.class.options.js';
@@ -151,7 +151,7 @@ export class AutoBin implements PreparedBuildUpdate {
 	 */
 	async adjustPaths(
 		packageJson: PackageJson,
-		packageJsonTarget: PackageJsonTarget,
+		packageJsonKind: PackageJsonKind,
 		format: InternalModuleFormat
 	): Promise<PackageJson> {
 		if (
@@ -207,7 +207,7 @@ export class AutoBin implements PreparedBuildUpdate {
 							!packageJson.scripts?.[key] ||
 							packageJson.scripts?.[key]?.endsWith(this.markComment)
 						) {
-							if (packageJsonTarget === 'out-to-out') {
+							if (packageJsonKind === PackageJsonKind.DISTRIBUTION) {
 								result.scripts[key] = value.outToOutPath[format] + this.markComment; // before update
 							} else if (NPM_INSTALL_HOOKS.includes(key)) {
 								// Disable local postinstall hooks
@@ -231,7 +231,7 @@ export class AutoBin implements PreparedBuildUpdate {
 						result.bin = {};
 					}
 
-					if (packageJsonTarget === 'out-to-out') {
+					if (packageJsonKind === PackageJsonKind.DISTRIBUTION) {
 						// the build artifacts bins point to the built bins
 						result.bin[key] = '.' + posix.sep + value.outToOutPath[format];
 					} else {

@@ -1,12 +1,14 @@
 import { posix } from 'node:path';
 import { DEFAULT_OUT_DIR } from '../index.js';
-import type { PackageJsonTarget } from '../plugins/autolib.plugin.options.js';
+import { PackageJsonExportTarget, PackageJsonKind } from '../plugins/autolib.plugin.options.js';
 import { DEFAULT_BINSHIM_DIR, DEFAULT_BIN_DIR } from './auto-bin.class.options.js';
 import { enterPathPosix } from './enter-path.function.js';
 import { offsetRelativePathPosix } from './offset-relative-path-posix.function.js';
 
 export interface RetargetPackageJsonOptions {
-	packageJsonTarget: PackageJsonTarget;
+	packageJsonKind: PackageJsonKind;
+	packageJsonExportTarget: PackageJsonExportTarget;
+
 	/**
 	 * @default 'dist'
 	 */
@@ -29,7 +31,6 @@ export interface RetargetPackageJsonOptions {
  * different projection of the same file, like it's built equivalent or its
  * shim
  *
- * @returns
  */
 export const retargetPackageJsonPath = (
 	path: string,
@@ -38,30 +39,50 @@ export const retargetPackageJsonPath = (
 	const outDir = options.outDir ?? DEFAULT_OUT_DIR;
 	const binDir = options.binDir ?? DEFAULT_BIN_DIR;
 	const shimDir = options.shimDir ?? DEFAULT_BINSHIM_DIR;
-	let offsetPath = '';
+	// How many path segments to pop off from the beginning of the path
 	let enterCount = 0;
-	switch (options.packageJsonTarget) {
-		case 'out-to-out': {
-			offsetPath = '';
-			enterCount = 1;
-			break;
+	// Path segment to prepend the path with
+	let offsetPath = '';
+
+	if (options.packageJsonKind === PackageJsonKind.DEVELOPMENT) {
+		switch (options.packageJsonExportTarget) {
+			case PackageJsonExportTarget.SOURCE: {
+				offsetPath = '';
+				enterCount = 0;
+				break;
+			}
+			case PackageJsonExportTarget.DIST: {
+				offsetPath = outDir;
+				enterCount = 1;
+				break;
+			}
+			case PackageJsonExportTarget.SHIM: {
+				offsetPath = shimDir;
+				enterCount = 1 + posix.normalize(binDir).split(posix.sep).length;
+				break;
+			}
 		}
-		case 'out': {
-			offsetPath = outDir;
-			enterCount = 1;
-			break;
-		}
-		case 'source': {
-			offsetPath = '';
-			enterCount = 0;
-			break;
-		}
-		case 'shim': {
-			offsetPath = shimDir;
-			enterCount = 1 + posix.normalize(binDir).split(posix.sep).length;
-			break;
+	} else if (options.packageJsonKind === PackageJsonKind.DISTRIBUTION) {
+		switch (options.packageJsonExportTarget) {
+			case PackageJsonExportTarget.SOURCE: {
+				throw new Error(
+					'Invalid configuration! The distrubuted packageJson can only target the distributed exports!'
+				);
+			}
+			case PackageJsonExportTarget.DIST: {
+				offsetPath = '';
+				enterCount = 1;
+
+				break;
+			}
+			case PackageJsonExportTarget.SHIM: {
+				throw new Error(
+					'Invalid configuration! The distrubuted packageJson can only target the distributed exports!'
+				);
+			}
 		}
 	}
+
 	const enteredPath = enterPathPosix(path, enterCount);
 	return offsetRelativePathPosix(offsetPath, enteredPath);
 };

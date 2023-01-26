@@ -7,8 +7,41 @@ import type { WriteJsonOptions } from '../helpers/write-json.function.js';
 
 export const DEFAULT_SRC_DIR = 'src';
 
-export type SourcePackageJsonTarget = 'source' | 'out';
-export type PackageJsonTarget = SourcePackageJsonTarget | 'out-to-out' | 'shim';
+export enum PackageJsonKind {
+	/**
+	 * Used in the repository as the source packageJson
+	 */
+	DEVELOPMENT = 'development',
+	/**
+	 * The packageJson that will be in the distributed package
+	 */
+	DISTRIBUTION = 'distribution',
+}
+
+export enum PackageJsonExportTarget {
+	/**
+	 * This targets the source files.
+	 *
+	 * For example the `development` packageJson targets the local entry points
+	 * for types
+	 */
+	SOURCE = 'source',
+	/**
+	 * This targets the directory where compiled files end up in. Wherever
+	 * `outDir` points to.
+	 *
+	 * For example both the `development` and `distribution` packageJson files
+	 * target this for the actual imports.
+	 */
+	DIST = 'dist',
+	/**
+	 * The shim folder is used for local bins
+	 *
+	 * For example the `development` packageJson files bin entries target the
+	 * shim directory. So pnpm can link them event before the package is built.
+	 */
+	SHIM = 'shim',
+}
 
 export interface AutolibPluginOptions extends WriteJsonOptions {
 	/**
@@ -28,25 +61,6 @@ export interface AutolibPluginOptions extends WriteJsonOptions {
 	 * @default './package.json'
 	 */
 	sourcePackageJson?: string;
-
-	/**
-	 * Whether or not to retarget the paths in the source packageJson
-	 *
-	 * ! It's best to let `autoPrettier` be enabled if this is enabled as the
-	 * ! file would get minified otherwise.
-	 *
-	 * Using `build` targets everything to the `outDir` of your build.
-	 * This implies that your library is always built and rebuilt when using
-	 * it. It's extremely useful as you will use the exact form of your library
-	 * as your consumers would and you can catch packaging problems early.
-	 *
-	 * Using `source` targets everything into your source folder and runs them
-	 * using node with tsnode registered. This is useful when you want a local
-	 * library with hooks to act during installation.
-	 *
-	 * @default 'source'
-	 */
-	packageJsonTarget?: SourcePackageJsonTarget | false;
 
 	/**
 	 * Generates exports entries form rollup inputs, from a directory relative
@@ -110,7 +124,6 @@ export const normalizeAutolibOptions = (
 		cwd: options?.cwd ?? process.cwd(),
 		dry: options?.dry ?? false,
 		autoPrettier: options?.autoPrettier ?? true,
-		packageJsonTarget: options?.packageJsonTarget ?? 'source',
 		src: options?.src ?? DEFAULT_SRC_DIR,
 	};
 };
