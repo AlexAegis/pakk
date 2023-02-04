@@ -1,5 +1,4 @@
-import type { Awaitable } from './awaitable.type.js';
-import { deepMerge } from './deep-merge.function.js';
+import { Awaitable, deepMerge } from '@alexaegis/common';
 import type { ObjectKey } from './is-object.function.js';
 
 export type PreparedCreateUpdates<T extends Record<ObjectKey, unknown>> = (

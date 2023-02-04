@@ -1,7 +1,8 @@
 import { extname } from 'node:path';
 
+import { CwdOption, normalizeCwdOption, NormalizedCwdOption } from '@alexaegis/fs';
+import { LoggerOption, NormalizedLoggerOption, normalizeLoggerOption } from '@alexaegis/logging';
 import { chmod, lstat, readFile, writeFile } from 'node:fs/promises';
-import type { Logger } from './create-logger.function.js';
 import { toAbsolute } from './to-absolute.function.js';
 
 export const SHEBANG_SEQUENCE = '#!';
@@ -19,17 +20,17 @@ export const shebangs: Record<string, string> = {
 	['.sh']: SHELL_SHEBANG,
 };
 
-export interface TurnIntoExecutableOptions {
-	/**
-	 * @default process.cwd()
-	 */
-	cwd?: string;
+export type TurnIntoExecutableOptions = CwdOption & LoggerOption;
+export type NormalizedTurnIntoExecutableOptions = NormalizedCwdOption & NormalizedLoggerOption;
 
-	/**
-	 * @default undefined
-	 */
-	logger?: Logger;
-}
+export const normalizeTurnIntoExecutableOptions = (
+	options?: TurnIntoExecutableOptions
+): NormalizedTurnIntoExecutableOptions => {
+	return {
+		...normalizeCwdOption(options),
+		...normalizeLoggerOption(options),
+	};
+};
 
 /**
  * Marks a file as executable for its user, and only readable for everyone else
@@ -38,17 +39,17 @@ export interface TurnIntoExecutableOptions {
  */
 export const turnIntoExecutable = async (
 	file: string,
-	options?: TurnIntoExecutableOptions
+	rawOptions?: TurnIntoExecutableOptions
 ): Promise<void> => {
-	const cwd = options?.cwd ?? process.cwd();
-	const filePath = toAbsolute(file, cwd);
+	const options = normalizeTurnIntoExecutableOptions(rawOptions);
+	const filePath = toAbsolute(file, options.cwd);
 	const fileStats = await lstat(filePath).catch(() => undefined);
 
 	if (!fileStats) {
-		options?.logger?.error(`can't turn ${file} into executable, doesn't exist in ${cwd}`);
+		options.logger.error(`can't turn ${file} into executable, doesn't exist in ${options.cwd}`);
 		return;
 	} else if (!fileStats.isFile()) {
-		options?.logger?.error(`can't turn ${file} into executable, not a file`);
+		options.logger.error(`can't turn ${file} into executable, not a file`);
 		return;
 	}
 
@@ -64,7 +65,7 @@ export const turnIntoExecutable = async (
 			const rawFileWithShebang = `${shebang}\n\n${rawFile}`;
 			await writeFile(filePath, rawFileWithShebang)
 				.then(() => {
-					options?.logger?.log(`prefixed ${file} with shebang: ${shebang}`);
+					options.logger.info(`prefixed ${file} with shebang: ${shebang}`);
 				})
 				.catch(() => undefined);
 		}
@@ -73,7 +74,7 @@ export const turnIntoExecutable = async (
 	if (!(fileStats.mode & 0o111)) {
 		await chmod(filePath, 0o744)
 			.then(() => {
-				options?.logger?.log(`marked ${file} as executable`);
+				options.logger.info(`marked ${file} as executable`);
 			})
 			.catch(() => undefined);
 	}

@@ -1,22 +1,22 @@
+import { deepMerge } from '@alexaegis/common';
+import { readJson } from '@alexaegis/fs';
+import { createLogger } from '@alexaegis/logging';
+import type { PackageJson } from '@alexaegis/workspace-tools';
 import { dirname, join } from 'node:path/posix';
 import { LibraryFormats, mergeConfig, Plugin, UserConfig } from 'vite';
 import { DEFAULT_ENTRY_DIR } from '../helpers/auto-entry.class.options.js';
 import { AutoExportStatic } from '../helpers/auto-export-static.class.js';
 import { AutoSort } from '../helpers/auto-reorder.class.js';
 import { cloneJsonSerializable } from '../helpers/clone-json-serializable.function.js';
-import { createLogger } from '../helpers/create-logger.function.js';
 import {
 	AutoBin,
 	AutoEntry,
-	deepMerge,
 	DEFAULT_EXPORT_FORMATS,
 	DEFAULT_OUT_DIR,
 	toAbsolute,
 	writeJson,
 } from '../helpers/index.js';
-import type { PackageJson } from '../helpers/package-json.type.js';
 import type { PreparedBuildUpdate } from '../helpers/prepared-build-update.type.js';
-import { readJson } from '../helpers/read-package-json.function.js';
 import {
 	AutolibPluginOptions,
 	normalizeAutolibOptions,
@@ -27,9 +27,9 @@ export const autolib = (rawOptions?: AutolibPluginOptions): Plugin => {
 	const options = normalizeAutolibOptions(rawOptions);
 	const pluginName = 'autolib';
 	const logger = createLogger({
-		prefix: `vite:${pluginName}`,
+		name: `vite:${pluginName}`,
 	});
-	logger.log('starting');
+	logger.info('starting...');
 
 	// At the end of these definitions as these will only settle once
 	// `configResolved` ran
@@ -70,7 +70,7 @@ export const autolib = (rawOptions?: AutolibPluginOptions): Plugin => {
 						shimDir: options.autoBin.shimDir,
 						outDir: outDirectory,
 						srcDir: sourceDirectory,
-						logger,
+						logger: logger.getSubLogger({ name: 'auto-bin' }),
 					})
 				);
 			}
@@ -83,7 +83,7 @@ export const autolib = (rawOptions?: AutolibPluginOptions): Plugin => {
 						entryDir: options.autoEntryDir,
 						outDir: outDirectory,
 						sourceDirectory,
-						logger,
+						logger: logger.getSubLogger({ name: 'auto-entry' }),
 					})
 				);
 			}
@@ -94,7 +94,7 @@ export const autolib = (rawOptions?: AutolibPluginOptions): Plugin => {
 						cwd: options.cwd,
 						outDir: outDirectory,
 						staticExportGlobs: options.autoExportStaticGlobs,
-						logger,
+						logger: logger.getSubLogger({ name: 'auto-export-static' }),
 					})
 				);
 			}
@@ -142,7 +142,7 @@ export const autolib = (rawOptions?: AutolibPluginOptions): Plugin => {
 					(accumulator, next) => mergeConfig(accumulator, next),
 					baseViteConfigUpdates
 				);
-			logger.log(
+			logger.info(
 				`prepare phase took ${Math.floor(performance.now() - startTime)}ms to finish`
 			);
 
@@ -213,7 +213,7 @@ export const autolib = (rawOptions?: AutolibPluginOptions): Plugin => {
 				})
 			);
 
-			logger.log(
+			logger.info(
 				`update phase took ~${Math.floor(performance.now() - startTime)}ms to finish`
 			);
 		},

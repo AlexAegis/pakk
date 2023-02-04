@@ -1,3 +1,8 @@
+import type {
+	PackageJson,
+	PackageJsonExportConditions,
+	PackageJsonExports,
+} from '@alexaegis/workspace-tools';
 import { join, posix } from 'node:path';
 import type { UserConfig } from 'vite';
 import { PackageJsonExportTarget, PackageJsonKind } from '../plugins/autolib.plugin.options.js';
@@ -5,8 +10,7 @@ import { getBundledFileExtension } from './append-bundle-file-extension.function
 import { AutoEntryOptions, normalizeAutoEntryOptions } from './auto-entry.class.options.js';
 import { collectImmediate, offsetPathRecordValues } from './collect-export-entries.function.js';
 import { createPathRecordFromPaths } from './create-path-record-from-paths.function.js';
-import type { PackageJsonExportConditions } from './package-json-export-conditions.type.js';
-import type { PackageJson, PackageJsonExports } from './package-json.type.js';
+
 import type { PreparedBuildUpdate } from './prepared-build-update.type.js';
 import { retargetPackageJsonPath } from './retarget-package-json-path.function.js';
 import { stripFileExtension } from './strip-file-extension.function.js';

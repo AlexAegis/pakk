@@ -1,9 +1,9 @@
+import { ObjectKeyOrder, sortObject } from '@alexaegis/common';
+import { readJson } from '@alexaegis/fs';
+import type { Logger } from '@alexaegis/logging';
 import { basename } from 'node:path';
-import type { Logger } from '../helpers/create-logger.function.js';
 import { normalizeSortingPreferenceForPackageJson } from '../helpers/normalize-package-json-sorting-preference.function.js';
-import type { ObjectKeyOrder } from '../helpers/object-key-order.type.js';
-import { readJson } from '../helpers/read-package-json.function.js';
-import { sortObject } from '../helpers/sort-object.function.js';
+
 import { writeJson } from '../helpers/write-json.function.js';
 
 /**
@@ -20,7 +20,7 @@ export const sortJsonFile = async (
 	path: string,
 	options: SortJsonFileOptions
 ): Promise<boolean> => {
-	const content = await readJson(path);
+	const content = await readJson<Record<string, unknown>>(path);
 	if (content) {
 		let sortPreferences = options.sortingPreference;
 
@@ -38,9 +38,9 @@ export const sortJsonFile = async (
 				dry: options.dry,
 			});
 		} else if (options.dry && !options.check) {
-			options.logger?.log(`sorting ${path}`);
+			options.logger?.info(`sorting ${path}`);
 		} else if (options.check && !alreadySorted) {
-			options.logger?.log(`not sorted: ${path}`);
+			options.logger?.info(`not sorted: ${path}`);
 		}
 
 		return alreadySorted;
@@ -65,5 +65,5 @@ export interface SortJsonFileOptions {
 	 */
 	check?: boolean;
 
-	logger?: Logger;
+	logger?: Logger<unknown>;
 }

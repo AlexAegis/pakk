@@ -1,3 +1,12 @@
 {
-	"recommendations": ["editorconfig.editorconfig", "esbenp.prettier-vscode"]
+	"recommendations": [
+		"editorconfig.editorconfig",
+		"esbenp.prettier-vscode",
+		"dbaeumer.vscode-eslint",
+		"mhutchie.git-graph",
+		"DavidAnson.vscode-markdownlint",
+		"svelte.svelte-vscode",
+		"bierner.markdown-mermaid",
+		"bpruitt-goddard.mermaid-markdown-syntax-highlighting"
+	]
 }

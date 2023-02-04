@@ -1,17 +1,13 @@
+import { CwdOption, normalizeCwdOption } from '@alexaegis/fs';
+import { LoggerOption, normalizeLoggerOption } from '@alexaegis/logging';
 import { DEFAULT_SRC_DIR } from '../plugins/autolib.plugin.options.js';
 import { ALL_NPM_HOOKS } from './auto-bin.class.js';
-import { Logger, noopLogger } from './create-logger.function.js';
 import { DEFAULT_OUT_DIR } from './defaults.const.js';
 
 export const DEFAULT_BIN_DIR = 'bin';
 export const DEFAULT_BINSHIM_DIR = 'shims';
 
-export interface AutoBinOptions {
-	/**
-	 * @default process.cwd()
-	 */
-	cwd?: string;
-
+export interface AutoBinOptions extends CwdOption, LoggerOption {
 	/**
 	 * @default 'src'
 	 */
@@ -52,21 +48,16 @@ export interface AutoBinOptions {
 	 * @default ALL_NPM_HOOKS
 	 */
 	enabledHooks?: string[];
-
-	/**
-	 * An optional logger
-	 */
-	logger?: Logger;
 }
 
 export const normalizeAutoBinOptions = (options: AutoBinOptions): Required<AutoBinOptions> => {
 	return {
-		cwd: options.cwd ?? process.cwd(),
+		...normalizeLoggerOption(options),
+		...normalizeCwdOption(options),
 		srcDir: options.srcDir ?? DEFAULT_SRC_DIR,
 		outDir: options.outDir ?? DEFAULT_OUT_DIR,
 		binDir: options.binDir ?? DEFAULT_BIN_DIR,
 		shimDir: options.shimDir ?? DEFAULT_BINSHIM_DIR,
 		enabledHooks: options.enabledHooks ?? ALL_NPM_HOOKS,
-		logger: options.logger ?? noopLogger,
 	};
 };

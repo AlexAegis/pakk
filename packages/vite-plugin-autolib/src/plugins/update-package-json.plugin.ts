@@ -1,8 +1,8 @@
+import { readJson } from '@alexaegis/fs';
+import type { PackageJson } from '@alexaegis/workspace-tools';
 import { writeFile } from 'node:fs/promises';
 import type { Plugin } from 'vite';
 import { getPrettierFormatter, toAbsolute } from '../helpers/index.js';
-import type { PackageJson } from '../helpers/package-json.type.js';
-import { readJson } from '../helpers/read-package-json.function.js';
 
 export interface UpdatePackageJsonPluginOptions {
 	filename?: string;

@@ -1,23 +1,14 @@
+import type { CwdOption } from '@alexaegis/fs';
+import type { LoggerOption } from '@alexaegis/logging';
 import { globby } from 'globby';
 import type { InternalModuleFormat } from 'rollup';
 import { getBundledFileExtension } from './append-bundle-file-extension.function.js';
-import type { Logger } from './create-logger.function.js';
 
 import { turnIntoExecutable } from './turn-into-executable.function.js';
 
-export interface MakeJavascriptFilesExecutableOptions {
-	/**
-	 * @default process.cwd()
-	 */
-	cwd?: string;
-
+export interface MakeJavascriptFilesExecutableOptions extends CwdOption, LoggerOption {
 	format: InternalModuleFormat;
 	packageJsonType: 'module' | 'commonjs';
-
-	/**
-	 * @default undefined
-	 */
-	logger?: Logger;
 
 	/**
 	 * @default false

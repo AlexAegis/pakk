@@ -1,3 +1,4 @@
+import { getWorkspaceRoot, PackageJson } from '@alexaegis/workspace-tools';
 import { existsSync } from 'node:fs';
 import { mkdir, readFile, rename, rm, symlink, writeFile } from 'node:fs/promises';
 import { dirname, join, posix, relative } from 'node:path';
@@ -9,10 +10,8 @@ import { getBundledFileExtension } from './append-bundle-file-extension.function
 import { AutoBinOptions, normalizeAutoBinOptions } from './auto-bin.class.options.js';
 import { collectFileNamePathEntries } from './collect-export-entries.function.js';
 import { enterPathPosix } from './enter-path.function.js';
-import { getWorkspaceRoot } from './get-workspace-root.function.js';
 import { makeJavascriptFilesExecutable } from './make-javascript-files-executable.function.js';
 import { normalizePackageName } from './normalize-package-name.function.js';
-import type { PackageJson } from './package-json.type.js';
 import type { PreparedBuildUpdate } from './prepared-build-update.type.js';
 import { stripFileExtension } from './strip-file-extension.function.js';
 import { toAbsolute } from './to-absolute.function.js';
@@ -266,7 +265,7 @@ export class AutoBin implements PreparedBuildUpdate {
 			(this.packageType === 'module' && format === 'es') ||
 			(this.packageType === 'commonjs' && format !== 'es')
 		) {
-			this.options.logger.log?.(
+			this.options.logger.info(
 				`Creating shims for bins in ${format}/${this.packageType} format`
 			);
 			// Clean up
@@ -285,7 +284,7 @@ export class AutoBin implements PreparedBuildUpdate {
 				)
 			).then((results) => results.filter((result): result is string => result !== undefined));
 
-			this.options.logger.log(`create shims for ${shimPathsToMake}`);
+			this.options.logger.info(`create shims for ${shimPathsToMake}`);
 
 			await Promise.all(
 				shimPathsToMake.map((path) => {
@@ -381,11 +380,11 @@ export class AutoBin implements PreparedBuildUpdate {
 			symlinksToMake.map(async ({ targetFilePath, relativeFromTargetBackToFile }) => {
 				try {
 					await symlink(relativeFromTargetBackToFile, targetFilePath);
-					this.options.logger.log?.(
+					this.options.logger.info(
 						`symlinked ${targetFilePath} to ${relativeFromTargetBackToFile}`
 					);
 				} catch {
-					this.options.logger.log?.(`${targetFilePath} is already present`);
+					this.options.logger.info(`${targetFilePath} is already present`);
 				}
 			})
 		);

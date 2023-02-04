@@ -1,8 +1,10 @@
+import type { ObjectKeyOrder } from '@alexaegis/common';
+import { LoggerOption, normalizeLoggerOption } from '@alexaegis/logging';
+import { DEFAULT_PACKAGE_JSON_SORTING_PREFERENCE } from '@alexaegis/workspace-tools';
 import { DEFAULT_BINSHIM_DIR, DEFAULT_BIN_DIR } from '../helpers/auto-bin.class.options.js';
 import { DEFAULT_ENTRY_DIR } from '../helpers/auto-entry.class.options.js';
 import { DEFAULT_STATIC_EXPORT_GLOBS } from '../helpers/auto-export-static.class.options.js';
-import { DEFAULT_PACKAGE_JSON_SORTING_PREFERENCE } from '../helpers/auto-reorder.class.options.js';
-import type { ObjectKeyOrder } from '../helpers/object-key-order.type.js';
+
 import type { WriteJsonOptions } from '../helpers/write-json.function.js';
 
 export const DEFAULT_SRC_DIR = 'src';
@@ -43,7 +45,7 @@ export enum PackageJsonExportTarget {
 	SHIM = 'shim',
 }
 
-export interface AutolibPluginOptions extends WriteJsonOptions {
+export interface AutolibPluginOptions extends WriteJsonOptions, LoggerOption {
 	/**
 	 * source root, relative to cwd
 	 * @default 'src'
@@ -109,6 +111,7 @@ export const normalizeAutolibOptions = (
 	options?: AutolibPluginOptions
 ): Required<AutolibPluginOptions> => {
 	return {
+		...normalizeLoggerOption(options),
 		autoBin: normalizeAutoBinOption(options?.autoBin),
 		autoEntryDir:
 			options?.autoEntryDir === false ? false : options?.autoEntryDir ?? DEFAULT_ENTRY_DIR,

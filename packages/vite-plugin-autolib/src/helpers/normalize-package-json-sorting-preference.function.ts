@@ -1,5 +1,8 @@
-import type { ObjectKeyOrder } from './object-key-order.type.js';
+import type { ObjectKeyOrder } from '@alexaegis/common';
 
+/**
+ * @deprecated use core
+ */
 export const normalizeSortingPreferenceForPackageJson = (
 	sortingPreferences: ObjectKeyOrder
 ): ObjectKeyOrder => {

@@ -1,11 +1,9 @@
+import { createLogger } from '@alexaegis/logging';
+import { DEFAULT_PACKAGE_JSON_SORTING_PREFERENCE } from '@alexaegis/workspace-tools';
 import { basename } from 'node:path';
 import yargs, { Argv } from 'yargs';
 import packageJson from '../../package.json';
-import {
-	AutoReorderOptions,
-	DEFAULT_PACKAGE_JSON_SORTING_PREFERENCE,
-} from '../helpers/auto-reorder.class.options.js';
-import { createLogger } from '../helpers/create-logger.function.js';
+import type { AutoReorderOptions } from '../helpers/auto-reorder.class.options.js';
 
 import { sortJsonFile } from '../sort/sort-json-file.function.js';
 
@@ -31,7 +29,7 @@ const yarguments: Argv<AutoReorderOptions & { dry: boolean; check: boolean }> = 
 
 (async () => {
 	const options = await yarguments.parseAsync();
-	const logger = createLogger({ prefix: 'reorder' });
+	const logger = createLogger({ name: 'reorder' });
 
 	const wasSorted = await Promise.all(
 		options._.map((positional) => {

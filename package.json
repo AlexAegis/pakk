@@ -31,7 +31,7 @@
 	"engines": {
 		"node": ">=18.13.0"
 	},
-	"packageManager": "pnpm@7.25.1",
+	"packageManager": "pnpm@7.26.3",
 	"workspaces": [
 		"apps/*",
 		"libs/*",
@@ -51,7 +51,7 @@
 		"lint:svelte": "turbo run lint:svelte --parallel",
 		"ncu": "ncu --deep --peer --upgrade",
 		"nuke": "nuke",
-		"postinstall": "turbo run build",
+		"postinstall": "husky install",
 		"release": "standard-version",
 		"release:major": "standard-version --release-as major",
 		"release:minor": "standard-version --release-as minor",
@@ -60,22 +60,23 @@
 		"typedoc": "turbo run typedoc"
 	},
 	"devDependencies": {
-		"@typescript-eslint/eslint-plugin": "^5.49.0",
-		"@typescript-eslint/parser": "^5.49.0",
-		"@vitest/coverage-c8": "^0.28.2",
-		"eslint": "^8.32.0",
-		"eslint-config-next": "^13.1.5",
+		"@typescript-eslint/eslint-plugin": "^5.50.0",
+		"@typescript-eslint/parser": "^5.50.0",
+		"@vitest/coverage-c8": "^0.28.4",
+		"eslint": "^8.33.0",
+		"eslint-config-next": "^13.1.6",
 		"eslint-config-prettier": "^8.6.0",
 		"eslint-config-turbo": "^0.0.7",
-		"eslint-plugin-react": "^7.32.1",
+		"eslint-plugin-react": "^7.32.2",
 		"eslint-plugin-unicorn": "^45.0.2",
 		"markdownlint-cli": "^0.33.0",
 		"npm-check-updates": "^16.6.3",
 		"prettier": "^2.8.3",
+		"husky": "^8.0.3",
 		"standard-version": "^9.5.0",
-		"turbo": "^1.7.0",
+		"turbo": "^1.7.3",
 		"typedoc": "^0.23.24",
-		"typescript": "^4.9.4",
-		"vitest": "^0.28.2"
+		"typescript": "^4.9.5",
+		"vitest": "^0.28.4"
 	}
 }

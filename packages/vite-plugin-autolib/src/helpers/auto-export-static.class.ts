@@ -1,10 +1,10 @@
+import type { PackageJson } from '@alexaegis/workspace-tools';
 import {
 	AutoExportStaticOptions,
 	normalizeAutoExportStaticOptions,
 } from './auto-export-static.class.options.js';
 import { collectFileMap } from './collect-export-map.function.js';
 import { copyAllInto } from './copy-all-into.function.js';
-import type { PackageJson } from './package-json.type.js';
 import type { PreparedBuildUpdate } from './prepared-build-update.type.js';
 import { toAbsolute } from './to-absolute.function.js';
 

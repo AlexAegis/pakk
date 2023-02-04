@@ -1,14 +1,10 @@
+import { CwdOption, normalizeCwdOption } from '@alexaegis/fs';
+import { LoggerOption, normalizeLoggerOption } from '@alexaegis/logging';
 import { DEFAULT_OUT_DIR } from '../index.js';
-import { Logger, noopLogger } from './create-logger.function.js';
 
 export const DEFAULT_STATIC_EXPORT_GLOBS = ['readme.md', 'static/**/*', 'export/**/*'];
 
-export interface AutoExportStaticOptions {
-	/**
-	 * @default process.cwd()
-	 */
-	cwd?: string;
-
+export interface AutoExportStaticOptions extends LoggerOption, CwdOption {
 	/**
 	 * relative to cwd, this is where copied files will end up
 	 * @default 'dist'
@@ -23,20 +19,15 @@ export interface AutoExportStaticOptions {
 	 * @default '["static/**", "export/**"]'
 	 */
 	staticExportGlobs?: string[];
-
-	/**
-	 * An optional logger
-	 */
-	logger?: Logger;
 }
 
 export const normalizeAutoExportStaticOptions = (
 	options: AutoExportStaticOptions
 ): Required<AutoExportStaticOptions> => {
 	return {
-		cwd: options.cwd ?? process.cwd(),
+		...normalizeCwdOption(options),
+		...normalizeLoggerOption(options),
 		outDir: options.outDir ?? DEFAULT_OUT_DIR,
 		staticExportGlobs: options.staticExportGlobs ?? DEFAULT_STATIC_EXPORT_GLOBS,
-		logger: options.logger ?? noopLogger,
 	};
 };

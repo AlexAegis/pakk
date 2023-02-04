@@ -21,3 +21,11 @@ variants
       updates, the library has to be rebuilt.
     - Or
   - Or to the source folder
+
+```mermaid
+graph TD;
+    A-->B;
+    A-->C;
+    B-->D;
+    C-->D;
+```

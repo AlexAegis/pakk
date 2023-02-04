@@ -1,9 +1,6 @@
+import { DEFAULT_PACKAGE_JSON_SORTING_PREFERENCE } from '@alexaegis/workspace-tools';
 import { describe, expect, it } from 'vitest';
-import {
-	AutoReorderOptions,
-	DEFAULT_PACKAGE_JSON_SORTING_PREFERENCE,
-	normalizeAutoReorderOptions,
-} from './auto-reorder.class.options.js';
+import { AutoReorderOptions, normalizeAutoReorderOptions } from './auto-reorder.class.options.js';
 
 describe('normalizeAutoReorderOptions', () => {
 	it('returns the default options if no options was set', () => {

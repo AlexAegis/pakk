@@ -1,34 +1,6 @@
+import type { ObjectKeyOrder } from '@alexaegis/common';
+import { DEFAULT_PACKAGE_JSON_SORTING_PREFERENCE } from '@alexaegis/workspace-tools';
 import { normalizeSortingPreferenceForPackageJson } from './normalize-package-json-sorting-preference.function.js';
-import type { ObjectKeyOrder } from './object-key-order.type.js';
-
-export const DEFAULT_PACKAGE_JSON_SORTING_PREFERENCE: ObjectKeyOrder = [
-	'name',
-	'displayName',
-	'description',
-	'version',
-	'license',
-	'private',
-	'author',
-	'homepage',
-	'repository',
-	'bugs',
-	'keywords',
-	'type',
-	'sideEffects',
-	'config',
-	'publishConfig',
-	'.*',
-	'engines',
-	'packageManager',
-	'workspaces',
-	{ key: 'scripts', order: ['build.*', 'lint.*'] },
-	{ key: 'exports', order: [{ key: '.*', order: ['types', '.*'] }] },
-	'bin',
-	'dependencies',
-	'peerDependencies',
-	'optonalDependencies',
-	'devDependencies',
-];
 
 export interface AutoReorderOptions {
 	/**
