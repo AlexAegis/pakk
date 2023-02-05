@@ -38,6 +38,7 @@
 		"packages/*"
 	],
 	"scripts": {
+		"ci": "pnpm lint && pnpm build && pnpm test && pnpm typedoc",
 		"build": "turbo run build",
 		"format": "prettier --write .",
 		"lint": "turbo run lint --parallel",
