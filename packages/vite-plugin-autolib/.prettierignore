@@ -12,3 +12,4 @@ CHANGELOG.md
 public/build
 .nyc_output
 vite.config.ts.*
+typedoc

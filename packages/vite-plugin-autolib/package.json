@@ -33,7 +33,7 @@
 		"lint:es": "eslint --max-warnings=0 --fix .",
 		"lint:format": "prettier --check .",
 		"test": "vitest --passWithNoTests --coverage --run",
-		"typedoc": "typedoc ./src/index.ts --out ./typedoc"
+		"typedoc": "typedoc ./src/index.ts --out ./dist/typedoc"
 	},
 	"exports": {
 		".": {
@@ -47,10 +47,10 @@
 		"reorder-json": "./shims/reorder-json.mjs"
 	},
 	"dependencies": {
-		"@alexaegis/common": "0.0.12",
-		"@alexaegis/fs": "0.0.12",
-		"@alexaegis/logging": "0.0.12",
-		"@alexaegis/workspace-tools": "0.0.12",
+		"@alexaegis/common": "0.0.13",
+		"@alexaegis/fs": "0.0.13",
+		"@alexaegis/logging": "0.0.13",
+		"@alexaegis/workspace-tools": "0.0.13",
 		"@npmcli/package-json": "^3.0.0",
 		"@sveltejs/vite-plugin-svelte": "^2.0.2",
 		"@types/node": "^18.11.19",

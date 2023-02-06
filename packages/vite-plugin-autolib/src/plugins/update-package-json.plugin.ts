@@ -1,8 +1,7 @@
-import { readJson } from '@alexaegis/fs';
-import type { PackageJson } from '@alexaegis/workspace-tools';
+import { getPrettierFormatter, readJson, toAbsolute } from '@alexaegis/fs';
+import { PackageJson, PACKAGE_JSON_NAME } from '@alexaegis/workspace-tools';
 import { writeFile } from 'node:fs/promises';
 import type { Plugin } from 'vite';
-import { getPrettierFormatter, toAbsolute } from '../helpers/index.js';
 
 export interface UpdatePackageJsonPluginOptions {
 	filename?: string;
@@ -17,7 +16,7 @@ export const updatePackageJsonPlugin = (options: UpdatePackageJsonPluginOptions)
 	buildEnd: async (error) => {
 		if (!error) {
 			const cwd = options.cwd ?? process.cwd();
-			const packageJsonLocation = toAbsolute(options.filename ?? 'package.json', cwd);
+			const packageJsonLocation = toAbsolute(options.filename ?? PACKAGE_JSON_NAME, { cwd });
 
 			const packageJson = await readJson<PackageJson>(packageJsonLocation);
 			if (!packageJson) {

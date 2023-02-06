@@ -61,8 +61,8 @@
 		"typedoc": "turbo run typedoc"
 	},
 	"devDependencies": {
-		"@typescript-eslint/eslint-plugin": "^5.50.0",
-		"@typescript-eslint/parser": "^5.50.0",
+		"@typescript-eslint/eslint-plugin": "^5.51.0",
+		"@typescript-eslint/parser": "^5.51.0",
 		"@vitest/coverage-c8": "^0.28.4",
 		"eslint": "^8.33.0",
 		"eslint-config-next": "^13.1.6",
@@ -71,7 +71,7 @@
 		"eslint-plugin-react": "^7.32.2",
 		"eslint-plugin-unicorn": "^45.0.2",
 		"markdownlint-cli": "^0.33.0",
-		"npm-check-updates": "^16.6.3",
+		"npm-check-updates": "^16.6.5",
 		"prettier": "^2.8.3",
 		"husky": "^8.0.3",
 		"standard-version": "^9.5.0",

@@ -1,4 +1,6 @@
+import { getPrettierFormatter } from '@alexaegis/fs';
 import { getWorkspaceRoot, PackageJson } from '@alexaegis/workspace-tools';
+
 import { existsSync } from 'node:fs';
 import { mkdir, readFile, rename, rm, symlink, writeFile } from 'node:fs/promises';
 import { dirname, join, posix, relative } from 'node:path';
@@ -15,7 +17,6 @@ import { normalizePackageName } from './normalize-package-name.function.js';
 import type { PreparedBuildUpdate } from './prepared-build-update.type.js';
 import { stripFileExtension } from './strip-file-extension.function.js';
 import { toAbsolute } from './to-absolute.function.js';
-import { getPrettierFormatter } from './try-prettify.function.js';
 
 export const NPM_INSTALL_HOOKS = [
 	'preinstall',

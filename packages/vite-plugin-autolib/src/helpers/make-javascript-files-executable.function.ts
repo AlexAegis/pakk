@@ -1,10 +1,8 @@
-import type { CwdOption } from '@alexaegis/fs';
+import { CwdOption, turnIntoExecutable } from '@alexaegis/fs';
 import type { LoggerOption } from '@alexaegis/logging';
 import { globby } from 'globby';
 import type { InternalModuleFormat } from 'rollup';
 import { getBundledFileExtension } from './append-bundle-file-extension.function.js';
-
-import { turnIntoExecutable } from './turn-into-executable.function.js';
 
 export interface MakeJavascriptFilesExecutableOptions extends CwdOption, LoggerOption {
 	format: InternalModuleFormat;
