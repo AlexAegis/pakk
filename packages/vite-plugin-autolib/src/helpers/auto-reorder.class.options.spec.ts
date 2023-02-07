@@ -31,46 +31,4 @@ describe('normalizeAutoReorderOptions', () => {
 			],
 		} as AutoReorderOptions);
 	});
-
-	it('should autofix exports ordering if its present as a object, but types is not specified', () => {
-		const normalizedOptions = normalizeAutoReorderOptions({
-			sortingPreference: ['name', { key: 'exports', order: ['./', './index'] }],
-		});
-		expect(normalizedOptions).toEqual({
-			sortingPreference: [
-				'name',
-				{
-					key: 'exports',
-					order: [
-						{ key: './', order: ['types'] },
-						{ key: './index', order: ['types'] },
-					],
-				},
-			],
-		} as AutoReorderOptions);
-	});
-
-	it('should autofix exports ordering if its present as a object, but types is defined wrong', () => {
-		const normalizedOptions = normalizeAutoReorderOptions({
-			sortingPreference: [
-				'name',
-				{
-					key: 'exports',
-					order: ['./', { key: './index', order: ['foo', 'types', 'bar'] }],
-				},
-			],
-		});
-		expect(normalizedOptions).toEqual({
-			sortingPreference: [
-				'name',
-				{
-					key: 'exports',
-					order: [
-						{ key: './', order: ['types'] },
-						{ key: './index', order: ['types', 'foo', 'bar'] },
-					],
-				},
-			],
-		} as AutoReorderOptions);
-	});
 });

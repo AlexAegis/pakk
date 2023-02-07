@@ -27,7 +27,7 @@ const yarguments: Argv<AutoReorderOptions & { dry: boolean; check: boolean }> = 
 		default: false,
 	});
 
-(async () => {
+void (async () => {
 	const options = await yarguments.parseAsync();
 	const logger = createLogger({ name: 'reorder' });
 

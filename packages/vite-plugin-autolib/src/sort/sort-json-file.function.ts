@@ -1,10 +1,8 @@
 import { ObjectKeyOrder, sortObject } from '@alexaegis/common';
-import { readJson } from '@alexaegis/fs';
+import { readJson, writeJson } from '@alexaegis/fs';
 import type { Logger } from '@alexaegis/logging';
+import { normalizeSortingPreferenceForPackageJson } from '@alexaegis/workspace-tools';
 import { basename } from 'node:path';
-import { normalizeSortingPreferenceForPackageJson } from '../helpers/normalize-package-json-sorting-preference.function.js';
-
-import { writeJson } from '../helpers/write-json.function.js';
 
 /**
  * Reads a json file, sorts it based on a sorting config then writes it back,
@@ -33,10 +31,7 @@ export const sortJsonFile = async (
 		const alreadySorted = JSON.stringify(content) === JSON.stringify(sortedContent);
 
 		if (!options.dry && !options.check) {
-			await writeJson(sortedContent, path, {
-				autoPrettier: options.autoPrettier,
-				dry: options.dry,
-			});
+			await writeJson(sortedContent, path, options);
 		} else if (options.dry && !options.check) {
 			options.logger?.info(`sorting ${path}`);
 		} else if (options.check && !alreadySorted) {

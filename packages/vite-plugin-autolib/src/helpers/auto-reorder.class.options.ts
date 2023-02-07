@@ -1,6 +1,8 @@
 import type { ObjectKeyOrder } from '@alexaegis/common';
-import { DEFAULT_PACKAGE_JSON_SORTING_PREFERENCE } from '@alexaegis/workspace-tools';
-import { normalizeSortingPreferenceForPackageJson } from './normalize-package-json-sorting-preference.function.js';
+import {
+	DEFAULT_PACKAGE_JSON_SORTING_PREFERENCE,
+	normalizeSortingPreferenceForPackageJson,
+} from '@alexaegis/workspace-tools';
 
 export interface AutoReorderOptions {
 	/**

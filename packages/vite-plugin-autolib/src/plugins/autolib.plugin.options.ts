@@ -1,11 +1,15 @@
 import type { ObjectKeyOrder } from '@alexaegis/common';
+import {
+	CwdOption,
+	normalizeCwdOption,
+	normalizeWriteJsonOptions,
+	WriteJsonOptions,
+} from '@alexaegis/fs';
 import { LoggerOption, normalizeLoggerOption } from '@alexaegis/logging';
 import { DEFAULT_PACKAGE_JSON_SORTING_PREFERENCE } from '@alexaegis/workspace-tools';
 import { DEFAULT_BINSHIM_DIR, DEFAULT_BIN_DIR } from '../helpers/auto-bin.class.options.js';
 import { DEFAULT_ENTRY_DIR } from '../helpers/auto-entry.class.options.js';
 import { DEFAULT_STATIC_EXPORT_GLOBS } from '../helpers/auto-export-static.class.options.js';
-
-import type { WriteJsonOptions } from '../helpers/write-json.function.js';
 
 export const DEFAULT_SRC_DIR = 'src';
 
@@ -45,18 +49,12 @@ export enum PackageJsonExportTarget {
 	SHIM = 'shim',
 }
 
-export interface AutolibPluginOptions extends WriteJsonOptions, LoggerOption {
+export interface AutolibPluginOptions extends WriteJsonOptions, CwdOption, LoggerOption {
 	/**
 	 * source root, relative to cwd
 	 * @default 'src'
 	 */
 	src?: string;
-
-	/**
-	 * The directory of the package
-	 * @default process.cwd()
-	 */
-	cwd?: string;
 
 	/**
 	 * packageJson to modify and put in the artifact, relative to `cwd`
@@ -111,7 +109,9 @@ export const normalizeAutolibOptions = (
 	options?: AutolibPluginOptions
 ): Required<AutolibPluginOptions> => {
 	return {
+		...normalizeCwdOption(options),
 		...normalizeLoggerOption(options),
+		...normalizeWriteJsonOptions(options),
 		autoBin: normalizeAutoBinOption(options?.autoBin),
 		autoEntryDir:
 			options?.autoEntryDir === false ? false : options?.autoEntryDir ?? DEFAULT_ENTRY_DIR,
@@ -124,9 +124,6 @@ export const normalizeAutolibOptions = (
 				? false
 				: options?.autoOrderPackageJson ?? DEFAULT_PACKAGE_JSON_SORTING_PREFERENCE,
 		sourcePackageJson: options?.sourcePackageJson ?? 'package.json',
-		cwd: options?.cwd ?? process.cwd(),
-		dry: options?.dry ?? false,
-		autoPrettier: options?.autoPrettier ?? true,
 		src: options?.src ?? DEFAULT_SRC_DIR,
 	};
 };

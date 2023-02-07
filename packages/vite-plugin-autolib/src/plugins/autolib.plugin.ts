@@ -1,5 +1,5 @@
 import { deepMerge } from '@alexaegis/common';
-import { readJson } from '@alexaegis/fs';
+import { readJson, toAbsolute, writeJson } from '@alexaegis/fs';
 import { createLogger } from '@alexaegis/logging';
 import type { PackageJson } from '@alexaegis/workspace-tools';
 import { dirname, join } from 'node:path/posix';
@@ -8,14 +8,7 @@ import { DEFAULT_ENTRY_DIR } from '../helpers/auto-entry.class.options.js';
 import { AutoExportStatic } from '../helpers/auto-export-static.class.js';
 import { AutoSort } from '../helpers/auto-reorder.class.js';
 import { cloneJsonSerializable } from '../helpers/clone-json-serializable.function.js';
-import {
-	AutoBin,
-	AutoEntry,
-	DEFAULT_EXPORT_FORMATS,
-	DEFAULT_OUT_DIR,
-	toAbsolute,
-	writeJson,
-} from '../helpers/index.js';
+import { AutoBin, AutoEntry, DEFAULT_EXPORT_FORMATS, DEFAULT_OUT_DIR } from '../helpers/index.js';
 import type { PreparedBuildUpdate } from '../helpers/prepared-build-update.type.js';
 import {
 	AutolibPluginOptions,
@@ -199,8 +192,8 @@ export const autolib = (rawOptions?: AutolibPluginOptions): Plugin => {
 
 					const destination =
 						packageJsonTarget === PackageJsonKind.DISTRIBUTION
-							? toAbsolute(join(outDirectory, 'package.json'), options.cwd)
-							: toAbsolute('package.json', options.cwd);
+							? toAbsolute(join(outDirectory, 'package.json'), options)
+							: toAbsolute('package.json', options);
 
 					return await writeJson(
 						cloneJsonSerializable(packageJsonForArtifact),
