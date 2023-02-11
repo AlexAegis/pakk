@@ -5,7 +5,7 @@ export interface AutoMetadataOptions {
 	 * Keys already present in the package's packageJson file will merged if
 	 * they are objects or arrays, otherwise overwritten
 	 *
-	 * @default '["license", "author", "homepage", "bugs", "keywords", "config", "engines"]'
+	 * @defaultValue '["license", "author", "homepage", "bugs", "keywords", "config", "engines"]'
 	 */
 	keysToRead?: string[];
 
@@ -13,20 +13,20 @@ export interface AutoMetadataOptions {
 	 * Keys that you must define yourself. This plugin can't figure them out
 	 * for you, but it can add their keys in empty.
 	 *
-	 * @default '["name", "displayName", "description", "version"]'
+	 * @defaultValue '["name", "displayName", "description", "version"]'
 	 */
 	mandatoryKeys?: string[];
 
 	/**
 	 * Whether or not to read missing keys from the root workspace packageJson
 	 *
-	 * @default true
+	 * @defaultValue true
 	 */
 	readFromWorkspacePackageJson?: boolean;
 
 	/**
 	 * What to do with the source packageJson
-	 * @default 'substract'
+	 * @defaultValue 'substract'
 	 */
 	workspaceKeyMode?: 'add' | 'subtract' | false;
 }

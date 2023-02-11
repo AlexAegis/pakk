@@ -8,17 +8,17 @@ export const DEFAULT_ENTRY_DIR = './';
 
 export interface AutoEntryOptions extends CwdOption, LoggerOption {
 	/**
-	 * @default 'src'
+	 * @defaultValue 'src'
 	 */
 	sourceDirectory?: string;
 
 	/**
-	 * @default '["es", "cjs"]'
+	 * @defaultValue '["es", "cjs"]'
 	 */
 	formats?: LibraryFormats[];
 
 	/**
-	 * @default 'dist'
+	 * @defaultValue 'dist'
 	 */
 	outDir?: string;
 
@@ -28,7 +28,7 @@ export interface AutoEntryOptions extends CwdOption, LoggerOption {
 	 * It's usually `.` meaning files directly in `src` are considered the
 	 * entry points of the library
 	 *
-	 * @default '.'
+	 * @defaultValue '.'
 	 */
 	entryDir?: string;
 }

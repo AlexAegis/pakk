@@ -47,16 +47,16 @@ export const sortJsonFile = async (
 export interface SortJsonFileOptions {
 	sortingPreference: ObjectKeyOrder;
 	/**
-	 * @default true
+	 * @defaultValue true
 	 */
 	autoPrettier?: boolean;
 	/**
-	 * @default false
+	 * @defaultValue false
 	 */
 	dry?: boolean;
 	/**
 	 * If using check mode, it won't write, but won't log either
-	 * @default false
+	 * @defaultValue false
 	 */
 	check?: boolean;
 

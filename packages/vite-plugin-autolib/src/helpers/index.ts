@@ -1,6 +1,7 @@
 export * from './append-bundle-file-extension.function.js';
 export * from './auto-bin.class.js';
 export * from './auto-entry.class.js';
+export * from './auto-entry.class.options.js';
 export * from './clone-json-serializable.function.js';
 export * from './collect-export-entries.function.js';
 export * from './defaults.const.js';

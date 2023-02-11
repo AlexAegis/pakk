@@ -3,11 +3,11 @@ import type { ModuleFormat } from 'rollup';
 export interface GetBundledFileExtensionOptions {
 	format: ModuleFormat;
 	/**
-	 * @default 'commonjs'
+	 * @defaultValue 'commonjs'
 	 */
 	packageType?: 'module' | 'commonjs';
 	/**
-	 * @default false
+	 * @defaultValue false
 	 */
 	forceMjsExtensionForEs?: boolean;
 }

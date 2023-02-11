@@ -3,7 +3,7 @@ import { stripFileExtension } from './strip-file-extension.function.js';
 
 export interface CreatePathRecordFromPathsOptions {
 	/**
-	 * @default true
+	 * @defaultValue true
 	 */
 	keyOnlyFilename?: boolean;
 }

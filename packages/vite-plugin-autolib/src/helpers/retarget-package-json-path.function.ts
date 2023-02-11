@@ -10,17 +10,17 @@ export interface RetargetPackageJsonOptions {
 	packageJsonExportTarget: PackageJsonExportTarget;
 
 	/**
-	 * @default 'dist'
+	 * @defaultValue 'dist'
 	 */
 	outDir?: string;
 
 	/**
-	 * @default 'shims'
+	 * @defaultValue 'shims'
 	 */
 	shimDir?: string;
 
 	/**
-	 * @default 'bin
+	 * @defaultValue 'bin
 	 */
 	binDir?: string;
 }

@@ -52,13 +52,13 @@ export enum PackageJsonExportTarget {
 export interface AutolibPluginOptions extends WriteJsonOptions, CwdOption, LoggerOption {
 	/**
 	 * source root, relative to cwd
-	 * @default 'src'
+	 * @defaultValue 'src'
 	 */
 	src?: string;
 
 	/**
 	 * packageJson to modify and put in the artifact, relative to `cwd`
-	 * @default './package.json'
+	 * @defaultValue './package.json'
 	 */
 	sourcePackageJson?: string;
 
@@ -70,21 +70,21 @@ export interface AutolibPluginOptions extends WriteJsonOptions, CwdOption, Logge
 	 * `build.lib.entry` yourself or have a `src/index.ts` file as the entry
 	 * point
 	 *
-	 * @default '["."]'
+	 * @defaultValue ["."]
 	 */
 	autoEntryDir?: string | false;
 
 	/**
 	 * Automatically export the content of a directory as is
 	 *
-	 * @default '["export/**", "static/**"]'
+	 * @defaultValue ["export/**", "static/**"]
 	 */
 	autoExportStaticGlobs?: string[] | false;
 
 	/**
 	 * Automatically order the keys in the packageJson files.
 	 *
-	 * @default DEFAULT_PACKAGE_JSON_ORDER_PREFERENCE
+	 * @defaultValue DEFAULT_PACKAGE_JSON_ORDER_PREFERENCE
 	 */
 	autoOrderPackageJson?: ObjectKeyOrder | false;
 
@@ -100,9 +100,22 @@ export interface AutolibPluginOptions extends WriteJsonOptions, CwdOption, Logge
 	 * "hookbins" are prefixed with the normalized packagename like so:
 	 * `org-name-postinstall`
 	 *
-	 * @default '["./bin/*.ts"]'
+	 * @defaultValue ["./bin/*.ts"]
 	 */
 	autoBin?: AutoLibraryAutoBinOptions | false;
+
+	/**
+	 * Removes duplicated dependency and peerDependency entries leaving only
+	 * the peerDependencies behind.
+	 *
+	 * The point of this is to let peerDependencies install locally too by
+	 * defining them twice, once as a peerDependency, and once as a normal
+	 * dependency. This step will remove the one that was meant to only be
+	 * present locally.
+	 *
+	 * @defaultValue true
+	 */
+	autoPeer?: boolean;
 }
 
 export const normalizeAutolibOptions = (
@@ -113,6 +126,7 @@ export const normalizeAutolibOptions = (
 		...normalizeLoggerOption(options),
 		...normalizeWriteJsonOptions(options),
 		autoBin: normalizeAutoBinOption(options?.autoBin),
+		autoPeer: options?.autoPeer ?? true,
 		autoEntryDir:
 			options?.autoEntryDir === false ? false : options?.autoEntryDir ?? DEFAULT_ENTRY_DIR,
 		autoExportStaticGlobs:

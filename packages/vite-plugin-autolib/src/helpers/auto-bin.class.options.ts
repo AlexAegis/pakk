@@ -9,7 +9,7 @@ export const DEFAULT_BINSHIM_DIR = 'shims';
 
 export interface AutoBinOptions extends CwdOption, LoggerOption {
 	/**
-	 * @default 'src'
+	 * @defaultValue 'src'
 	 */
 	srcDir?: string;
 
@@ -18,7 +18,7 @@ export interface AutoBinOptions extends CwdOption, LoggerOption {
 	 *
 	 * Relative to `srcDir`.
 	 *
-	 * @default 'bin'
+	 * @defaultValue 'bin'
 	 */
 	binDir?: string;
 
@@ -27,7 +27,7 @@ export interface AutoBinOptions extends CwdOption, LoggerOption {
 	 *
 	 * used to mark the built scripts as executable
 	 *
-	 * @default 'dist'
+	 * @defaultValue 'dist'
 	 */
 	outDir?: string;
 
@@ -39,13 +39,13 @@ export interface AutoBinOptions extends CwdOption, LoggerOption {
 	 * ! This folder has to be ignored by typescript as it contains broken
 	 * ! imports before the package is built
 	 *
-	 * @default 'shims'
+	 * @defaultValue 'shims'
 	 */
 	shimDir?: string;
 
 	/**
 	 * The hooks this function will search for
-	 * @default ALL_NPM_HOOKS
+	 * @defaultValue ALL_NPM_HOOKS
 	 */
 	enabledHooks?: string[];
 }

@@ -7,7 +7,7 @@ export const DEFAULT_STATIC_EXPORT_GLOBS = ['readme.md', 'static/**/*', 'export/
 export interface AutoExportStaticOptions extends LoggerOption, CwdOption {
 	/**
 	 * relative to cwd, this is where copied files will end up
-	 * @default 'dist'
+	 * @defaultValue 'dist'
 	 */
 	outDir?: string;
 
@@ -16,7 +16,7 @@ export interface AutoExportStaticOptions extends LoggerOption, CwdOption {
 	 * `outDir` and made available using simple, additional export statements.
 	 * Make sure their names don't overlap with other exports!
 	 *
-	 * @default '["static/**", "export/**"]'
+	 * @defaultValue '["static/**", "export/**"]'
 	 */
 	staticExportGlobs?: string[];
 }

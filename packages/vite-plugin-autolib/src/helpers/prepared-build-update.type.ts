@@ -46,7 +46,10 @@ export interface PreparedBuildUpdate {
 	 * `postprocess` steps are happening sequentially, in order the
 	 * subplugins are defined.
 	 */
-	postprocess?: (packageJson: PackageJson) => PackageJson;
+	postprocess?: (
+		packageJson: PackageJson,
+		sourcePackageJsonTarget: PackageJsonKind
+	) => PackageJson;
 
 	/**
 	 * Changes applied to the vite build configuration

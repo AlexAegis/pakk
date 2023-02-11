@@ -6,6 +6,7 @@ import { dirname, join } from 'node:path/posix';
 import { LibraryFormats, mergeConfig, Plugin, UserConfig } from 'vite';
 import { DEFAULT_ENTRY_DIR } from '../helpers/auto-entry.class.options.js';
 import { AutoExportStatic } from '../helpers/auto-export-static.class.js';
+import { AutoPeer } from '../helpers/auto-peer.class.js';
 import { AutoSort } from '../helpers/auto-reorder.class.js';
 import { cloneJsonSerializable } from '../helpers/clone-json-serializable.function.js';
 import { AutoBin, AutoEntry, DEFAULT_EXPORT_FORMATS, DEFAULT_OUT_DIR } from '../helpers/index.js';
@@ -98,6 +99,10 @@ export const autolib = (rawOptions?: AutolibPluginOptions): Plugin => {
 				);
 			}
 
+			if (options.autoPeer) {
+				buildUpdates.push(new AutoPeer());
+			}
+
 			const sourcePackageJsonLocation = join(options.cwd, options.sourcePackageJson);
 			const rawPackageJson = await readJson<PackageJson>(sourcePackageJsonLocation);
 			if (rawPackageJson) {
@@ -186,7 +191,9 @@ export const autolib = (rawOptions?: AutolibPluginOptions): Plugin => {
 					packageJsonForArtifact = deepMerge(packageJsonForArtifact, ...pathOffsets);
 
 					packageJsonForArtifact = buildUpdates.reduce(
-						(acc, buildUpdate) => buildUpdate.postprocess?.(acc) ?? acc,
+						(packageJson, buildUpdate) =>
+							buildUpdate.postprocess?.(packageJson, packageJsonTarget) ??
+							packageJson,
 						packageJsonForArtifact
 					);
 

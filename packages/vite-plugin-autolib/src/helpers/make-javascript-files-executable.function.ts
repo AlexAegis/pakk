@@ -9,7 +9,7 @@ export interface MakeJavascriptFilesExecutableOptions extends CwdOption, LoggerO
 	packageJsonType: 'module' | 'commonjs';
 
 	/**
-	 * @default false
+	 * @defaultValue false
 	 */
 	forceMjsExtensionForEs?: boolean;
 }

@@ -19,7 +19,7 @@ export interface AutoReorderOptions {
 	 * By default it orders everything in alphabetical order.
 	 *
 	 * @example ['name', '.*', { key: 'scripts', order: ['start', 'build.*'] }, '.*']
-	 * @default []
+	 * @defaultValue []
 	 */
 	sortingPreference?: ObjectKeyOrder;
 }
