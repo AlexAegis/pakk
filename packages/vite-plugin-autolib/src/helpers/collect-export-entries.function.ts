@@ -74,23 +74,3 @@ export const offsetPathRecordValues = (
 		return result;
 	}, {} as Record<string, string>);
 };
-/*
-export const offsetPackageJsonExports = (
-	packageJsonExports: PackageJsonExports,
-	offsetPath: string,
-	skipOffset?: string[]
-): PackageJsonExports => {
-	return Object.entries(packageJsonExports).reduce((result, [key, path]) => {
-		if (typeof path === 'string') {
-			if (skipOffset?.includes(path)) {
-				result[key] = path;
-			} else {
-				result[key] = offsetRelativePathPosix(offsetPath, path);
-			}
-		} else if (isObject(path)) {
-			result[key] = offsetPathRecordValues(path, offsetPath);
-		}
-		return result;
-	}, {} as PackageJsonExports);
-};
-*/
