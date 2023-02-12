@@ -83,7 +83,7 @@
 			"outputs": []
 		},
 		"typedoc": {
-			"outputs": ["typedoc/**"]
+			"outputs": ["dist/typedoc/**"]
 		},
 		"test": {
 			"env": ["VITEST"],
