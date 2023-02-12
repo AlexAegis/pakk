@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.9](https://github.com/AlexAegis/vite-plugin-autolib/compare/v0.0.8...v0.0.9) (2023-02-12)
+
+
+### Bug Fixes
+
+* only use stripped filename as the key for static exports ([5e9ee53](https://github.com/AlexAegis/vite-plugin-autolib/commit/5e9ee5381afd4329defc9f7e65ebe23f956e5e3b))
+
 ### [0.0.8](https://github.com/AlexAegis/vite-plugin-autolib/compare/v0.0.7...v0.0.8) (2023-02-12)
 
 
