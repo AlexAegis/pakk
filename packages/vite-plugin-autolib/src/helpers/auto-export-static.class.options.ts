@@ -16,7 +16,7 @@ export interface AutoExportStaticOptions extends LoggerOption, CwdOption {
 	 * `outDir` and made available using simple, additional export statements.
 	 * Make sure their names don't overlap with other exports!
 	 *
-	 * @defaultValue '["static/**", "export/**"]'
+	 * @defaultValue ["readme.md", "static/\*\*", "export/**"]
 	 */
 	staticExportGlobs?: string[];
 }

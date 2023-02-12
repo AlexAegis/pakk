@@ -32,6 +32,7 @@
 			"import": "./dist/index.js",
 			"require": "./dist/index.cjs"
 		},
+		"./example": "./static/example.json",
 		"./readme": "./readme.md"
 	},
 	"bin": {
