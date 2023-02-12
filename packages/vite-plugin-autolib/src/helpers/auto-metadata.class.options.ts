@@ -1,32 +1,69 @@
-export interface AutoMetadataOptions {
+import { LoggerOption, normalizeLoggerOption } from '@alexaegis/logging';
+
+export interface AutoMetadataOptions extends LoggerOption {
 	/**
 	 * A list of packageJson keys to read to autofill in built artifacts
 	 *
-	 * Keys already present in the package's packageJson file will merged if
-	 * they are objects or arrays, otherwise overwritten
+	 * Keys already present in the package's packageJson file will take
+	 * precendence if they are objects or arrays, otherwise overwritten
 	 *
-	 * @defaultValue '["license", "author", "homepage", "bugs", "keywords", "config", "engines"]'
+	 * @defaultValue DEFAULT_AUTO_METADATA_KEYS_FROM_WORKSPACE - ["license", "author", "homepage", "bugs", "keywords", "config", "engines"]
 	 */
-	keysToRead?: string[];
+	keysFromWorkspace?: string[];
 
 	/**
 	 * Keys that you must define yourself. This plugin can't figure them out
-	 * for you, but it can add their keys in empty.
+	 * for you, but it can add their keys as empty values into the source
+	 * packageJson. When one is missing or empty, the build is aborted!
 	 *
-	 * @defaultValue '["name", "displayName", "description", "version"]'
+	 * @defaultValue DEFAULT_AUTO_METADATA_MANDATORY_KEYS - ["name", "displayName", "description", "version"]
 	 */
 	mandatoryKeys?: string[];
 
 	/**
-	 * Whether or not to read missing keys from the root workspace packageJson
+	 * A set of key value pairs that will only be used as packageJson values
+	 * when not found in the workspace packageJson
 	 *
-	 * @defaultValue true
+	 * @defaultValue {}
 	 */
-	readFromWorkspacePackageJson?: boolean;
+	fallbackEntries?: Record<string, string>;
 
 	/**
-	 * What to do with the source packageJson
-	 * @defaultValue 'substract'
+	 * A set of key value pairs that will always be used and overwrite
+	 * everything else
+	 *
+	 * @defaultValue {}
 	 */
-	workspaceKeyMode?: 'add' | 'subtract' | false;
+	overrideEntries?: Record<string, string>;
 }
+
+export const DEFAULT_AUTO_METADATA_KEYS_FROM_WORKSPACE = [
+	'license',
+	'author',
+	'homepage',
+	'bugs',
+	'keywords',
+	'config',
+	'engines',
+];
+
+export const DEFAULT_AUTO_METADATA_MANDATORY_KEYS = [
+	'name',
+	'displayName',
+	'description',
+	'version',
+];
+
+export type NormalizedAutoMetadataOptions = Required<AutoMetadataOptions>;
+
+export const normalizeAutoMetadataOptions = (
+	options?: AutoMetadataOptions
+): NormalizedAutoMetadataOptions => {
+	return {
+		...normalizeLoggerOption(options),
+		keysFromWorkspace: options?.keysFromWorkspace ?? DEFAULT_AUTO_METADATA_KEYS_FROM_WORKSPACE,
+		mandatoryKeys: options?.mandatoryKeys ?? [],
+		fallbackEntries: options?.fallbackEntries ?? {},
+		overrideEntries: options?.overrideEntries ?? {},
+	};
+};

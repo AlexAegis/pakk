@@ -1,13 +1,12 @@
-import { Awaitable, deepMerge } from '@alexaegis/common';
-import type { ObjectKey } from './is-object.function.js';
+import { Awaitable, deepMerge, SimpleObjectKey } from '@alexaegis/common';
 
-export type PreparedCreateUpdates<T extends Record<ObjectKey, unknown>> = (
+export type PreparedCreateUpdates<T extends Record<SimpleObjectKey, unknown>> = (
 	t: T
 ) => Awaitable<Partial<T>>;
 
-export type PreparedUpdate<T extends Record<ObjectKey, unknown>> = (t: T) => Awaitable<T>;
+export type PreparedUpdate<T extends Record<SimpleObjectKey, unknown>> = (t: T) => Awaitable<T>;
 
-export const createPreparedUpdate = <T extends Record<ObjectKey, unknown>>(
+export const createPreparedUpdate = <T extends Record<SimpleObjectKey, unknown>>(
 	createUpdates: PreparedCreateUpdates<T>
 ): PreparedUpdate<T> => {
 	return async (t) => {

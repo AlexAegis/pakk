@@ -6,6 +6,7 @@ import { dirname, join } from 'node:path/posix';
 import { LibraryFormats, mergeConfig, Plugin, UserConfig } from 'vite';
 import { DEFAULT_ENTRY_DIR } from '../helpers/auto-entry.class.options.js';
 import { AutoExportStatic } from '../helpers/auto-export-static.class.js';
+import { AutoMetadata } from '../helpers/auto-metadata.class.js';
 import { AutoPeer } from '../helpers/auto-peer.class.js';
 import { AutoSort } from '../helpers/auto-reorder.class.js';
 import { cloneJsonSerializable } from '../helpers/clone-json-serializable.function.js';
@@ -93,9 +94,21 @@ export const autolib = (rawOptions?: AutolibPluginOptions): Plugin => {
 				);
 			}
 
+			if (options.autoMetadata) {
+				buildUpdates.push(
+					new AutoMetadata({
+						...options.autoMetadata,
+						logger: logger.getSubLogger({ name: 'auto-metadata' }),
+					})
+				);
+			}
+
 			if (options.autoOrderPackageJson) {
 				buildUpdates.push(
-					new AutoSort({ sortingPreference: options.autoOrderPackageJson })
+					new AutoSort({
+						sortingPreference: options.autoOrderPackageJson,
+						logger: logger.getSubLogger({ name: 'auto-sort' }),
+					})
 				);
 			}
 

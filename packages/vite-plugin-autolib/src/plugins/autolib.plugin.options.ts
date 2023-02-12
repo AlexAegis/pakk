@@ -10,6 +10,10 @@ import { DEFAULT_PACKAGE_JSON_SORTING_PREFERENCE } from '@alexaegis/workspace-to
 import { DEFAULT_BINSHIM_DIR, DEFAULT_BIN_DIR } from '../helpers/auto-bin.class.options.js';
 import { DEFAULT_ENTRY_DIR } from '../helpers/auto-entry.class.options.js';
 import { DEFAULT_STATIC_EXPORT_GLOBS } from '../helpers/auto-export-static.class.options.js';
+import {
+	AutoMetadataOptions,
+	normalizeAutoMetadataOptions,
+} from '../helpers/auto-metadata.class.options.js';
 
 export const DEFAULT_SRC_DIR = 'src';
 
@@ -105,6 +109,14 @@ export interface AutolibPluginOptions extends WriteJsonOptions, CwdOption, Logge
 	autoBin?: AutoLibraryAutoBinOptions | false;
 
 	/**
+	 * Fills out packageJson fields of the distributed packageJson based on
+	 * either manually defined key-value pairs or a set of keys that then will
+	 * be read from the workspace packageJson file. Or both, in which case if a
+	 * key is defined in both the manual takes precedence.
+	 */
+	autoMetadata?: AutoMetadataOptions | false;
+
+	/**
 	 * Removes duplicated dependency and peerDependency entries leaving only
 	 * the peerDependencies behind.
 	 *
@@ -125,7 +137,12 @@ export const normalizeAutolibOptions = (
 		...normalizeCwdOption(options),
 		...normalizeLoggerOption(options),
 		...normalizeWriteJsonOptions(options),
-		autoBin: normalizeAutoBinOption(options?.autoBin),
+		autoPrettier: options?.autoPrettier ?? true,
+		autoBin: options?.autoBin ? false : normalizeAutoBinOption(options?.autoBin),
+		autoMetadata:
+			options?.autoMetadata === false
+				? false
+				: normalizeAutoMetadataOptions(options?.autoMetadata),
 		autoPeer: options?.autoPeer ?? true,
 		autoEntryDir:
 			options?.autoEntryDir === false ? false : options?.autoEntryDir ?? DEFAULT_ENTRY_DIR,

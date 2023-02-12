@@ -4,16 +4,7 @@
 	"version": "0.0.7",
 	"license": "MIT",
 	"private": false,
-	"author": {
-		"email": "alexaegis@gmail.com",
-		"name": "AlexAegis",
-		"url": "https://www.github.com/AlexAegis"
-	},
 	"homepage": "https://www.github.com/AlexAegis/vite-plugin-autolib#readme",
-	"repository": "github:AlexAegis/vite-plugin-autolib",
-	"bugs": {
-		"url": "https://www.github.com/AlexAegis/vite-plugin-autolib/issues"
-	},
 	"keywords": [
 		"javascript",
 		"js",
@@ -47,10 +38,10 @@
 		"reorder-json": "./shims/reorder-json.mjs"
 	},
 	"dependencies": {
-		"@alexaegis/common": "0.0.15",
-		"@alexaegis/fs": "0.0.15",
-		"@alexaegis/logging": "0.0.15",
-		"@alexaegis/workspace-tools": "0.0.15",
+		"@alexaegis/common": "0.0.16",
+		"@alexaegis/fs": "0.0.16",
+		"@alexaegis/logging": "0.0.16",
+		"@alexaegis/workspace-tools": "0.0.16",
 		"@npmcli/package-json": "^3.0.0",
 		"@sveltejs/vite-plugin-svelte": "^2.0.2",
 		"@types/node": "^18.13.0",

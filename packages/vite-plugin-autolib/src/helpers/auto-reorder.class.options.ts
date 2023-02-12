@@ -1,10 +1,11 @@
 import type { ObjectKeyOrder } from '@alexaegis/common';
+import { LoggerOption, normalizeLoggerOption } from '@alexaegis/logging';
 import {
 	DEFAULT_PACKAGE_JSON_SORTING_PREFERENCE,
 	normalizeSortingPreferenceForPackageJson,
 } from '@alexaegis/workspace-tools';
 
-export interface AutoReorderOptions {
+export interface AutoReorderOptions extends LoggerOption {
 	/**
 	 * Define an order of keys that will be applied to the target object
 	 * The rest of the keys will be ordered in alphabetical order.
@@ -24,10 +25,13 @@ export interface AutoReorderOptions {
 	sortingPreference?: ObjectKeyOrder;
 }
 
+export type NormalizedAutoReorderOptions = Required<AutoReorderOptions>;
+
 export const normalizeAutoReorderOptions = (
 	options?: AutoReorderOptions
-): Required<AutoReorderOptions> => {
+): NormalizedAutoReorderOptions => {
 	return {
+		...normalizeLoggerOption(options),
 		sortingPreference: options?.sortingPreference
 			? normalizeSortingPreferenceForPackageJson(options.sortingPreference)
 			: DEFAULT_PACKAGE_JSON_SORTING_PREFERENCE,
