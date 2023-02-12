@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.8](https://github.com/AlexAegis/vite-plugin-autolib/compare/v0.0.7...v0.0.8) (2023-02-12)
+
+
+### Features
+
+* added autometadata ([41e3dc9](https://github.com/AlexAegis/vite-plugin-autolib/commit/41e3dc996c8116b80f6c64b4f2974f9e806474fb))
+* added autoPeer ([0d75675](https://github.com/AlexAegis/vite-plugin-autolib/commit/0d75675406ecd0f818ca303158de84f6ee1cc2d9))
+
 ### [0.0.7](https://github.com/AlexAegis/vite-plugin-autolib/compare/v0.0.6...v0.0.7) (2023-02-04)
 
 

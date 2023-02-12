@@ -1,7 +1,7 @@
 {
 	"name": "vite-plugin-autolib",
 	"description": "Automatically fills out your package.json for both local and published version",
-	"version": "0.0.7",
+	"version": "0.0.8",
 	"license": "MIT",
 	"private": false,
 	"homepage": "https://www.github.com/AlexAegis/vite-plugin-autolib#readme",
