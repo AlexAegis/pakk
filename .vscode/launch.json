@@ -19,6 +19,15 @@
 			],
 			"cwd": "${workspaceRoot}",
 			"internalConsoleOptions": "openOnSessionStart"
+		},
+		{
+			"name": "Current JS File",
+			"type": "node",
+			"request": "launch",
+			"args": ["${relativeFile}"],
+			"runtimeArgs": ["--max-old-space-size=8192"],
+			"cwd": "${workspaceRoot}",
+			"internalConsoleOptions": "openOnSessionStart"
 		}
 	]
 }
