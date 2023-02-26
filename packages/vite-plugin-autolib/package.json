@@ -39,10 +39,10 @@
 		"reorder-json": "./shims/reorder-json.mjs"
 	},
 	"dependencies": {
-		"@alexaegis/common": "0.0.20",
-		"@alexaegis/fs": "0.0.20",
-		"@alexaegis/logging": "0.0.20",
-		"@alexaegis/workspace-tools": "0.0.20",
+		"@alexaegis/common": "0.0.21",
+		"@alexaegis/fs": "0.0.21",
+		"@alexaegis/logging": "0.0.21",
+		"@alexaegis/workspace-tools": "0.0.21",
 		"@npmcli/package-json": "^3.0.0",
 		"@sveltejs/vite-plugin-svelte": "^2.0.3",
 		"@types/node": "^18.14.1",
