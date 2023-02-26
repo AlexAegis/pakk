@@ -1,4 +1,4 @@
-import { deepMerge } from '@alexaegis/common';
+import { asyncFilterMap, deepMerge } from '@alexaegis/common';
 import { readJson, toAbsolute, writeJson } from '@alexaegis/fs';
 import { createLogger } from '@alexaegis/logging';
 import type { PackageJson } from '@alexaegis/workspace-tools';
@@ -127,9 +127,11 @@ export const autolib = (rawOptions?: AutolibPluginOptions): Plugin => {
 				return;
 			}
 
-			const preUpdates = await Promise.all(
-				buildUpdates.map((buildUpdate) => buildUpdate.preUpdate?.(packageJson))
+			const preUpdates = await asyncFilterMap(
+				buildUpdates,
+				async (buildUpdate) => await buildUpdate.preUpdate?.(packageJson)
 			);
+
 			deepMerge(packageJson, ...preUpdates);
 
 			const baseViteConfigUpdates: Partial<UserConfig> = {
@@ -144,9 +146,11 @@ export const autolib = (rawOptions?: AutolibPluginOptions): Plugin => {
 				},
 			};
 
-			const viteConfigUpdates = await Promise.all(
-				buildUpdates.map((buildUpdate) => buildUpdate.getViteConfigUpdates?.(config))
+			const viteConfigUpdates = await asyncFilterMap(
+				buildUpdates,
+				async (buildUpdate) => await buildUpdate.getViteConfigUpdates?.(config)
 			);
+
 			const updates = viteConfigUpdates
 				.filter((update): update is Partial<UserConfig> => !!update)
 				.reduce(
@@ -177,10 +181,9 @@ export const autolib = (rawOptions?: AutolibPluginOptions): Plugin => {
 				return;
 			}
 
-			const updates = await Promise.all(
-				buildUpdates.map((buildUpdate) =>
-					buildUpdate.update?.(packageJson, outputOptions.format)
-				)
+			const updates = await asyncFilterMap(
+				buildUpdates,
+				async (buildUpdate) => await buildUpdate.update?.(packageJson, outputOptions.format)
 			);
 			// I have to cheat a little bit because other plugins will steal the
 			// thread during an async copy step
@@ -188,43 +191,37 @@ export const autolib = (rawOptions?: AutolibPluginOptions): Plugin => {
 
 			packageJson = deepMerge(packageJson, ...updates);
 
-			await Promise.all(
-				Object.values(PackageJsonKind).map(async (packageJsonTarget) => {
-					let packageJsonForArtifact = cloneJsonSerializable(packageJson);
-					const pathOffsets = await Promise.all(
-						buildUpdates.map((buildUpdate) =>
-							buildUpdate.adjustPaths?.(
-								packageJsonForArtifact,
-								packageJsonTarget,
-								outputOptions.format
-							)
+			await asyncFilterMap(Object.values(PackageJsonKind), async (packageJsonTarget) => {
+				let packageJsonForArtifact = cloneJsonSerializable(packageJson);
+
+				const pathOffsets = await asyncFilterMap(
+					buildUpdates,
+					async (buildUpdate) =>
+						await buildUpdate.adjustPaths?.(
+							packageJsonForArtifact,
+							packageJsonTarget,
+							outputOptions.format
 						)
-					);
+				);
 
-					packageJsonForArtifact = deepMerge(packageJsonForArtifact, ...pathOffsets);
+				packageJsonForArtifact = deepMerge(packageJsonForArtifact, ...pathOffsets);
 
-					packageJsonForArtifact = buildUpdates.reduce(
-						(packageJson, buildUpdate) =>
-							buildUpdate.postprocess?.(packageJson, packageJsonTarget) ??
-							packageJson,
-						packageJsonForArtifact
-					);
+				packageJsonForArtifact = buildUpdates.reduce(
+					(packageJson, buildUpdate) =>
+						buildUpdate.postprocess?.(packageJson, packageJsonTarget) ?? packageJson,
+					packageJsonForArtifact
+				);
 
-					const destination =
-						packageJsonTarget === PackageJsonKind.DISTRIBUTION
-							? toAbsolute(join(outDirectory, 'package.json'), options)
-							: toAbsolute('package.json', options);
+				const destination =
+					packageJsonTarget === PackageJsonKind.DISTRIBUTION
+						? toAbsolute(join(outDirectory, 'package.json'), options)
+						: toAbsolute('package.json', options);
 
-					return await writeJson(
-						cloneJsonSerializable(packageJsonForArtifact),
-						destination,
-						{
-							autoPrettier: options.autoPrettier,
-							dry: options.dry,
-						}
-					);
-				})
-			);
+				return await writeJson(cloneJsonSerializable(packageJsonForArtifact), destination, {
+					autoPrettier: options.autoPrettier,
+					dry: options.dry,
+				});
+			});
 
 			logger.info(
 				`update phase took ~${Math.floor(performance.now() - startTime)}ms to finish`

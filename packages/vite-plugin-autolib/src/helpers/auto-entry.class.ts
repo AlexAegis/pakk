@@ -1,3 +1,4 @@
+import { isNotNullish } from '@alexaegis/common';
 import type {
 	PackageJson,
 	PackageJsonExportConditions,
@@ -30,7 +31,7 @@ export class AutoEntry implements PreparedBuildUpdate {
 		return { build: { lib: { entry: this.entryMap } } };
 	}
 
-	async preUpdate(packageJson: PackageJson) {
+	async preUpdate(packageJson: PackageJson): Promise<void> {
 		packageJson.exports = undefined;
 		packageJson.main = undefined;
 		packageJson.module = undefined;
@@ -101,39 +102,38 @@ export class AutoEntry implements PreparedBuildUpdate {
 	}
 
 	adjustPaths(packageJson: PackageJson, packageJsonKind: PackageJsonKind): PackageJson {
-		const entryExportsOffset = Object.entries(packageJson.exports ?? {}).reduce(
-			(accumulator, [conditionKey, exportCondition]) => {
-				if (conditionKey in this.entryExports && typeof exportCondition === 'object') {
-					accumulator[conditionKey] = Object.entries(exportCondition).reduce(
-						(conditions, [condition, path]) => {
-							const isTypesFieldOfDevPackageJson =
-								packageJsonKind === PackageJsonKind.DEVELOPMENT &&
-								condition === 'types';
+		const entryExportsOffset = Object.entries(
+			(packageJson.exports as Record<string, string | PackageJsonExportConditions>) ?? {}
+		).reduce((accumulator, [conditionKey, exportCondition]) => {
+			if (conditionKey in this.entryExports && typeof exportCondition === 'object') {
+				accumulator[conditionKey] = Object.entries(exportCondition).reduce(
+					(conditions, [condition, path]) => {
+						const isTypesFieldOfDevPackageJson =
+							packageJsonKind === PackageJsonKind.DEVELOPMENT &&
+							condition === 'types';
 
-							if (path !== undefined) {
-								const adjustedExtension = isTypesFieldOfDevPackageJson
-									? path.replace('.d.ts', '.ts')
-									: path;
-								conditions[condition] = retargetPackageJsonPath(adjustedExtension, {
-									packageJsonKind,
-									packageJsonExportTarget: isTypesFieldOfDevPackageJson
-										? PackageJsonExportTarget.SOURCE
-										: PackageJsonExportTarget.DIST,
-									outDir: this.options.outDir,
-								});
-							}
-							return conditions;
-						},
-						{} as PackageJsonExportConditions
-					);
-				} else {
-					accumulator[conditionKey] = exportCondition;
-				}
+						if (isNotNullish(path)) {
+							const adjustedExtension = isTypesFieldOfDevPackageJson
+								? path.replace('.d.ts', '.ts')
+								: path;
+							conditions[condition] = retargetPackageJsonPath(adjustedExtension, {
+								packageJsonKind,
+								packageJsonExportTarget: isTypesFieldOfDevPackageJson
+									? PackageJsonExportTarget.SOURCE
+									: PackageJsonExportTarget.DIST,
+								outDir: this.options.outDir,
+							});
+						}
+						return conditions;
+					},
+					{} as PackageJsonExportConditions
+				);
+			} else {
+				accumulator[conditionKey] = exportCondition;
+			}
 
-				return accumulator;
-			},
-			{} as PackageJsonExports
-		);
+			return accumulator;
+		}, {} as PackageJsonExports);
 
 		return { exports: entryExportsOffset };
 	}

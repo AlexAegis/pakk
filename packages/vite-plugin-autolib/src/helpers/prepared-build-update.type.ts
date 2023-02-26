@@ -12,7 +12,7 @@ export interface PreparedBuildUpdate {
 	 *
 	 * Ran parallel together with the same step of other buildUpdates.
 	 */
-	preUpdate?: (packageJson: PackageJson) => Awaitable<PackageJson>;
+	preUpdate?: (packageJson: PackageJson) => Awaitable<PackageJson | void>;
 	/**
 	 * Modifies the provided packageJson object. Meant for heavier tasks.
 	 *

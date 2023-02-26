@@ -1,5 +1,5 @@
 import { toAbsolute } from '@alexaegis/fs';
-import type { PackageJson } from '@alexaegis/workspace-tools';
+import type { PackageJson, PackageJsonExports } from '@alexaegis/workspace-tools';
 import {
 	AutoExportStaticOptions,
 	normalizeAutoExportStaticOptions,
@@ -27,7 +27,10 @@ export class AutoExportStatic implements PreparedBuildUpdate {
 			Object.values(this.staticExports),
 			toAbsolute(this.options.outDir, this.options)
 		);
-		packageJson.exports = { ...this.staticExports, ...packageJson.exports };
+		packageJson.exports = {
+			...this.staticExports,
+			...(packageJson.exports as PackageJsonExports),
+		};
 		return packageJson;
 	}
 }
