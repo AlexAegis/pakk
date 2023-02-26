@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.10](https://github.com/AlexAegis/vite-plugin-autolib/compare/v0.0.9...v0.0.10) (2023-02-26)
+
+
+### Bug Fixes
+
+* do not create shim dir if there is no bin to shim ([f58b79e](https://github.com/AlexAegis/vite-plugin-autolib/commit/f58b79eed052cff26b183eeb5e648e6e6013401d))
+
 ### [0.0.9](https://github.com/AlexAegis/vite-plugin-autolib/compare/v0.0.8...v0.0.9) (2023-02-12)
 
 
