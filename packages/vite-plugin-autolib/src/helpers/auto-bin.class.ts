@@ -152,7 +152,7 @@ export class AutoBin implements PreparedBuildUpdate {
 		packageJson: PackageJson,
 		packageJsonKind: PackageJsonKind,
 		format: InternalModuleFormat
-	): Promise<PackageJson> {
+	): Promise<PackageJson | void> {
 		if (
 			(this.packageType === 'module' && format === 'es') ||
 			(this.packageType === 'commonjs' && format !== 'es')
@@ -161,10 +161,12 @@ export class AutoBin implements PreparedBuildUpdate {
 
 			await this.ensureEsmBinEntriesRenamed(this.packageType);
 
-			await this.createShims(
-				Object.values(this.pathMap).map((pathKinds) => pathKinds.shimPaths[format]),
-				format
-			);
+			if (packageJsonKind === PackageJsonKind.DEVELOPMENT) {
+				await this.createShims(
+					Object.values(this.pathMap).map((pathKinds) => pathKinds.shimPaths[format]),
+					format
+				);
+			}
 
 			await makeJavascriptFilesExecutable(
 				Object.values(this.pathMap).flatMap((pathKinds) => [

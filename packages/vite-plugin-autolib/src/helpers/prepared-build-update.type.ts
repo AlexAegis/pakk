@@ -37,7 +37,7 @@ export interface PreparedBuildUpdate {
 		packageJson: PackageJson,
 		sourcePackageJsonTarget: PackageJsonKind,
 		format: InternalModuleFormat
-	) => Awaitable<PackageJson>;
+	) => Awaitable<PackageJson | void>;
 
 	/**
 	 * A final, synchronous step to modify the packageJson file.

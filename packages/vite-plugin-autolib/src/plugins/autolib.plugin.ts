@@ -44,6 +44,7 @@ export const autolib = (rawOptions?: AutolibPluginOptions): Plugin => {
 		apply: 'build',
 		config: async (config) => {
 			const startTime = performance.now();
+			logger.trace('lifecycle: config', config, startTime);
 
 			formats =
 				config.build?.lib && config.build?.lib.formats
@@ -157,6 +158,7 @@ export const autolib = (rawOptions?: AutolibPluginOptions): Plugin => {
 					(accumulator, next) => mergeConfig(accumulator, next),
 					baseViteConfigUpdates
 				);
+
 			logger.info(
 				`prepare phase took ${Math.floor(performance.now() - startTime)}ms to finish`
 			);
@@ -164,9 +166,13 @@ export const autolib = (rawOptions?: AutolibPluginOptions): Plugin => {
 			return updates;
 		},
 		buildEnd: (buildError) => {
+			logger.trace('lifecycle: buildEnd', buildError);
+
 			error = buildError;
 		},
 		writeBundle: async (outputOptions) => {
+			logger.trace('lifecycle: writeBundle');
+
 			const handlePackageJson =
 				(packageJson.type === 'module' && outputOptions.format === 'es') ||
 				((packageJson.type === 'commonjs' || packageJson.type === undefined) &&
