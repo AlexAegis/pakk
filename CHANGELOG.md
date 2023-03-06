@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.11](https://github.com/AlexAegis/vite-plugin-autolib/compare/v0.0.10...v0.0.11) (2023-03-06)
+
+
+### Bug Fixes
+
+* only run shimming step for development packageJson ([5697637](https://github.com/AlexAegis/vite-plugin-autolib/commit/5697637f39ce4efae85096d425a186f314ef607d))
+
 ### [0.0.10](https://github.com/AlexAegis/vite-plugin-autolib/compare/v0.0.9...v0.0.10) (2023-02-26)
 
 
