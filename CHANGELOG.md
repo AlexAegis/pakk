@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.12](https://github.com/AlexAegis/autolib/compare/v0.0.11...v0.0.12) (2023-03-07)
+
+
+### Features
+
+* autocopylicense ([5ac1188](https://github.com/AlexAegis/autolib/commit/5ac1188010a6c7011017cc5019c5dba4dd8075e3))
+
 ### [0.0.11](https://github.com/AlexAegis/vite-plugin-autolib/compare/v0.0.10...v0.0.11) (2023-03-06)
 
 

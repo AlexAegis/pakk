@@ -2,7 +2,7 @@
 	"name": "@alexaegis/workspace",
 	"displayName": "workspace",
 	"description": "Vite plugin",
-	"version": "0.0.11",
+	"version": "0.0.12",
 	"license": "mit",
 	"private": true,
 	"author": {
