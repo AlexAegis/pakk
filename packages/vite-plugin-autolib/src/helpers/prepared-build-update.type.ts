@@ -22,7 +22,10 @@ export interface PreparedBuildUpdate {
 	 *
 	 * Runs after `preUpdate`
 	 */
-	update?: (packageJson: PackageJson, format: InternalModuleFormat) => Awaitable<PackageJson>;
+	update?: (
+		packageJson: PackageJson,
+		format: InternalModuleFormat
+	) => Awaitable<PackageJson | void>;
 	/**
 	 * Offsets each path this manages
 	 *
@@ -38,6 +41,12 @@ export interface PreparedBuildUpdate {
 		sourcePackageJsonTarget: PackageJsonKind,
 		format: InternalModuleFormat
 	) => Awaitable<PackageJson | void>;
+
+	/**
+	 * Called at the start of the first writeBundle hook call, only once.
+	 * Copy files to the output directory here.
+	 */
+	writeBundleOnlyOnce?: (packageJson: PackageJson) => Awaitable<void>;
 
 	/**
 	 * A final, synchronous step to modify the packageJson file.

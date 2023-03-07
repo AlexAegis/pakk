@@ -8,6 +8,10 @@ import {
 import { LoggerOption, normalizeLoggerOption } from '@alexaegis/logging';
 import { DEFAULT_PACKAGE_JSON_SORTING_PREFERENCE } from '@alexaegis/workspace-tools';
 import { DEFAULT_BINSHIM_DIR, DEFAULT_BIN_DIR } from '../helpers/auto-bin.class.options.js';
+import {
+	AutoCopyLicenseOptions,
+	normalizeAutoCopyLicenseOptions,
+} from '../helpers/auto-copy-license.class.options.js';
 import { DEFAULT_ENTRY_DIR } from '../helpers/auto-entry.class.options.js';
 import { DEFAULT_STATIC_EXPORT_GLOBS } from '../helpers/auto-export-static.class.options.js';
 import {
@@ -117,6 +121,16 @@ export interface AutolibPluginOptions extends WriteJsonOptions, CwdOption, Logge
 	autoMetadata?: AutoMetadataOptions | false;
 
 	/**
+	 * Automatically copies the license file to the outDir so it can be part
+	 * of the distributed package. It uses the license file you defined in the
+	 * root of your project. Or if you wish to override it, place one into
+	 * the packages folder.
+	 *
+	 * @defaultValue true
+	 */
+	autoCopyLicense?: AutoCopyLicenseOptions | false;
+
+	/**
 	 * Removes duplicated dependency and peerDependency entries leaving only
 	 * the peerDependencies behind.
 	 *
@@ -143,6 +157,10 @@ export const normalizeAutolibOptions = (
 			options?.autoMetadata === false
 				? false
 				: normalizeAutoMetadataOptions(options?.autoMetadata),
+		autoCopyLicense:
+			options?.autoCopyLicense === false
+				? false
+				: normalizeAutoCopyLicenseOptions(options?.autoCopyLicense),
 		autoPeer: options?.autoPeer ?? true,
 		autoEntryDir:
 			options?.autoEntryDir === false ? false : options?.autoEntryDir ?? DEFAULT_ENTRY_DIR,

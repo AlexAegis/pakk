@@ -4,6 +4,7 @@ import { createLogger } from '@alexaegis/logging';
 import type { PackageJson } from '@alexaegis/workspace-tools';
 import { dirname, join } from 'node:path/posix';
 import { LibraryFormats, mergeConfig, Plugin, UserConfig } from 'vite';
+import { AutoCopyLicense } from '../helpers/auto-copy-license.class.js';
 import { DEFAULT_ENTRY_DIR } from '../helpers/auto-entry.class.options.js';
 import { AutoExportStatic } from '../helpers/auto-export-static.class.js';
 import { AutoMetadata } from '../helpers/auto-metadata.class.js';
@@ -38,6 +39,7 @@ export const autolib = (rawOptions?: AutolibPluginOptions): Plugin => {
 	let error: Error | undefined;
 
 	let packageJson: PackageJson;
+	let writeBundleCalled = 0;
 
 	return {
 		name: pluginName,
@@ -113,6 +115,15 @@ export const autolib = (rawOptions?: AutolibPluginOptions): Plugin => {
 				);
 			}
 
+			if (options.autoCopyLicense) {
+				buildUpdates.push(
+					new AutoCopyLicense({
+						...options.autoCopyLicense,
+						logger: logger.getSubLogger({ name: 'auto-copy-license' }),
+					})
+				);
+			}
+
 			if (options.autoPeer) {
 				buildUpdates.push(new AutoPeer());
 			}
@@ -170,8 +181,16 @@ export const autolib = (rawOptions?: AutolibPluginOptions): Plugin => {
 
 			error = buildError;
 		},
+
 		writeBundle: async (outputOptions) => {
 			logger.trace('lifecycle: writeBundle');
+
+			if (writeBundleCalled < 1) {
+				await asyncFilterMap(
+					buildUpdates,
+					async (buildUpdate) => await buildUpdate.writeBundleOnlyOnce?.(packageJson)
+				);
+			}
 
 			const handlePackageJson =
 				(packageJson.type === 'module' && outputOptions.format === 'es') ||
@@ -232,6 +251,8 @@ export const autolib = (rawOptions?: AutolibPluginOptions): Plugin => {
 			logger.info(
 				`update phase took ~${Math.floor(performance.now() - startTime)}ms to finish`
 			);
+
+			writeBundleCalled += 1;
 		},
 	};
 };

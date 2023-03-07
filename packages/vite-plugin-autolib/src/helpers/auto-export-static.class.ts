@@ -16,21 +16,26 @@ export class AutoExportStatic implements PreparedBuildUpdate {
 		this.options = normalizeAutoExportStaticOptions(options);
 	}
 
-	preUpdate(packageJson: PackageJson): PackageJson {
+	async preUpdate(packageJson: PackageJson): Promise<PackageJson | void> {
+		this.staticExports = await collectFileMap(this.options.cwd, this.options.staticExportGlobs);
+
 		packageJson.exports = undefined;
+
 		return packageJson;
 	}
 
 	async update(packageJson: PackageJson): Promise<PackageJson> {
-		this.staticExports = await collectFileMap(this.options.cwd, this.options.staticExportGlobs);
-		await copyAllInto(
-			Object.values(this.staticExports),
-			toAbsolute(this.options.outDir, this.options)
-		);
 		packageJson.exports = {
 			...this.staticExports,
 			...(packageJson.exports as PackageJsonExports),
 		};
 		return packageJson;
+	}
+
+	async writeBundleOnlyOnce(): Promise<void> {
+		await copyAllInto(
+			Object.values(this.staticExports),
+			toAbsolute(this.options.outDir, this.options)
+		);
 	}
 }
