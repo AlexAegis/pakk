@@ -36,7 +36,7 @@
 		"./readme": "./readme.md"
 	},
 	"bin": {
-		"reorder-json": "./shims/reorder-json.mjs"
+		"reorder-json": "./shims/reorder-json.js"
 	},
 	"dependencies": {
 		"@alexaegis/common": "0.0.23",
