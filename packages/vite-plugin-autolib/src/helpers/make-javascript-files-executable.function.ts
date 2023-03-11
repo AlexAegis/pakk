@@ -7,11 +7,6 @@ import { getBundledFileExtension } from './append-bundle-file-extension.function
 export interface MakeJavascriptFilesExecutableOptions extends CwdOption, LoggerOption {
 	format: InternalModuleFormat;
 	packageJsonType: 'module' | 'commonjs';
-
-	/**
-	 * @defaultValue false
-	 */
-	forceMjsExtensionForEs?: boolean;
 }
 
 export const makeJavascriptFilesExecutable = async (
@@ -24,7 +19,6 @@ export const makeJavascriptFilesExecutable = async (
 			getBundledFileExtension({
 				format: options.format,
 				packageType: options.packageJsonType,
-				forceMjsExtensionForEs: options.forceMjsExtensionForEs,
 			})
 		)
 	);

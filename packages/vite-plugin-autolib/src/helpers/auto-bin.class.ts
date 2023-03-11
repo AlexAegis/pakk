@@ -137,7 +137,6 @@ export class AutoBin implements PreparedBuildUpdate {
 				extensionless +
 				getBundledFileExtension({
 					format,
-					forceMjsExtensionForEs: true,
 					packageType: this.packageType,
 				});
 			return acc;
@@ -178,7 +177,6 @@ export class AutoBin implements PreparedBuildUpdate {
 					logger: this.options.logger,
 					format,
 					packageJsonType: this.packageType,
-					forceMjsExtensionForEs: true,
 				}
 			);
 

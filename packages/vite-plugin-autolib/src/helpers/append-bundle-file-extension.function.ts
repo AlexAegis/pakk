@@ -6,10 +6,6 @@ export interface GetBundledFileExtensionOptions {
 	 * @defaultValue 'commonjs'
 	 */
 	packageType?: 'module' | 'commonjs';
-	/**
-	 * @defaultValue false
-	 */
-	forceMjsExtensionForEs?: boolean;
 }
 
 type JsExtensionStubs = 'js' | 'cjs' | 'mjs' | `${string}.js`;
@@ -20,15 +16,10 @@ export type JsExtensions = `.${JsExtensionStubs}`;
  */
 export const getBundledFileExtension = (options: GetBundledFileExtensionOptions): JsExtensions => {
 	const packageType = options.packageType ?? 'commonjs';
-	const forceMjsExtensionForEs = options.forceMjsExtensionForEs ?? false;
 	switch (options.format) {
 		case 'es':
 		case 'esm': {
-			if (forceMjsExtensionForEs) {
-				return '.mjs';
-			} else {
-				return packageType === 'module' ? '.js' : '.mjs';
-			}
+			return packageType === 'module' ? '.js' : '.mjs';
 		}
 		case 'cjs': {
 			return packageType === 'commonjs' ? '.js' : '.cjs';
