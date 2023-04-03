@@ -1,4 +1,4 @@
-import { ObjectKeyOrder, sortObject } from '@alexaegis/common';
+import { sortObject, type ObjectKeyOrder } from '@alexaegis/common';
 import { readJson, writeJson } from '@alexaegis/fs';
 import type { Logger } from '@alexaegis/logging';
 import { normalizeSortingPreferenceForPackageJson } from '@alexaegis/workspace-tools';

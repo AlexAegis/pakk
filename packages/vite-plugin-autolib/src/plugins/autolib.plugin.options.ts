@@ -1,22 +1,22 @@
 import type { ObjectKeyOrder } from '@alexaegis/common';
 import {
-	CwdOption,
 	normalizeCwdOption,
 	normalizeWriteJsonOptions,
-	WriteJsonOptions,
+	type CwdOption,
+	type WriteJsonOptions,
 } from '@alexaegis/fs';
-import { LoggerOption, normalizeLoggerOption } from '@alexaegis/logging';
+import { normalizeLoggerOption, type LoggerOption } from '@alexaegis/logging';
 import { DEFAULT_PACKAGE_JSON_SORTING_PREFERENCE } from '@alexaegis/workspace-tools';
 import { DEFAULT_BINSHIM_DIR, DEFAULT_BIN_DIR } from '../helpers/auto-bin.class.options.js';
 import {
-	AutoCopyLicenseOptions,
 	normalizeAutoCopyLicenseOptions,
+	type AutoCopyLicenseOptions,
 } from '../helpers/auto-copy-license.class.options.js';
 import { DEFAULT_ENTRY_DIR } from '../helpers/auto-entry.class.options.js';
 import { DEFAULT_STATIC_EXPORT_GLOBS } from '../helpers/auto-export-static.class.options.js';
 import {
-	AutoMetadataOptions,
 	normalizeAutoMetadataOptions,
+	type AutoMetadataOptions,
 } from '../helpers/auto-metadata.class.options.js';
 
 export const DEFAULT_SRC_DIR = 'src';

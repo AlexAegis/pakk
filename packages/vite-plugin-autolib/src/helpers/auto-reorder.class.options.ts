@@ -1,5 +1,5 @@
 import type { ObjectKeyOrder } from '@alexaegis/common';
-import { LoggerOption, normalizeLoggerOption } from '@alexaegis/logging';
+import { normalizeLoggerOption, type LoggerOption } from '@alexaegis/logging';
 import {
 	DEFAULT_PACKAGE_JSON_SORTING_PREFERENCE,
 	normalizeSortingPreferenceForPackageJson,

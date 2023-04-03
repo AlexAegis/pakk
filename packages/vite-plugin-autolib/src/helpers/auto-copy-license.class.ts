@@ -1,11 +1,11 @@
 import { toAbsolute } from '@alexaegis/fs';
-import { getWorkspaceRoot, PackageJson } from '@alexaegis/workspace-tools';
+import { getWorkspaceRoot, type PackageJson } from '@alexaegis/workspace-tools';
 import { existsSync } from 'node:fs';
 import { cp } from 'node:fs/promises';
 import { basename, join } from 'node:path';
 import {
-	AutoExportStaticOptions,
 	normalizeAutoExportStaticOptions,
+	type AutoExportStaticOptions,
 } from './auto-export-static.class.options.js';
 import type { PreparedBuildUpdate } from './prepared-build-update.type.js';
 

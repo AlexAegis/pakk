@@ -1,4 +1,4 @@
-import { Awaitable, deepMerge, SimpleObjectKey } from '@alexaegis/common';
+import { deepMerge, type Awaitable, type SimpleObjectKey } from '@alexaegis/common';
 
 export type PreparedCreateUpdates<T extends Record<SimpleObjectKey, unknown>> = (
 	t: T

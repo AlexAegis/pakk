@@ -1,4 +1,4 @@
-import { CwdOption, turnIntoExecutable } from '@alexaegis/fs';
+import { turnIntoExecutable, type CwdOption } from '@alexaegis/fs';
 import type { LoggerOption } from '@alexaegis/logging';
 import { globby } from 'globby';
 import type { InternalModuleFormat } from 'rollup';

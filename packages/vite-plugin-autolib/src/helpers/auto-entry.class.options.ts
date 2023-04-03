@@ -1,5 +1,5 @@
-import { CwdOption, normalizeCwdOption } from '@alexaegis/fs';
-import { LoggerOption, normalizeLoggerOption } from '@alexaegis/logging';
+import { normalizeCwdOption, type CwdOption } from '@alexaegis/fs';
+import { normalizeLoggerOption, type LoggerOption } from '@alexaegis/logging';
 import type { LibraryFormats } from 'vite';
 import { DEFAULT_EXPORT_FORMATS, DEFAULT_OUT_DIR } from '../index.js';
 import { DEFAULT_SRC_DIR } from '../plugins/autolib.plugin.options.js';

@@ -1,9 +1,9 @@
-import { collectWorkspacePackages, PackageJson } from '@alexaegis/workspace-tools';
+import { collectWorkspacePackages, type PackageJson } from '@alexaegis/workspace-tools';
 import { PackageJsonKind } from '../plugins/autolib.plugin.options.js';
 import {
-	AutoMetadataOptions,
 	normalizeAutoMetadataOptions,
-	NormalizedAutoMetadataOptions,
+	type AutoMetadataOptions,
+	type NormalizedAutoMetadataOptions,
 } from './auto-metadata.class.options.js';
 
 import type { PreparedBuildUpdate } from './prepared-build-update.type.js';

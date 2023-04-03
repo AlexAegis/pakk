@@ -3,7 +3,7 @@ import { readJson, toAbsolute, writeJson } from '@alexaegis/fs';
 import { createLogger } from '@alexaegis/logging';
 import type { PackageJson } from '@alexaegis/workspace-tools';
 import { dirname, join } from 'node:path/posix';
-import { LibraryFormats, mergeConfig, Plugin, UserConfig } from 'vite';
+import { mergeConfig, type LibraryFormats, type Plugin, type UserConfig } from 'vite';
 import { AutoCopyLicense } from '../helpers/auto-copy-license.class.js';
 import { DEFAULT_ENTRY_DIR } from '../helpers/auto-entry.class.options.js';
 import { AutoExportStatic } from '../helpers/auto-export-static.class.js';
@@ -14,9 +14,9 @@ import { cloneJsonSerializable } from '../helpers/clone-json-serializable.functi
 import { AutoBin, AutoEntry, DEFAULT_EXPORT_FORMATS, DEFAULT_OUT_DIR } from '../helpers/index.js';
 import type { PreparedBuildUpdate } from '../helpers/prepared-build-update.type.js';
 import {
-	AutolibPluginOptions,
-	normalizeAutolibOptions,
 	PackageJsonKind,
+	normalizeAutolibOptions,
+	type AutolibPluginOptions,
 } from './autolib.plugin.options.js';
 
 export const autolib = (rawOptions?: AutolibPluginOptions): Plugin => {

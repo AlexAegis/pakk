@@ -1,8 +1,8 @@
 import { toAbsolute } from '@alexaegis/fs';
 import type { PackageJson, PackageJsonExports } from '@alexaegis/workspace-tools';
 import {
-	AutoExportStaticOptions,
 	normalizeAutoExportStaticOptions,
+	type AutoExportStaticOptions,
 } from './auto-export-static.class.options.js';
 import { collectFileMap } from './collect-export-map.function.js';
 import { copyAllInto } from './copy-all-into.function.js';

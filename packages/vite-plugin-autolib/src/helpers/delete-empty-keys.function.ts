@@ -1,4 +1,4 @@
-import { isObject, SimpleObjectKey } from '@alexaegis/common';
+import { isObject, type SimpleObjectKey } from '@alexaegis/common';
 
 /**
  *

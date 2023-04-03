@@ -1,5 +1,5 @@
 import { getPrettierFormatter, readJson, toAbsolute } from '@alexaegis/fs';
-import { PackageJson, PACKAGE_JSON_NAME } from '@alexaegis/workspace-tools';
+import { PACKAGE_JSON_NAME, type PackageJson } from '@alexaegis/workspace-tools';
 import { writeFile } from 'node:fs/promises';
 import type { Plugin } from 'vite';
 

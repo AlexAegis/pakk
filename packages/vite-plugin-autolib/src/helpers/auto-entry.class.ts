@@ -8,7 +8,7 @@ import { join, posix } from 'node:path';
 import type { UserConfig } from 'vite';
 import { PackageJsonExportTarget, PackageJsonKind } from '../plugins/autolib.plugin.options.js';
 import { getBundledFileExtension } from './append-bundle-file-extension.function.js';
-import { AutoEntryOptions, normalizeAutoEntryOptions } from './auto-entry.class.options.js';
+import { normalizeAutoEntryOptions, type AutoEntryOptions } from './auto-entry.class.options.js';
 import { collectImmediate, offsetPathRecordValues } from './collect-export-entries.function.js';
 import { createPathRecordFromPaths } from './create-path-record-from-paths.function.js';
 

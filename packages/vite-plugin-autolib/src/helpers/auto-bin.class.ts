@@ -1,5 +1,5 @@
 import { getPrettierFormatter, toAbsolute } from '@alexaegis/fs';
-import { getWorkspaceRoot, PackageJson } from '@alexaegis/workspace-tools';
+import { getWorkspaceRoot, type PackageJson } from '@alexaegis/workspace-tools';
 
 import { existsSync } from 'node:fs';
 import { mkdir, readFile, rename, rm, symlink, writeFile } from 'node:fs/promises';
@@ -9,7 +9,7 @@ import type { UserConfig } from 'vite';
 import { PackageJsonKind } from '../plugins/autolib.plugin.options.js';
 import { getBundledFileExtension } from './append-bundle-file-extension.function.js';
 
-import { AutoBinOptions, normalizeAutoBinOptions } from './auto-bin.class.options.js';
+import { normalizeAutoBinOptions, type AutoBinOptions } from './auto-bin.class.options.js';
 import { collectFileNamePathEntries } from './collect-export-entries.function.js';
 import { enterPathPosix } from './enter-path.function.js';
 import { makeJavascriptFilesExecutable } from './make-javascript-files-executable.function.js';

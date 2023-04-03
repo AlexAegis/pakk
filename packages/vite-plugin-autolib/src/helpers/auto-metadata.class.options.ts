@@ -1,4 +1,4 @@
-import { LoggerOption, normalizeLoggerOption } from '@alexaegis/logging';
+import { normalizeLoggerOption, type LoggerOption } from '@alexaegis/logging';
 
 export interface AutoMetadataOptions extends LoggerOption {
 	/**

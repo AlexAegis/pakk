@@ -1,7 +1,7 @@
 import { createLogger } from '@alexaegis/logging';
 import { DEFAULT_PACKAGE_JSON_SORTING_PREFERENCE } from '@alexaegis/workspace-tools';
 import { basename } from 'node:path';
-import yargs, { Argv } from 'yargs';
+import yargs, { type Argv } from 'yargs';
 import packageJson from '../../package.json';
 import type { AutoReorderOptions } from '../helpers/auto-reorder.class.options.js';
 
