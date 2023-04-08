@@ -1,6 +1,13 @@
 # Changelog
 
-All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
+
+## [0.1.0](https://github.com/AlexAegis/autolib/compare/v0.0.14...v0.1.0) (2023-04-08)
+
+
+### Features
+
+* updated deps and moved to common configs ([db5e3e5](https://github.com/AlexAegis/autolib/commit/db5e3e5731d1c169a92e2972314b5f8e76d096a3))
 
 ### [0.0.14](https://github.com/AlexAegis/autolib/compare/v0.0.13...v0.0.14) (2023-04-03)
 
