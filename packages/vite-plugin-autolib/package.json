@@ -29,6 +29,7 @@
 	"scripts": {
 		"build": "turbo run build-lib_ --concurrency 6 --filter vite-plugin-autolib",
 		"build-lib_": "vite build",
+		"build-lib:require:typedoc_": "# chain",
 		"lint:depcheck": "turbo run lint:depcheck_ --concurrency 6 --filter vite-plugin-autolib",
 		"lint:depcheck_": "depcheck",
 		"lint:es": "turbo run lint:es_ --concurrency 6 --filter vite-plugin-autolib",
@@ -43,7 +44,7 @@
 		"test": "turbo run test_ --concurrency 6 --filter vite-plugin-autolib",
 		"test_": "vitest --passWithNoTests --coverage --run",
 		"test:watch": "vitest --passWithNoTests --coverage --run",
-		"typedoc": "typedoc ./src/index.ts --out ./dist/typedoc"
+		"typedoc_": "typedoc ./src/index.ts --out ./typedoc"
 	},
 	"exports": {
 		".": {

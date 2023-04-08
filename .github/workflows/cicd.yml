@@ -8,7 +8,7 @@ on:
 
 env:
   NPM_PACKAGE_ORG_PREFIX: '@alexaegis/'
-  PAGES_DEPLOY_ARTIFACT_DIR: 'packages/vite-plugin-autolib/dist/typedoc'
+  PAGES_DEPLOY_ARTIFACT_DIR: 'packages/vite-plugin-autolib/typedoc'
   PAGES_DEPLOY_ARTIFACT_BUILDING_JOB: 'build'
   TURBO_TOKEN: ${{ secrets.VERCEL_TOKEN }}
   TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
