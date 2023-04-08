@@ -4,7 +4,7 @@ import { collectDirectoriesWithFileUntilRoot } from './collect-directories-with-
 
 describe('collectDirectoriesWithFileUntilRoot', () => {
 	beforeEach(() => {
-		vi.mock('node:fs', async () => {
+		vi.mock('node:fs', () => {
 			// Don't use it in the case of fs, don't do actual fs calls even by accident
 			// ...(await vi.importActual<typeof import('node:fs')>('node:fs')),
 			return {

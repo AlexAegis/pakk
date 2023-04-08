@@ -1,3 +1,4 @@
+import type { Defined } from '@alexaegis/common';
 import { normalizeCwdOption, type CwdOption } from '@alexaegis/fs';
 import { normalizeLoggerOption, type LoggerOption } from '@alexaegis/logging';
 import { DEFAULT_SRC_DIR } from '../plugins/autolib.plugin.options.js';
@@ -11,7 +12,7 @@ export interface AutoBinOptions extends CwdOption, LoggerOption {
 	/**
 	 * @defaultValue 'src'
 	 */
-	srcDir?: string;
+	srcDir?: string | undefined;
 
 	/**
 	 * Every script directly in this folder will be treated as a bin
@@ -20,7 +21,7 @@ export interface AutoBinOptions extends CwdOption, LoggerOption {
 	 *
 	 * @defaultValue 'bin'
 	 */
-	binDir?: string;
+	binDir?: string | undefined;
 
 	/**
 	 * Relative to the package.json, usually './dist'
@@ -29,7 +30,7 @@ export interface AutoBinOptions extends CwdOption, LoggerOption {
 	 *
 	 * @defaultValue 'dist'
 	 */
-	outDir?: string;
+	outDir?: string | undefined;
 
 	/**
 	 * A directory where shims for the built bins would be placed
@@ -41,16 +42,16 @@ export interface AutoBinOptions extends CwdOption, LoggerOption {
 	 *
 	 * @defaultValue 'shims'
 	 */
-	shimDir?: string;
+	shimDir?: string | undefined;
 
 	/**
 	 * The hooks this function will search for
 	 * @defaultValue ALL_NPM_HOOKS
 	 */
-	enabledHooks?: string[];
+	enabledHooks?: string[] | undefined;
 }
 
-export const normalizeAutoBinOptions = (options: AutoBinOptions): Required<AutoBinOptions> => {
+export const normalizeAutoBinOptions = (options: AutoBinOptions): Defined<AutoBinOptions> => {
 	return {
 		...normalizeLoggerOption(options),
 		...normalizeCwdOption(options),

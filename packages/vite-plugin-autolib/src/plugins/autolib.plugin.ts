@@ -1,4 +1,4 @@
-import { asyncFilterMap, deepMerge } from '@alexaegis/common';
+import { asyncFilterMap, deepMerge, isNotNullish } from '@alexaegis/common';
 import { readJson, toAbsolute, writeJson } from '@alexaegis/fs';
 import { createLogger } from '@alexaegis/logging';
 import type { PackageJson } from '@alexaegis/workspace-tools';
@@ -49,13 +49,13 @@ export const autolib = (rawOptions?: AutolibPluginOptions): Plugin => {
 			logger.trace('lifecycle: config', config, startTime);
 
 			formats =
-				config.build?.lib && config.build?.lib.formats
-					? config.build?.lib.formats
+				config.build?.lib && config.build.lib.formats
+					? config.build.lib.formats
 					: DEFAULT_EXPORT_FORMATS;
 
 			sourceDirectory =
-				config.build?.lib && typeof config.build?.lib?.entry === 'string'
-					? dirname(config.build?.lib?.entry)
+				config.build?.lib && typeof config.build.lib.entry === 'string'
+					? dirname(config.build.lib.entry)
 					: options.src;
 
 			outDirectory = config.build?.outDir ?? DEFAULT_OUT_DIR;
@@ -164,7 +164,7 @@ export const autolib = (rawOptions?: AutolibPluginOptions): Plugin => {
 			);
 
 			const updates = viteConfigUpdates
-				.filter((update): update is Partial<UserConfig> => !!update)
+				.filter(isNotNullish)
 				.reduce(
 					(accumulator, next) => mergeConfig(accumulator, next),
 					baseViteConfigUpdates

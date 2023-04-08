@@ -40,12 +40,12 @@ export const collectFileNamePathEntries = async (
 	const collectPath = join(rootPath, exportPath);
 	const immediateFileNames = await collectImmediate(collectPath, 'file');
 
-	return immediateFileNames.reduce((accumulator, next) => {
+	return immediateFileNames.reduce<Record<string, string>>((accumulator, next) => {
 		const fileName = basename(next);
 		const namestub = stripFileExtension(next);
 		accumulator[namestub] = join(exportPath, fileName);
 		return accumulator;
-	}, {} as Record<string, string>);
+	}, {});
 };
 
 export const offsetPathArray = (
@@ -64,7 +64,7 @@ export const offsetPathRecordValues = (
 	enterCount = 0,
 	skipOffset: string[] = []
 ): Record<string, string> => {
-	return Object.entries(pathRecord).reduce((result, [key, path]) => {
+	return Object.entries(pathRecord).reduce<Record<string, string>>((result, [key, path]) => {
 		if (path) {
 			const enteredPath = enterPathPosix(path, enterCount);
 			result[key] = skipOffset.includes(path)
@@ -72,5 +72,5 @@ export const offsetPathRecordValues = (
 				: offsetRelativePathPosix(offsetPath, enteredPath);
 		}
 		return result;
-	}, {} as Record<string, string>);
+	}, {});
 };

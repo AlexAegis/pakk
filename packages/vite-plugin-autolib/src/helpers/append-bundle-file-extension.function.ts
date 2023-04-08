@@ -5,7 +5,7 @@ export interface GetBundledFileExtensionOptions {
 	/**
 	 * @defaultValue 'commonjs'
 	 */
-	packageType?: 'module' | 'commonjs';
+	packageType?: 'module' | 'commonjs' | undefined;
 }
 
 type JsExtensionStubs = 'js' | 'cjs' | 'mjs' | `${string}.js`;

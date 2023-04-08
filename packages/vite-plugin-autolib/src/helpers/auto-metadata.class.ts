@@ -26,7 +26,7 @@ export class AutoMetadata implements PreparedBuildUpdate {
 	async preUpdate(): Promise<PackageJson> {
 		const packages = await collectWorkspacePackages({ onlyWorkspaceRoot: true });
 
-		this.workspacePackageJson = packages[0].packageJson;
+		this.workspacePackageJson = packages[0]?.packageJson;
 
 		if (!this.workspacePackageJson) {
 			this.options.logger.error('cant read root metadata, not in a workspace');

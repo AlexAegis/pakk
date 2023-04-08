@@ -8,3 +8,5 @@ export * from './defaults.const.js';
 export * from './exists-directory.function.js';
 export * from './exists-file.function.js';
 export * from './exists-symlink.function.js';
+export * from './make-javascript-files-executable.function.js';
+export * from './make-javascript-files-executable.function.options.js';

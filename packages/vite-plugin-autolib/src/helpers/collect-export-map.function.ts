@@ -7,9 +7,9 @@ export const collectFileMap = async (
 	globs: string[]
 ): Promise<Record<string, string>> => {
 	const globbyResult = await globby(globs, { cwd, dot: true });
-	return globbyResult.reduce((accumulator, next) => {
+	return globbyResult.reduce<Record<string, string>>((accumulator, next) => {
 		const key = `.${posix.sep}${basename(stripFileExtension(next))}`;
 		accumulator[key] = `.${posix.sep}${next}`;
 		return accumulator;
-	}, {} as Record<string, string>);
+	}, {});
 };

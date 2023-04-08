@@ -1,19 +1,17 @@
-import { turnIntoExecutable, type CwdOption } from '@alexaegis/fs';
-import type { LoggerOption } from '@alexaegis/logging';
+import { turnIntoExecutable } from '@alexaegis/fs';
 import { globby } from 'globby';
-import type { InternalModuleFormat } from 'rollup';
 import { getBundledFileExtension } from './append-bundle-file-extension.function.js';
-
-export interface MakeJavascriptFilesExecutableOptions extends CwdOption, LoggerOption {
-	format: InternalModuleFormat;
-	packageJsonType: 'module' | 'commonjs';
-}
+import {
+	normalizeMakeJavascriptFilesExecutableOptions,
+	type MakeJavascriptFilesExecutableOptions,
+} from './make-javascript-files-executable.function.options.js';
 
 export const makeJavascriptFilesExecutable = async (
 	path: string | string[],
-	options: MakeJavascriptFilesExecutableOptions
+	rawOptions: MakeJavascriptFilesExecutableOptions
 ): Promise<void> => {
-	const dirtectoryContent = await globby(path, { cwd: options?.cwd });
+	const options = normalizeMakeJavascriptFilesExecutableOptions(rawOptions);
+	const dirtectoryContent = await globby(path, { cwd: options.cwd });
 	const executables = dirtectoryContent.filter((bin) =>
 		bin.endsWith(
 			getBundledFileExtension({

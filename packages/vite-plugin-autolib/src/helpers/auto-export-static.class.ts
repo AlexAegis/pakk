@@ -1,5 +1,5 @@
 import { toAbsolute } from '@alexaegis/fs';
-import type { PackageJson, PackageJsonExports } from '@alexaegis/workspace-tools';
+import type { PackageJson } from '@alexaegis/workspace-tools';
 import {
 	normalizeAutoExportStaticOptions,
 	type AutoExportStaticOptions,
@@ -16,7 +16,7 @@ export class AutoExportStatic implements PreparedBuildUpdate {
 		this.options = normalizeAutoExportStaticOptions(options);
 	}
 
-	async preUpdate(packageJson: PackageJson): Promise<PackageJson | void> {
+	async preUpdate(packageJson: PackageJson): Promise<PackageJson | undefined> {
 		this.staticExports = await collectFileMap(this.options.cwd, this.options.staticExportGlobs);
 
 		packageJson.exports = undefined;
@@ -24,10 +24,10 @@ export class AutoExportStatic implements PreparedBuildUpdate {
 		return packageJson;
 	}
 
-	async update(packageJson: PackageJson): Promise<PackageJson> {
+	update(packageJson: PackageJson): PackageJson {
 		packageJson.exports = {
 			...this.staticExports,
-			...(packageJson.exports as PackageJsonExports),
+			...packageJson.exports,
 		};
 		return packageJson;
 	}

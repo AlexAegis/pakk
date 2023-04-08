@@ -11,7 +11,6 @@ import { getBundledFileExtension } from './append-bundle-file-extension.function
 import { normalizeAutoEntryOptions, type AutoEntryOptions } from './auto-entry.class.options.js';
 import { collectImmediate, offsetPathRecordValues } from './collect-export-entries.function.js';
 import { createPathRecordFromPaths } from './create-path-record-from-paths.function.js';
-
 import type { PreparedBuildUpdate } from './prepared-build-update.type.js';
 import { retargetPackageJsonPath } from './retarget-package-json-path.function.js';
 import { stripFileExtension } from './strip-file-extension.function.js';
@@ -62,78 +61,79 @@ export class AutoEntry implements PreparedBuildUpdate {
 			packageType: packageJson.type,
 		});
 
-		this.entryExports = Object.entries(this.entryMap).reduce(
-			(accumulator, [key, entryFile]) => {
-				const extensionlessPath = stripFileExtension(entryFile);
-				// Assume there will be a `.d.ts` generated
-				const typesPath = `.${posix.sep}${posix.normalize(`${extensionlessPath}.d.ts`)}`;
-				const exportConditions: PackageJsonExportConditions = {
-					types: typesPath,
-				};
+		this.entryExports = Object.entries(this.entryMap).reduce<
+			Record<string, PackageJsonExportConditions>
+		>((accumulator, [key, entryFile]) => {
+			const extensionlessPath = stripFileExtension(entryFile);
+			// Assume there will be a `.d.ts` generated
+			const typesPath = `.${posix.sep}${posix.normalize(`${extensionlessPath}.d.ts`)}`;
+			const exportConditions: PackageJsonExportConditions = {
+				types: typesPath,
+			};
 
-				if (hasUmd) {
-					exportConditions.require = `.${posix.sep}${posix.normalize(
-						`${extensionlessPath}${umdExtension}`
-					)}`;
-				}
+			if (hasUmd) {
+				exportConditions.require = `.${posix.sep}${posix.normalize(
+					`${extensionlessPath}${umdExtension}`
+				)}`;
+			}
 
-				if (hasCjs) {
-					exportConditions.require = `.${posix.sep}${posix.normalize(
-						`${extensionlessPath}${cjsExtension}`
-					)}`;
-				}
+			if (hasCjs) {
+				exportConditions.require = `.${posix.sep}${posix.normalize(
+					`${extensionlessPath}${cjsExtension}`
+				)}`;
+			}
 
-				if (hasEsm) {
-					exportConditions.import = `.${posix.sep}${posix.normalize(
-						`${extensionlessPath}${esmExtension}`
-					)}`;
-				}
-				if (key === 'index') {
-					accumulator['.'] = exportConditions;
-				} else {
-					accumulator['./' + key] = exportConditions;
-				}
-				return accumulator;
-			},
-			{} as Record<string, PackageJsonExportConditions>
-		);
+			if (hasEsm) {
+				exportConditions.import = `.${posix.sep}${posix.normalize(
+					`${extensionlessPath}${esmExtension}`
+				)}`;
+			}
+			if (key === 'index') {
+				accumulator['.'] = exportConditions;
+			} else {
+				accumulator['./' + key] = exportConditions;
+			}
+			return accumulator;
+		}, {});
 
 		return { exports: this.entryExports };
 	}
 
 	adjustPaths(packageJson: PackageJson, packageJsonKind: PackageJsonKind): PackageJson {
 		const entryExportsOffset = Object.entries(
-			(packageJson.exports as Record<string, string | PackageJsonExportConditions>) ?? {}
-		).reduce((accumulator, [conditionKey, exportCondition]) => {
-			if (conditionKey in this.entryExports && typeof exportCondition === 'object') {
-				accumulator[conditionKey] = Object.entries(exportCondition).reduce(
-					(conditions, [condition, path]) => {
-						const isTypesFieldOfDevPackageJson =
-							packageJsonKind === PackageJsonKind.DEVELOPMENT &&
-							condition === 'types';
+			packageJson.exports ?? {}
+		).reduce<PackageJsonExports>((accumulator, [conditionKey, exportCondition]) => {
+			accumulator[conditionKey] =
+				conditionKey in this.entryExports && typeof exportCondition === 'object'
+					? Object.entries(exportCondition).reduce<PackageJsonExportConditions>(
+							(conditions, [condition, path]) => {
+								const isTypesFieldOfDevPackageJson =
+									packageJsonKind === PackageJsonKind.DEVELOPMENT &&
+									condition === 'types';
 
-						if (isNotNullish(path)) {
-							const adjustedExtension = isTypesFieldOfDevPackageJson
-								? path.replace('.d.ts', '.ts')
-								: path;
-							conditions[condition] = retargetPackageJsonPath(adjustedExtension, {
-								packageJsonKind,
-								packageJsonExportTarget: isTypesFieldOfDevPackageJson
-									? PackageJsonExportTarget.SOURCE
-									: PackageJsonExportTarget.DIST,
-								outDir: this.options.outDir,
-							});
-						}
-						return conditions;
-					},
-					{} as PackageJsonExportConditions
-				);
-			} else {
-				accumulator[conditionKey] = exportCondition;
-			}
+								if (isNotNullish(path)) {
+									const adjustedExtension = isTypesFieldOfDevPackageJson
+										? path.replace('.d.ts', '.ts')
+										: path;
+									conditions[condition] = retargetPackageJsonPath(
+										adjustedExtension,
+										{
+											packageJsonKind,
+											packageJsonExportTarget: isTypesFieldOfDevPackageJson
+												? PackageJsonExportTarget.SOURCE
+												: PackageJsonExportTarget.DIST,
+											outDir: this.options.outDir,
+										}
+									);
+								}
+								return conditions;
+							},
+							{}
+					  )
+					: (exportCondition as PackageJsonExportConditions);
 
 			return accumulator;
-		}, {} as PackageJsonExports);
+		}, {});
 
 		return { exports: entryExportsOffset };
 	}

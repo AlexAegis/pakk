@@ -62,7 +62,7 @@ export const retargetPackageJsonPath = (
 				break;
 			}
 		}
-	} else if (options.packageJsonKind === PackageJsonKind.DISTRIBUTION) {
+	} else {
 		switch (options.packageJsonExportTarget) {
 			case PackageJsonExportTarget.SOURCE: {
 				throw new Error(

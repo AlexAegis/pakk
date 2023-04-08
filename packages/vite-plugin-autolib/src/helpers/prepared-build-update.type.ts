@@ -12,7 +12,7 @@ export interface PreparedBuildUpdate {
 	 *
 	 * Ran parallel together with the same step of other buildUpdates.
 	 */
-	preUpdate?: (packageJson: PackageJson) => Awaitable<PackageJson | void>;
+	preUpdate?: (packageJson: PackageJson) => Awaitable<PackageJson | undefined>;
 	/**
 	 * Modifies the provided packageJson object. Meant for heavier tasks.
 	 *
@@ -25,7 +25,7 @@ export interface PreparedBuildUpdate {
 	update?: (
 		packageJson: PackageJson,
 		format: InternalModuleFormat
-	) => Awaitable<PackageJson | void>;
+	) => Awaitable<PackageJson | undefined>;
 	/**
 	 * Offsets each path this manages
 	 *
@@ -40,7 +40,7 @@ export interface PreparedBuildUpdate {
 		packageJson: PackageJson,
 		sourcePackageJsonTarget: PackageJsonKind,
 		format: InternalModuleFormat
-	) => Awaitable<PackageJson | void>;
+	) => Awaitable<PackageJson | undefined>;
 
 	/**
 	 * Called at the start of the first writeBundle hook call, only once.
