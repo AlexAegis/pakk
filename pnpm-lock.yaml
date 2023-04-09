@@ -8,65 +8,65 @@ importers:
         specifier: ^0.1.1
         version: 0.1.1
       '@alexaegis/eslint-config-core':
-        specifier: ^0.1.1
-        version: 0.1.1(typescript@5.0.4)
+        specifier: ^0.1.2
+        version: 0.1.2(typescript@5.0.4)
       '@alexaegis/nuke':
-        specifier: ^0.1.1
-        version: 0.1.1
+        specifier: ^0.1.2
+        version: 0.1.2
       '@alexaegis/setup-commitlint':
-        specifier: ^0.1.1
-        version: 0.1.1
+        specifier: ^0.1.2
+        version: 0.1.2
       '@alexaegis/setup-depcheck':
-        specifier: ^0.1.1
-        version: 0.1.1
+        specifier: ^0.1.2
+        version: 0.1.2
       '@alexaegis/setup-editorconfig':
-        specifier: ^0.1.1
-        version: 0.1.1(@types/node@18.15.11)(typescript@5.0.4)
+        specifier: ^0.1.2
+        version: 0.1.2(@types/node@18.15.11)(typescript@5.0.4)
       '@alexaegis/setup-eslint':
-        specifier: ^0.1.1
-        version: 0.1.1
+        specifier: ^0.1.2
+        version: 0.1.2
       '@alexaegis/setup-git':
-        specifier: ^0.1.1
-        version: 0.1.1
+        specifier: ^0.1.2
+        version: 0.1.2
       '@alexaegis/setup-github':
-        specifier: ^0.1.1
-        version: 0.1.1
+        specifier: ^0.1.2
+        version: 0.1.2
       '@alexaegis/setup-husky':
-        specifier: ^0.1.1
-        version: 0.1.1(@alexaegis/setup-commitlint@0.1.1)(typescript@5.0.4)
+        specifier: ^0.1.2
+        version: 0.1.2(@alexaegis/setup-commitlint@0.1.2)(typescript@5.0.4)
       '@alexaegis/setup-prettier':
-        specifier: ^0.1.1
-        version: 0.1.1
+        specifier: ^0.1.2
+        version: 0.1.2
       '@alexaegis/setup-remark':
-        specifier: ^0.1.1
-        version: 0.1.1
+        specifier: ^0.1.2
+        version: 0.1.2
       '@alexaegis/setup-standard-version':
-        specifier: ^0.1.1
-        version: 0.1.1
+        specifier: ^0.1.2
+        version: 0.1.2
       '@alexaegis/setup-stylelint':
-        specifier: ^0.1.1
-        version: 0.1.1
+        specifier: ^0.1.2
+        version: 0.1.2
       '@alexaegis/setup-ts':
-        specifier: ^0.1.1
-        version: 0.1.1(ts-node@10.9.1)
+        specifier: ^0.1.2
+        version: 0.1.2(ts-node@10.9.1)
       '@alexaegis/setup-turbo':
-        specifier: ^0.1.1
-        version: 0.1.1
+        specifier: ^0.1.2
+        version: 0.1.2
       '@alexaegis/setup-vite':
-        specifier: ^0.1.1
-        version: 0.1.1(@types/node@18.15.11)
+        specifier: ^0.1.2
+        version: 0.1.2(@types/node@18.15.11)
       '@alexaegis/setup-vitest':
-        specifier: ^0.1.1
-        version: 0.1.1
+        specifier: ^0.1.2
+        version: 0.1.2
       '@alexaegis/setup-vscode':
-        specifier: ^0.1.1
-        version: 0.1.1
+        specifier: ^0.1.2
+        version: 0.1.2
       '@alexaegis/setup-workspace':
-        specifier: ^0.1.1
-        version: 0.1.1(@types/node@18.15.11)(typescript@5.0.4)
+        specifier: ^0.1.2
+        version: 0.1.2(@types/node@18.15.11)(typescript@5.0.4)
       '@alexaegis/ts':
-        specifier: ^0.1.1
-        version: 0.1.1(rollup@3.20.2)
+        specifier: ^0.1.2
+        version: 0.1.2(rollup@3.20.2)
       '@lcov-viewer/cli':
         specifier: ^1.3.0
         version: 1.3.0
@@ -137,8 +137,8 @@ importers:
         specifier: ^1.8.8
         version: 1.8.8
       typedoc:
-        specifier: ^0.23.28
-        version: 0.23.28(typescript@5.0.4)
+        specifier: ^0.24.1
+        version: 0.24.1(typescript@5.0.4)
       typescript:
         specifier: ^5.0.4
         version: 5.0.4
@@ -186,17 +186,17 @@ importers:
         version: 17.7.1
     devDependencies:
       '@alexaegis/eslint-config-vitest':
-        specifier: ^0.1.1
-        version: 0.1.1(typescript@5.0.4)
+        specifier: ^0.1.2
+        version: 0.1.2(typescript@5.0.4)
       '@alexaegis/ts':
-        specifier: ^0.1.1
-        version: 0.1.1(rollup@3.20.2)
+        specifier: ^0.1.2
+        version: 0.1.2(rollup@3.20.2)
       '@alexaegis/vite':
-        specifier: ^0.1.1
-        version: 0.1.1(@types/node@18.15.11)(rollup@3.20.2)(typescript@5.0.4)
+        specifier: ^0.1.2
+        version: 0.1.2(@types/node@18.15.11)(rollup@3.20.2)(typescript@5.0.4)
       '@alexaegis/vitest':
-        specifier: ^0.1.1
-        version: 0.1.1(vite@4.2.1)(vitest@0.29.8)
+        specifier: ^0.1.2
+        version: 0.1.2(vite@4.2.1)(vitest@0.29.8)
       '@types/yargs':
         specifier: ^17.0.24
         version: 17.0.24
@@ -217,16 +217,11 @@ packages:
       yargs: 17.7.1
     dev: true
 
-  /@alexaegis/commitlint-config@0.1.1:
-    resolution: {integrity: sha512-53EAG68HlGMIYUWpoZ7+ALhCgoncXdDC3UCZwlj60BH3r4kPkZFdXcmoBMzZKAURhXT9EwUL/4IyiNjp7CKldA==}
+  /@alexaegis/commitlint-config@0.1.2:
+    resolution: {integrity: sha512-RunjwB1fJoZY5d8cmnZy16nHucwPlQOMKEEQ0Ej9+p68F6bfhl/AAxi/h/qGKHJvZW9W6Q6sCFX6QNE5HVxU9A==}
     engines: {node: '>=18.13.0'}
     dependencies:
-      '@alexaegis/standard-version': 0.1.1
-    dev: true
-
-  /@alexaegis/common@0.0.23:
-    resolution: {integrity: sha512-jxxlC58GJo11Wpm0LYkp/bAOvAEgBsgnEU5VPwWAuRDIjG4J7uHaxwNOK1S24CnkK9ENAFn9BJ37WSpSPhxm/Q==}
-    engines: {node: '>=18.13.0'}
+      '@alexaegis/standard-version': 0.1.2
     dev: true
 
   /@alexaegis/common@0.1.1:
@@ -244,8 +239,8 @@ packages:
       globby: 13.1.3
     dev: true
 
-  /@alexaegis/eslint-config-core@0.1.1(typescript@5.0.4):
-    resolution: {integrity: sha512-Rr3b+7S14NmENwIgkDtqbTFtKBm9Vm6JQszzvcyhSknwX2o0IPVGkqXHybDu/ZlpfDi5R2BPXvnDcx24TtpJOQ==}
+  /@alexaegis/eslint-config-core@0.1.2(typescript@5.0.4):
+    resolution: {integrity: sha512-6HM0lCCUDKF+DSgDBdJr1QZQtRNeRtyjo39QVeDEZTIKtPsZE8L8FVESDcgoMD0xkj+pO4uiRACH/1PwvM8eNQ==}
     engines: {node: '>=18.13.0'}
     peerDependencies:
       typescript: ^5.0.4
@@ -267,8 +262,8 @@ packages:
       - supports-color
     dev: true
 
-  /@alexaegis/eslint-config-vitest@0.1.1(typescript@5.0.4):
-    resolution: {integrity: sha512-eAgVUhOC+Ep3ADFIuqx9Sty8Vk9Lo+yHhLDWezIMpDp51YERhvBVkMAcfRp6Z2rpfy7zdLi/d5q8vxWKPpPN3g==}
+  /@alexaegis/eslint-config-vitest@0.1.2(typescript@5.0.4):
+    resolution: {integrity: sha512-D07jKeCAJEzxG82U76jKytkGJWIcHwQlxIE6ObizVwkNJCt40DqYYdLBh9yPJ8QSD+g1vzeWMmt5b2jNN2MIXA==}
     engines: {node: '>=18.13.0'}
     peerDependencies:
       typescript: ^5.0.4
@@ -288,17 +283,6 @@ packages:
     transitivePeerDependencies:
       - eslint-import-resolver-webpack
       - supports-color
-    dev: true
-
-  /@alexaegis/fs@0.0.23:
-    resolution: {integrity: sha512-FKBh9eS4RtA6jRcWgDZUPrU8gkXS76YRQpo33HlV6J/sAkkzeVsdtgcGaqiMCp9lm69b6X5ITlLhrKHhO2xayg==}
-    engines: {node: '>=18.13.0'}
-    dependencies:
-      '@alexaegis/common': 0.1.1
-      '@alexaegis/logging': 0.1.1
-      js-yaml: 4.1.0
-    optionalDependencies:
-      prettier: 2.8.7
     dev: true
 
   /@alexaegis/fs@0.1.1:
@@ -311,8 +295,8 @@ packages:
     optionalDependencies:
       prettier: 2.8.7
 
-  /@alexaegis/lint-staged-config@0.1.1(typescript@5.0.4):
-    resolution: {integrity: sha512-gxMkuwC+sh2HPd/j3WIeM0hNrWSsmlJZNmClGm3KBNv7jgITb+/kenEWc/JUkv0G+JldEXB2/Z7aKPUcokSmTw==}
+  /@alexaegis/lint-staged-config@0.1.2(typescript@5.0.4):
+    resolution: {integrity: sha512-A5rKBNCQWKn3Jfqb5f43w/1ODJ6Lnc4Ujm+aGxbLjJKCmT1VI9h2DK227HhkxjKnQenTqB+ozDxq8egZICInew==}
     engines: {node: '>=18.13.0'}
     peerDependencies:
       typescript: ^5.0.4
@@ -327,14 +311,6 @@ packages:
       - supports-color
     dev: true
 
-  /@alexaegis/logging@0.0.23:
-    resolution: {integrity: sha512-vt9tFz9V63dTD0goNAB3X5Qytk4yUyKosPWLjLZM+XRLJl2GE/uYF8RfjuU4W+xzQ8At22eBv3lAFYNlPBdPlw==}
-    engines: {node: '>=18.13.0'}
-    dependencies:
-      '@alexaegis/common': 0.1.1
-      tslog: 4.8.2
-    dev: true
-
   /@alexaegis/logging@0.1.1:
     resolution: {integrity: sha512-8fYdRfmyus2BQ4f76iErb74loH8eecj9gUy9cEj6K4wIy1UoevyvkzhBse5Qi/aKPHV/+o27HSzp9QDahLxhOQ==}
     engines: {node: '>=18.13.0'}
@@ -342,8 +318,8 @@ packages:
       '@alexaegis/common': 0.1.1
       tslog: 4.8.2
 
-  /@alexaegis/nuke@0.1.1:
-    resolution: {integrity: sha512-rwby/wov1pm3dC3vHaCbk6x4O6aHo2oyO0enHWM+80h6MN7nk2HguxGbr03IsbTugwILv/AMbY+5YuhJmBJtAQ==}
+  /@alexaegis/nuke@0.1.2:
+    resolution: {integrity: sha512-sKpSMd2sTxN3MW/OtPS7bRlTgjr1uHbo35mmjGioyyoId5deYJoCNfu3/fs+8TKaJZoda8imegP7Kb6TNuglSw==}
     engines: {node: '>=18.13.0'}
     hasBin: true
     dependencies:
@@ -354,8 +330,8 @@ packages:
       globby: 13.1.3
     dev: true
 
-  /@alexaegis/prettier-config@0.1.1:
-    resolution: {integrity: sha512-l7DVDw0y54cGmhRj03fypeBHkp8RdgNa2Y8V998kRy2a4l3QFfOpdFph0i2hkS/OdHqlo0ozur3rXnfgz0gwbw==}
+  /@alexaegis/prettier-config@0.1.2:
+    resolution: {integrity: sha512-aJhrXyH1VxfqIdm/m0h+2kbwYyE/8DEkBbphXtDyYQAUwj+Z9TrTssiMCiMhBfF1XV/HQvzw7qFA23D3OVb5RQ==}
     engines: {node: '>=18.13.0'}
     dependencies:
       prettier: 2.8.7
@@ -364,8 +340,8 @@ packages:
       svelte: 3.58.0
     dev: true
 
-  /@alexaegis/remark-preset@0.1.1:
-    resolution: {integrity: sha512-1/BJ5x0uUgMSxwqLGGgSHDyEy3unXPJUqAqbe7gdpus6nBiZaRjldaZAoH/qGg7uclywH1kEpcBe0d6BxPL6kQ==}
+  /@alexaegis/remark-preset@0.1.2:
+    resolution: {integrity: sha512-5g+Hs250JjCkixD05wEvuBgl8G86cokoYnziRkxwSzhUAroyeXbxs8WRCgoBPBPJT2wzYrS2075G0LQ4lpHyZQ==}
     engines: {node: '>=18.13.0'}
     dependencies:
       remark-gfm: 3.0.1
@@ -387,14 +363,14 @@ packages:
       - supports-color
     dev: true
 
-  /@alexaegis/setup-commitlint@0.1.1:
-    resolution: {integrity: sha512-V/8Ww0pin9u41dz1iN7VLakUi6wKO6VlnGtrb/pf5EplAkALCvgb05QvJ4oc8g7ckZeRg4tfXMFvVn5rLK+Jrw==}
+  /@alexaegis/setup-commitlint@0.1.2:
+    resolution: {integrity: sha512-8R05S1RdFKSzsCweJWYI9jXgfaw9EFK8BFhuXm1MiaxpORB9nyZU9VgVNXSwU+l9h/sPM9nMG99znAVjxF/nOA==}
     engines: {node: '>=18.13.0'}
     hasBin: true
     requiresBuild: true
     dependencies:
       '@alexaegis/cli-tools': 0.1.1
-      '@alexaegis/commitlint-config': 0.1.1
+      '@alexaegis/commitlint-config': 0.1.2
       '@alexaegis/logging': 0.1.1
       '@alexaegis/workspace-tools': 0.1.1
       commitlint: 17.5.1
@@ -403,8 +379,8 @@ packages:
       - '@swc/wasm'
     dev: true
 
-  /@alexaegis/setup-depcheck@0.1.1:
-    resolution: {integrity: sha512-8DDnulcxOR6w1OSDPUwoMLDMtSXEoHxG/FK8nMpKRqW5MU6K0MdUFU7oG2POUfOy/obFGvp+eNIowgJQTlw/YA==}
+  /@alexaegis/setup-depcheck@0.1.2:
+    resolution: {integrity: sha512-hgi5pE2kdjpVkMjV3QWI7Z28Y+U68y6Rp+9T3EmR1CesJI4+OXGAoY2Z0fdTbXWIs1aG7vaSPcWnelHhFSZWuA==}
     engines: {node: '>=18.13.0'}
     hasBin: true
     requiresBuild: true
@@ -414,15 +390,15 @@ packages:
       '@alexaegis/workspace-tools': 0.1.1
     dev: true
 
-  /@alexaegis/setup-editorconfig@0.1.1(@types/node@18.15.11)(typescript@5.0.4):
-    resolution: {integrity: sha512-/e12H15ZNstAuiIsrTIFhxBY2D8FT33c3XpPCImSKyTFY2rpaFfHpzWh3ekG4T4IUJ/FY0jti2Aq+aKSdrLl5g==}
+  /@alexaegis/setup-editorconfig@0.1.2(@types/node@18.15.11)(typescript@5.0.4):
+    resolution: {integrity: sha512-YXuieM3B7MdpxmHgcwMPBif/pme0PGB++gwXeJ9ui4/3D5Y7JmH+buJ57VENNdggs+5p/mCJ+rsFK0krJnBIoA==}
     engines: {node: '>=18.13.0'}
     hasBin: true
     requiresBuild: true
     dependencies:
       '@alexaegis/cli-tools': 0.1.1
       '@alexaegis/logging': 0.1.1
-      '@alexaegis/vite': 0.1.1(@types/node@18.15.11)(rollup@3.20.2)(typescript@5.0.4)
+      '@alexaegis/vite': 0.1.2(@types/node@18.15.11)(rollup@3.20.2)(typescript@5.0.4)
       '@alexaegis/workspace-tools': 0.1.1
     transitivePeerDependencies:
       - '@swc/core'
@@ -438,8 +414,8 @@ packages:
       - typescript
     dev: true
 
-  /@alexaegis/setup-eslint@0.1.1:
-    resolution: {integrity: sha512-l3Ej3f4c4M5TuGgMiu69AGPNvfJ0urI2ruIbD/eYVaqdx9dBejUBrbbOq0t5UJGFTfj7fzoCy5aFEhFwQ8Bw+g==}
+  /@alexaegis/setup-eslint@0.1.2:
+    resolution: {integrity: sha512-Jqrr5UPb5a/5yieZAxyjzLpB6/cbezg5s7XkmxxCuwmqdtQDYkTpxryc6FMFIXcdKEXrlhZMjswOFTkbZ6G2Fw==}
     engines: {node: '>=18.13.0'}
     hasBin: true
     requiresBuild: true
@@ -449,8 +425,8 @@ packages:
       '@alexaegis/workspace-tools': 0.1.1
     dev: true
 
-  /@alexaegis/setup-git@0.1.1:
-    resolution: {integrity: sha512-gU6nNf75KcZSW2vrcI3W3Wf+0CEA78jD1FWz13/wMMn9Dc6QmPUVNcId1WUwwWoOPY44hvooX6a01armH8eO3g==}
+  /@alexaegis/setup-git@0.1.2:
+    resolution: {integrity: sha512-SI8PN94FgNyBIrHtprxS3Ik8NFJ8+MiVwb+GPa/PrVFY9WJw3PjYfmQJwBj/AGqbhxQL7nmKWH4QJxykABYusw==}
     engines: {node: '>=18.13.0'}
     hasBin: true
     requiresBuild: true
@@ -460,8 +436,8 @@ packages:
       '@alexaegis/workspace-tools': 0.1.1
     dev: true
 
-  /@alexaegis/setup-github@0.1.1:
-    resolution: {integrity: sha512-bMiG9aP01/C6I+0c4ImHpV2AbFLm0SsPbhb1W0dvLdEBW23LLhj8JNdNeoKkmYPFAwCgY6ZKadWMCg6XMz8L2Q==}
+  /@alexaegis/setup-github@0.1.2:
+    resolution: {integrity: sha512-fGcmWp6Hs/M2b0C+PTqnvvy7ormGFfRmJg9YEtfCeMLg8ovC13dkxt8kN7jTu+vl1p0v7cZhhMt/JQhKyd6jNg==}
     engines: {node: '>=18.13.0'}
     hasBin: true
     requiresBuild: true
@@ -471,18 +447,18 @@ packages:
       '@alexaegis/workspace-tools': 0.1.1
     dev: true
 
-  /@alexaegis/setup-husky@0.1.1(@alexaegis/setup-commitlint@0.1.1)(typescript@5.0.4):
-    resolution: {integrity: sha512-vnY1K5aevIPy4pI362R1DHD9csqRKVZ0T/b5TEA5hrXZR7ezf1neP73CLapoUttrLQnGXLFHeAWrzhiG50BIVw==}
+  /@alexaegis/setup-husky@0.1.2(@alexaegis/setup-commitlint@0.1.2)(typescript@5.0.4):
+    resolution: {integrity: sha512-LRbSrrFigcrvfTLK7tyCPXiZ3m+i1KFiom8kGdI0qaHPr7QWAwEH9GZyOoiZAlmdkeTUFPe2kVPv2SmDMkKh6w==}
     engines: {node: '>=18.13.0'}
     hasBin: true
     requiresBuild: true
     peerDependencies:
-      '@alexaegis/setup-commitlint': ^0.1.1
+      '@alexaegis/setup-commitlint': ^0.1.2
     dependencies:
       '@alexaegis/cli-tools': 0.1.1
-      '@alexaegis/lint-staged-config': 0.1.1(typescript@5.0.4)
+      '@alexaegis/lint-staged-config': 0.1.2(typescript@5.0.4)
       '@alexaegis/logging': 0.1.1
-      '@alexaegis/setup-commitlint': 0.1.1
+      '@alexaegis/setup-commitlint': 0.1.2
       '@alexaegis/workspace-tools': 0.1.1
       '@commitlint/config-conventional': 17.4.4
       husky: 8.0.3
@@ -493,51 +469,51 @@ packages:
       - typescript
     dev: true
 
-  /@alexaegis/setup-prettier@0.1.1:
-    resolution: {integrity: sha512-B4Pp3q61SRdpAzGnAuZeBMWB1su+e/RVZvpy2OgdZBj72pW8E2eP63pH4VNGZQnqDnG9zjXlQ15LHW4r3bgzbA==}
+  /@alexaegis/setup-prettier@0.1.2:
+    resolution: {integrity: sha512-Lp6XyEVFRH+2TPNIWFMsucemiPctOqGpUSg47j4nggn0bw2As36oaiO3jmBjr7WlbBOWLsfwf7YldYXiUO9KIA==}
     engines: {node: '>=18.13.0'}
     hasBin: true
     requiresBuild: true
     dependencies:
       '@alexaegis/cli-tools': 0.1.1
       '@alexaegis/logging': 0.1.1
-      '@alexaegis/prettier-config': 0.1.1
+      '@alexaegis/prettier-config': 0.1.2
       '@alexaegis/workspace-tools': 0.1.1
       prettier: 2.8.7
     optionalDependencies:
       svelte: 3.58.0
     dev: true
 
-  /@alexaegis/setup-remark@0.1.1:
-    resolution: {integrity: sha512-iQ8Dmi0a7deo2a63vkLv/n9SMFbtUHQBznOUFB2FNLl+4vyy5opp47gRdt0NOPyrLGTsq0ryYq1b3cFxaMwdwg==}
+  /@alexaegis/setup-remark@0.1.2:
+    resolution: {integrity: sha512-FG68QX/lvxObrtyvr0jnHGxRXd/gp0rOwvg8qpegeYjEcQGoyBx3XrqWCa6OxTRPxpY3UohEQ4+cVU1cxoeY0Q==}
     engines: {node: '>=18.13.0'}
     hasBin: true
     requiresBuild: true
     dependencies:
       '@alexaegis/cli-tools': 0.1.1
       '@alexaegis/logging': 0.1.1
-      '@alexaegis/remark-preset': 0.1.1
+      '@alexaegis/remark-preset': 0.1.2
       '@alexaegis/workspace-tools': 0.1.1
       remark-cli: 11.0.0
     transitivePeerDependencies:
       - supports-color
     dev: true
 
-  /@alexaegis/setup-standard-version@0.1.1:
-    resolution: {integrity: sha512-+v2sxcAOVrYnMkP/JrZAeTlnVz4vtvtyPd74TMMAghKBoqU/SOuRtn2Gl2W9PkfLMuqW8BcA1BZtEfDXntqTiA==}
+  /@alexaegis/setup-standard-version@0.1.2:
+    resolution: {integrity: sha512-Y3ROdmgcIcCfuuPhfysZnrNVjul2Rko3Y/MlyHAkNHfXkSeuMCPOCPeD5HkP0awu3+P+Z5nTUoTsqZeVw/tLpw==}
     engines: {node: '>=18.13.0'}
     hasBin: true
     requiresBuild: true
     dependencies:
       '@alexaegis/cli-tools': 0.1.1
       '@alexaegis/logging': 0.1.1
-      '@alexaegis/standard-version': 0.1.1
+      '@alexaegis/standard-version': 0.1.2
       '@alexaegis/workspace-tools': 0.1.1
       commit-and-tag-version: 11.2.1
     dev: true
 
-  /@alexaegis/setup-stylelint@0.1.1:
-    resolution: {integrity: sha512-2TtbIaX/db2koTGPKVBCdE5LKQY2u9otuRPDwsFyaIfRDIeWFmFFtFmMtHEGl9URBqCqprDXCdLAQ6xYLpBCLg==}
+  /@alexaegis/setup-stylelint@0.1.2:
+    resolution: {integrity: sha512-hK/c+RmVFOA0xsO+DfbV+jenR6dOjPqSQDsbAq0ytgTOY0CgVwIYXMo3zuV8r703JDCbJwbf12kdGHIR3xjxSg==}
     engines: {node: '>=18.13.0'}
     hasBin: true
     requiresBuild: true
@@ -545,13 +521,10 @@ packages:
       '@alexaegis/cli-tools': 0.1.1
       '@alexaegis/logging': 0.1.1
       '@alexaegis/workspace-tools': 0.1.1
-      stylelint: 15.4.0
-    transitivePeerDependencies:
-      - supports-color
     dev: true
 
-  /@alexaegis/setup-ts@0.1.1(ts-node@10.9.1):
-    resolution: {integrity: sha512-S+g1XJ6k+ArDCN42u+cok45Pfw0bsqbhgeBhj4d2JSjQ5tAGz9VdSxmVL9YDfV1i++136g8M1s8IEb55NSTslg==}
+  /@alexaegis/setup-ts@0.1.2(ts-node@10.9.1):
+    resolution: {integrity: sha512-okvn59H3wJKnGXpqinrhPj1VdI39REc2uJtmP6I9kemQ5JCfUf2XJLjaRW5JSgLMz/mp88/9jNT1WvvR65ZgPg==}
     engines: {node: '>=18.13.0'}
     hasBin: true
     requiresBuild: true
@@ -565,8 +538,8 @@ packages:
       typescript: 5.0.4
     dev: true
 
-  /@alexaegis/setup-turbo@0.1.1:
-    resolution: {integrity: sha512-0+Gz209Vpg5IrQycGVdWrELWYcgadvEIWokIrrwMdlHJbukL67vtLId2LcK9msZrWNPqFvt1IJWTp5wscEqy0w==}
+  /@alexaegis/setup-turbo@0.1.2:
+    resolution: {integrity: sha512-vtIJIuUV2BJWOXlfypNlFnqhIeuez/dibZWe3P4kdn3bJztBWXt1TzDTvffz81wgVj64/QOkhJMjTA8KJ7CcVg==}
     engines: {node: '>=18.13.0'}
     hasBin: true
     requiresBuild: true
@@ -577,8 +550,8 @@ packages:
       turbo: 1.8.8
     dev: true
 
-  /@alexaegis/setup-vite@0.1.1(@types/node@18.15.11):
-    resolution: {integrity: sha512-3J0ZeeTQuHfd3+SXeD15S/Iu0tKMJuX1zLj6XkFuHErMXphC+gwwHeTF8P942k9ZXJC6CRdyQqq1H5aGY40WbQ==}
+  /@alexaegis/setup-vite@0.1.2(@types/node@18.15.11):
+    resolution: {integrity: sha512-R9hinkzPi+c5Q6PfL6YNzVL7OxwqKxU5zqZ7Rmj62lLyEZ0/TlJmaSfUQDJCWWZp3w5WZNrwQNxkwWZqv+xZsw==}
     engines: {node: '>=18.13.0'}
     hasBin: true
     requiresBuild: true
@@ -598,8 +571,8 @@ packages:
       - terser
     dev: true
 
-  /@alexaegis/setup-vitest@0.1.1:
-    resolution: {integrity: sha512-6R8gENrBs9RkoEkctnfRG+r1Ypgr8b2uWa1/yuTq3Rx2d/b8W+UnMiWBpF1rUbpKMXCJBxhewZz2ctPXCqYSeg==}
+  /@alexaegis/setup-vitest@0.1.2:
+    resolution: {integrity: sha512-X6zCmcjWQq+MDRSBek36x1pglqfmLJk/QCIRZsmCASNNoRXD8PoUJ/HgCbJ3UW86WVQQNAAKoUZ5qNT58Gobkw==}
     engines: {node: '>=18.13.0'}
     hasBin: true
     requiresBuild: true
@@ -611,8 +584,8 @@ packages:
       '@lcov-viewer/cli': 1.3.0
     dev: true
 
-  /@alexaegis/setup-vscode@0.1.1:
-    resolution: {integrity: sha512-dm+HSpZBfFqjMdrwFv+KZCZ3rLggsWkxxJ+MKMPN12edKDKz3DxQGQ3WUQ3Ezz5Nr0KNYxvg7GiR2B9HvMiM9w==}
+  /@alexaegis/setup-vscode@0.1.2:
+    resolution: {integrity: sha512-D2+LkWuXQBOZz6/aJ03m+olUPdnjpMvWdLI1rJp6iPv7f+ZAq0bRx+2mYYSLP4qCVu2RpDS6ioFNGtr177LvXg==}
     engines: {node: '>=18.13.0'}
     hasBin: true
     requiresBuild: true
@@ -622,15 +595,15 @@ packages:
       '@alexaegis/workspace-tools': 0.1.1
     dev: true
 
-  /@alexaegis/setup-workspace@0.1.1(@types/node@18.15.11)(typescript@5.0.4):
-    resolution: {integrity: sha512-5Kku8RI6uNaN2/JMLsIVYqzVCrDp9UcsFv6Q6DyM7w3Ix1myWcdoYrKYKxsZbaaWc6P+J4kIxebh8qTcVRXNag==}
+  /@alexaegis/setup-workspace@0.1.2(@types/node@18.15.11)(typescript@5.0.4):
+    resolution: {integrity: sha512-tsXLGFckvENl3A/j1k2PRnZEojNV8o/30MDOAFuIXDQ7pxk8PVfy7tecABt1WeIWGY8pWdR9p8rMCuOulAnxbw==}
     engines: {node: '>=18.13.0'}
     hasBin: true
     requiresBuild: true
     dependencies:
       '@alexaegis/cli-tools': 0.1.1
       '@alexaegis/logging': 0.1.1
-      '@alexaegis/setup-editorconfig': 0.1.1(@types/node@18.15.11)(typescript@5.0.4)
+      '@alexaegis/setup-editorconfig': 0.1.2(@types/node@18.15.11)(typescript@5.0.4)
       '@alexaegis/workspace-tools': 0.1.1
       npm-check-updates: 16.10.7
     transitivePeerDependencies:
@@ -648,8 +621,8 @@ packages:
       - typescript
     dev: true
 
-  /@alexaegis/standard-version@0.1.1:
-    resolution: {integrity: sha512-Uy5YuaOaQtAHZJd9FBSjRexLQqAhSUFjmYM4Arouq+O9Ppnmn4FT+ILvBXwmVjRcYWUtCwEmzhOWuLPY5LrRxQ==}
+  /@alexaegis/standard-version@0.1.2:
+    resolution: {integrity: sha512-E6VSa4SbG5zy+PQqvzsR2uY8+t+aAOh86Gv+x4RhASq1H+ImzWPBg4TctlWN7VbONXd3uFZy2Uw/wSqBtU5Oqw==}
     engines: {node: '>=18.13.0'}
     dependencies:
       '@alexaegis/common': 0.1.1
@@ -660,11 +633,11 @@ packages:
       js-yaml: 4.1.0
     dev: true
 
-  /@alexaegis/ts@0.1.1(rollup@3.20.2):
-    resolution: {integrity: sha512-hjh4GvnlE0hd8rEWsDW76zrX/3hpdMChv7re5quEkt6SxazfXyAzDsBZxR65ipYVUDvaW97WmkT9JYNu0yafyw==}
+  /@alexaegis/ts@0.1.2(rollup@3.20.2):
+    resolution: {integrity: sha512-k/NImMTycf22h/ep9APbnsNhwkmcggQSoDL4QV7vtlwA7HwzHr0iJspqF6nkfMoeaXwk6/7Wtgc3RCRPfXVBAw==}
     engines: {node: '>=18.13.0'}
     dependencies:
-      '@alexaegis/vite': 0.1.1(@types/node@18.15.11)(rollup@3.20.2)(typescript@5.0.4)
+      '@alexaegis/vite': 0.1.2(@types/node@18.15.11)(rollup@3.20.2)(typescript@5.0.4)
       '@tsconfig/svelte': 4.0.1
       '@types/node': 18.15.11
       ts-node: 10.9.1(@types/node@18.15.11)(typescript@5.0.4)
@@ -682,8 +655,8 @@ packages:
       - terser
     dev: true
 
-  /@alexaegis/vite@0.1.1(@types/node@18.15.11)(rollup@3.20.2)(typescript@5.0.4):
-    resolution: {integrity: sha512-xBjOCThq8JxUlBxfTvVbNCT4k927ZSdPi2eYo9E2PtJiM3jCAIGtu8g4wAkbbDqh72aCDwHHtiU/fXlXGPdWFA==}
+  /@alexaegis/vite@0.1.2(@types/node@18.15.11)(rollup@3.20.2)(typescript@5.0.4):
+    resolution: {integrity: sha512-7iH0aqV86UVE6Oi45vlTGqlCBcC6iOtwPWMA9+afMVFYOPpSMJWtH1N5Q/voONu+pxVMw4ixxh012jYYeq3QUw==}
     engines: {node: '>=18.13.0'}
     dependencies:
       '@sveltejs/vite-plugin-svelte': 2.0.4(svelte@3.58.0)(vite@4.2.1)
@@ -691,7 +664,7 @@ packages:
       nodemon: 2.0.22
       svelte: 3.58.0
       vite: 4.2.1(@types/node@18.15.11)
-      vite-plugin-autolib: 0.0.14(typescript@5.0.4)
+      vite-plugin-autolib: 0.1.0(typescript@5.0.4)
       vite-plugin-dts: 2.2.0(@types/node@18.15.11)(rollup@3.20.2)(vite@4.2.1)
     optionalDependencies:
       prettier: 2.8.7
@@ -709,8 +682,8 @@ packages:
       - typescript
     dev: true
 
-  /@alexaegis/vitest@0.1.1(vite@4.2.1)(vitest@0.29.8):
-    resolution: {integrity: sha512-ecF5yoqPWeq5kE5HByflxHlwHjg+EiZCLFSNfJY03a54U31aUNpZtKMgK2tO35c6pI4jUpSlmV9/DW/FcGox5A==}
+  /@alexaegis/vitest@0.1.2(vite@4.2.1)(vitest@0.29.8):
+    resolution: {integrity: sha512-G11CtfOc0J21ht8mUaofuCaOvaBeuM9vqUvUByk75fK6wkBK6/RCJnpH+eIYkRZJg6FWPlo5EmjSaJNPvCl/UA==}
     engines: {node: '>=18.13.0'}
     hasBin: true
     peerDependencies:
@@ -727,17 +700,6 @@ packages:
       - canvas
       - supports-color
       - utf-8-validate
-    dev: true
-
-  /@alexaegis/workspace-tools@0.0.23:
-    resolution: {integrity: sha512-zEAK9J/kd9addProwCU+1M75b7pzSpev0SC1IJ7qbXzmVKR+ukXUBvO4zflJg7pJe7SN8/HyK1mWjSjZqGaMVw==}
-    engines: {node: '>=18.13.0'}
-    dependencies:
-      '@alexaegis/common': 0.1.1
-      '@alexaegis/fs': 0.1.1
-      '@alexaegis/logging': 0.1.1
-      globby: 13.1.3
-      prettier: 2.8.7
     dev: true
 
   /@alexaegis/workspace-tools@0.1.1:
@@ -1536,13 +1498,6 @@ packages:
   /@npmcli/node-gyp@3.0.0:
     resolution: {integrity: sha512-gp8pRXC2oOxu0DUE1/M3bYtb1b3/DbJ5aM113+XJBgfXdussRAsX0YOrOhdd8WvnAR6auDBvJomGAkLKA5ydxA==}
     engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
-    dev: true
-
-  /@npmcli/package-json@3.0.0:
-    resolution: {integrity: sha512-NnuPuM97xfiCpbTEJYtEuKz6CFbpUHtaT0+5via5pQeI25omvQDFbp1GcGJ/c4zvL/WX0qbde6YiLgfZbWFgvg==}
-    engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
-    dependencies:
-      json-parse-even-better-errors: 3.0.0
     dev: true
 
   /@npmcli/promise-spawn@6.0.2:
@@ -9106,8 +9061,8 @@ packages:
     resolution: {integrity: sha512-/aCDEGatGvZ2BIk+HmLf4ifCJFwvKFNb9/JeZPMulfgFracn9QFcAf5GO8B/mweUjSoblS5In0cWhqpfs/5PQA==}
     dev: true
 
-  /typedoc@0.23.28(typescript@5.0.4):
-    resolution: {integrity: sha512-9x1+hZWTHEQcGoP7qFmlo4unUoVJLB0H/8vfO/7wqTnZxg4kPuji9y3uRzEu0ZKez63OJAUmiGhUrtukC6Uj3w==}
+  /typedoc@0.24.1(typescript@5.0.4):
+    resolution: {integrity: sha512-u4HwjZcSQhQSkkhLjgcs0ooAf6HrFVLDHHrwU2xZW8WxH0KnGZlNkaWxiOcK5Gagj7mxJSgwWx0dv8ACDAOXAQ==}
     engines: {node: '>= 14.14'}
     hasBin: true
     peerDependencies:
@@ -9504,31 +9459,24 @@ packages:
       - terser
     dev: true
 
-  /vite-plugin-autolib@0.0.14(typescript@5.0.4):
-    resolution: {integrity: sha512-tPSto1L78vGRWQ+8nlPD6vSNdNWjwq579dDaq8Fc0alfOwJqa9h9tEHDT6frXGrZEGwROcv6+Y7d+agTAuCgvQ==}
+  /vite-plugin-autolib@0.1.0(typescript@5.0.4):
+    resolution: {integrity: sha512-kmmvq6VZ3yEfdMhX1SPPBzp/aIcHY9CvvCdVOZww4ODgKJPMEJYdyqf4kG3S5XyiAdpAsRvhdiDBPxT/Tj9hOg==}
     engines: {node: '>=18.13.0'}
     hasBin: true
     peerDependencies:
       typescript: ^5.0.3
     dependencies:
-      '@alexaegis/common': 0.0.23
-      '@alexaegis/fs': 0.0.23
-      '@alexaegis/logging': 0.0.23
-      '@alexaegis/workspace-tools': 0.0.23
-      '@npmcli/package-json': 3.0.0
-      '@sveltejs/vite-plugin-svelte': 2.0.4(svelte@3.58.0)(vite@4.2.1)
+      '@alexaegis/common': 0.1.1
+      '@alexaegis/fs': 0.1.1
+      '@alexaegis/logging': 0.1.1
+      '@alexaegis/workspace-tools': 0.1.1
       '@types/node': 18.15.11
-      fs-extra: 11.1.1
       globby: 13.1.3
-      kolorist: 1.7.0
       prettier: 2.8.7
       rollup: 3.20.2
-      svelte: 3.58.0
       ts-node: 10.9.1(@types/node@18.15.11)(typescript@5.0.4)
       typescript: 5.0.4
       vite: 4.2.1(@types/node@18.15.11)
-      vite-plugin-dts: 2.2.0(@types/node@18.15.11)(rollup@3.20.2)(vite@4.2.1)
-      vite-plugin-static-copy: 0.13.1(vite@4.2.1)
       yargs: 17.7.1
     transitivePeerDependencies:
       - '@swc/core'
@@ -9537,7 +9485,6 @@ packages:
       - sass
       - stylus
       - sugarss
-      - supports-color
       - terser
     dev: true
 
@@ -9562,19 +9509,6 @@ packages:
       - '@types/node'
       - rollup
       - supports-color
-    dev: true
-
-  /vite-plugin-static-copy@0.13.1(vite@4.2.1):
-    resolution: {integrity: sha512-KwIcGBT1aOxSq+laK3VmSngoEa3HXWj/6ZEXdv+y59eZ7p/XSuPahoDo+CfYW22JjTdnstgeKWiX+78KNgDu6g==}
-    engines: {node: ^14.18.0 || >=16.0.0}
-    peerDependencies:
-      vite: ^3.0.0 || ^4.0.0
-    dependencies:
-      chokidar: 3.5.3
-      fast-glob: 3.2.12
-      fs-extra: 11.1.1
-      picocolors: 1.0.0
-      vite: 4.2.1(@types/node@18.15.11)
     dev: true
 
   /vite@4.2.1(@types/node@18.15.11):

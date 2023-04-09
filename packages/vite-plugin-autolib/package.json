@@ -27,21 +27,21 @@
 		"access": "public"
 	},
 	"scripts": {
-		"build": "turbo run build-lib_ --concurrency 6 --filter vite-plugin-autolib",
+		"build": "turbo run build-lib_ --concurrency 6 --cache-dir .cache/turbo --filter vite-plugin-autolib",
 		"build-lib_": "vite build",
 		"build-lib:require:typedoc_": "# chain",
-		"lint:depcheck": "turbo run lint:depcheck_ --concurrency 6 --filter vite-plugin-autolib",
+		"lint:depcheck": "turbo run lint:depcheck_ --concurrency 6 --cache-dir .cache/turbo --filter vite-plugin-autolib",
 		"lint:depcheck_": "depcheck",
-		"lint:es": "turbo run lint:es_ --concurrency 6 --filter vite-plugin-autolib",
+		"lint:es": "turbo run lint:es_ --concurrency 6 --cache-dir .cache/turbo --filter vite-plugin-autolib",
 		"lint:es_": "eslint --max-warnings=0 --fix --no-error-on-unmatched-pattern .",
-		"lint:format": "turbo run lint:format_ --concurrency 6 --filter vite-plugin-autolib",
+		"lint:format": "turbo run lint:format_ --concurrency 6 --cache-dir .cache/turbo --filter vite-plugin-autolib",
 		"lint:format_": "prettier --check .",
-		"lint:md": "turbo run lint:md_ --concurrency 6 --filter vite-plugin-autolib",
+		"lint:md": "turbo run lint:md_ --concurrency 6 --cache-dir .cache/turbo --filter vite-plugin-autolib",
 		"lint:md_": "remark --frail --no-stdout --silently-ignore *.md docs/**/*.md",
-		"lint:tsc": "turbo run lint:tsc_ --concurrency 6 --filter vite-plugin-autolib",
+		"lint:tsc": "turbo run lint:tsc_ --concurrency 6 --cache-dir .cache/turbo --filter vite-plugin-autolib",
 		"lint:tsc_": "tsc --noEmit",
 		"format": "prettier --write .",
-		"test": "turbo run test_ --concurrency 6 --filter vite-plugin-autolib",
+		"test": "turbo run test_ --concurrency 6 --cache-dir .cache/turbo --filter vite-plugin-autolib",
 		"test_": "vitest --passWithNoTests --coverage --run",
 		"test:watch": "vitest --passWithNoTests --coverage --run",
 		"typedoc_": "typedoc ./src/index.ts --out ./typedoc"
@@ -76,10 +76,10 @@
 		"typescript": "^5.0.3"
 	},
 	"devDependencies": {
-		"@alexaegis/eslint-config-vitest": "^0.1.1",
-		"@alexaegis/ts": "^0.1.1",
-		"@alexaegis/vite": "^0.1.1",
-		"@alexaegis/vitest": "^0.1.1",
+		"@alexaegis/eslint-config-vitest": "^0.1.2",
+		"@alexaegis/ts": "^0.1.2",
+		"@alexaegis/vite": "^0.1.2",
+		"@alexaegis/vitest": "^0.1.2",
 		"@types/yargs": "^17.0.24",
 		"vite": "^4.2.1",
 		"vitest": "^0.29.8"
