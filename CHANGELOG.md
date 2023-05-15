@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.1.1](https://github.com/AlexAegis/autolib/compare/v0.1.0...v0.1.1) (2023-05-15)
+
+
+### Bug Fixes
+
+* ignore typedoc output ([e5932aa](https://github.com/AlexAegis/autolib/commit/e5932aa4e9cddad63697b48cd52b998fd6593ffb))
+
 ## [0.1.0](https://github.com/AlexAegis/autolib/compare/v0.0.14...v0.1.0) (2023-04-08)
 
 
