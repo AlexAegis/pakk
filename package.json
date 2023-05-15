@@ -68,7 +68,8 @@
 		"setup-all": "setup-prettier && setup-editorconfig && setup-husky && setup-git && setup-commitlint && setup-eslint && setup-github && setup-ts && setup-remark && setup-standard-version && setup-stylelint && setup-depcheck && setup-turbo && setup-vite && setup-vitest && setup-workspace",
 		"start": "turbo run start_ --parallel",
 		"test": "turbo run test_ --concurrency 6 --cache-dir .cache/turbo",
-		"typedoc": "turbo run typedoc"
+		"typedoc": "turbo run typedoc_ --concurrency 6 --cache-dir .cache/turbo",
+		"typedoc_": "typedoc"
 	},
 	"devDependencies": {
 		"@alexaegis/coverage-tools": "^0.1.8",
@@ -87,6 +88,7 @@
 		"@alexaegis/setup-stylelint": "^0.2.0",
 		"@alexaegis/setup-ts": "^0.2.0",
 		"@alexaegis/setup-turbo": "^0.2.0",
+		"@alexaegis/setup-typedoc": "^0.2.0",
 		"@alexaegis/setup-vite": "^0.2.0",
 		"@alexaegis/setup-vitest": "^0.2.0",
 		"@alexaegis/setup-vscode": "^0.2.0",
@@ -111,6 +113,7 @@
 		"lint-staged": "^13.2.2",
 		"npm-check-updates": "^16.10.12",
 		"prettier": "^2.8.8",
+		"remark": "^14.0.2",
 		"remark-cli": "^11.0.0",
 		"stylelint": "15.6.1",
 		"ts-node": "^10.9.1",
