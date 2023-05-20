@@ -177,12 +177,12 @@ export const normalizeAutolibOptions = (
 	};
 };
 
-interface AutoLibraryAutoBinOptions {
+export interface AutoLibraryAutoBinOptions {
 	binDir?: string;
 	shimDir?: string;
 }
 
-const normalizeAutoBinOption = (
+export const normalizeAutoBinOption = (
 	autoBin?: AutoLibraryAutoBinOptions | false
 ): Required<AutoLibraryAutoBinOptions> | false => {
 	return autoBin === false

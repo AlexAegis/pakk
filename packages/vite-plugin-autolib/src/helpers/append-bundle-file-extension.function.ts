@@ -8,7 +8,7 @@ export interface GetBundledFileExtensionOptions {
 	packageType?: 'module' | 'commonjs' | undefined;
 }
 
-type JsExtensionStubs = 'js' | 'cjs' | 'mjs' | `${string}.js`;
+export type JsExtensionStubs = 'js' | 'cjs' | 'mjs' | `${string}.js`;
 export type JsExtensions = `.${JsExtensionStubs}`;
 /**
  * Default rollup behavior.

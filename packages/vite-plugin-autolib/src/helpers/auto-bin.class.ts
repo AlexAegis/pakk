@@ -55,7 +55,7 @@ export const ALL_ROLLUP_MODULE_FORMATS: readonly InternalModuleFormat[] = [
 	'system',
 ] as const;
 
-interface BinPaths {
+export interface BinPaths {
 	srcPath: string;
 	shimPaths: Record<InternalModuleFormat, string>;
 	outPath: Record<InternalModuleFormat, string>;

@@ -30,7 +30,7 @@
 		"build": "turbo run build-lib_ --concurrency 16 --cache-dir .cache/turbo --filter vite-plugin-autolib",
 		"build-lib_": "vite build",
 		"build-lib:require:typedoc_": "# chain",
-		"lint:depcheck": "turbo run lint:depcheck_ --concurrency 6 --cache-dir .cache/turbo --filter vite-plugin-autolib",
+		"lint:depcheck": "turbo run lint:depcheck_ --concurrency 16 --cache-dir .cache/turbo --filter vite-plugin-autolib",
 		"lint:depcheck_": "depcheck",
 		"lint:es": "turbo run lint:es_ --concurrency 16 --cache-dir .cache/turbo --filter vite-plugin-autolib",
 		"lint:es_": "eslint --max-warnings=0 --fix --no-error-on-unmatched-pattern .",
@@ -45,8 +45,7 @@
 		"format": "prettier --write .",
 		"test": "turbo run test_ --concurrency 16 --cache-dir .cache/turbo --filter vite-plugin-autolib",
 		"test_": "vitest --passWithNoTests --coverage --run",
-		"test:watch": "vitest --passWithNoTests --coverage",
-		"typedoc_": "typedoc ./src/index.ts --out ./typedoc"
+		"test:watch": "vitest --passWithNoTests --coverage"
 	},
 	"exports": {
 		".": {
