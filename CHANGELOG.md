@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.1.2](https://github.com/AlexAegis/autolib/compare/v0.1.1...v0.1.2) (2023-05-23)
+
+
+### Features
+
+* migrated to autotool ([705307e](https://github.com/AlexAegis/autolib/commit/705307ede884f91f463582743df17dcf6eaef791))
+
 ## [0.1.1](https://github.com/AlexAegis/autolib/compare/v0.1.0...v0.1.1) (2023-05-15)
 
 
