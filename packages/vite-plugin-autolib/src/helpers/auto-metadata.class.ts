@@ -28,6 +28,7 @@ export class AutoMetadata implements PreparedBuildUpdate {
 	}
 
 	async preUpdate(): Promise<PackageJson> {
+		// TODO: A collect call already happens at plugin level, change function signature for preUpdate
 		const packages = await collectWorkspacePackages({ onlyWorkspaceRoot: true });
 
 		this.workspacePackageJson = packages[0]?.packageJson;

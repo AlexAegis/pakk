@@ -6,7 +6,7 @@ import {
 	type PackageJson,
 	type RegularWorkspacePackage,
 } from '@alexaegis/workspace-tools';
-import { dirname, join } from 'node:path/posix';
+import { join, posix, sep } from 'node:path';
 import { mergeConfig, type LibraryFormats, type Plugin, type UserConfig } from 'vite';
 import { AutoCopyLicense } from '../helpers/auto-copy-license.class.js';
 import { DEFAULT_ENTRY_DIR } from '../helpers/auto-entry.class.options.js';
@@ -30,7 +30,9 @@ export const autolib = (rawOptions?: AutolibPluginOptions): Plugin => {
 		name: `vite:${pluginName}`,
 	});
 
-	options.logger.info('starting...');
+	const packageDirName = options.cwd.slice(Math.max(0, options.cwd.lastIndexOf(sep)));
+
+	options.logger.info(packageDirName, options.cwd, 'starting...');
 
 	let workspacePackage: RegularWorkspacePackage;
 
@@ -59,8 +61,10 @@ export const autolib = (rawOptions?: AutolibPluginOptions): Plugin => {
 			const w = workspace.find(
 				(workspacePackage): workspacePackage is RegularWorkspacePackage =>
 					workspacePackage.packageKind === 'regular' &&
-					options.cwd.startsWith(workspacePackage.packagePath)
+					workspacePackage.packagePath.includes(options.cwd) &&
+					(workspacePackage.packagePath + sep).includes(packageDirName + sep)
 			);
+
 			if (!w) {
 				throw new Error('Package could not be determined');
 			}
@@ -75,7 +79,7 @@ export const autolib = (rawOptions?: AutolibPluginOptions): Plugin => {
 
 			sourceDirectory =
 				config.build?.lib && typeof config.build.lib.entry === 'string'
-					? dirname(config.build.lib.entry)
+					? posix.dirname(config.build.lib.entry)
 					: options.src;
 
 			outDirectory = config.build?.outDir ?? DEFAULT_OUT_DIR;
