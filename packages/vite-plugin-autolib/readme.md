@@ -1,4 +1,4 @@
-# vite-plugin-autolib
+# [vite-plugin-autolib](https://github.com/AlexAegis/autolib/tree/master/packages/vite-plugin-autolib/)
 
 [![Latest NPM Version](https://img.shields.io/npm/v/vite-plugin-autolib/latest)](https://www.npmjs.com/package/vite-plugin-autolib)
 [![ci](https://github.com/AlexAegis/autolib/actions/workflows/cicd.yml/badge.svg)](https://github.com/AlexAegis/autolib/actions/workflows/cicd.yml)
@@ -6,4 +6,4 @@
 [![codecov](https://codecov.io/github/AlexAegis/autolib/branch/master/graph/badge.svg?token=OUxofr6zE8)](https://codecov.io/github/AlexAegis/autolib)
 
 A vite plugin to fill out your `package.json` files for it's local and published
-variants
+variants.

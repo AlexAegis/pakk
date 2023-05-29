@@ -21,9 +21,9 @@
 	},
 	"homepage": "https://github.com/AlexAegis/autolib",
 	"repository": {
-		"url": "git+https://github.com/AlexAegis/autolib",
+		"directory": ".",
 		"type": "git",
-		"directory": "."
+		"url": "git+https://github.com/AlexAegis/autolib"
 	},
 	"bugs": {
 		"email": "alexaegis@gmail.com",
