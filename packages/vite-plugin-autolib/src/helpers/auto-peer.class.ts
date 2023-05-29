@@ -1,4 +1,4 @@
-import type { PackageJson } from '@alexaegis/workspace-tools';
+import type { PackageJson, RegularWorkspacePackage } from '@alexaegis/workspace-tools';
 import { PackageJsonKind } from '../plugins/autolib.plugin.options.js';
 
 import type { PreparedBuildUpdate } from './prepared-build-update.type.js';
@@ -12,23 +12,26 @@ import type { PreparedBuildUpdate } from './prepared-build-update.type.js';
  * step will remove the one that was meant to only be present locally.
  */
 export class AutoPeer implements PreparedBuildUpdate {
-	postprocess(packageJson: PackageJson, packageJsonKind: PackageJsonKind): PackageJson {
+	postprocess(
+		workspacePackage: RegularWorkspacePackage,
+		packageJsonKind: PackageJsonKind
+	): PackageJson {
 		if (
 			packageJsonKind === PackageJsonKind.DISTRIBUTION &&
-			packageJson.dependencies &&
-			packageJson.peerDependencies
+			workspacePackage.packageJson.dependencies &&
+			workspacePackage.packageJson.peerDependencies
 		) {
-			const peerDependencies = Object.keys(packageJson.peerDependencies);
+			const peerDependencies = Object.keys(workspacePackage.packageJson.peerDependencies);
 			return {
-				...packageJson,
+				...workspacePackage.packageJson,
 				dependencies: Object.fromEntries(
-					Object.entries(packageJson.dependencies).filter(
+					Object.entries(workspacePackage.packageJson.dependencies).filter(
 						([dependency]) => !peerDependencies.includes(dependency)
 					)
 				),
 			};
 		} else {
-			return packageJson;
+			return workspacePackage.packageJson;
 		}
 	}
 }

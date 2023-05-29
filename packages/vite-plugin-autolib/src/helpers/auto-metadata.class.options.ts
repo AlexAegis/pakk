@@ -16,7 +16,7 @@ export interface AutoMetadataOptions extends LoggerOption {
 	 * for you, but it can add their keys as empty values into the source
 	 * packageJson. When one is missing or empty, the build is aborted!
 	 *
-	 * @defaultValue DEFAULT_AUTO_METADATA_MANDATORY_KEYS - ["name", "displayName", "description", "version"]
+	 * @defaultValue DEFAULT_AUTO_METADATA_MANDATORY_KEYS - ["name", "description", "version"]
 	 */
 	mandatoryKeys?: string[];
 
@@ -45,14 +45,10 @@ export const DEFAULT_AUTO_METADATA_KEYS_FROM_WORKSPACE = [
 	'keywords',
 	'config',
 	'engines',
+	'repository',
 ];
 
-export const DEFAULT_AUTO_METADATA_MANDATORY_KEYS = [
-	'name',
-	'displayName',
-	'description',
-	'version',
-];
+export const DEFAULT_AUTO_METADATA_MANDATORY_KEYS = ['name', 'description', 'version'];
 
 export type NormalizedAutoMetadataOptions = Required<AutoMetadataOptions>;
 
@@ -62,7 +58,7 @@ export const normalizeAutoMetadataOptions = (
 	return {
 		...normalizeLoggerOption(options),
 		keysFromWorkspace: options?.keysFromWorkspace ?? DEFAULT_AUTO_METADATA_KEYS_FROM_WORKSPACE,
-		mandatoryKeys: options?.mandatoryKeys ?? [],
+		mandatoryKeys: options?.mandatoryKeys ?? DEFAULT_AUTO_METADATA_MANDATORY_KEYS,
 		fallbackEntries: options?.fallbackEntries ?? {},
 		overrideEntries: options?.overrideEntries ?? {},
 	};

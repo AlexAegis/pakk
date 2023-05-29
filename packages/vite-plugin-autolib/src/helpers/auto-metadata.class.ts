@@ -1,4 +1,8 @@
-import { collectWorkspacePackages, type PackageJson } from '@alexaegis/workspace-tools';
+import {
+	collectWorkspacePackages,
+	type PackageJson,
+	type WorkspacePackage,
+} from '@alexaegis/workspace-tools';
 import { PackageJsonKind } from '../plugins/autolib.plugin.options.js';
 import {
 	normalizeAutoMetadataOptions,
@@ -42,14 +46,18 @@ export class AutoMetadata implements PreparedBuildUpdate {
 		return {};
 	}
 
-	postprocess(packageJson: PackageJson, packageJsonKind: PackageJsonKind): PackageJson {
+	postprocess(workspacePackage: WorkspacePackage, packageJsonKind: PackageJsonKind): PackageJson {
 		if (packageJsonKind === PackageJsonKind.DISTRIBUTION) {
 			const filledPackageJson = {
 				...this.options.fallbackEntries,
-				...packageJson,
+				...workspacePackage.packageJson,
 				...this.metadataFromWorkspacePackageJson,
 				...this.options.overrideEntries,
 			};
+			if (typeof filledPackageJson.repository === 'object') {
+				filledPackageJson.repository.directory =
+					workspacePackage.packagePathFromRootPackage;
+			}
 
 			const missingKeys = this.options.mandatoryKeys.filter(
 				(mandatoryKey) => !Object.hasOwn(filledPackageJson, mandatoryKey)
@@ -64,7 +72,7 @@ export class AutoMetadata implements PreparedBuildUpdate {
 
 			return filledPackageJson;
 		} else {
-			return packageJson;
+			return workspacePackage.packageJson;
 		}
 	}
 }

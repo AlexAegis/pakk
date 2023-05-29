@@ -1,5 +1,5 @@
 import type { Awaitable } from '@alexaegis/common';
-import type { PackageJson } from '@alexaegis/workspace-tools';
+import type { PackageJson, RegularWorkspacePackage } from '@alexaegis/workspace-tools';
 import type { InternalModuleFormat } from 'rollup';
 import type { UserConfig } from 'vite';
 import type { PackageJsonKind } from '../plugins/autolib.plugin.options.js';
@@ -56,7 +56,7 @@ export interface PreparedBuildUpdate {
 	 * subplugins are defined.
 	 */
 	postprocess?: (
-		packageJson: PackageJson,
+		workspacePackage: RegularWorkspacePackage,
 		sourcePackageJsonTarget: PackageJsonKind
 	) => PackageJson;
 

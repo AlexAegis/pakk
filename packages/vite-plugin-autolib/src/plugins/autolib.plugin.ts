@@ -1,7 +1,11 @@
 import { asyncFilterMap, deepMerge, isNotNullish } from '@alexaegis/common';
 import { readJson, toAbsolute, writeJson } from '@alexaegis/fs';
 import { createLogger } from '@alexaegis/logging';
-import type { PackageJson } from '@alexaegis/workspace-tools';
+import {
+	collectWorkspacePackages,
+	type PackageJson,
+	type RegularWorkspacePackage,
+} from '@alexaegis/workspace-tools';
 import { dirname, join } from 'node:path/posix';
 import { mergeConfig, type LibraryFormats, type Plugin, type UserConfig } from 'vite';
 import { AutoCopyLicense } from '../helpers/auto-copy-license.class.js';
@@ -22,10 +26,13 @@ import {
 export const autolib = (rawOptions?: AutolibPluginOptions): Plugin => {
 	const options = normalizeAutolibOptions(rawOptions);
 	const pluginName = 'autolib';
-	const logger = createLogger({
+	options.logger = createLogger({
 		name: `vite:${pluginName}`,
 	});
-	logger.info('starting...');
+
+	options.logger.info('starting...');
+
+	let workspacePackage: RegularWorkspacePackage;
 
 	// At the end of these definitions as these will only settle once
 	// `configResolved` ran
@@ -46,7 +53,20 @@ export const autolib = (rawOptions?: AutolibPluginOptions): Plugin => {
 		apply: 'build',
 		config: async (config) => {
 			const startTime = performance.now();
-			logger.trace('lifecycle: config', config, startTime);
+			options.logger.trace('lifecycle: config', config, startTime);
+
+			const workspace = await collectWorkspacePackages(options);
+			const w = workspace.find(
+				(workspacePackage): workspacePackage is RegularWorkspacePackage =>
+					workspacePackage.packageKind === 'regular' &&
+					options.cwd.startsWith(workspacePackage.packagePath)
+			);
+			if (!w) {
+				throw new Error('Package could not be determined');
+			}
+			workspacePackage = w;
+
+			options.logger.info('Building workspace package at', workspacePackage.packageJsonPath);
 
 			formats =
 				config.build?.lib && config.build.lib.formats
@@ -68,7 +88,7 @@ export const autolib = (rawOptions?: AutolibPluginOptions): Plugin => {
 						shimDir: options.autoBin.shimDir,
 						outDir: outDirectory,
 						srcDir: sourceDirectory,
-						logger: logger.getSubLogger({ name: 'auto-bin' }),
+						logger: options.logger.getSubLogger({ name: 'auto-bin' }),
 					})
 				);
 			}
@@ -81,7 +101,7 @@ export const autolib = (rawOptions?: AutolibPluginOptions): Plugin => {
 						entryDir: options.autoEntryDir,
 						outDir: outDirectory,
 						sourceDirectory,
-						logger: logger.getSubLogger({ name: 'auto-entry' }),
+						logger: options.logger.getSubLogger({ name: 'auto-entry' }),
 					})
 				);
 			}
@@ -92,7 +112,7 @@ export const autolib = (rawOptions?: AutolibPluginOptions): Plugin => {
 						cwd: options.cwd,
 						outDir: outDirectory,
 						staticExportGlobs: options.autoExportStaticGlobs,
-						logger: logger.getSubLogger({ name: 'auto-export-static' }),
+						logger: options.logger.getSubLogger({ name: 'auto-export-static' }),
 					})
 				);
 			}
@@ -101,7 +121,7 @@ export const autolib = (rawOptions?: AutolibPluginOptions): Plugin => {
 				buildUpdates.push(
 					new AutoMetadata({
 						...options.autoMetadata,
-						logger: logger.getSubLogger({ name: 'auto-metadata' }),
+						logger: options.logger.getSubLogger({ name: 'auto-metadata' }),
 					})
 				);
 			}
@@ -110,7 +130,7 @@ export const autolib = (rawOptions?: AutolibPluginOptions): Plugin => {
 				buildUpdates.push(
 					new AutoSort({
 						sortingPreference: options.autoOrderPackageJson,
-						logger: logger.getSubLogger({ name: 'auto-sort' }),
+						logger: options.logger.getSubLogger({ name: 'auto-sort' }),
 					})
 				);
 			}
@@ -119,7 +139,7 @@ export const autolib = (rawOptions?: AutolibPluginOptions): Plugin => {
 				buildUpdates.push(
 					new AutoCopyLicense({
 						...options.autoCopyLicense,
-						logger: logger.getSubLogger({ name: 'auto-copy-license' }),
+						logger: options.logger.getSubLogger({ name: 'auto-copy-license' }),
 					})
 				);
 			}
@@ -128,13 +148,12 @@ export const autolib = (rawOptions?: AutolibPluginOptions): Plugin => {
 				buildUpdates.push(new AutoPeer());
 			}
 
-			const sourcePackageJsonLocation = join(options.cwd, options.sourcePackageJson);
-			const rawPackageJson = await readJson<PackageJson>(sourcePackageJsonLocation);
+			const rawPackageJson = await readJson<PackageJson>(workspacePackage.packageJsonPath);
 			if (rawPackageJson) {
 				packageJson = rawPackageJson;
 			} else {
 				console.warn(
-					`${pluginName} didn't find package.json at ${sourcePackageJsonLocation}!`
+					`${pluginName} didn't find package.json at ${workspacePackage.packageJsonPath}!`
 				);
 				return;
 			}
@@ -170,20 +189,19 @@ export const autolib = (rawOptions?: AutolibPluginOptions): Plugin => {
 					baseViteConfigUpdates
 				);
 
-			logger.info(
+			options.logger.info(
 				`prepare phase took ${Math.floor(performance.now() - startTime)}ms to finish`
 			);
 
 			return updates;
 		},
 		buildEnd: (buildError) => {
-			logger.trace('lifecycle: buildEnd', buildError);
+			options.logger.trace('lifecycle: buildEnd', buildError);
 
 			error = buildError;
 		},
-
 		writeBundle: async (outputOptions) => {
-			logger.trace('lifecycle: writeBundle');
+			options.logger.trace('lifecycle: writeBundle');
 
 			if (writeBundleCalled < 1) {
 				await asyncFilterMap(
@@ -202,7 +220,7 @@ export const autolib = (rawOptions?: AutolibPluginOptions): Plugin => {
 			}
 
 			if (error) {
-				logger.error("didn't run, error happened during build!");
+				options.logger.error("didn't run, error happened during build!");
 				return;
 			}
 
@@ -233,7 +251,10 @@ export const autolib = (rawOptions?: AutolibPluginOptions): Plugin => {
 
 				packageJsonForArtifact = buildUpdates.reduce(
 					(packageJson, buildUpdate) =>
-						buildUpdate.postprocess?.(packageJson, packageJsonTarget) ?? packageJson,
+						buildUpdate.postprocess?.(
+							{ ...workspacePackage, packageJson },
+							packageJsonTarget
+						) ?? packageJson,
 					packageJsonForArtifact
 				);
 
@@ -248,7 +269,7 @@ export const autolib = (rawOptions?: AutolibPluginOptions): Plugin => {
 				});
 			});
 
-			logger.info(
+			options.logger.info(
 				`update phase took ~${Math.floor(performance.now() - startTime)}ms to finish`
 			);
 

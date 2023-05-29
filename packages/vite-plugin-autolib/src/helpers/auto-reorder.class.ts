@@ -1,5 +1,5 @@
 import { sortObject } from '@alexaegis/common';
-import type { PackageJson } from '@alexaegis/workspace-tools';
+import type { PackageJson, RegularWorkspacePackage } from '@alexaegis/workspace-tools';
 import {
 	normalizeAutoReorderOptions,
 	type AutoReorderOptions,
@@ -13,7 +13,7 @@ export class AutoSort implements PreparedBuildUpdate {
 		this.options = normalizeAutoReorderOptions(options);
 	}
 
-	postprocess(packageJson: PackageJson): PackageJson {
-		return sortObject(packageJson, this.options.sortingPreference);
+	postprocess(workspacePackage: RegularWorkspacePackage): PackageJson {
+		return sortObject(workspacePackage.packageJson, this.options.sortingPreference);
 	}
 }
