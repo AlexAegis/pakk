@@ -279,5 +279,5 @@ export const autolib = (rawOptions?: AutolibPluginOptions): Plugin => {
 
 			writeBundleCalled += 1;
 		},
-	};
+	} satisfies Plugin;
 };
