@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { stripFileExtension } from './strip-file-extension.function.js';
+
 describe('stripFileExtension', () => {
 	it('should remove the extension from the end of a filename', () => {
 		expect(stripFileExtension('foo.js')).toBe('foo');

@@ -3,13 +3,19 @@ import { normalizeCwdOption, type CwdOption } from '@alexaegis/fs';
 import { normalizeLoggerOption, type LoggerOption } from '@alexaegis/logging';
 import type { LibraryFormats } from 'vite';
 import {
-	DEFAULT_ENTRY_DIR,
 	DEFAULT_EXPORT_FORMATS,
 	DEFAULT_OUT_DIR,
 	DEFAULT_SRC_DIR,
 } from '../../internal/defaults.const.js';
+import {
+	AutoEntryExternalOptions,
+	normalizeAutoEntryExternalOptions,
+} from './auto-export.class.external-options.js';
 
-export interface AutoEntryOptions extends CwdOption, LoggerOption {
+export interface AutoEntryInternalOptions
+	extends AutoEntryExternalOptions,
+		CwdOption,
+		LoggerOption {
 	/**
 	 * @defaultValue 'src'
 	 */
@@ -24,29 +30,19 @@ export interface AutoEntryOptions extends CwdOption, LoggerOption {
 	 * @defaultValue 'dist'
 	 */
 	outDir?: string | undefined;
-
-	/**
-	 * The files to treat as entry points to be exported from relative from
-	 * the `srcDir` directory.
-	 * It's usually `.` meaning files directly in `src` are considered the
-	 * entry points of the library
-	 *
-	 * @defaultValue '.'
-	 */
-	entryDir?: string | undefined;
 }
 
-export type NormalizedAutoEntryOptions = Defined<AutoEntryOptions>;
+export type NormalizedAutoEntryInternalOptions = Defined<AutoEntryInternalOptions>;
 
-export const normalizeAutoEntryOptions = (
-	options: AutoEntryOptions
-): NormalizedAutoEntryOptions => {
+export const normalizeAutoEntryInternalOptions = (
+	options: AutoEntryInternalOptions
+): NormalizedAutoEntryInternalOptions => {
 	return {
 		...normalizeCwdOption(options),
 		...normalizeLoggerOption(options),
-		entryDir: options.entryDir ?? DEFAULT_ENTRY_DIR,
-		formats: options.formats ?? DEFAULT_EXPORT_FORMATS,
-		outDir: options.outDir ?? DEFAULT_OUT_DIR,
+		...normalizeAutoEntryExternalOptions(options),
 		srcDir: options.srcDir ?? DEFAULT_SRC_DIR,
+		outDir: options.outDir ?? DEFAULT_OUT_DIR,
+		formats: options.formats ?? DEFAULT_EXPORT_FORMATS,
 	};
 };

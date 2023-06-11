@@ -7,6 +7,8 @@ import {
 } from './auto-reorder.class.options.js';
 
 export class AutoSort implements AutolibPlugin {
+	public name = 'sort';
+
 	private options: Required<AutoReorderOptions>;
 
 	constructor(options?: AutoReorderOptions) {

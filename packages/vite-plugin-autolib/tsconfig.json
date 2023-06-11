@@ -19,10 +19,17 @@
 		"../core/src/plugins/autolicense/auto-copy-license.class.ts",
 		"../core/src/plugins/metadata/auto-metadata.class.ts",
 		"../core/src/plugins/export-static/auto-export-static.class.ts",
-		"../core/src/plugins/entry/auto-entry.class.ts",
+		"../core/src/plugins/entry/auto-export.class.ts",
 		"../core/src/plugins/peer/auto-peer.class.ts",
 		"../core/src/plugins/reorder/auto-reorder.class.ts",
-		"../core/src/plugins/autolib-plugin.type.ts"
+		"../core/src/plugins/autolib-plugin.type.ts",
+		"../core/src/plugins/entry/helpers/strip-file-extension.function.ts",
+		"../core/src/plugins/entry/helpers/retarget-package-json-path.function.ts",
+		"../core/src/plugins/entry/helpers/enter-path.function.ts",
+		"../core/src/plugins/entry/helpers/collect-export-entries.function.ts",
+		"../core/src/plugins/entry/helpers/create-export-map-from-paths.function.ts",
+		"../core/src/plugins/entry/helpers/exists-directory.function.ts",
+		"../core/src/plugins/entry/helpers/offset-relative-path-posix.function.ts"
 	],
 	"exclude": ["node_modules", "dist", "coverage", "typedoc", "vite*.config.ts.timestamp-*"]
 }

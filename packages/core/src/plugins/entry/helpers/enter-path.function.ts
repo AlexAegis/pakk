@@ -2,7 +2,9 @@ import { posix } from 'node:path';
 
 /**
  * Moves one directory in into a path. It strips one directory off from
- * the beginning. if it started with a `./` it keeps it.
+ * the beginning. if it started with a `./` it keeps it and strips the next
+ * section off.
+ *
  * @example 'foo/bar/file' => 'bar/file'
  */
 export const enterPathPosix = (path: string, enterCount = 1): string => {

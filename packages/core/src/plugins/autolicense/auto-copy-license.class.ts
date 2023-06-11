@@ -15,6 +15,8 @@ import {
  * or if it exists, the one directly in the package
  */
 export class AutoCopyLicense implements AutolibPlugin {
+	public name = 'copy-license';
+
 	private options: NormalizedAutoExportStaticOptions;
 	private context: AutolibContext;
 

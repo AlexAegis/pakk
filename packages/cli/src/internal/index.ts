@@ -10,7 +10,7 @@ import { Autolib, AutolibOptions, PackageJsonKind } from '@autolib/core';
 export const autolibStandaloneRunner = async (autolibOptions?: AutolibOptions): Promise<void> => {
 	const autolib = await Autolib.withContext({ formats: ['es', 'cjs'] }, autolibOptions);
 
-	const packageJson = await autolib.getInitialPreparedPackageJson();
+	const packageJson = await autolib.examinePackage();
 	await autolib.writeBundleOnlyOnce(packageJson);
 
 	await asyncFilterMap(Object.values(PackageJsonKind), async (packageJsonTarget) => {

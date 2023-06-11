@@ -1,6 +1,6 @@
 import { globby } from 'globby';
 import { basename, posix } from 'node:path';
-import { stripFileExtension } from './strip-file-extension.function.js';
+import { stripFileExtension } from '../../../core/src/plugins/entry/helpers/strip-file-extension.function.js';
 
 export const collectFileMap = async (
 	cwd: string,

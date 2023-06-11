@@ -1,4 +1,9 @@
-import type { Defined, ObjectKeyOrder } from '@alexaegis/common';
+import {
+	Replace,
+	normalizeRegExpLikeToRegExp,
+	type Defined,
+	type ObjectKeyOrder,
+} from '@alexaegis/common';
 import {
 	normalizeCwdOption,
 	normalizeWriteJsonOptions,
@@ -7,11 +12,11 @@ import {
 } from '@alexaegis/fs';
 import { createLogger, type LoggerOption } from '@alexaegis/logging';
 import { DEFAULT_PACKAGE_JSON_SORTING_PREFERENCE, PackageJson } from '@alexaegis/workspace-tools';
-import { LibraryFormats } from 'vite';
+import { LibraryFormats, LibraryOptions } from 'vite';
 import {
 	AutoBinExternalOptions,
 	normalizeAutoBinExternalOption,
-} from '../plugins/autobin/autobin-external-options.js';
+} from '../plugins/autobin/autobin.class.external-options.js';
 import {
 	AutoCopyLicenseOptions,
 	normalizeAutoCopyLicenseOptions,
@@ -21,15 +26,18 @@ import {
 	normalizeAutoMetadataOptions,
 } from '../plugins/metadata/auto-metadata.class.options.js';
 import {
-	DEFAULT_ENTRY_DIR,
 	DEFAULT_OUT_DIR,
+	DEFAULT_PACKAGE_EXPORTS,
 	DEFAULT_SRC_DIR,
 	DEFAULT_STATIC_EXPORT_GLOBS,
 } from './defaults.const.js';
 import { CurrentWorkspacePackageWithRoot } from './workspace/find-current-and-root-workspace-package.function.js';
 
+export type ViteFileNameFn = Exclude<LibraryOptions['fileName'], string | undefined>;
+
 export interface AutolibContext extends CurrentWorkspacePackageWithRoot {
 	formats: LibraryFormats[];
+	fileName?: ViteFileNameFn | undefined;
 	/**
 	 * Will depend on the "type" field in the packageJson file.
 	 * 'es' if 'module', 'cjs' otherwise.
@@ -58,6 +66,11 @@ export interface AutolibOptions extends WriteJsonOptions, CwdOption, LoggerOptio
 	 * @defaultValue './package.json'
 	 */
 	sourcePackageJson?: string | undefined;
+
+	/**
+	 * If left empty, all features will remain enabled.
+	 */
+	filterFeatures?: (string | RegExp)[] | undefined;
 
 	/**
 	 * Generates exports entries form rollup inputs, from a directory relative
@@ -133,13 +146,18 @@ export interface AutolibOptions extends WriteJsonOptions, CwdOption, LoggerOptio
 	autoPeer?: boolean;
 }
 
-export type NormalizedAutolibOptions = Defined<AutolibOptions>;
+export type NormalizedAutolibOptions = Defined<
+	Replace<AutolibOptions, { filterFeatures: RegExp[] }>
+>;
 
 export const normalizeAutolibOptions = (options?: AutolibOptions): NormalizedAutolibOptions => {
 	return {
 		...normalizeCwdOption(options),
 		...normalizeWriteJsonOptions(options),
 		logger: options?.logger ?? createLogger({ name: 'autolib' }),
+		filterFeatures: options?.filterFeatures
+			? options.filterFeatures.map(normalizeRegExpLikeToRegExp)
+			: [],
 		autoPrettier: options?.autoPrettier ?? true,
 		autoBin: options?.autoBin ? false : normalizeAutoBinExternalOption(options?.autoBin),
 		autoMetadata:
@@ -152,7 +170,9 @@ export const normalizeAutolibOptions = (options?: AutolibOptions): NormalizedAut
 				: normalizeAutoCopyLicenseOptions(options?.autoCopyLicense),
 		autoPeer: options?.autoPeer ?? true,
 		autoEntryDir:
-			options?.autoEntryDir === false ? false : options?.autoEntryDir ?? DEFAULT_ENTRY_DIR,
+			options?.autoEntryDir === false
+				? false
+				: options?.autoEntryDir ?? DEFAULT_PACKAGE_EXPORTS,
 		autoExportStaticGlobs:
 			options?.autoExportStaticGlobs === false
 				? false

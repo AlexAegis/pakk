@@ -25,11 +25,27 @@ export const DEFAULT_BIN_DIR = 'bin';
 export const DEFAULT_BINSHIM_DIR = 'shims';
 
 /**
- * Which directory relative to SRC should be treated where all files are
+ * Which directory relative to SRC + EXPORT_BASEDIR should be treated where all files are
  * treated as the interface for your package. In this folder the index.ts/js
  * files are treated specially as your main entry points.
+ *
+ * By default everything is exported that is directly in this directory except
+ * directories.
  */
-export const DEFAULT_ENTRY_DIR = './';
+export const DEFAULT_PACKAGE_EXPORTS = '*';
+
+/**
+ * What directory should be considered the 'root' of the package. The 'index'
+ * file in this directory will be treated as the main export of the package.
+ *
+ * By default this is '.' to leave src/index.ts as the main entry point.
+ */
+export const DEFAULT_PACKAGE_EXPORT_BASEDIR = '.';
+
+/**
+ * By default the exports map won't contain test files.
+ */
+export const DEFAULT_PACKAGE_EXPORT_IGNORES = ['*.(spec|test).*'];
 
 /**
  * What files should be just copied over to the DIST directory as is and also

@@ -1,6 +1,6 @@
 import { turnIntoExecutable } from '@alexaegis/fs';
 import { globby } from 'globby';
-import { getBundledFileExtension } from './append-bundle-file-extension.function.js';
+import { getBundledFileExtension } from '../../../core/src/plugins/entry/helpers/append-bundle-file-extension.function.js';
 import {
 	normalizeMakeJavascriptFilesExecutableOptions,
 	type MakeJavascriptFilesExecutableOptions,

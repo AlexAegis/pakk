@@ -5,7 +5,7 @@ import { DEFAULT_EXPORT_FORMATS } from '@alexaegis/vite';
 import { type PackageJson } from '@alexaegis/workspace-tools';
 import { Autolib, AutolibOptions, PackageJsonKind } from '@autolib/core';
 import { posix } from 'node:path';
-import { type Plugin } from 'vite';
+import { UserConfig, type Plugin } from 'vite';
 import { cloneJsonSerializable } from '../helpers/clone-json-serializable.function.js';
 
 export const autolib = (rawOptions?: AutolibOptions): Plugin => {
@@ -29,7 +29,13 @@ export const autolib = (rawOptions?: AutolibOptions): Plugin => {
 			const startTime = performance.now();
 			logger.trace('lifecycle: config', config, startTime);
 			autolib = await Autolib.withContext(
-				{ formats },
+				{
+					formats,
+					fileName:
+						config.build?.lib && typeof config.build.lib.fileName === 'function'
+							? config.build.lib.fileName
+							: undefined,
+				},
 				{
 					...rawOptions,
 					// If the user defines src or outDir on the plugins options, respect that over
@@ -49,15 +55,27 @@ export const autolib = (rawOptions?: AutolibOptions): Plugin => {
 				autolib.context.workspacePackage.packageJsonPath
 			);
 
-			packageJson = await autolib.getInitialPreparedPackageJson();
+			packageJson = await autolib.examinePackage();
 
-			const updates = await autolib.collectVitePluginUpdates(config);
+			const detectedExports = await autolib.examinePackage(packageJson);
+
+			const viteConfigUpdates: Partial<UserConfig> = {
+				build: {
+					sourcemap: true,
+					manifest: true,
+					ssr: true,
+					lib: {
+						formats: autolib.context.formats,
+						entry: detectedExports,
+					},
+				},
+			};
 
 			logger.info(
 				`prepare phase took ${Math.floor(performance.now() - startTime)}ms to finish`
 			);
 
-			return updates;
+			return viteConfigUpdates;
 		},
 		buildEnd: (buildError) => {
 			logger.trace('lifecycle: buildEnd', buildError);

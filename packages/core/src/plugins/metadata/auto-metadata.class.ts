@@ -17,6 +17,8 @@ import type { AutolibPlugin } from '../autolib-plugin.type.js';
  * is defined in both the manual takes precedence.
  */
 export class AutoMetadata implements AutolibPlugin {
+	public name = 'metadata';
+
 	options: NormalizedAutoMetadataOptions;
 	workspacePackageJson: PackageJson | undefined;
 	metadataFromWorkspacePackageJson: PackageJson | undefined;
@@ -27,7 +29,7 @@ export class AutoMetadata implements AutolibPlugin {
 		this.options = normalizeAutoMetadataOptions(rawOptions);
 	}
 
-	preUpdate(): Awaitable<PackageJson> {
+	examinePackage(): Awaitable<PackageJson> {
 		this.metadataFromWorkspacePackageJson = Object.fromEntries(
 			Object.entries(this.context.rootWorkspacePackage.packageJson).filter(([key]) =>
 				this.options.keysFromWorkspace.includes(key)

@@ -5,20 +5,19 @@ import { existsSync } from 'node:fs';
 import { mkdir, readFile, rename, rm, symlink, writeFile } from 'node:fs/promises';
 import { dirname, join, posix, relative } from 'node:path';
 import type { InternalModuleFormat } from 'rollup';
-import type { UserConfig } from 'vite';
-import { getBundledFileExtension } from '../../../../vite-plugin-autolib/src/helpers/append-bundle-file-extension.function.js';
+import { getBundledFileExtension } from '../entry/helpers/append-bundle-file-extension.function.js';
 
 import type { Defined } from '@alexaegis/common';
-import { collectFileNamePathEntries } from '../../../../vite-plugin-autolib/src/helpers/collect-export-entries.function.js';
-import { enterPathPosix } from '../../../../vite-plugin-autolib/src/helpers/enter-path.function.js';
 import { makeJavascriptFilesExecutable } from '../../../../vite-plugin-autolib/src/helpers/make-javascript-files-executable.function.js';
 import { normalizePackageName } from '../../../../vite-plugin-autolib/src/helpers/normalize-package-name.function.js';
-import { stripFileExtension } from '../../../../vite-plugin-autolib/src/helpers/strip-file-extension.function.js';
 import { AutolibContext } from '../../index.js';
 import { ALL_ROLLUP_MODULE_FORMATS } from '../../internal/defaults.const.js';
 import { NPM_INSTALL_HOOKS, PackageJsonKind } from '../../package-json/index.js';
-import type { AutolibPlugin } from '../autolib-plugin.type.js';
-import { AutoBinOptions, normalizeAutoBinOptions } from './autobin-internal-options.js';
+import type { AutolibPlugin, PackageExaminationResult } from '../autolib-plugin.type.js';
+import { collectFileNamePathEntries } from '../entry/helpers/collect-export-entries.function.js';
+import { enterPathPosix } from '../entry/helpers/enter-path.function.js';
+import { stripFileExtension } from '../entry/helpers/strip-file-extension.function.js';
+import { AutoBinOptions, normalizeAutoBinOptions } from './autobin.class.internal-options.js';
 
 export interface BinPaths {
 	srcPath: string;
@@ -28,6 +27,7 @@ export interface BinPaths {
 }
 
 export class AutoBin implements AutolibPlugin {
+	public name = 'bin';
 	private options: Defined<AutoBinOptions>;
 	private context: AutolibContext;
 
@@ -50,15 +50,7 @@ export class AutoBin implements AutolibPlugin {
 		this.outBinDirAbs = join(this.outDirAbs, this.options.binDir);
 	}
 
-	/**
-	 * The keys in this entry has to be keyed with the entire extensionless path
-	 * of each bin. example: "bin/foo": "bin/foo.ts"
-	 */
-	getViteConfigUpdates(): UserConfig {
-		return { build: { lib: { entry: this.entryMap } } };
-	}
-
-	async preUpdate(packageJson: PackageJson): Promise<void> {
+	async examinePackage(packageJson: PackageJson): Promise<PackageExaminationResult> {
 		this.oldBins = packageJson.bin;
 
 		// Making sure removed bins and scripts will be dropped at the end
@@ -90,6 +82,8 @@ export class AutoBin implements AutolibPlugin {
 
 			this.entryMap[stripFileExtension(binPath)] = source;
 		}
+
+		return { filesToExport: this.entryMap };
 	}
 
 	private getAllExtensionVariantsOfPath(path: string): Record<InternalModuleFormat, string> {

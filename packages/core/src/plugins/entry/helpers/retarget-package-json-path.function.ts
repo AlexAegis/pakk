@@ -1,7 +1,8 @@
 import { posix } from 'node:path';
-import { DEFAULT_OUT_DIR } from '../index.js';
-import { PackageJsonExportTarget, PackageJsonKind } from '../plugins/autolib.plugin.options.js';
-import { DEFAULT_BINSHIM_DIR, DEFAULT_BIN_DIR } from './auto-bin.class.options.js';
+
+import { DEFAULT_OUT_DIR } from '@alexaegis/vite';
+import { DEFAULT_BINSHIM_DIR, DEFAULT_BIN_DIR } from '../../../internal/defaults.const.js';
+import { PackageJsonExportTarget, PackageJsonKind } from '../../../package-json/index.js';
 import { enterPathPosix } from './enter-path.function.js';
 import { offsetRelativePathPosix } from './offset-relative-path-posix.function.js';
 

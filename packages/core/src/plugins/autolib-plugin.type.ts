@@ -2,17 +2,32 @@ import type { Awaitable } from '@alexaegis/common';
 import type { PackageJson, RegularWorkspacePackage } from '@alexaegis/workspace-tools';
 import { PackageJsonKind } from '@autolib/core';
 import type { InternalModuleFormat } from 'rollup';
-import type { UserConfig } from 'vite';
+
+/**
+ * An exportmaps key describes the name of the export and the value is the path
+ * relative from the packageJson file.
+ *
+ * ExportMaps could contain paths that are correct only from the DEVELOPMENT
+ * packageJson or that are meant for the DISTRIBUTION package.
+ *
+ * TODO: This is why there's an additional flag next to each path.
+ */
+export type ExportMap = Record<string, string>;
+
+export interface PackageExaminationResult {
+	filesToExport: ExportMap;
+}
 
 export interface AutolibPlugin {
 	/**
-	 * Modifies the provided packageJson object.
-	 *
-	 * A preparation step meant for pre-cleaning the packageJson file.
-	 *
-	 * Ran parallel together with the same step of other buildUpdates.
+	 * The name of the plugin, used to selectively apply only certain plugins
 	 */
-	preUpdate?: (packageJson: PackageJson) => Awaitable<PackageJson | undefined>;
+	name: string;
+
+	/**
+	 *
+	 */
+	examinePackage?: (packageJson: PackageJson) => Awaitable<PackageExaminationResult>;
 	/**
 	 * Modifies the provided packageJson object. Meant for heavier tasks.
 	 *
@@ -59,9 +74,4 @@ export interface AutolibPlugin {
 		workspacePackage: RegularWorkspacePackage,
 		sourcePackageJsonTarget: PackageJsonKind
 	) => PackageJson;
-
-	/**
-	 * Changes applied to the vite build configuration
-	 */
-	getViteConfigUpdates?: (viteConfig: UserConfig) => Awaitable<Partial<UserConfig>>;
 }

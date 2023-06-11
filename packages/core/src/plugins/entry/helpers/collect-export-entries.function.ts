@@ -9,6 +9,9 @@ import { stripFileExtension } from './strip-file-extension.function.js';
 export const isTestFileName = (fileName: string): boolean =>
 	fileName.includes('.spec.') || fileName.includes('.test.');
 
+/**
+ * @deprecated use globby
+ */
 export const collectImmediate = async (
 	path: string = process.cwd(),
 	kind?: 'file' | 'directory'
@@ -32,6 +35,7 @@ export const collectImmediate = async (
 /**
  * @param rootPath path entry will be relative to this
  * @param exportPath path from which files are collected
+ * @deprecated garbage only used in autobin
  */
 export const collectFileNamePathEntries = async (
 	rootPath: string,

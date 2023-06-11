@@ -1,14 +1,14 @@
-import { asyncFilterMap, deepMerge, isNotNullish } from '@alexaegis/common';
+import { asyncFilterMap, deepMerge } from '@alexaegis/common';
 import { toAbsolute } from '@alexaegis/fs';
 import { Logger } from '@alexaegis/logging';
 import { PackageJson } from '@alexaegis/workspace-tools';
 import { join } from 'node:path';
 import { InternalModuleFormat } from 'rollup';
-import { LibraryFormats, UserConfig } from 'vite';
+import { LibraryFormats } from 'vite';
 import {
 	AutoBin,
 	AutoCopyLicense,
-	AutoEntry,
+	AutoExport,
 	AutoExportStatic,
 	AutolibPlugin,
 } from '../../../vite-plugin-autolib/src/index.js';
@@ -22,8 +22,14 @@ import {
 	NormalizedAutolibOptions,
 	normalizeAutolibOptions,
 } from './autolib-options.js';
-import { DEFAULT_ENTRY_DIR } from './defaults.const.js';
 import { findCurrentAndRootWorkspacePackage } from './workspace/find-current-and-root-workspace-package.function.js';
+
+export const isFeatureEnabled = (enabledFeatures: RegExp[], feature: string): boolean => {
+	return (
+		enabledFeatures.length === 0 ||
+		enabledFeatures.some((enabledFeature) => enabledFeature.test(feature))
+	);
+};
 
 /**
  * This class does not execute anything on it's own, just provides itself as a
@@ -36,7 +42,6 @@ export class Autolib {
 	public readonly options: NormalizedAutolibOptions;
 	public readonly context: AutolibContext;
 
-	// TODO: rename this to AutolibPlugin
 	private plugins: AutolibPlugin[] = [];
 
 	private constructor(options: NormalizedAutolibOptions, context: AutolibContext) {
@@ -61,11 +66,11 @@ export class Autolib {
 
 		if (options.autoEntryDir) {
 			this.plugins.push(
-				new AutoEntry(
+				new AutoExport(
 					{
 						cwd: options.cwd,
 						formats: context.formats,
-						entryDir: options.autoEntryDir,
+						exports: options.autoEntryDir,
 						outDir: options.outDir,
 						srcDir: options.srcDir,
 						logger: options.logger.getSubLogger({ name: 'auto-entry' }),
@@ -129,7 +134,7 @@ export class Autolib {
 	}
 
 	static async withContext(
-		manualContext: Pick<AutolibContext, 'formats'>,
+		manualContext: Pick<AutolibContext, 'formats' | 'fileName'>,
 		rawOptions?: AutolibOptions | undefined
 	): Promise<Autolib> {
 		const options = normalizeAutolibOptions(rawOptions);
@@ -155,49 +160,17 @@ export class Autolib {
 	}
 
 	/**
-	 * A vite specific function to return what needs to be overriden in it's
-	 * configuration.
-	 */
-	async collectVitePluginUpdates(config: UserConfig): Promise<Partial<UserConfig>> {
-		const baseViteConfigUpdates: Partial<UserConfig> = {
-			build: {
-				sourcemap: true,
-				manifest: true,
-				ssr: true,
-				lib: {
-					formats: this.context.formats,
-					entry: DEFAULT_ENTRY_DIR,
-				},
-			},
-		};
-
-		const viteConfigUpdates = await asyncFilterMap(
-			this.plugins,
-			async (plugin) => await plugin.getViteConfigUpdates?.(config)
-		);
-
-		const updates = viteConfigUpdates
-			.filter(isNotNullish)
-			.reduce((accumulator, next) => deepMerge(accumulator, next), baseViteConfigUpdates);
-
-		return updates;
-	}
-
-	/**
 	 * 1st step
-	 *
-	 * Collects all the preliminary updates to the packageJson, these alone
-	 * won't be written out, just prepares it for further steps
 	 */
-	async getInitialPreparedPackageJson(
+	async examinePackage(
 		packageJson: PackageJson = this.context.workspacePackage
-	): Promise<PackageJson> {
-		const preUpdates = await asyncFilterMap(
+	): Promise<Record<string, string>> {
+		const detectedExports = await asyncFilterMap(
 			this.plugins,
-			async (plugin) => await plugin.preUpdate?.(packageJson)
+			async (plugin) => await plugin.examinePackage?.(packageJson)
 		);
 
-		return deepMerge(structuredClone(packageJson), ...preUpdates);
+		return deepMerge({} as Record<string, string>, ...detectedExports);
 	}
 
 	/**

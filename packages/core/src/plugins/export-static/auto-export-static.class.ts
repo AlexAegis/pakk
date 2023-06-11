@@ -11,6 +11,8 @@ import {
 } from './auto-export-static.class.options.js';
 
 export class AutoExportStatic implements AutolibPlugin {
+	public name = 'export-static';
+
 	private options: NormalizedAutoExportStaticOptions;
 	private staticExports: Record<string, string> = {};
 
@@ -18,12 +20,10 @@ export class AutoExportStatic implements AutolibPlugin {
 		this.options = normalizeAutoExportStaticOptions(options);
 	}
 
-	async preUpdate(packageJson: PackageJson): Promise<PackageJson | undefined> {
+	async examinePackage(packageJson: PackageJson): Promise<Record<string, string>> {
 		this.staticExports = await collectFileMap(this.options.cwd, this.options.staticExportGlobs);
 
-		packageJson.exports = undefined;
-
-		return packageJson;
+		return this.staticExports;
 	}
 
 	update(packageJson: PackageJson): PackageJson {

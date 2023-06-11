@@ -12,6 +12,8 @@ import type { AutolibPlugin } from '../autolib-plugin.type.js';
  * step will remove the one that was meant to only be present locally.
  */
 export class AutoPeer implements AutolibPlugin {
+	public name = 'peer';
+
 	postprocess(
 		workspacePackage: RegularWorkspacePackage,
 		packageJsonKind: PackageJsonKind
