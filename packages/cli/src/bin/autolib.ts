@@ -1,4 +1,8 @@
-import { autolib } from '../index.js';
+import { autolibStandaloneRunner } from '../index.js';
 
 console.log('autolib cli');
-autolib();
+// Todo add some yargs
+
+void (async () => {
+	await autolibStandaloneRunner({ dry: true });
+})();

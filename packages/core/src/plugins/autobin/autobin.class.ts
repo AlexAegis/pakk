@@ -6,54 +6,19 @@ import { mkdir, readFile, rename, rm, symlink, writeFile } from 'node:fs/promise
 import { dirname, join, posix, relative } from 'node:path';
 import type { InternalModuleFormat } from 'rollup';
 import type { UserConfig } from 'vite';
-import { PackageJsonKind } from '../plugins/autolib.plugin.options.js';
-import { getBundledFileExtension } from './append-bundle-file-extension.function.js';
+import { getBundledFileExtension } from '../../../../vite-plugin-autolib/src/helpers/append-bundle-file-extension.function.js';
 
 import type { Defined } from '@alexaegis/common';
-import { normalizeAutoBinOptions, type AutoBinOptions } from './auto-bin.class.options.js';
-import { collectFileNamePathEntries } from './collect-export-entries.function.js';
-import { enterPathPosix } from './enter-path.function.js';
-import { makeJavascriptFilesExecutable } from './make-javascript-files-executable.function.js';
-import { normalizePackageName } from './normalize-package-name.function.js';
-import type { PreparedBuildUpdate } from './prepared-build-update.type.js';
-import { stripFileExtension } from './strip-file-extension.function.js';
-
-export const NPM_INSTALL_HOOKS = [
-	'preinstall',
-	'install',
-	'postinstall',
-	'prepublish',
-	'preprepare',
-	'prepare',
-	'postprepare',
-];
-
-/**
- * From https://docs.npmjs.com/cli/v8/using-npm/scripts
- * And anything that start pre- and post- that also matches a user defined
- * script (prebuild and postbuild works if 'build' exists)
- */
-export const ALL_NPM_HOOKS = [
-	...NPM_INSTALL_HOOKS,
-	'prepare',
-	'prepack',
-	'postpack',
-	'prepublishOnly',
-	'publish',
-	'postpublish',
-	'prerestart',
-	'restart',
-	'postrestart',
-];
-
-export const ALL_ROLLUP_MODULE_FORMATS: readonly InternalModuleFormat[] = [
-	'es',
-	'cjs',
-	'amd',
-	'umd',
-	'iife',
-	'system',
-] as const;
+import { collectFileNamePathEntries } from '../../../../vite-plugin-autolib/src/helpers/collect-export-entries.function.js';
+import { enterPathPosix } from '../../../../vite-plugin-autolib/src/helpers/enter-path.function.js';
+import { makeJavascriptFilesExecutable } from '../../../../vite-plugin-autolib/src/helpers/make-javascript-files-executable.function.js';
+import { normalizePackageName } from '../../../../vite-plugin-autolib/src/helpers/normalize-package-name.function.js';
+import { stripFileExtension } from '../../../../vite-plugin-autolib/src/helpers/strip-file-extension.function.js';
+import { AutolibContext } from '../../index.js';
+import { ALL_ROLLUP_MODULE_FORMATS } from '../../internal/defaults.const.js';
+import { NPM_INSTALL_HOOKS, PackageJsonKind } from '../../package-json/index.js';
+import type { AutolibPlugin } from '../autolib-plugin.type.js';
+import { AutoBinOptions, normalizeAutoBinOptions } from './autobin-internal-options.js';
 
 export interface BinPaths {
 	srcPath: string;
@@ -62,8 +27,9 @@ export interface BinPaths {
 	outToOutPath: Record<InternalModuleFormat, string>;
 }
 
-export class AutoBin implements PreparedBuildUpdate {
+export class AutoBin implements AutolibPlugin {
 	private options: Defined<AutoBinOptions>;
+	private context: AutolibContext;
 
 	private entryMap: Record<string, string> = {};
 
@@ -71,13 +37,13 @@ export class AutoBin implements PreparedBuildUpdate {
 	private outDirAbs: string;
 	private shimDirAbs: string;
 	private outBinDirAbs: string;
-	private packageType: NonNullable<PackageJson['type']> = 'commonjs';
 
 	private pathMap: Record<string, BinPaths> = {};
 	private oldBins: Record<string, string> | undefined;
 
-	constructor(options: AutoBinOptions) {
+	constructor(options: AutoBinOptions, context: AutolibContext) {
 		this.options = normalizeAutoBinOptions(options);
+		this.context = context;
 
 		this.outDirAbs = toAbsolute(this.options.outDir, this.options);
 		this.shimDirAbs = join(this.options.cwd, this.options.shimDir);
@@ -94,7 +60,6 @@ export class AutoBin implements PreparedBuildUpdate {
 
 	async preUpdate(packageJson: PackageJson): Promise<void> {
 		this.oldBins = packageJson.bin;
-		this.packageType = packageJson.type ?? 'commonjs';
 
 		// Making sure removed bins and scripts will be dropped at the end
 		packageJson.bin = undefined;
@@ -135,7 +100,7 @@ export class AutoBin implements PreparedBuildUpdate {
 				extensionless +
 				getBundledFileExtension({
 					format,
-					packageType: this.packageType,
+					packageType: this.context.packageType,
 				});
 			return acc;
 		}, {});
@@ -150,13 +115,10 @@ export class AutoBin implements PreparedBuildUpdate {
 		packageJsonKind: PackageJsonKind,
 		format: InternalModuleFormat
 	): Promise<PackageJson | undefined> {
-		if (
-			(this.packageType === 'module' && format === 'es') ||
-			(this.packageType === 'commonjs' && format !== 'es')
-		) {
+		if (this.context.primaryFormat === format) {
 			const packageName = normalizePackageName(packageJson.name);
 
-			await this.ensureEsmBinEntriesRenamed(this.packageType);
+			await this.ensureEsmBinEntriesRenamed(this.context.packageType);
 
 			if (packageJsonKind === PackageJsonKind.DEVELOPMENT) {
 				await this.createShims(
@@ -174,7 +136,7 @@ export class AutoBin implements PreparedBuildUpdate {
 					cwd: this.options.cwd,
 					logger: this.options.logger,
 					format,
-					packageJsonType: this.packageType,
+					packageJsonType: this.context.packageType,
 				}
 			);
 
@@ -212,7 +174,7 @@ export class AutoBin implements PreparedBuildUpdate {
 									'# local install hooks are disabled' + this.markComment;
 								// Change the script target to source if its an install hook as it wont be compiled by the time it runs
 								// result.scripts[key] =
-								// 	this.tsNode[this.packageType] +
+								// 	this.tsNode[this.context.packageType] +
 								// 	value.srcPath +
 								// 	this.markComment; // before update
 							} else {
@@ -262,11 +224,11 @@ export class AutoBin implements PreparedBuildUpdate {
 	 */
 	private async createShims(shimPaths: string[], format: InternalModuleFormat): Promise<void> {
 		if (
-			(this.packageType === 'module' && format === 'es') ||
-			(this.packageType === 'commonjs' && format !== 'es')
+			(this.context.packageType === 'module' && format === 'es') ||
+			(this.context.packageType === 'commonjs' && format !== 'es')
 		) {
 			this.options.logger.info(
-				`Creating shims for bins in ${format}/${this.packageType} format`
+				`Creating shims for bins in ${format}/${this.context.packageType} format`
 			);
 			// Clean up
 			await rm(this.shimDirAbs, { force: true, recursive: true });

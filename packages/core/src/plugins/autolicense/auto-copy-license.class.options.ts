@@ -1,6 +1,6 @@
 import { normalizeCwdOption, type CwdOption } from '@alexaegis/fs';
 import { normalizeLoggerOption, type LoggerOption } from '@alexaegis/logging';
-import { DEFAULT_OUT_DIR } from '../index.js';
+import { DEFAULT_OUT_DIR } from '../../internal/defaults.const.js';
 
 export interface AutoCopyLicenseOptions extends LoggerOption, CwdOption {
 	/**

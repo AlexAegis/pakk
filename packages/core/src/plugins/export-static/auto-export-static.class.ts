@@ -1,18 +1,20 @@
 import { toAbsolute } from '@alexaegis/fs';
 import type { PackageJson } from '@alexaegis/workspace-tools';
+import { collectFileMap } from '../../../../vite-plugin-autolib/src/helpers/collect-export-map.function.js';
+import { copyAllInto } from '../../../../vite-plugin-autolib/src/helpers/copy-all-into.function.js';
+import { AutolibContext } from '../../internal/autolib-options.js';
+import type { AutolibPlugin } from '../autolib-plugin.type.js';
 import {
+	NormalizedAutoExportStaticOptions,
 	normalizeAutoExportStaticOptions,
 	type AutoExportStaticOptions,
 } from './auto-export-static.class.options.js';
-import { collectFileMap } from './collect-export-map.function.js';
-import { copyAllInto } from './copy-all-into.function.js';
-import type { PreparedBuildUpdate } from './prepared-build-update.type.js';
 
-export class AutoExportStatic implements PreparedBuildUpdate {
-	private options: Required<AutoExportStaticOptions>;
+export class AutoExportStatic implements AutolibPlugin {
+	private options: NormalizedAutoExportStaticOptions;
 	private staticExports: Record<string, string> = {};
 
-	constructor(options: AutoExportStaticOptions) {
+	constructor(options: AutoExportStaticOptions, context: AutolibContext) {
 		this.options = normalizeAutoExportStaticOptions(options);
 	}
 

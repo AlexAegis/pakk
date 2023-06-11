@@ -1,10 +1,10 @@
 import type { Awaitable } from '@alexaegis/common';
 import type { PackageJson, RegularWorkspacePackage } from '@alexaegis/workspace-tools';
+import { PackageJsonKind } from '@autolib/core';
 import type { InternalModuleFormat } from 'rollup';
 import type { UserConfig } from 'vite';
-import type { PackageJsonKind } from '../plugins/autolib.plugin.options.js';
 
-export interface PreparedBuildUpdate {
+export interface AutolibPlugin {
 	/**
 	 * Modifies the provided packageJson object.
 	 *

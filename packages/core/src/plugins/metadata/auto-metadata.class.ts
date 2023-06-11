@@ -1,16 +1,14 @@
-import {
-	collectWorkspacePackages,
-	type PackageJson,
-	type WorkspacePackage,
-} from '@alexaegis/workspace-tools';
-import { PackageJsonKind } from '../plugins/autolib.plugin.options.js';
+import { type PackageJson, type WorkspacePackage } from '@alexaegis/workspace-tools';
 import {
 	normalizeAutoMetadataOptions,
 	type AutoMetadataOptions,
 	type NormalizedAutoMetadataOptions,
 } from './auto-metadata.class.options.js';
 
-import type { PreparedBuildUpdate } from './prepared-build-update.type.js';
+import { Awaitable } from '@alexaegis/common';
+import { AutolibContext } from '../../internal/autolib-options.js';
+import { PackageJsonKind } from '../../package-json/index.js';
+import type { AutolibPlugin } from '../autolib-plugin.type.js';
 
 /**
  * Fills out packageJson fields of the distributed packageJson based on
@@ -18,28 +16,20 @@ import type { PreparedBuildUpdate } from './prepared-build-update.type.js';
  * be read from the workspace packageJson file. Or both, in which case if a key
  * is defined in both the manual takes precedence.
  */
-export class AutoMetadata implements PreparedBuildUpdate {
+export class AutoMetadata implements AutolibPlugin {
 	options: NormalizedAutoMetadataOptions;
 	workspacePackageJson: PackageJson | undefined;
 	metadataFromWorkspacePackageJson: PackageJson | undefined;
+	private readonly context: AutolibContext;
 
-	constructor(rawOptions?: AutoMetadataOptions) {
+	constructor(context: AutolibContext, rawOptions?: AutoMetadataOptions) {
+		this.context = context;
 		this.options = normalizeAutoMetadataOptions(rawOptions);
 	}
 
-	async preUpdate(): Promise<PackageJson> {
-		// TODO: A collect call already happens at plugin level, change function signature for preUpdate
-		const packages = await collectWorkspacePackages({ onlyWorkspaceRoot: true });
-
-		this.workspacePackageJson = packages[0]?.packageJson;
-
-		if (!this.workspacePackageJson) {
-			this.options.logger.error('cant read root metadata, not in a workspace');
-			return {};
-		}
-
+	preUpdate(): Awaitable<PackageJson> {
 		this.metadataFromWorkspacePackageJson = Object.fromEntries(
-			Object.entries(this.workspacePackageJson).filter(([key]) =>
+			Object.entries(this.context.rootWorkspacePackage.packageJson).filter(([key]) =>
 				this.options.keysFromWorkspace.includes(key)
 			)
 		);

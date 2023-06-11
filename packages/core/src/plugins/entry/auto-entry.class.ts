@@ -6,23 +6,32 @@ import type {
 } from '@alexaegis/workspace-tools';
 import { join, posix } from 'node:path';
 import type { UserConfig } from 'vite';
-import { PackageJsonExportTarget, PackageJsonKind } from '../plugins/autolib.plugin.options.js';
-import { getBundledFileExtension } from './append-bundle-file-extension.function.js';
-import { normalizeAutoEntryOptions, type AutoEntryOptions } from './auto-entry.class.options.js';
-import { collectImmediate, offsetPathRecordValues } from './collect-export-entries.function.js';
-import { createPathRecordFromPaths } from './create-path-record-from-paths.function.js';
-import type { PreparedBuildUpdate } from './prepared-build-update.type.js';
-import { retargetPackageJsonPath } from './retarget-package-json-path.function.js';
-import { stripFileExtension } from './strip-file-extension.function.js';
+import { getBundledFileExtension } from '../../../../vite-plugin-autolib/src/helpers/append-bundle-file-extension.function.js';
+import {
+	collectImmediate,
+	offsetPathRecordValues,
+} from '../../../../vite-plugin-autolib/src/helpers/collect-export-entries.function.js';
+import { createPathRecordFromPaths } from '../../../../vite-plugin-autolib/src/helpers/create-path-record-from-paths.function.js';
+import { retargetPackageJsonPath } from '../../../../vite-plugin-autolib/src/helpers/retarget-package-json-path.function.js';
+import { stripFileExtension } from '../../../../vite-plugin-autolib/src/helpers/strip-file-extension.function.js';
+import type { AutolibPlugin } from '../autolib-plugin.type.js';
 
-export class AutoEntry implements PreparedBuildUpdate {
-	private options: Required<AutoEntryOptions>;
+import { AutolibContext } from '../../internal/autolib-options.js';
+import { PackageJsonExportTarget, PackageJsonKind } from '../../package-json/index.js';
+import {
+	NormalizedAutoEntryOptions,
+	normalizeAutoEntryOptions,
+	type AutoEntryOptions,
+} from './auto-entry.class.options.js';
+
+export class AutoEntry implements AutolibPlugin {
+	private options: NormalizedAutoEntryOptions;
 
 	private entryFiles: string[] = [];
 	private entryMap: Record<string, string> = {};
 	private entryExports: Record<string, PackageJsonExportConditions> = {};
 
-	constructor(options: AutoEntryOptions) {
+	constructor(options: AutoEntryOptions, context: AutolibContext) {
 		this.options = normalizeAutoEntryOptions(options);
 	}
 
@@ -35,7 +44,7 @@ export class AutoEntry implements PreparedBuildUpdate {
 		packageJson.main = undefined;
 		packageJson.module = undefined;
 
-		const fullEntryPath = join(this.options.sourceDirectory, this.options.entryDir);
+		const fullEntryPath = join(this.options.srcDir, this.options.entryDir);
 		this.entryFiles = await collectImmediate(fullEntryPath, 'file');
 
 		this.entryMap = createPathRecordFromPaths(this.entryFiles, { keyOnlyFilename: true });

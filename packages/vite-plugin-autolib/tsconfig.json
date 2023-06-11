@@ -7,6 +7,22 @@
 		"outDir": "./dist/out-tsc"
 	},
 	"files": ["package.json", "../../package.json"],
-	"include": ["src/**/*", "static/**/*", "__mocks__/**/*", ".*", "*", "*.json", "**/*.json"],
+	"include": [
+		"src/**/*",
+		"static/**/*",
+		"__mocks__/**/*",
+		".*",
+		"*",
+		"*.json",
+		"**/*.json",
+		"../core/src/plugins/autobin/autobin.class.ts",
+		"../core/src/plugins/autolicense/auto-copy-license.class.ts",
+		"../core/src/plugins/metadata/auto-metadata.class.ts",
+		"../core/src/plugins/export-static/auto-export-static.class.ts",
+		"../core/src/plugins/entry/auto-entry.class.ts",
+		"../core/src/plugins/peer/auto-peer.class.ts",
+		"../core/src/plugins/reorder/auto-reorder.class.ts",
+		"../core/src/plugins/autolib-plugin.type.ts"
+	],
 	"exclude": ["node_modules", "dist", "coverage", "typedoc", "vite*.config.ts.timestamp-*"]
 }

@@ -1,7 +1,7 @@
 import type { PackageJson, RegularWorkspacePackage } from '@alexaegis/workspace-tools';
-import { PackageJsonKind } from '../plugins/autolib.plugin.options.js';
 
-import type { PreparedBuildUpdate } from './prepared-build-update.type.js';
+import { PackageJsonKind } from '../../package-json/index.js';
+import type { AutolibPlugin } from '../autolib-plugin.type.js';
 
 /**
  * Removes duplicated dependency and peerDependency entries leaving only the
@@ -11,7 +11,7 @@ import type { PreparedBuildUpdate } from './prepared-build-update.type.js';
  * them twice, once as a peerDependency, and once as a normal dependency. This
  * step will remove the one that was meant to only be present locally.
  */
-export class AutoPeer implements PreparedBuildUpdate {
+export class AutoPeer implements AutolibPlugin {
 	postprocess(
 		workspacePackage: RegularWorkspacePackage,
 		packageJsonKind: PackageJsonKind

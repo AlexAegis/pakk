@@ -1,12 +1,12 @@
 import { sortObject } from '@alexaegis/common';
 import type { PackageJson, RegularWorkspacePackage } from '@alexaegis/workspace-tools';
+import type { AutolibPlugin } from '../autolib-plugin.type.js';
 import {
 	normalizeAutoReorderOptions,
 	type AutoReorderOptions,
 } from './auto-reorder.class.options.js';
-import type { PreparedBuildUpdate } from './prepared-build-update.type.js';
 
-export class AutoSort implements PreparedBuildUpdate {
+export class AutoSort implements AutolibPlugin {
 	private options: Required<AutoReorderOptions>;
 
 	constructor(options?: AutoReorderOptions) {

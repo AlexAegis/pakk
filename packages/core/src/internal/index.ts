@@ -1,3 +1,2 @@
-export const autolib = () => {
-	console.log('autolib');
-};
+export * from './autolib-options.js';
+export * from './autolib.class.js';

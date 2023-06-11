@@ -62,6 +62,7 @@
 		"reorder-json": "./shims/reorder-json.js"
 	},
 	"dependencies": {
+		"@autolib/core": "^0.1.4",
 		"@alexaegis/common": "^0.2.1",
 		"@alexaegis/fs": "^0.2.1",
 		"@alexaegis/logging": "^0.2.1",
@@ -69,9 +70,9 @@
 		"@types/node": "^20.2.5",
 		"globby": "^13.1.4",
 		"prettier": "^2.8.8",
-		"rollup": "^3.23.0",
+		"rollup": "^3.23.1",
 		"ts-node": "^10.9.1",
-		"typescript": "^5.0.4",
+		"typescript": "^5.1.3",
 		"vite": "^4.3.9",
 		"yargs": "^17.7.2"
 	},
@@ -85,6 +86,6 @@
 		"publint": "^0.1.12",
 		"vite": "^4.3.9",
 		"vite-plugin-dts": "^2.3.0",
-		"vitest": "^0.31.3"
+		"vitest": "^0.31.4"
 	}
 }

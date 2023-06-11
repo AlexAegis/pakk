@@ -1,74 +1,63 @@
-import type { ObjectKeyOrder } from '@alexaegis/common';
+import type { Defined, ObjectKeyOrder } from '@alexaegis/common';
 import {
 	normalizeCwdOption,
 	normalizeWriteJsonOptions,
 	type CwdOption,
 	type WriteJsonOptions,
 } from '@alexaegis/fs';
-import { normalizeLoggerOption, type LoggerOption } from '@alexaegis/logging';
-import { DEFAULT_PACKAGE_JSON_SORTING_PREFERENCE } from '@alexaegis/workspace-tools';
-import { DEFAULT_BINSHIM_DIR, DEFAULT_BIN_DIR } from '../helpers/auto-bin.class.options.js';
+import { createLogger, type LoggerOption } from '@alexaegis/logging';
+import { DEFAULT_PACKAGE_JSON_SORTING_PREFERENCE, PackageJson } from '@alexaegis/workspace-tools';
+import { LibraryFormats } from 'vite';
 import {
+	AutoBinExternalOptions,
+	normalizeAutoBinExternalOption,
+} from '../plugins/autobin/autobin-external-options.js';
+import {
+	AutoCopyLicenseOptions,
 	normalizeAutoCopyLicenseOptions,
-	type AutoCopyLicenseOptions,
-} from '../helpers/auto-copy-license.class.options.js';
-import { DEFAULT_ENTRY_DIR } from '../helpers/auto-entry.class.options.js';
-import { DEFAULT_STATIC_EXPORT_GLOBS } from '../helpers/auto-export-static.class.options.js';
+} from '../plugins/autolicense/auto-copy-license.class.options.js';
 import {
+	AutoMetadataOptions,
 	normalizeAutoMetadataOptions,
-	type AutoMetadataOptions,
-} from '../helpers/auto-metadata.class.options.js';
+} from '../plugins/metadata/auto-metadata.class.options.js';
+import {
+	DEFAULT_ENTRY_DIR,
+	DEFAULT_OUT_DIR,
+	DEFAULT_SRC_DIR,
+	DEFAULT_STATIC_EXPORT_GLOBS,
+} from './defaults.const.js';
+import { CurrentWorkspacePackageWithRoot } from './workspace/find-current-and-root-workspace-package.function.js';
 
-export const DEFAULT_SRC_DIR = 'src';
+export interface AutolibContext extends CurrentWorkspacePackageWithRoot {
+	formats: LibraryFormats[];
+	/**
+	 * Will depend on the "type" field in the packageJson file.
+	 * 'es' if 'module', 'cjs' otherwise.
+	 */
+	primaryFormat: LibraryFormats;
 
-export enum PackageJsonKind {
-	/**
-	 * Used in the repository as the source packageJson
-	 */
-	DEVELOPMENT = 'development',
-	/**
-	 * The packageJson that will be in the distributed package
-	 */
-	DISTRIBUTION = 'distribution',
+	packageType: NonNullable<PackageJson['type']>;
 }
 
-export enum PackageJsonExportTarget {
-	/**
-	 * This targets the source files.
-	 *
-	 * For example the `development` packageJson targets the local entry points
-	 * for types
-	 */
-	SOURCE = 'source',
-	/**
-	 * This targets the directory where compiled files end up in. Wherever
-	 * `outDir` points to.
-	 *
-	 * For example both the `development` and `distribution` packageJson files
-	 * target this for the actual imports.
-	 */
-	DIST = 'dist',
-	/**
-	 * The shim folder is used for local bins
-	 *
-	 * For example the `development` packageJson files bin entries target the
-	 * shim directory. So pnpm can link them event before the package is built.
-	 */
-	SHIM = 'shim',
-}
-
-export interface AutolibPluginOptions extends WriteJsonOptions, CwdOption, LoggerOption {
+export interface AutolibOptions extends WriteJsonOptions, CwdOption, LoggerOption {
 	/**
 	 * source root, relative to cwd
 	 * @defaultValue 'src'
 	 */
-	src?: string;
+	srcDir?: string | undefined;
+
+	/**
+	 * the expected output directory relative to the package's directory.
+	 *
+	 * @defaultValue 'dist'
+	 */
+	outDir?: string | undefined;
 
 	/**
 	 * packageJson to modify and put in the artifact, relative to `cwd`
 	 * @defaultValue './package.json'
 	 */
-	sourcePackageJson?: string;
+	sourcePackageJson?: string | undefined;
 
 	/**
 	 * Generates exports entries form rollup inputs, from a directory relative
@@ -110,7 +99,7 @@ export interface AutolibPluginOptions extends WriteJsonOptions, CwdOption, Logge
 	 *
 	 * @defaultValue ["./bin/*.ts"]
 	 */
-	autoBin?: AutoLibraryAutoBinOptions | false;
+	autoBin?: AutoBinExternalOptions | false;
 
 	/**
 	 * Fills out packageJson fields of the distributed packageJson based on
@@ -144,15 +133,15 @@ export interface AutolibPluginOptions extends WriteJsonOptions, CwdOption, Logge
 	autoPeer?: boolean;
 }
 
-export const normalizeAutolibOptions = (
-	options?: AutolibPluginOptions
-): Required<AutolibPluginOptions> => {
+export type NormalizedAutolibOptions = Defined<AutolibOptions>;
+
+export const normalizeAutolibOptions = (options?: AutolibOptions): NormalizedAutolibOptions => {
 	return {
 		...normalizeCwdOption(options),
-		...normalizeLoggerOption(options),
 		...normalizeWriteJsonOptions(options),
+		logger: options?.logger ?? createLogger({ name: 'autolib' }),
 		autoPrettier: options?.autoPrettier ?? true,
-		autoBin: options?.autoBin ? false : normalizeAutoBinOption(options?.autoBin),
+		autoBin: options?.autoBin ? false : normalizeAutoBinExternalOption(options?.autoBin),
 		autoMetadata:
 			options?.autoMetadata === false
 				? false
@@ -173,22 +162,7 @@ export const normalizeAutolibOptions = (
 				? false
 				: options?.autoOrderPackageJson ?? DEFAULT_PACKAGE_JSON_SORTING_PREFERENCE,
 		sourcePackageJson: options?.sourcePackageJson ?? 'package.json',
-		src: options?.src ?? DEFAULT_SRC_DIR,
+		srcDir: options?.srcDir ?? DEFAULT_SRC_DIR,
+		outDir: options?.outDir ?? DEFAULT_OUT_DIR,
 	};
-};
-
-export interface AutoLibraryAutoBinOptions {
-	binDir?: string;
-	shimDir?: string;
-}
-
-export const normalizeAutoBinOption = (
-	autoBin?: AutoLibraryAutoBinOptions | false
-): Required<AutoLibraryAutoBinOptions> | false => {
-	return autoBin === false
-		? false
-		: {
-				binDir: autoBin?.binDir ?? DEFAULT_BIN_DIR,
-				shimDir: autoBin?.shimDir ?? DEFAULT_BINSHIM_DIR,
-		  };
 };

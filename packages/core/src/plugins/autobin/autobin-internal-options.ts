@@ -1,12 +1,13 @@
 import type { Defined } from '@alexaegis/common';
 import { normalizeCwdOption, type CwdOption } from '@alexaegis/fs';
 import { normalizeLoggerOption, type LoggerOption } from '@alexaegis/logging';
-import { DEFAULT_SRC_DIR } from '../plugins/autolib.plugin.options.js';
-import { ALL_NPM_HOOKS } from './auto-bin.class.js';
-import { DEFAULT_OUT_DIR } from './defaults.const.js';
-
-export const DEFAULT_BIN_DIR = 'bin';
-export const DEFAULT_BINSHIM_DIR = 'shims';
+import { DEFAULT_OUT_DIR } from '@alexaegis/vite';
+import {
+	DEFAULT_BINSHIM_DIR,
+	DEFAULT_BIN_DIR,
+	DEFAULT_SRC_DIR,
+} from '../../internal/defaults.const.js';
+import { ALL_NPM_HOOKS } from '../../package-json/package-json-npm-hooks.const.js';
 
 export interface AutoBinOptions extends CwdOption, LoggerOption {
 	/**
