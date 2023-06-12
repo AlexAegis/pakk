@@ -45,7 +45,7 @@ export const retargetPackageJsonPath = (
 	// Path segment to prepend the path with
 	let offsetPath = '';
 
-	if (options.packageJsonKind === PackageJsonKind.DEVELOPMENT) {
+	if (options.packageJsonKind === PackageJsonKind.SOURCE) {
 		switch (options.packageJsonExportTarget) {
 			case PackageJsonExportTarget.SOURCE: {
 				offsetPath = '';

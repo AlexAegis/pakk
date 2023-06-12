@@ -186,6 +186,9 @@ export class Autolib {
 		);
 	}
 
+	/**
+	 * @deprecated, maybe there's no need for this to exist, investigate
+	 */
 	async autoPackageJson(
 		packageJson: PackageJson,
 		format: InternalModuleFormat
@@ -212,7 +215,11 @@ export class Autolib {
 		const pathOffsets = await asyncFilterMap(
 			this.plugins,
 			async (plugin) =>
-				await plugin.adjustPaths?.(packageJsonForArtifact, packageJsonTarget, format)
+				await plugin.getPackageJsonUpdates?.(packageJsonForArtifact, {
+					type: packageJsonTarget,
+					format,
+					fileName: undefined,
+				})
 		);
 
 		let updatedPackageJson: PackageJson = deepMerge(

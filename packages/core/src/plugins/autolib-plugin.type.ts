@@ -2,20 +2,11 @@ import type { Awaitable } from '@alexaegis/common';
 import type { PackageJson, RegularWorkspacePackage } from '@alexaegis/workspace-tools';
 import { PackageJsonKind } from '@autolib/core';
 import type { InternalModuleFormat } from 'rollup';
-
-/**
- * An exportmaps key describes the name of the export and the value is the path
- * relative from the packageJson file.
- *
- * ExportMaps could contain paths that are correct only from the DEVELOPMENT
- * packageJson or that are meant for the DISTRIBUTION package.
- *
- * TODO: This is why there's an additional flag next to each path.
- */
-export type ExportMap = Record<string, string>;
+import { PackageExportPathContext } from './entry/auto-export.class.js';
+import type { ExportMap } from './entry/export-map.type.js';
 
 export interface PackageExaminationResult {
-	filesToExport: ExportMap;
+	exportMap: ExportMap;
 }
 
 export interface AutolibPlugin {
@@ -51,10 +42,9 @@ export interface AutolibPlugin {
 	 *
 	 * Runs after `update`
 	 */
-	adjustPaths?: (
+	getPackageJsonUpdates?: (
 		packageJson: PackageJson,
-		sourcePackageJsonTarget: PackageJsonKind,
-		format: InternalModuleFormat
+		pathContext: PackageExportPathContext
 	) => Awaitable<PackageJson | undefined>;
 
 	/**

@@ -33,6 +33,15 @@ import {
 } from './defaults.const.js';
 import { CurrentWorkspacePackageWithRoot } from './workspace/find-current-and-root-workspace-package.function.js';
 
+/**
+ * A function that can be defined on Vite where it expects you to decide the
+ * name of a file based on the output format.
+ *
+ * the fileName parameter here is an extensionless filename.
+ *
+ * For example if an entry point is at 'src/api/hello.ts' the name it will
+ * pass is just 'hello'
+ */
 export type ViteFileNameFn = Exclude<LibraryOptions['fileName'], string | undefined>;
 
 export interface AutolibContext extends CurrentWorkspacePackageWithRoot {

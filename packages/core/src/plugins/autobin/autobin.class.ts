@@ -83,7 +83,7 @@ export class AutoBin implements AutolibPlugin {
 			this.entryMap[stripFileExtension(binPath)] = source;
 		}
 
-		return { filesToExport: this.entryMap };
+		return { exportMap: this.entryMap };
 	}
 
 	private getAllExtensionVariantsOfPath(path: string): Record<InternalModuleFormat, string> {
@@ -104,7 +104,7 @@ export class AutoBin implements AutolibPlugin {
 	 * for module based packages, bins are modules too and the adjust path
 	 * step only acts for the 'es' format
 	 */
-	async adjustPaths(
+	async getPackageJsonUpdates(
 		packageJson: PackageJson,
 		packageJsonKind: PackageJsonKind,
 		format: InternalModuleFormat
@@ -114,7 +114,7 @@ export class AutoBin implements AutolibPlugin {
 
 			await this.ensureEsmBinEntriesRenamed(this.context.packageType);
 
-			if (packageJsonKind === PackageJsonKind.DEVELOPMENT) {
+			if (packageJsonKind === PackageJsonKind.SOURCE) {
 				await this.createShims(
 					Object.values(this.pathMap).map((pathKinds) => pathKinds.shimPaths[format]),
 					format

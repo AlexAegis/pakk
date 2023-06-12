@@ -23,14 +23,14 @@ export interface AutoEntryExternalOptions {
 	 *
 	 * @defaultValue undefiend
 	 */
-	exportsIgnore?: string | string[] | undefined;
+	exportsIgnore?: string[] | undefined;
 
 	/**
 	 * By default test files are excluded
 	 *
 	 * @defaultValue '*.(spec|test).*'
 	 */
-	defaultExportsIgnore?: string | string[] | undefined;
+	defaultExportsIgnore?: string[] | undefined;
 
 	/**
 	 * Relative path to `srcDir` if you want your exports to start from a

@@ -1,4 +1,7 @@
+import { PackageJson } from '@alexaegis/workspace-tools';
 import type { ModuleFormat } from 'rollup';
+import { ViteFileNameFn } from '../../../internal/autolib-options.js';
+import { stripFileExtension } from './strip-file-extension.function.js';
 
 export interface GetBundledFileExtensionOptions {
 	format: ModuleFormat;
@@ -6,19 +9,22 @@ export interface GetBundledFileExtensionOptions {
 	 * @defaultValue 'commonjs'
 	 */
 	packageType?: 'module' | 'commonjs' | undefined;
-	/**
-	 * TODO: this would name a filename too..
-	 */
-	//fileName?: ViteFileNameFn | undefined;
 }
 
 export type JsExtensionStubs = 'js' | 'cjs' | 'mjs' | `${string}.js`;
 export type JsExtensions = `.${JsExtensionStubs}`;
 
+export const createDefaultViteFileNameFn: (packageType: PackageJson['type']) => ViteFileNameFn =
+	(packageType) => (format, fileName) => {
+		const extension = getDefaultViteBundleFileExtension(format, packageType);
+
+		return stripFileExtension(fileName) + extension;
+	};
 /**
  *
  * TODO: Support custom behaviors, maybe you could pass a fileName fn similar to the vite one to autolib, the the plugin could retrieve the users fileName fn from the config
  *
+ * @deprecated
  */
 export const getBundledFileExtension = (options: GetBundledFileExtensionOptions): JsExtensions => {
 	return getDefaultViteBundleFileExtension(options.format, options.packageType);
@@ -40,7 +46,7 @@ export const getBundledFileExtension = (options: GetBundledFileExtensionOptions)
  */
 export const getDefaultViteBundleFileExtension = (
 	format: ModuleFormat,
-	packageType: 'module' | 'commonjs' = 'commonjs'
+	packageType: PackageJson['type'] = 'commonjs'
 ): JsExtensions => {
 	switch (format) {
 		case 'es':
