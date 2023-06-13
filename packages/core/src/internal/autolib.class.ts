@@ -1,18 +1,18 @@
 import { asyncFilterMap, deepMerge } from '@alexaegis/common';
 import { toAbsolute } from '@alexaegis/fs';
 import { Logger } from '@alexaegis/logging';
-import { PackageJson } from '@alexaegis/workspace-tools';
+import { PackageJson, WorkspacePackage } from '@alexaegis/workspace-tools';
 import { join } from 'node:path';
 import { InternalModuleFormat } from 'rollup';
 import { LibraryFormats } from 'vite';
-import {
-	AutoBin,
-	AutoCopyLicense,
-	AutoExport,
-	AutoExportStatic,
-	AutolibPlugin,
-} from '../../../vite-plugin-autolib/src/index.js';
+
 import { PackageJsonKind } from '../package-json/package-json-kind.enum.js';
+import { AutoBin } from '../plugins/autobin/autobin.class.js';
+import { AutolibPlugin, PackageExaminationResult } from '../plugins/autolib-plugin.type.js';
+import { AutoCopyLicense } from '../plugins/autolicense/auto-copy-license.class.js';
+import { AutoExport } from '../plugins/entry/auto-export.class.js';
+import { ExportMap } from '../plugins/entry/export-map.type.js';
+import { AutoExportStatic } from '../plugins/export-static/auto-export-static.class.js';
 import { AutoMetadata } from '../plugins/metadata/auto-metadata.class.js';
 import { AutoPeer } from '../plugins/peer/auto-peer.class.js';
 import { AutoSort } from '../plugins/reorder/auto-reorder.class.js';
@@ -52,9 +52,8 @@ export class Autolib {
 			this.plugins.push(
 				new AutoBin(
 					{
+						...options.autoBin,
 						cwd: options.cwd,
-						binDir: options.autoBin.binDir,
-						shimDir: options.autoBin.shimDir,
 						outDir: options.outDir,
 						srcDir: options.srcDir,
 						logger: options.logger.getSubLogger({ name: 'auto-bin' }),
@@ -163,14 +162,25 @@ export class Autolib {
 	 * 1st step
 	 */
 	async examinePackage(
-		packageJson: PackageJson = this.context.workspacePackage
-	): Promise<Record<string, string>> {
+		workspacePackage: WorkspacePackage = this.context.workspacePackage
+	): Promise<PackageExaminationResult> {
 		const detectedExports = await asyncFilterMap(
 			this.plugins,
-			async (plugin) => await plugin.examinePackage?.(packageJson)
+			async (plugin) => await plugin.examinePackage?.(workspacePackage)
 		);
 
-		return deepMerge({} as Record<string, string>, ...detectedExports);
+		// Todo: this can likely be replaced with a single deepMerge once array support is released
+		return {
+			bundlerEntryFiles: detectedExports.flatMap((e) => e.bundlerEntryFiles ?? []),
+			exportMap: deepMerge(
+				{} as ExportMap,
+				detectedExports.map((e) => e.exportMap)
+			),
+			packageJsonUpdates: deepMerge(
+				{} as PackageJson,
+				detectedExports.map((e) => e.packageJsonUpdates)
+			),
+		} satisfies PackageExaminationResult;
 	}
 
 	/**
@@ -209,14 +219,14 @@ export class Autolib {
 	 */
 	async createUpdatedPackageJson(
 		packageJsonForArtifact: PackageJson,
-		packageJsonTarget: PackageJsonKind,
+		packageJsonKind: PackageJsonKind,
 		format: InternalModuleFormat
 	): Promise<{ updatedPackageJson: PackageJson; path: string }> {
 		const pathOffsets = await asyncFilterMap(
 			this.plugins,
 			async (plugin) =>
 				await plugin.getPackageJsonUpdates?.(packageJsonForArtifact, {
-					type: packageJsonTarget,
+					packageJsonKind,
 					format,
 					fileName: undefined,
 				})
@@ -231,13 +241,13 @@ export class Autolib {
 			(packageJson, plugin) =>
 				plugin.postprocess?.(
 					{ ...this.context.workspacePackage, packageJson },
-					packageJsonTarget
+					packageJsonKind
 				) ?? packageJson,
 			updatedPackageJson
 		);
 
 		const path =
-			packageJsonTarget === PackageJsonKind.DISTRIBUTION
+			packageJsonKind === PackageJsonKind.DISTRIBUTION
 				? toAbsolute(join(this.options.outDir, 'package.json'), this.options)
 				: toAbsolute('package.json', this.options);
 

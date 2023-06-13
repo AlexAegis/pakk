@@ -1,12 +1,22 @@
 import type { Awaitable } from '@alexaegis/common';
-import type { PackageJson, RegularWorkspacePackage } from '@alexaegis/workspace-tools';
+import type {
+	PackageJson,
+	RegularWorkspacePackage,
+	WorkspacePackage,
+} from '@alexaegis/workspace-tools';
 import { PackageJsonKind } from '@autolib/core';
 import type { InternalModuleFormat } from 'rollup';
 import { PackageExportPathContext } from './entry/auto-export.class.js';
 import type { ExportMap } from './entry/export-map.type.js';
 
 export interface PackageExaminationResult {
+	packageJsonUpdates: Partial<PackageJson>;
 	exportMap: ExportMap;
+	/**
+	 * A list of package relative paths to all the exported/bin files.
+	 * This guarantees that everything that the package exposes is built.
+	 */
+	bundlerEntryFiles: string[];
 }
 
 export interface AutolibPlugin {
@@ -18,7 +28,9 @@ export interface AutolibPlugin {
 	/**
 	 *
 	 */
-	examinePackage?: (packageJson: PackageJson) => Awaitable<PackageExaminationResult>;
+	examinePackage?: (
+		workspacePackage: WorkspacePackage
+	) => Awaitable<Partial<PackageExaminationResult>>;
 	/**
 	 * Modifies the provided packageJson object. Meant for heavier tasks.
 	 *

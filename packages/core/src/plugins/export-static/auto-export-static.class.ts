@@ -3,7 +3,8 @@ import type { PackageJson } from '@alexaegis/workspace-tools';
 import { collectFileMap } from '../../../../vite-plugin-autolib/src/helpers/collect-export-map.function.js';
 import { copyAllInto } from '../../../../vite-plugin-autolib/src/helpers/copy-all-into.function.js';
 import { AutolibContext } from '../../internal/autolib-options.js';
-import type { AutolibPlugin } from '../autolib-plugin.type.js';
+import type { AutolibPlugin, PackageExaminationResult } from '../autolib-plugin.type.js';
+import { ExportMap } from '../entry/export-map.type.js';
 import {
 	NormalizedAutoExportStaticOptions,
 	normalizeAutoExportStaticOptions,
@@ -20,10 +21,12 @@ export class AutoExportStatic implements AutolibPlugin {
 		this.options = normalizeAutoExportStaticOptions(options);
 	}
 
-	async examinePackage(packageJson: PackageJson): Promise<Record<string, string>> {
+	async examinePackage(packageJson: PackageJson): Promise<Partial<PackageExaminationResult>> {
+		// TODO: check if this collectFileMap is applicable elsewhere, or even better, just use globby here directly
 		this.staticExports = await collectFileMap(this.options.cwd, this.options.staticExportGlobs);
-
-		return this.staticExports;
+		// TODO: do
+		const exportMap: ExportMap = {};
+		return { exportMap };
 	}
 
 	update(packageJson: PackageJson): PackageJson {

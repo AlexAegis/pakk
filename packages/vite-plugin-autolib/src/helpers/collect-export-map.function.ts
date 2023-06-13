@@ -2,6 +2,10 @@ import { globby } from 'globby';
 import { basename, posix } from 'node:path';
 import { stripFileExtension } from '../../../core/src/plugins/entry/helpers/strip-file-extension.function.js';
 
+/**
+ *
+ * @deprecated consider just using globby directly, this is only used in one place
+ */
 export const collectFileMap = async (
 	cwd: string,
 	globs: string[]

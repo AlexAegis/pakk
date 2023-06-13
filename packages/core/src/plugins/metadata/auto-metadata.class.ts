@@ -8,7 +8,7 @@ import {
 import { Awaitable } from '@alexaegis/common';
 import { AutolibContext } from '../../internal/autolib-options.js';
 import { PackageJsonKind } from '../../package-json/index.js';
-import type { AutolibPlugin } from '../autolib-plugin.type.js';
+import type { AutolibPlugin, PackageExaminationResult } from '../autolib-plugin.type.js';
 
 /**
  * Fills out packageJson fields of the distributed packageJson based on
@@ -29,9 +29,11 @@ export class AutoMetadata implements AutolibPlugin {
 		this.options = normalizeAutoMetadataOptions(rawOptions);
 	}
 
-	examinePackage(): Awaitable<PackageJson> {
+	examinePackage(
+		workspacePackage: WorkspacePackage
+	): Awaitable<Partial<PackageExaminationResult>> {
 		this.metadataFromWorkspacePackageJson = Object.fromEntries(
-			Object.entries(this.context.rootWorkspacePackage.packageJson).filter(([key]) =>
+			Object.entries(workspacePackage.packageJson).filter(([key]) =>
 				this.options.keysFromWorkspace.includes(key)
 			)
 		);

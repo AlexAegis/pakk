@@ -55,9 +55,9 @@ export const autolib = (rawOptions?: AutolibOptions): Plugin => {
 				autolib.context.workspacePackage.packageJsonPath
 			);
 
-			packageJson = await autolib.examinePackage();
+			const examinationResult = await autolib.examinePackage();
 
-			const detectedExports = await autolib.examinePackage(packageJson);
+			examinationResult.exportMap;
 
 			const viteConfigUpdates: Partial<UserConfig> = {
 				build: {
@@ -66,7 +66,7 @@ export const autolib = (rawOptions?: AutolibOptions): Plugin => {
 					ssr: true,
 					lib: {
 						formats: autolib.context.formats,
-						entry: detectedExports,
+						entry: examinationResult.bundlerEntryFiles,
 					},
 				},
 			};

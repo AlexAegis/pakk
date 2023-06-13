@@ -13,10 +13,7 @@ import {
 import { createLogger, type LoggerOption } from '@alexaegis/logging';
 import { DEFAULT_PACKAGE_JSON_SORTING_PREFERENCE, PackageJson } from '@alexaegis/workspace-tools';
 import { LibraryFormats, LibraryOptions } from 'vite';
-import {
-	AutoBinExternalOptions,
-	normalizeAutoBinExternalOption,
-} from '../plugins/autobin/autobin.class.external-options.js';
+import { AutoBinExternalOptions } from '../plugins/autobin/autobin.class.internal-options.js';
 import {
 	AutoCopyLicenseOptions,
 	normalizeAutoCopyLicenseOptions,
@@ -121,7 +118,7 @@ export interface AutolibOptions extends WriteJsonOptions, CwdOption, LoggerOptio
 	 *
 	 * @defaultValue ["./bin/*.ts"]
 	 */
-	autoBin?: AutoBinExternalOptions | false;
+	autoBin?: AutoBinExternalOptions | false | undefined;
 
 	/**
 	 * Fills out packageJson fields of the distributed packageJson based on
@@ -168,7 +165,7 @@ export const normalizeAutolibOptions = (options?: AutolibOptions): NormalizedAut
 			? options.filterFeatures.map(normalizeRegExpLikeToRegExp)
 			: [],
 		autoPrettier: options?.autoPrettier ?? true,
-		autoBin: options?.autoBin ? false : normalizeAutoBinExternalOption(options?.autoBin),
+		autoBin: options?.autoBin === false ? false : options?.autoBin ?? {},
 		autoMetadata:
 			options?.autoMetadata === false
 				? false

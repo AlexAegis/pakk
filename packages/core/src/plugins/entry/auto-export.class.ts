@@ -6,15 +6,14 @@ import type {
 } from '@alexaegis/workspace-tools';
 import { basename, join, posix } from 'node:path';
 import type { AutolibPlugin, PackageExaminationResult } from '../autolib-plugin.type.js';
-import {
-	createDefaultViteFileNameFn,
-	getBundledFileExtension,
-} from './helpers/append-bundle-file-extension.function.js';
+import { createDefaultViteFileNameFn } from './helpers/append-bundle-file-extension.function.js';
 import { retargetPackageJsonPath } from './helpers/retarget-package-json-path.function.js';
 import { stripFileExtension } from './helpers/strip-file-extension.function.js';
 
 import { toAbsolute } from '@alexaegis/fs';
 import { globby } from 'globby';
+import { dirname } from 'node:path/posix';
+import { InternalModuleFormat } from 'rollup';
 import { LibraryFormats } from 'vite';
 import { AutolibContext, ViteFileNameFn } from '../../internal/autolib-options.js';
 import {
@@ -57,8 +56,10 @@ export interface PackageExportPathContext {
 	 * If it's undefined it will not do any renaming and will use the source name.
 	 * Useful when targeting the source or for files that are not being renamed
 	 * during processing like .svelte files.
+	 *
+	 * ? Out of InternalModuleFormat it really is only LibaryFormats that we care about
 	 */
-	formats: LibraryFormats[];
+	format: InternalModuleFormat;
 
 	/**
 	 * Vite passes the extensionless fileName to this function. It has to be
@@ -83,11 +84,13 @@ export class AutoExport implements AutolibPlugin {
 		this.context = context;
 	}
 
-	async examinePackage(_packageJson: PackageJson): Promise<PackageExaminationResult> {
-		const exportsRootCwd = join(this.options.srcDir, this.options.exportBaseDir);
+	async examinePackage(_packageJson: PackageJson): Promise<Partial<PackageExaminationResult>> {
+		const globFromPath = toAbsolute(join(this.options.srcDir, this.options.exportBaseDir), {
+			cwd: this.context.workspacePackage.packagePath,
+		});
 
 		const entryFiles = await globby(this.options.exports, {
-			cwd: toAbsolute(exportsRootCwd, { cwd: this.context.workspacePackage.packagePath }), // Passing an absolute path to globby while keeping paths relative here
+			cwd: globFromPath,
 			ignoreFiles: [...this.options.exportsIgnore, ...this.options.defaultExportsIgnore],
 			onlyFiles: true,
 		});
@@ -113,23 +116,6 @@ export class AutoExport implements AutolibPlugin {
 		exportPathKind: AllExportPathCombinations,
 		pathContext: Defined<PackageExportPathContext>
 	): PackageJson['exports'] {
-		const hasUmd = pathContext.formats.includes('umd');
-		const hasEsm = pathContext.formats.includes('es');
-		const hasCjs = pathContext.formats.includes('cjs');
-
-		const umdExtension = getBundledFileExtension({
-			format: 'umd',
-			packageType,
-		});
-		const esmExtension = getBundledFileExtension({
-			format: 'es',
-			packageType,
-		});
-		const cjsExtension = getBundledFileExtension({
-			format: 'cjs',
-			packageType,
-		});
-
 		// TODO: add 'types' too // TODO: this just resets some fields, add it somewhere else
 		// return { main: undefined, module: undefined, exports: this.entryExports };
 
@@ -140,36 +126,15 @@ export class AutoExport implements AutolibPlugin {
 				// TODO(svelte): verify if svelte file should keep their file extensions or not.
 				const extensionlessPath = stripFileExtension(entryPath);
 				const extensionlessFileName = basename(entryPath);
+				const dir = dirname(entryPath);
 				// Assume there will be a `.d.ts` generated
 				const typesPath = `.${posix.sep}${posix.normalize(`${extensionlessPath}.d.ts`)}`;
+
+				const fileName = pathContext.fileName(pathContext.format, extensionlessFileName);
+
 				const exportConditions: PackageJsonExportConditions = {
 					types: typesPath,
 				};
-
-				if (pathContext.formats.length > 0) {
-					for (const format of pathContext.formats) {
-						const fileName = pathContext.fileName(format, extensionlessFileName);
-					}
-
-					if (hasUmd) {
-						exportConditions.require = `.${posix.sep}${posix.normalize(
-							`${extensionlessPath}${umdExtension}`
-						)}`;
-					}
-
-					if (hasCjs) {
-						exportConditions.require = `.${posix.sep}${posix.normalize(
-							`${extensionlessPath}${cjsExtension}`
-						)}`;
-					}
-
-					if (hasEsm) {
-						exportConditions.import = `.${posix.sep}${posix.normalize(
-							`${extensionlessPath}${esmExtension}`
-						)}`;
-					}
-				} else {
-				}
 
 				accumulator[key] = exportConditions;
 
@@ -188,18 +153,21 @@ export class AutoExport implements AutolibPlugin {
 			...rawPathContext,
 			fileName: fileNameFn,
 		};
-		AutoExport.createPackageJsonExports(
+		const exports = AutoExport.createPackageJsonExports(
 			this.exportMap,
 			packageJson.type,
 			'development-to-dist',
 			pathContext
 		);
 
+		// Todo fill this out (it's PackageJson['exports'])
+		const entryExports: Record<string, PackageJsonExportConditions> = {};
+
 		const entryExportsOffset = Object.entries(
 			packageJson.exports ?? {}
 		).reduce<PackageJsonExports>((accumulator, [conditionKey, exportCondition]) => {
 			accumulator[conditionKey] =
-				conditionKey in this.entryExports && typeof exportCondition === 'object'
+				conditionKey in entryExports && typeof exportCondition === 'object'
 					? Object.entries(exportCondition).reduce<PackageJsonExportConditions>(
 							(conditions, [condition, path]) => {
 								const isTypesFieldOfDevPackageJson =
@@ -230,6 +198,6 @@ export class AutoExport implements AutolibPlugin {
 			return accumulator;
 		}, {});
 
-		return { exports: entryExportsOffset };
+		return { exports: entryExportsOffset } satisfies PackageJson;
 	}
 }
