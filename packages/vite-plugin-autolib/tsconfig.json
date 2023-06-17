@@ -7,6 +7,17 @@
 		"outDir": "./dist/out-tsc"
 	},
 	"files": ["package.json", "../../package.json"],
-	"include": ["src/**/*", "static/**/*", "__mocks__/**/*", ".*", "*", "*.json", "**/*.json"],
+	"include": [
+		"src/**/*",
+		"static/**/*",
+		"__mocks__/**/*",
+		".*",
+		"*",
+		"*.json",
+		"**/*.json",
+		"../cli/src/bin/reorder-json.ts",
+		"../cli/src/internal/sort",
+		"../cli/src/sort/sort-json-file.function.ts"
+	],
 	"exclude": ["node_modules", "dist", "coverage", "typedoc", "vite*.config.ts.timestamp-*"]
 }

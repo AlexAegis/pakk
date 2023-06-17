@@ -5,7 +5,7 @@ import yargs, { type Argv } from 'yargs';
 import packageJson from '../../package.json';
 
 import { AutoReorderOptions } from '@autolib/core';
-import { sortJsonFile } from '../sort/sort-json-file.function.js';
+import { sortJsonFile } from '../sort/index.js';
 
 const yarguments: Argv<AutoReorderOptions & { dry: boolean; check: boolean }> = yargs(
 	process.argv.splice(2)
