@@ -7,16 +7,16 @@ import { InternalModuleFormat } from 'rollup';
 import { LibraryFormats } from 'vite';
 
 import { PackageJsonKind } from '../package-json/package-json-kind.enum.js';
-import { AutoBin } from '../plugins/autobin/autobin.class.js';
 import { AutolibPlugin, PackageExaminationResult } from '../plugins/autolib-plugin.type.js';
-import { AutoCopyLicense } from '../plugins/autolicense/auto-copy-license.class.js';
-import { AutoExport } from '../plugins/entry/auto-export.class.js';
-import { EntryPathVariantMap } from '../plugins/entry/export-map.type.js';
-import { createDefaultViteFileNameFn } from '../plugins/entry/helpers/append-bundle-file-extension.function.js';
+import { AutoBin } from '../plugins/bin/auto-bin.class.js';
+import { AutoCopyLicense } from '../plugins/copy-license/auto-copy-license.class.js';
 import { AutoExportStatic } from '../plugins/export-static/auto-export-static.class.js';
+import { AutoExport } from '../plugins/export/auto-export.class.js';
+import { EntryPathVariantMap } from '../plugins/export/export-map.type.js';
+import { createDefaultViteFileNameFn } from '../plugins/export/helpers/append-bundle-file-extension.function.js';
 import { AutoMetadata } from '../plugins/metadata/auto-metadata.class.js';
 import { AutoPeer } from '../plugins/peer/auto-peer.class.js';
-import { AutoSort } from '../plugins/reorder/auto-reorder.class.js';
+import { AutoSort } from '../plugins/sort-package-json/auto-sort-package-json.class.js';
 import {
 	AutolibContext,
 	AutolibOptions,
@@ -26,12 +26,25 @@ import {
 } from './autolib.class.options.js';
 import { findCurrentAndRootWorkspacePackage } from './find-current-and-root-workspace-package.function.js';
 
-export const isFeatureEnabled = (enabledFeatures: RegExp[], feature: string): boolean => {
-	return (
-		enabledFeatures.length === 0 ||
-		enabledFeatures.some((enabledFeature) => enabledFeature.test(feature))
-	);
-};
+export const createIsFeatureEnabled =
+	(enabledFeatures: AutolibFeature[], disabledFeatures: AutolibFeature[]) =>
+	(feature: AutolibFeature): boolean => {
+		const isEnabled = enabledFeatures.length === 0 || enabledFeatures.includes(feature);
+		const isDisabled = disabledFeatures.includes(feature);
+		return isEnabled && !isDisabled;
+	};
+
+export const ALL_AUTOLIB_FEATURES = [
+	AutoBin.featureName,
+	AutoCopyLicense.featureName,
+	AutoExport.featureName,
+	AutoExportStatic.featureName,
+	AutoMetadata.featureName,
+	AutoPeer.featureName,
+	AutoSort.featureName,
+] as const;
+
+export type AutolibFeature = (typeof ALL_AUTOLIB_FEATURES)[number];
 
 /**
  * This class does not execute anything on it's own, just provides itself as a
@@ -46,87 +59,91 @@ export class Autolib {
 
 	private plugins: AutolibPlugin[] = [];
 
-	private constructor(options: NormalizedAutolibOptions, context: NormalizedAutolibContext) {
-		this.options = options;
+	private constructor(context: NormalizedAutolibContext, options: NormalizedAutolibOptions) {
 		this.context = context;
+		this.options = options;
 
-		if (options.autoBin) {
+		const isFeatureEnabled = createIsFeatureEnabled(
+			this.options.enabledFeatures,
+			this.options.disabledFeatures
+		);
+
+		if (isFeatureEnabled(AutoBin.featureName)) {
 			this.plugins.push(
 				new AutoBin(
 					{
-						...options.autoBin,
-						cwd: options.cwd,
-						outDir: options.outDir,
-						srcDir: options.srcDir,
-						logger: options.logger.getSubLogger({ name: 'auto-bin' }),
+						...this.context,
+						logger: options.logger.getSubLogger({ name: AutoBin.featureName }),
 					},
-					this.context
+					options
 				)
 			);
 		}
 
-		if (options.autoEntryDir) {
+		if (isFeatureEnabled(AutoExport.featureName)) {
 			this.plugins.push(
 				new AutoExport(
 					{
-						cwd: options.cwd,
-						formats: context.formats,
-						exports: options.autoEntryDir,
-						outDir: options.outDir,
-						srcDir: options.srcDir,
-						logger: options.logger.getSubLogger({ name: 'auto-entry' }),
+						...this.context,
+						logger: options.logger.getSubLogger({ name: AutoExport.featureName }),
 					},
-					this.context
+					options
 				)
 			);
 		}
 
-		if (options.autoExportStaticGlobs) {
+		if (isFeatureEnabled(AutoExportStatic.featureName)) {
 			this.plugins.push(
 				new AutoExportStatic(
 					{
-						cwd: options.cwd,
-						outDir: options.outDir,
-						staticExports: options.autoExportStaticGlobs,
-						logger: options.logger.getSubLogger({ name: 'auto-export-static' }),
+						...this.context,
+						logger: options.logger.getSubLogger({ name: AutoExportStatic.featureName }),
 					},
-					this.context
+					options
 				)
 			);
 		}
 
-		if (options.autoMetadata) {
+		if (isFeatureEnabled(AutoMetadata.featureName)) {
 			this.plugins.push(
-				new AutoMetadata(this.context, {
-					...options.autoMetadata,
-					logger: options.logger.getSubLogger({ name: 'auto-metadata' }),
-				})
-			);
-		}
-
-		if (options.autoOrderPackageJson) {
-			this.plugins.push(
-				new AutoSort({
-					sortingPreference: options.autoOrderPackageJson,
-					logger: options.logger.getSubLogger({ name: 'auto-sort' }),
-				})
-			);
-		}
-
-		if (options.autoCopyLicense) {
-			this.plugins.push(
-				new AutoCopyLicense(
+				new AutoMetadata(
 					{
-						...options.autoCopyLicense,
-						logger: options.logger.getSubLogger({ name: 'auto-copy-license' }),
+						...this.context,
+						logger: options.logger.getSubLogger({ name: AutoMetadata.featureName }),
 					},
-					this.context
+					options
 				)
 			);
 		}
 
-		if (options.autoPeer) {
-			this.plugins.push(new AutoPeer());
+		if (isFeatureEnabled(AutoSort.featureName)) {
+			this.plugins.push(
+				new AutoSort(
+					{
+						...this.context,
+						logger: options.logger.getSubLogger({ name: AutoSort.featureName }),
+					},
+					options
+				)
+			);
+		}
+
+		if (isFeatureEnabled(AutoCopyLicense.featureName)) {
+			this.plugins.push(
+				new AutoCopyLicense({
+					...this.context,
+					logger: options.logger.getSubLogger({ name: AutoCopyLicense.featureName }),
+				})
+			);
+		}
+
+		if (isFeatureEnabled(AutoPeer.featureName)) {
+			this.plugins.push(
+				new AutoPeer({
+					...this.context,
+					logger: options.logger.getSubLogger({ name: AutoPeer.featureName }),
+				})
+			);
 		}
 	}
 
@@ -143,16 +160,23 @@ export class Autolib {
 		const primaryFormat = Autolib.primaryLibraryFormat(
 			workspaceContext.workspacePackage.packageJson
 		);
-
 		const packageType =
 			workspaceContext.workspacePackage.packageJson.type === 'module' ? 'module' : 'commonjs';
-		const autolib = new Autolib(options, {
-			...workspaceContext,
-			...manualContext,
-			primaryFormat,
-			packageType,
-			fileName: manualContext.fileName ?? createDefaultViteFileNameFn(packageType),
-		});
+
+		const autolib = new Autolib(
+			{
+				...workspaceContext,
+				...manualContext,
+				primaryFormat,
+				packageType,
+				fileName: manualContext.fileName ?? createDefaultViteFileNameFn(packageType),
+				outDir: options.outDir,
+				srcDir: options.srcDir,
+				cwd: options.cwd,
+				logger: options.logger,
+			},
+			options
+		);
 		return autolib;
 	}
 
@@ -183,19 +207,6 @@ export class Autolib {
 				detectedExports.map((e) => e.packageJsonUpdates)
 			),
 		} satisfies PackageExaminationResult;
-	}
-
-	/**
-	 * 2nd step
-	 *
-	 * must only call once
-	 *
-	 */
-	async writeBundleOnlyOnce(packageJson: PackageJson): Promise<void> {
-		await asyncFilterMap(
-			this.plugins,
-			async (plugin) => await plugin.writeBundleOnlyOnce?.(packageJson)
-		);
 	}
 
 	/**

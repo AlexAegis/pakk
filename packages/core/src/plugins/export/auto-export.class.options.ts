@@ -5,8 +5,10 @@ import {
 	DEFAULT_PACKAGE_EXPORT_IGNORES,
 } from '../../internal/defaults.const.js';
 
-export interface AutoEntryExternalOptions {
+export interface AutoExportOptions {
 	/**
+	 * ### AutoExport
+	 *
 	 * The files to treat as entry points to be exported from relative from
 	 * the `srcDir + exportBaseDir` directory.
 	 * It's usually `*` meaning all files directly here are considered the
@@ -17,6 +19,8 @@ export interface AutoEntryExternalOptions {
 	exports?: string | string[] | undefined;
 
 	/**
+	 * ### AutoExport
+	 *
 	 * What paths to ignore when collecting exports in addition to
 	 * `defaultExportsIgnore` so you're not dropping the defaults when you just
 	 * want to add additional ignore entries.
@@ -26,13 +30,20 @@ export interface AutoEntryExternalOptions {
 	exportsIgnore?: string[] | undefined;
 
 	/**
-	 * By default test files are excluded
+	 * ### AutoExport
+	 *
+	 * By default test files are excluded.
+	 *
+	 * This option is here if you deliberately want to drop the default ignores.
+	 * Otherwise use `exportsIgnore`.
 	 *
 	 * @defaultValue '*.(spec|test).*'
 	 */
 	defaultExportsIgnore?: string[] | undefined;
 
 	/**
+	 * ### AutoExport
+	 *
 	 * Relative path to `srcDir` if you want your exports to start from a
 	 * different directory.
 	 *
@@ -46,15 +57,15 @@ export interface AutoEntryExternalOptions {
 	exportBaseDir?: string | undefined;
 }
 
-export type NormalizedAutoEntryExternalOptions = Defined<AutoEntryExternalOptions>;
+export type NormalizedAutoExportOptions = Defined<AutoExportOptions>;
 
-export const normalizeAutoEntryExternalOptions = (
-	options: AutoEntryExternalOptions
-): NormalizedAutoEntryExternalOptions => {
+export const normalizeAutoExportOptions = (
+	options?: AutoExportOptions
+): NormalizedAutoExportOptions => {
 	return {
-		exportBaseDir: options.exportBaseDir ?? DEFAULT_PACKAGE_EXPORT_BASEDIR,
-		exports: options.exports ?? DEFAULT_PACKAGE_EXPORTS,
-		defaultExportsIgnore: options.defaultExportsIgnore ?? DEFAULT_PACKAGE_EXPORT_IGNORES,
-		exportsIgnore: options.exportsIgnore ?? [],
+		exports: options?.exports ?? DEFAULT_PACKAGE_EXPORTS,
+		exportsIgnore: options?.exportsIgnore ?? [],
+		defaultExportsIgnore: options?.defaultExportsIgnore ?? DEFAULT_PACKAGE_EXPORT_IGNORES,
+		exportBaseDir: options?.exportBaseDir ?? DEFAULT_PACKAGE_EXPORT_BASEDIR,
 	};
 };

@@ -1,17 +1,16 @@
 import type { Defined } from '@alexaegis/common';
-import { normalizeCwdOption, type CwdOption } from '@alexaegis/fs';
-import { normalizeLoggerOption, type LoggerOption } from '@alexaegis/logging';
-import { DEFAULT_OUT_DIR } from '@alexaegis/vite';
 import {
 	DEFAULT_BINSHIM_DIR,
 	DEFAULT_BIN_DIR,
+	DEFAULT_BIN_GLOB,
 	DEFAULT_PACKAGE_EXPORT_IGNORES,
-	DEFAULT_SRC_DIR,
 } from '../../internal/defaults.const.js';
 import { ALL_NPM_HOOKS } from '../../package-json/package-json-npm-hooks.const.js';
 
-export interface AutoBinExternalOptions {
+export interface AutoBinOptions {
 	/**
+	 * ### AutoBin
+	 *
 	 * The files to treat as bins elative from the `srcDir + binBaseDir`
 	 * directory.
 	 * It's usually `*` meaning all files directly here are considered the
@@ -22,6 +21,8 @@ export interface AutoBinExternalOptions {
 	bins?: string | string[] | undefined;
 
 	/**
+	 * ### AutoBin
+	 *
 	 * What paths to ignore when collecting bins in addition to
 	 * `defaultBinIgnore` so you're not dropping the defaults when you just
 	 * want to add additional ignore entries.
@@ -31,37 +32,40 @@ export interface AutoBinExternalOptions {
 	binIgnore?: string[] | undefined;
 
 	/**
+	 * ### AutoBin
+	 *
 	 * By default test files are excluded
 	 *
-	 * @defaultValue '*.(spec|test).*'
+	 * @defaultValue ['*.(spec|test).*']
 	 */
 	defaultBinIgnore?: string[] | undefined;
 
 	/**
-	 * Relative path to `srcDir` if you want your exports to start from a
+	 * ### AutoBin
+	 *
+	 * Relative path from `srcDir` if you want your exports to start from a
 	 * different directory.
 	 *
 	 * @defaultValue 'bin'
 	 */
 	binBaseDir?: string | undefined;
-}
-
-export interface AutoBinOptions extends AutoBinExternalOptions, CwdOption, LoggerOption {
-	/**
-	 * @defaultValue 'src'
-	 */
-	srcDir?: string | undefined;
 
 	/**
-	 * Relative to the package.json, usually './dist'
+	 * ### AutoBin
 	 *
-	 * used to mark the built scripts as executable
+	 * If a bin's name matches with an entry here (which is by default every
+	 * NPM hook, 'postinstall' 'prebuild' etc.) then it will be automatically
+	 * added to your packageJson file's scripts. To not interfere with
+	 * development, hooks invoked during install are disabled for the source
+	 * packageJson and are only avilable in the distributed packageJson.
 	 *
-	 * @defaultValue 'dist'
+	 * @defaultValue ALL_NPM_HOOKS
 	 */
-	outDir?: string | undefined;
+	enabledNpmHooks?: string[] | undefined;
 
 	/**
+	 * ### AutoBin
+	 *
 	 * A directory where shims for the built bins would be placed
 	 * All these scripts do is to import the yet-to-be-built binary so
 	 * package managers hava something to symlink to before it's built.
@@ -72,27 +76,17 @@ export interface AutoBinOptions extends AutoBinExternalOptions, CwdOption, Logge
 	 * @defaultValue 'shims'
 	 */
 	shimDir?: string | undefined;
-
-	/**
-	 * The hooks this function will search for
-	 * @defaultValue ALL_NPM_HOOKS
-	 */
-	enabledHooks?: string[] | undefined;
 }
 
 export type NormalizedAutoBinOptions = Defined<AutoBinOptions>;
 
-export const normalizeAutoBinOptions = (options: AutoBinOptions): NormalizedAutoBinOptions => {
+export const normalizeAutoBinOptions = (options?: AutoBinOptions): NormalizedAutoBinOptions => {
 	return {
-		...normalizeLoggerOption(options),
-		...normalizeCwdOption(options),
-		binBaseDir: options.binBaseDir ?? DEFAULT_BIN_DIR,
-		binIgnore: options.binIgnore ?? [],
-		defaultBinIgnore: options.defaultBinIgnore ?? DEFAULT_PACKAGE_EXPORT_IGNORES,
-		bins: options.bins ?? DEFAULT_BIN_DIR,
-		srcDir: options.srcDir ?? DEFAULT_SRC_DIR,
-		outDir: options.outDir ?? DEFAULT_OUT_DIR,
-		shimDir: options.shimDir ?? DEFAULT_BINSHIM_DIR,
-		enabledHooks: options.enabledHooks ?? ALL_NPM_HOOKS,
+		binBaseDir: options?.binBaseDir ?? DEFAULT_BIN_DIR,
+		bins: options?.bins ?? DEFAULT_BIN_GLOB,
+		shimDir: options?.shimDir ?? DEFAULT_BINSHIM_DIR,
+		defaultBinIgnore: options?.defaultBinIgnore ?? DEFAULT_PACKAGE_EXPORT_IGNORES,
+		binIgnore: options?.binIgnore ?? [],
+		enabledNpmHooks: options?.enabledNpmHooks ?? ALL_NPM_HOOKS,
 	};
 };

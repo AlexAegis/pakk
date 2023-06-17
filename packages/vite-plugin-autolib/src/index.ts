@@ -1,1 +1,1 @@
-export * from './plugins/index.js';
+export * from './internal/index.js';

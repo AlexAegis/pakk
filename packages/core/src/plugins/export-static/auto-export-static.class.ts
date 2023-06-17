@@ -6,23 +6,24 @@ import { cp } from 'node:fs/promises';
 import posix, { basename, join } from 'node:path/posix';
 import { NormalizedAutolibContext } from '../../internal/autolib.class.options.js';
 import type { AutolibPlugin, PackageExaminationResult } from '../autolib-plugin.type.js';
-import { PackageExportPathContext } from '../entry/auto-export.class.js';
-import { stripFileExtension } from '../entry/helpers/strip-file-extension.function.js';
+import { PackageExportPathContext } from '../export/auto-export.class.js';
+import { stripFileExtension } from '../export/helpers/strip-file-extension.function.js';
 import {
-	NormalizedAutoExportStaticInternalOptions,
-	normalizeAutoExportStaticInternalOptions,
-	type AutoExportStaticInternalOptions,
+	AutoExportStaticOptions,
+	NormalizedAutoExportStaticOptions,
+	normalizeAutoExportStaticOptions,
 } from './auto-export-static.class.options.js';
 
 export class AutoExportStatic implements AutolibPlugin {
-	public name = 'export-static';
+	public static readonly featureName = 'export-static';
 
-	private options: NormalizedAutoExportStaticInternalOptions;
+	private readonly options: NormalizedAutoExportStaticOptions;
+	private readonly context: NormalizedAutolibContext;
+
 	private staticExports: Record<string, string> = {};
-	private context: NormalizedAutolibContext;
 
-	constructor(options: AutoExportStaticInternalOptions, context: NormalizedAutolibContext) {
-		this.options = normalizeAutoExportStaticInternalOptions(options);
+	constructor(context: NormalizedAutolibContext, options?: AutoExportStaticOptions) {
+		this.options = normalizeAutoExportStaticOptions(options);
 		this.context = context;
 	}
 
@@ -80,7 +81,7 @@ export class AutoExportStatic implements AutolibPlugin {
 		await AutoExportStatic.copyAll(
 			this.context.workspacePackage.packagePath,
 			Object.values(this.staticExports),
-			toAbsolute(this.options.outDir, this.options)
+			toAbsolute(this.context.outDir, this.context)
 		);
 
 		return {

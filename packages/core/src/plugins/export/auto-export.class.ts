@@ -16,11 +16,12 @@ import { InternalModuleFormat } from 'rollup';
 import { LibraryFormats } from 'vite';
 import { NormalizedAutolibContext } from '../../internal/autolib.class.options.js';
 import { PackageJsonExportTarget, PackageJsonKind, PathMap } from '../../package-json/index.js';
+
 import {
-	NormalizedAutoEntryInternalOptions,
-	normalizeAutoEntryInternalOptions,
-	type AutoEntryInternalOptions,
-} from './auto-export.class.internal-options.js';
+	AutoExportOptions,
+	NormalizedAutoExportOptions,
+	normalizeAutoExportOptions,
+} from './auto-export.class.options.js';
 import { EntryPathVariantMap } from './export-map.type.js';
 import { createExportMapFromPaths } from './helpers/create-export-map-from-paths.function.js';
 
@@ -66,24 +67,24 @@ export interface PackageExportPathContext {
 }
 
 /**
- *
+ * Generates exports entries automatically
  */
 export class AutoExport implements AutolibPlugin {
-	public name = 'export';
+	public static readonly featureName = 'export';
 
-	private options: NormalizedAutoEntryInternalOptions;
-	private context: NormalizedAutolibContext;
+	private readonly options: NormalizedAutoExportOptions;
+	private readonly context: NormalizedAutolibContext;
 
 	private exportMap: EntryPathVariantMap<AllExportPathCombinations> = {};
 
-	constructor(options: AutoEntryInternalOptions, context: NormalizedAutolibContext) {
-		this.options = normalizeAutoEntryInternalOptions(options);
+	constructor(context: NormalizedAutolibContext, options?: AutoExportOptions) {
 		this.context = context;
+		this.options = normalizeAutoExportOptions(options);
 	}
 
 	async examinePackage(_packageJson: PackageJson): Promise<Partial<PackageExaminationResult>> {
 		const absoluteExportBaseDir = toAbsolute(
-			join(this.options.srcDir, this.options.exportBaseDir),
+			join(this.context.srcDir, this.options.exportBaseDir),
 			{
 				cwd: this.context.workspacePackage.packagePath,
 			}
@@ -97,8 +98,8 @@ export class AutoExport implements AutolibPlugin {
 		});
 
 		const exportMap = createExportMapFromPaths(entryFiles, {
-			outDir: this.options.outDir,
-			srcDir: this.options.srcDir,
+			outDir: this.context.outDir,
+			srcDir: this.context.srcDir,
 			basePath: this.options.exportBaseDir,
 			keyKind: 'extensionless-relative-path-from-base',
 		});
@@ -170,7 +171,7 @@ export class AutoExport implements AutolibPlugin {
 											packageJsonExportTarget: isTypesFieldOfDevPackageJson
 												? PackageJsonExportTarget.SOURCE
 												: PackageJsonExportTarget.DIST,
-											outDir: this.options.outDir,
+											outDir: this.context.outDir,
 										}
 									);
 								}

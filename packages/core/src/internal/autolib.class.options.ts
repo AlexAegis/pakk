@@ -1,9 +1,4 @@
-import {
-	Replace,
-	normalizeRegExpLikeToRegExp,
-	type Defined,
-	type ObjectKeyOrder,
-} from '@alexaegis/common';
+import { Replace, type Defined } from '@alexaegis/common';
 import {
 	normalizeCwdOption,
 	normalizeWriteJsonOptions,
@@ -11,23 +6,24 @@ import {
 	type WriteJsonOptions,
 } from '@alexaegis/fs';
 import { createLogger, type LoggerOption } from '@alexaegis/logging';
-import { DEFAULT_PACKAGE_JSON_SORTING_PREFERENCE, PackageJson } from '@alexaegis/workspace-tools';
+import { PackageJson } from '@alexaegis/workspace-tools';
 import { LibraryFormats, LibraryOptions } from 'vite';
-import { AutoBinExternalOptions } from '../plugins/autobin/autobin.class.options.js';
+import { AutoBinOptions, normalizeAutoBinOptions } from '../plugins/bin/auto-bin.class.options.js';
+
 import {
-	AutoCopyLicenseOptions,
-	normalizeAutoCopyLicenseOptions,
-} from '../plugins/autolicense/auto-copy-license.class.options.js';
+	AutoExportOptions,
+	AutoExportStaticOptions,
+	AutoSortPackageJsonOptions,
+	AutolibFeature,
+	normalizeAutoExportOptions,
+	normalizeAutoExportStaticOptions,
+	normalizeAutoSortPackageJsonOptions,
+} from '../index.js';
 import {
 	AutoMetadataOptions,
 	normalizeAutoMetadataOptions,
 } from '../plugins/metadata/auto-metadata.class.options.js';
-import {
-	DEFAULT_OUT_DIR,
-	DEFAULT_PACKAGE_EXPORTS,
-	DEFAULT_SRC_DIR,
-	DEFAULT_STATIC_EXPORT_GLOBS,
-} from './defaults.const.js';
+import { DEFAULT_OUT_DIR, DEFAULT_SRC_DIR } from './defaults.const.js';
 import { CurrentWorkspacePackageWithRoot } from './find-current-and-root-workspace-package.function.js';
 
 /**
@@ -41,7 +37,7 @@ import { CurrentWorkspacePackageWithRoot } from './find-current-and-root-workspa
  */
 export type ViteFileNameFn = Exclude<LibraryOptions['fileName'], string | undefined>;
 
-export interface AutolibContext extends CurrentWorkspacePackageWithRoot {
+export interface AutolibContext extends CurrentWorkspacePackageWithRoot, CwdOption, LoggerOption {
 	formats: LibraryFormats[];
 	fileName?: ViteFileNameFn | undefined;
 	/**
@@ -51,11 +47,7 @@ export interface AutolibContext extends CurrentWorkspacePackageWithRoot {
 	primaryFormat: LibraryFormats;
 
 	packageType: NonNullable<PackageJson['type']>;
-}
 
-export type NormalizedAutolibContext = Defined<AutolibContext>;
-
-export interface AutolibOptions extends WriteJsonOptions, CwdOption, LoggerOption {
 	/**
 	 * source root, relative to cwd
 	 * @defaultValue 'src'
@@ -68,90 +60,51 @@ export interface AutolibOptions extends WriteJsonOptions, CwdOption, LoggerOptio
 	 * @defaultValue 'dist'
 	 */
 	outDir?: string | undefined;
+}
+
+export type NormalizedAutolibContext = Defined<AutolibContext>;
+
+export interface AutolibOptions
+	extends WriteJsonOptions,
+		CwdOption,
+		LoggerOption,
+		AutoBinOptions,
+		AutoExportOptions,
+		AutoExportStaticOptions,
+		AutoMetadataOptions,
+		AutoSortPackageJsonOptions {
+	/**
+	 * Source root, relative to the package directory
+	 *
+	 * @defaultValue 'src'
+	 */
+	srcDir?: string | undefined;
 
 	/**
-	 * packageJson to modify and put in the artifact, relative to `cwd`
-	 * @defaultValue './package.json'
+	 * The expected output directory relative to the package's directory.
+	 *
+	 * @defaultValue 'dist'
+	 */
+	outDir?: string | undefined;
+
+	/**
+	 * packageJson to modify and put in the artifact, relative to the package's
+	 * directory.
+	 *
+	 * @defaultValue 'package.json'
 	 */
 	sourcePackageJson?: string | undefined;
 
 	/**
-	 * If left empty, all features will remain enabled.
+	 * If left empty, all features will remain enabled. Except the disabled ones
 	 */
-	filterFeatures?: (string | RegExp)[] | undefined;
+	enabledFeatures?: AutolibFeature[] | undefined;
 
 	/**
-	 * Generates exports entries form rollup inputs, from a directory relative
-	 * to `srcDir`
-	 *
-	 * If autoExport is disabled, the plugin expects you to either set
-	 * `build.lib.entry` yourself or have a `src/index.ts` file as the entry
-	 * point
-	 *
-	 * @defaultValue ["."]
+	 * If left empty, all features will remain enabled. Takes precedence over
+	 * 'enabledFeatures'
 	 */
-	autoEntryDir?: string | false;
-
-	/**
-	 * Automatically export the content of a directory as is
-	 *
-	 * @defaultValue ["export/**", "static/**"]
-	 */
-	autoExportStaticGlobs?: string[] | false;
-
-	/**
-	 * Automatically order the keys in the packageJson files.
-	 *
-	 * @defaultValue DEFAULT_PACKAGE_JSON_ORDER_PREFERENCE
-	 */
-	autoOrderPackageJson?: ObjectKeyOrder | false;
-
-	/**
-	 * Generates bin entries from files under `srcDir` + `autoBinDirectory`
-	 * It also treats all files named as npm hooks as npm hooks, prefixing them
-	 * and adding them as hooks for the npm artifact
-	 *
-	 * For example a file called `postinstall.ts` in a package called
-	 * `@org/name`, it will generate an npm script entry as such:
-	 * `"postinstall": "bin/postinstall.js"`. The hook is still treated as a
-	 * `bin` so you can invoke it directly. To avoid name collisions, all
-	 * "hookbins" are prefixed with the normalized packagename like so:
-	 * `org-name-postinstall`
-	 *
-	 * @defaultValue ["./bin/*.ts"]
-	 */
-	autoBin?: AutoBinExternalOptions | false | undefined;
-
-	/**
-	 * Fills out packageJson fields of the distributed packageJson based on
-	 * either manually defined key-value pairs or a set of keys that then will
-	 * be read from the workspace packageJson file. Or both, in which case if a
-	 * key is defined in both the manual takes precedence.
-	 */
-	autoMetadata?: AutoMetadataOptions | false;
-
-	/**
-	 * Automatically copies the license file to the outDir so it can be part
-	 * of the distributed package. It uses the license file you defined in the
-	 * root of your project. Or if you wish to override it, place one into
-	 * the packages folder.
-	 *
-	 * @defaultValue true
-	 */
-	autoCopyLicense?: AutoCopyLicenseOptions | false;
-
-	/**
-	 * Removes duplicated dependency and peerDependency entries leaving only
-	 * the peerDependencies behind.
-	 *
-	 * The point of this is to let peerDependencies install locally too by
-	 * defining them twice, once as a peerDependency, and once as a normal
-	 * dependency. This step will remove the one that was meant to only be
-	 * present locally.
-	 *
-	 * @defaultValue true
-	 */
-	autoPeer?: boolean;
+	disabledFeatures?: AutolibFeature[] | undefined;
 }
 
 export type NormalizedAutolibOptions = Defined<
@@ -162,35 +115,17 @@ export const normalizeAutolibOptions = (options?: AutolibOptions): NormalizedAut
 	return {
 		...normalizeCwdOption(options),
 		...normalizeWriteJsonOptions(options),
+		...normalizeAutoBinOptions(options),
+		...normalizeAutoExportOptions(options),
+		...normalizeAutoExportStaticOptions(options),
+		...normalizeAutoMetadataOptions(options),
+		...normalizeAutoSortPackageJsonOptions(options),
 		logger: options?.logger ?? createLogger({ name: 'autolib' }),
-		filterFeatures: options?.filterFeatures
-			? options.filterFeatures.map(normalizeRegExpLikeToRegExp)
-			: [],
-		autoPrettier: options?.autoPrettier ?? true,
-		autoBin: options?.autoBin === false ? false : options?.autoBin ?? {},
-		autoMetadata:
-			options?.autoMetadata === false
-				? false
-				: normalizeAutoMetadataOptions(options?.autoMetadata),
-		autoCopyLicense:
-			options?.autoCopyLicense === false
-				? false
-				: normalizeAutoCopyLicenseOptions(options?.autoCopyLicense),
-		autoPeer: options?.autoPeer ?? true,
-		autoEntryDir:
-			options?.autoEntryDir === false
-				? false
-				: options?.autoEntryDir ?? DEFAULT_PACKAGE_EXPORTS,
-		autoExportStaticGlobs:
-			options?.autoExportStaticGlobs === false
-				? false
-				: options?.autoExportStaticGlobs ?? DEFAULT_STATIC_EXPORT_GLOBS,
-		autoOrderPackageJson:
-			options?.autoOrderPackageJson === false
-				? false
-				: options?.autoOrderPackageJson ?? DEFAULT_PACKAGE_JSON_SORTING_PREFERENCE,
 		sourcePackageJson: options?.sourcePackageJson ?? 'package.json',
 		srcDir: options?.srcDir ?? DEFAULT_SRC_DIR,
 		outDir: options?.outDir ?? DEFAULT_OUT_DIR,
+		enabledFeatures: options?.enabledFeatures ?? [],
+		disabledFeatures: options?.disabledFeatures ?? [],
+		autoPrettier: options?.autoPrettier ?? true,
 	};
 };

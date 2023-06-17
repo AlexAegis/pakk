@@ -5,7 +5,7 @@ import type { LibraryFormats } from 'vite';
  * Where a bundler will place the built artifact, it is assumed that the
  * distributed packageJson file will be directly in this directory.
  */
-export const DEFAULT_OUT_DIR = './dist';
+export const DEFAULT_OUT_DIR = 'dist';
 
 /**
  * Where the source files are located in within a package
@@ -15,6 +15,10 @@ export const DEFAULT_SRC_DIR = 'src';
  * Where bin entry points are located within the SRC directory
  */
 export const DEFAULT_BIN_DIR = 'bin';
+/**
+ * By default every valid entry is a bin in the bin directory
+ */
+export const DEFAULT_BIN_GLOB = '*';
 /**
  * Where to place automatic shims for bins, this is relative to the package
  * directory and should be outside of SRC as these files are excluded from

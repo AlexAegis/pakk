@@ -1,6 +1,6 @@
 import { Defined } from '@alexaegis/common';
 import { basename, join, posix } from 'node:path';
-import { AllBinPathCombinations } from '../../autobin/autobin.class.js';
+import { AllBinPathCombinations } from '../../bin/auto-bin.class.js';
 import { AllExportPathCombinations } from '../auto-export.class.js';
 import { EntryPathVariantMap, PathVariantMap } from '../export-map.type.js';
 import { stripFileExtension } from './strip-file-extension.function.js';

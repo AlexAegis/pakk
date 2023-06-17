@@ -14,7 +14,6 @@ export const autolib = (rawOptions?: AutolibOptions): Plugin => {
 	let error: Error | undefined;
 
 	let packageJson: PackageJson;
-	let writeBundleCalled = 0;
 
 	return {
 		name: 'autolib',
@@ -79,30 +78,25 @@ export const autolib = (rawOptions?: AutolibOptions): Plugin => {
 			error = buildError;
 		},
 		writeBundle: async (outputOptions) => {
-			logger.trace('lifecycle: writeBundle');
-
-			if (writeBundleCalled < 1) {
-				await autolib.writeBundleOnlyOnce(packageJson);
-			}
-
-			// TODO: then why check this inside plugins and why is there a writeBundleOnlyOnce
-			// Only execute anything if vite is processing the primary format of the package.
-			const shouldHandlePackageJson =
-				(packageJson.type === 'module' && outputOptions.format === 'es') ||
-				((packageJson.type === 'commonjs' || packageJson.type === undefined) &&
-					outputOptions.format !== 'es');
-
-			if (!shouldHandlePackageJson) {
+			if (autolib.context.primaryFormat !== outputOptions.format) {
+				logger.trace(
+					'skipping writeBundle for non-primary format. Primary format:',
+					autolib.context.primaryFormat,
+					'current output format:',
+					outputOptions.format
+				);
 				return;
 			}
 
 			if (error) {
-				logger.error("didn't run, error happened during build!");
+				logger.error('skipping! error happened during build!', error);
 				return;
 			}
 
-			// I have to cheat a little bit because other plugins will steal the
-			// thread during an async copy step
+			logger.trace('lifecycle: writeBundle', outputOptions.format);
+
+			// I have to cheat a little bit vby starting the timer here because other plugins will
+			// steal the thread during an async copy step
 			const startTime = performance.now();
 
 			await asyncFilterMap(Object.values(PackageJsonKind), async (packageJsonTarget) => {
@@ -121,8 +115,6 @@ export const autolib = (rawOptions?: AutolibOptions): Plugin => {
 			logger.info(
 				`update phase took ~${Math.floor(performance.now() - startTime)}ms to finish`
 			);
-
-			writeBundleCalled += 1;
 		},
 	} satisfies Plugin;
 };

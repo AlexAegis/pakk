@@ -5,8 +5,8 @@ import type {
 	WorkspacePackage,
 } from '@alexaegis/workspace-tools';
 import { PackageJsonKind } from '@autolib/core';
-import { PackageExportPathContext } from './entry/auto-export.class.js';
-import type { EntryPathVariantMap } from './entry/export-map.type.js';
+import { PackageExportPathContext } from './export/auto-export.class.js';
+import type { EntryPathVariantMap } from './export/export-map.type.js';
 
 export interface PackageExaminationResult {
 	packageJsonUpdates: Partial<PackageJson>;
@@ -19,11 +19,6 @@ export interface PackageExaminationResult {
 }
 
 export interface AutolibPlugin {
-	/**
-	 * The name of the plugin, used to selectively apply only certain plugins
-	 */
-	name: string;
-
 	/**
 	 * Called once at the start of Autolib, giving a change for each plugin
 	 * to examine the package.
@@ -45,12 +40,6 @@ export interface AutolibPlugin {
 		packageJson: PackageJson,
 		pathContext: PackageExportPathContext
 	) => Awaitable<PackageJson | undefined>;
-
-	/**
-	 * Called at the start of the first writeBundle hook call, only once.
-	 * Copy files to the output directory here.
-	 */
-	writeBundleOnlyOnce?: (packageJson: PackageJson) => Awaitable<void>;
 
 	/**
 	 * A final, synchronous step to modify the packageJson file.

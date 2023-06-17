@@ -1,14 +1,13 @@
+import { Awaitable } from '@alexaegis/common';
 import { type PackageJson, type WorkspacePackage } from '@alexaegis/workspace-tools';
+import { AutolibContext } from '../../internal/autolib.class.options.js';
+import { PackageJsonKind } from '../../package-json/index.js';
+import type { AutolibPlugin, PackageExaminationResult } from '../autolib-plugin.type.js';
 import {
 	normalizeAutoMetadataOptions,
 	type AutoMetadataOptions,
 	type NormalizedAutoMetadataOptions,
 } from './auto-metadata.class.options.js';
-
-import { Awaitable } from '@alexaegis/common';
-import { AutolibContext } from '../../internal/autolib.class.options.js';
-import { PackageJsonKind } from '../../package-json/index.js';
-import type { AutolibPlugin, PackageExaminationResult } from '../autolib-plugin.type.js';
 
 /**
  * Fills out packageJson fields of the distributed packageJson based on
@@ -17,12 +16,11 @@ import type { AutolibPlugin, PackageExaminationResult } from '../autolib-plugin.
  * is defined in both the manual takes precedence.
  */
 export class AutoMetadata implements AutolibPlugin {
-	public name = 'metadata';
+	public static readonly featureName = 'metadata';
 
-	options: NormalizedAutoMetadataOptions;
-	workspacePackageJson: PackageJson | undefined;
-	metadataFromWorkspacePackageJson: PackageJson | undefined;
+	private readonly options: NormalizedAutoMetadataOptions;
 	private readonly context: AutolibContext;
+	private metadataFromWorkspacePackageJson: PackageJson | undefined;
 
 	constructor(context: AutolibContext, rawOptions?: AutoMetadataOptions) {
 		this.context = context;

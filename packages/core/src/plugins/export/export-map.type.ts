@@ -1,4 +1,4 @@
-import { AllBinPathCombinations } from '../autobin/autobin.class.js';
+import { AllBinPathCombinations } from '../bin/auto-bin.class.js';
 import { AllExportPathCombinations } from './auto-export.class.js';
 
 export type PathVariantMap<

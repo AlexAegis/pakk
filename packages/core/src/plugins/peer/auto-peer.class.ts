@@ -1,5 +1,6 @@
 import type { PackageJson, RegularWorkspacePackage } from '@alexaegis/workspace-tools';
 
+import { NormalizedAutolibContext } from '../../index.js';
 import { PackageJsonKind } from '../../package-json/index.js';
 import type { AutolibPlugin } from '../autolib-plugin.type.js';
 
@@ -12,7 +13,13 @@ import type { AutolibPlugin } from '../autolib-plugin.type.js';
  * step will remove the one that was meant to only be present locally.
  */
 export class AutoPeer implements AutolibPlugin {
-	public name = 'peer';
+	public static readonly featureName = 'peer';
+
+	private readonly context: NormalizedAutolibContext;
+
+	constructor(context: NormalizedAutolibContext) {
+		this.context = context;
+	}
 
 	postprocess(
 		workspacePackage: RegularWorkspacePackage,
@@ -23,6 +30,7 @@ export class AutoPeer implements AutolibPlugin {
 			workspacePackage.packageJson.dependencies &&
 			workspacePackage.packageJson.peerDependencies
 		) {
+			this.context.logger.trace('removing dependencies that are also peerDependencies...');
 			const peerDependencies = Object.keys(workspacePackage.packageJson.peerDependencies);
 			return {
 				...workspacePackage.packageJson,
