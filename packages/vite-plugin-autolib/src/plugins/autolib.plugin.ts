@@ -6,7 +6,6 @@ import { type PackageJson } from '@alexaegis/workspace-tools';
 import { Autolib, AutolibOptions, PackageJsonKind } from '@autolib/core';
 import { posix } from 'node:path';
 import { UserConfig, type Plugin } from 'vite';
-import { cloneJsonSerializable } from '../helpers/clone-json-serializable.function.js';
 
 export const autolib = (rawOptions?: AutolibOptions): Plugin => {
 	let autolib: Autolib;
@@ -57,8 +56,6 @@ export const autolib = (rawOptions?: AutolibOptions): Plugin => {
 
 			const examinationResult = await autolib.examinePackage();
 
-			examinationResult.exportMap;
-
 			const viteConfigUpdates: Partial<UserConfig> = {
 				build: {
 					sourcemap: true,
@@ -72,7 +69,7 @@ export const autolib = (rawOptions?: AutolibOptions): Plugin => {
 			};
 
 			logger.info(
-				`prepare phase took ${Math.floor(performance.now() - startTime)}ms to finish`
+				`preparation phase took ${Math.floor(performance.now() - startTime)}ms to finish`
 			);
 
 			return viteConfigUpdates;
@@ -88,6 +85,7 @@ export const autolib = (rawOptions?: AutolibOptions): Plugin => {
 				await autolib.writeBundleOnlyOnce(packageJson);
 			}
 
+			// TODO: then why check this inside plugins and why is there a writeBundleOnlyOnce
 			// Only execute anything if vite is processing the primary format of the package.
 			const shouldHandlePackageJson =
 				(packageJson.type === 'module' && outputOptions.format === 'es') ||
@@ -107,8 +105,6 @@ export const autolib = (rawOptions?: AutolibOptions): Plugin => {
 			// thread during an async copy step
 			const startTime = performance.now();
 
-			packageJson = await autolib.autoPackageJson(packageJson, outputOptions.format);
-
 			await asyncFilterMap(Object.values(PackageJsonKind), async (packageJsonTarget) => {
 				const { updatedPackageJson, path } = await autolib.createUpdatedPackageJson(
 					packageJson,
@@ -116,7 +112,7 @@ export const autolib = (rawOptions?: AutolibOptions): Plugin => {
 					outputOptions.format
 				);
 
-				return await writeJson(cloneJsonSerializable(updatedPackageJson), path, {
+				return await writeJson(updatedPackageJson, path, {
 					autoPrettier: autolib.options.autoPrettier,
 					dry: autolib.options.dry,
 				});

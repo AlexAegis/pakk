@@ -1,4 +1,11 @@
-import { AllExportPathCombinations } from '../../package-json/package-json-export-target.enum.js';
+import { AllBinPathCombinations } from '../autobin/autobin.class.js';
+import { AllExportPathCombinations } from './auto-export.class.js';
+
+export type PathVariantMap<
+	Variants extends AllExportPathCombinations | AllBinPathCombinations =
+		| AllExportPathCombinations
+		| AllBinPathCombinations
+> = Record<Variants, string>;
 
 /**
  * An exportmaps key describes the name of the export and the value is the path
@@ -62,4 +69,8 @@ import { AllExportPathCombinations } from '../../package-json/package-json-expor
  *
  * TODO: throw an error on name collisions like hello.ts vs hello/index.ts
  */
-export type ExportMap = Record<string, Record<AllExportPathCombinations, string>>;
+export type EntryPathVariantMap<
+	Variants extends AllExportPathCombinations | AllBinPathCombinations =
+		| AllExportPathCombinations
+		| AllBinPathCombinations
+> = Record<string, PathVariantMap<Variants>>;

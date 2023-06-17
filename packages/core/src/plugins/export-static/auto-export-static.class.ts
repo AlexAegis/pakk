@@ -1,46 +1,93 @@
 import { toAbsolute } from '@alexaegis/fs';
-import type { PackageJson } from '@alexaegis/workspace-tools';
-import { collectFileMap } from '../../../../vite-plugin-autolib/src/helpers/collect-export-map.function.js';
-import { copyAllInto } from '../../../../vite-plugin-autolib/src/helpers/copy-all-into.function.js';
-import { AutolibContext } from '../../internal/autolib-options.js';
+import type { PackageJson, WorkspacePackage } from '@alexaegis/workspace-tools';
+import { globby } from 'globby';
+import { existsSync } from 'node:fs';
+import { cp } from 'node:fs/promises';
+import posix, { basename, join } from 'node:path/posix';
+import { NormalizedAutolibContext } from '../../internal/autolib.class.options.js';
 import type { AutolibPlugin, PackageExaminationResult } from '../autolib-plugin.type.js';
-import { ExportMap } from '../entry/export-map.type.js';
+import { PackageExportPathContext } from '../entry/auto-export.class.js';
+import { stripFileExtension } from '../entry/helpers/strip-file-extension.function.js';
 import {
-	NormalizedAutoExportStaticOptions,
-	normalizeAutoExportStaticOptions,
-	type AutoExportStaticOptions,
+	NormalizedAutoExportStaticInternalOptions,
+	normalizeAutoExportStaticInternalOptions,
+	type AutoExportStaticInternalOptions,
 } from './auto-export-static.class.options.js';
 
 export class AutoExportStatic implements AutolibPlugin {
 	public name = 'export-static';
 
-	private options: NormalizedAutoExportStaticOptions;
+	private options: NormalizedAutoExportStaticInternalOptions;
 	private staticExports: Record<string, string> = {};
+	private context: NormalizedAutolibContext;
 
-	constructor(options: AutoExportStaticOptions, context: AutolibContext) {
-		this.options = normalizeAutoExportStaticOptions(options);
+	constructor(options: AutoExportStaticInternalOptions, context: NormalizedAutolibContext) {
+		this.options = normalizeAutoExportStaticInternalOptions(options);
+		this.context = context;
 	}
 
-	async examinePackage(packageJson: PackageJson): Promise<Partial<PackageExaminationResult>> {
-		// TODO: check if this collectFileMap is applicable elsewhere, or even better, just use globby here directly
-		this.staticExports = await collectFileMap(this.options.cwd, this.options.staticExportGlobs);
-		// TODO: do
-		const exportMap: ExportMap = {};
-		return { exportMap };
+	private static collectFileMap = async (
+		cwd: string,
+		globs: string[]
+	): Promise<Record<string, string>> => {
+		const globbyResult = await globby(globs, { cwd, dot: true });
+		return globbyResult.reduce<Record<string, string>>((accumulator, next) => {
+			const key = `.${posix.sep}${stripFileExtension(basename(next))}`;
+			accumulator[key] = `.${posix.sep}${next}`;
+			return accumulator;
+		}, {});
+	};
+
+	private static copyAll = async (
+		cwd: string,
+		relativeSourceFiles: string[],
+		outDirectory: string
+	): Promise<void> => {
+		await Promise.allSettled(
+			relativeSourceFiles
+				.map((sourceFile) => ({
+					sourceFile: join(cwd, sourceFile),
+					targetFile: join(cwd, outDirectory, sourceFile),
+				}))
+				.filter(
+					({ sourceFile, targetFile }) =>
+						existsSync(sourceFile) && !existsSync(targetFile)
+				)
+				.map(({ sourceFile, targetFile }) =>
+					cp(sourceFile, targetFile, {
+						preserveTimestamps: true,
+						recursive: true,
+					})
+				)
+		);
+	};
+
+	async examinePackage(
+		_workspacePackage: WorkspacePackage
+	): Promise<Partial<PackageExaminationResult>> {
+		this.staticExports = await AutoExportStatic.collectFileMap(
+			this.context.workspacePackage.packagePath,
+			this.options.staticExports
+		);
+
+		return {};
 	}
 
-	update(packageJson: PackageJson): PackageJson {
-		packageJson.exports = {
-			...this.staticExports,
-			...packageJson.exports,
-		};
-		return packageJson;
-	}
-
-	async writeBundleOnlyOnce(): Promise<void> {
-		await copyAllInto(
+	async process(
+		packageJson: PackageJson,
+		_pathContext: PackageExportPathContext
+	): Promise<PackageJson> {
+		await AutoExportStatic.copyAll(
+			this.context.workspacePackage.packagePath,
 			Object.values(this.staticExports),
 			toAbsolute(this.options.outDir, this.options)
 		);
+
+		return {
+			exports: {
+				...this.staticExports,
+				...packageJson.exports,
+			},
+		};
 	}
 }

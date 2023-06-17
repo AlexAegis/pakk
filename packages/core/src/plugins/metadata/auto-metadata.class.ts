@@ -6,7 +6,7 @@ import {
 } from './auto-metadata.class.options.js';
 
 import { Awaitable } from '@alexaegis/common';
-import { AutolibContext } from '../../internal/autolib-options.js';
+import { AutolibContext } from '../../internal/autolib.class.options.js';
 import { PackageJsonKind } from '../../package-json/index.js';
 import type { AutolibPlugin, PackageExaminationResult } from '../autolib-plugin.type.js';
 

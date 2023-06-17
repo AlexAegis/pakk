@@ -5,13 +5,12 @@ import type {
 	WorkspacePackage,
 } from '@alexaegis/workspace-tools';
 import { PackageJsonKind } from '@autolib/core';
-import type { InternalModuleFormat } from 'rollup';
 import { PackageExportPathContext } from './entry/auto-export.class.js';
-import type { ExportMap } from './entry/export-map.type.js';
+import type { EntryPathVariantMap } from './entry/export-map.type.js';
 
 export interface PackageExaminationResult {
 	packageJsonUpdates: Partial<PackageJson>;
-	exportMap: ExportMap;
+	exportMap: EntryPathVariantMap;
 	/**
 	 * A list of package relative paths to all the exported/bin files.
 	 * This guarantees that everything that the package exposes is built.
@@ -26,35 +25,23 @@ export interface AutolibPlugin {
 	name: string;
 
 	/**
+	 * Called once at the start of Autolib, giving a change for each plugin
+	 * to examine the package.
 	 *
+	 * The returned examination result is merged
+	 * together with the other plugins result, sharing them the next step.
+	 * TODO: Re-evaluate if this is even useful or you should just
+	 * keep your result in the plugin. This could return void
 	 */
 	examinePackage?: (
 		workspacePackage: WorkspacePackage
 	) => Awaitable<Partial<PackageExaminationResult>>;
+
 	/**
-	 * Modifies the provided packageJson object. Meant for heavier tasks.
-	 *
-	 * Ran parallel together with the same step of other buildUpdates.
-	 *
-	 * After the `update` step, you can create
-	 *
-	 * Runs after `preUpdate`
-	 */
-	update?: (
-		packageJson: PackageJson,
-		format: InternalModuleFormat
-	) => Awaitable<PackageJson | undefined>;
-	/**
-	 * Offsets each path this manages
-	 *
-	 * Meant to be applied onto multiple copies of the PackageJson file if
-	 * more than one is needed.
-	 *
-	 * Ran parallel together with the same step of other buildUpdates.
-	 *
+
 	 * Runs after `update`
 	 */
-	getPackageJsonUpdates?: (
+	process?: (
 		packageJson: PackageJson,
 		pathContext: PackageExportPathContext
 	) => Awaitable<PackageJson | undefined>;

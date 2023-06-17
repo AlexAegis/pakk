@@ -3,8 +3,8 @@ import { DEFAULT_PACKAGE_JSON_SORTING_PREFERENCE } from '@alexaegis/workspace-to
 import { basename } from 'node:path';
 import yargs, { type Argv } from 'yargs';
 import packageJson from '../../package.json';
-import type { AutoReorderOptions } from '../helpers/auto-reorder.class.options.js';
 
+import { AutoReorderOptions } from '@autolib/core';
 import { sortJsonFile } from '../sort/sort-json-file.function.js';
 
 const yarguments: Argv<AutoReorderOptions & { dry: boolean; check: boolean }> = yargs(

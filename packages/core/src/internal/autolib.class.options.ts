@@ -13,7 +13,7 @@ import {
 import { createLogger, type LoggerOption } from '@alexaegis/logging';
 import { DEFAULT_PACKAGE_JSON_SORTING_PREFERENCE, PackageJson } from '@alexaegis/workspace-tools';
 import { LibraryFormats, LibraryOptions } from 'vite';
-import { AutoBinExternalOptions } from '../plugins/autobin/autobin.class.internal-options.js';
+import { AutoBinExternalOptions } from '../plugins/autobin/autobin.class.options.js';
 import {
 	AutoCopyLicenseOptions,
 	normalizeAutoCopyLicenseOptions,
@@ -28,7 +28,7 @@ import {
 	DEFAULT_SRC_DIR,
 	DEFAULT_STATIC_EXPORT_GLOBS,
 } from './defaults.const.js';
-import { CurrentWorkspacePackageWithRoot } from './workspace/find-current-and-root-workspace-package.function.js';
+import { CurrentWorkspacePackageWithRoot } from './find-current-and-root-workspace-package.function.js';
 
 /**
  * A function that can be defined on Vite where it expects you to decide the
@@ -52,6 +52,8 @@ export interface AutolibContext extends CurrentWorkspacePackageWithRoot {
 
 	packageType: NonNullable<PackageJson['type']>;
 }
+
+export type NormalizedAutolibContext = Defined<AutolibContext>;
 
 export interface AutolibOptions extends WriteJsonOptions, CwdOption, LoggerOption {
 	/**

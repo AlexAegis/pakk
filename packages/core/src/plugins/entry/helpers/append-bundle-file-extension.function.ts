@@ -1,15 +1,7 @@
 import { PackageJson } from '@alexaegis/workspace-tools';
 import type { ModuleFormat } from 'rollup';
-import { ViteFileNameFn } from '../../../internal/autolib-options.js';
+import { ViteFileNameFn } from '../../../internal/autolib.class.options.js';
 import { stripFileExtension } from './strip-file-extension.function.js';
-
-export interface GetBundledFileExtensionOptions {
-	format: ModuleFormat;
-	/**
-	 * @defaultValue 'commonjs'
-	 */
-	packageType?: 'module' | 'commonjs' | undefined;
-}
 
 export type JsExtensionStubs = 'js' | 'cjs' | 'mjs' | `${string}.js`;
 export type JsExtensions = `.${JsExtensionStubs}`;
@@ -20,15 +12,6 @@ export const createDefaultViteFileNameFn: (packageType: PackageJson['type']) => 
 
 		return stripFileExtension(fileName) + extension;
 	};
-/**
- *
- * TODO: Support custom behaviors, maybe you could pass a fileName fn similar to the vite one to autolib, the the plugin could retrieve the users fileName fn from the config
- *
- * @deprecated
- */
-export const getBundledFileExtension = (options: GetBundledFileExtensionOptions): JsExtensions => {
-	return getDefaultViteBundleFileExtension(options.format, options.packageType);
-};
 
 /**
  * Default vite behavior: if no fileName fn is defined, then a commonjs package
@@ -41,8 +24,6 @@ export const getBundledFileExtension = (options: GetBundledFileExtensionOptions)
  * This aligns with node's behavior where `.js` files are treated based on what
  * their respective packageJson files declare and files with `.mjs` or `.cjs`
  * are always read as esm or cjs modules respectively.
- *
- * TODO: Support custom behaviors, maybe you could pass a fileName fn similar to the vite one to autolib, the the plugin could retrieve the users fileName fn from the config
  */
 export const getDefaultViteBundleFileExtension = (
 	format: ModuleFormat,
@@ -57,8 +38,9 @@ export const getDefaultViteBundleFileExtension = (
 			return packageType === 'commonjs' ? '.js' : '.cjs';
 		}
 		default: {
-			// TODO: maybe throw an error instead? 'iife' | 'umd' will need an explicit vite fileName fn anyway
-			return '.js'; // Just assume `.js` otherwise
+			throw new Error(
+				`Cannot determine default fileName for format: ${format} only esm and cjs can be auto determined.`
+			);
 		}
 	}
 };

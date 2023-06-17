@@ -1,4 +1,4 @@
-import { Defined, isNotNullish } from '@alexaegis/common';
+import { isNotNullish } from '@alexaegis/common';
 import type {
 	PackageJson,
 	PackageJsonExportConditions,
@@ -6,7 +6,6 @@ import type {
 } from '@alexaegis/workspace-tools';
 import { basename, join, posix } from 'node:path';
 import type { AutolibPlugin, PackageExaminationResult } from '../autolib-plugin.type.js';
-import { createDefaultViteFileNameFn } from './helpers/append-bundle-file-extension.function.js';
 import { retargetPackageJsonPath } from './helpers/retarget-package-json-path.function.js';
 import { stripFileExtension } from './helpers/strip-file-extension.function.js';
 
@@ -15,19 +14,23 @@ import { globby } from 'globby';
 import { dirname } from 'node:path/posix';
 import { InternalModuleFormat } from 'rollup';
 import { LibraryFormats } from 'vite';
-import { AutolibContext, ViteFileNameFn } from '../../internal/autolib-options.js';
-import {
-	AllExportPathCombinations,
-	PackageJsonExportTarget,
-	PackageJsonKind,
-} from '../../package-json/index.js';
+import { NormalizedAutolibContext } from '../../internal/autolib.class.options.js';
+import { PackageJsonExportTarget, PackageJsonKind, PathMap } from '../../package-json/index.js';
 import {
 	NormalizedAutoEntryInternalOptions,
 	normalizeAutoEntryInternalOptions,
 	type AutoEntryInternalOptions,
 } from './auto-export.class.internal-options.js';
-import { ExportMap } from './export-map.type.js';
+import { EntryPathVariantMap } from './export-map.type.js';
 import { createExportMapFromPaths } from './helpers/create-export-map-from-paths.function.js';
+
+export const allExportPathCombinations = [
+	`${PackageJsonKind.DEVELOPMENT}-to-${PackageJsonExportTarget.SOURCE}`,
+	`${PackageJsonKind.DEVELOPMENT}-to-${PackageJsonExportTarget.DIST}`,
+	`${PackageJsonKind.DISTRIBUTION}-to-${PackageJsonExportTarget.DIST}`,
+] as const;
+export type AllExportPathCombinations = (typeof allExportPathCombinations)[number];
+export type ExportPathMap = PathMap<AllExportPathCombinations>;
 
 export type ExportTargetFileFormats = LibraryFormats;
 
@@ -60,12 +63,6 @@ export interface PackageExportPathContext {
 	 * ? Out of InternalModuleFormat it really is only LibaryFormats that we care about
 	 */
 	format: InternalModuleFormat;
-
-	/**
-	 * Vite passes the extensionless fileName to this function. It has to be
-	 * used in the exact same manner here too.
-	 */
-	fileName?: ViteFileNameFn | undefined;
 }
 
 /**
@@ -75,30 +72,35 @@ export class AutoExport implements AutolibPlugin {
 	public name = 'export';
 
 	private options: NormalizedAutoEntryInternalOptions;
-	private context: AutolibContext;
+	private context: NormalizedAutolibContext;
 
-	private exportMap: ExportMap = {};
+	private exportMap: EntryPathVariantMap<AllExportPathCombinations> = {};
 
-	constructor(options: AutoEntryInternalOptions, context: AutolibContext) {
+	constructor(options: AutoEntryInternalOptions, context: NormalizedAutolibContext) {
 		this.options = normalizeAutoEntryInternalOptions(options);
 		this.context = context;
 	}
 
 	async examinePackage(_packageJson: PackageJson): Promise<Partial<PackageExaminationResult>> {
-		const globFromPath = toAbsolute(join(this.options.srcDir, this.options.exportBaseDir), {
-			cwd: this.context.workspacePackage.packagePath,
-		});
+		const absoluteExportBaseDir = toAbsolute(
+			join(this.options.srcDir, this.options.exportBaseDir),
+			{
+				cwd: this.context.workspacePackage.packagePath,
+			}
+		);
 
 		const entryFiles = await globby(this.options.exports, {
-			cwd: globFromPath,
+			cwd: absoluteExportBaseDir,
 			ignoreFiles: [...this.options.exportsIgnore, ...this.options.defaultExportsIgnore],
 			onlyFiles: true,
+			dot: true,
 		});
 
 		const exportMap = createExportMapFromPaths(entryFiles, {
 			outDir: this.options.outDir,
 			srcDir: this.options.srcDir,
 			basePath: this.options.exportBaseDir,
+			keyKind: 'extensionless-relative-path-from-base',
 		});
 
 		this.exportMap = exportMap;
@@ -110,11 +112,11 @@ export class AutoExport implements AutolibPlugin {
 	 * TODO: should create simpler entries if there's only one format
 	 * @returns or Record<string, PackageJsonExportConditions>
 	 */
-	static createPackageJsonExports(
-		exportMap: ExportMap,
+	private static createPackageJsonExports(
+		exportMap: EntryPathVariantMap,
 		packageType: PackageJson['type'],
 		exportPathKind: AllExportPathCombinations,
-		pathContext: Defined<PackageExportPathContext>
+		pathContext: PackageExportPathContext
 	): PackageJson['exports'] {
 		// TODO: add 'types' too // TODO: this just resets some fields, add it somewhere else
 		// return { main: undefined, module: undefined, exports: this.entryExports };
@@ -130,8 +132,6 @@ export class AutoExport implements AutolibPlugin {
 				// Assume there will be a `.d.ts` generated
 				const typesPath = `.${posix.sep}${posix.normalize(`${extensionlessPath}.d.ts`)}`;
 
-				const fileName = pathContext.fileName(pathContext.format, extensionlessFileName);
-
 				const exportConditions: PackageJsonExportConditions = {
 					types: typesPath,
 				};
@@ -144,22 +144,7 @@ export class AutoExport implements AutolibPlugin {
 		);
 	}
 
-	getPackageJsonUpdates(
-		packageJson: PackageJson,
-		rawPathContext: PackageExportPathContext
-	): PackageJson {
-		const fileNameFn = rawPathContext.fileName ?? createDefaultViteFileNameFn(packageJson.type);
-		const pathContext: Defined<PackageExportPathContext> = {
-			...rawPathContext,
-			fileName: fileNameFn,
-		};
-		const exports = AutoExport.createPackageJsonExports(
-			this.exportMap,
-			packageJson.type,
-			'development-to-dist',
-			pathContext
-		);
-
+	process(packageJson: PackageJson, pathContext: PackageExportPathContext): PackageJson {
 		// Todo fill this out (it's PackageJson['exports'])
 		const entryExports: Record<string, PackageJsonExportConditions> = {};
 

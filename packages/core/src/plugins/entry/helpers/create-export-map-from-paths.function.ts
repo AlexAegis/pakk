@@ -1,6 +1,8 @@
 import { Defined } from '@alexaegis/common';
-import { posix } from 'node:path';
-import { ExportMap } from '../export-map.type.js';
+import { basename, join, posix } from 'node:path';
+import { AllBinPathCombinations } from '../../autobin/autobin.class.js';
+import { AllExportPathCombinations } from '../auto-export.class.js';
+import { EntryPathVariantMap, PathVariantMap } from '../export-map.type.js';
 import { stripFileExtension } from './strip-file-extension.function.js';
 
 export interface CreateExportMapFromPathsOptions {
@@ -10,7 +12,16 @@ export interface CreateExportMapFromPathsOptions {
 	 */
 	srcDir: string;
 
+	/**
+	 * Where the bundler will place the resulting files
+	 */
 	outDir: string;
+
+	/**
+	 * The directory where shims for the bins are placed
+	 */
+	shimDir?: string;
+
 	/**
 	 * A path every other path was search from, so in the result they will
 	 * be prefixed with this
@@ -18,34 +29,38 @@ export interface CreateExportMapFromPathsOptions {
 	 * @defaultValue '.'
 	 */
 	basePath?: string;
+
+	/**
+	 * What kind of keys shall the resulting object contain?
+	 * - If set to 'extensionless-relative-path-from-base' then the keys will
+	 *   equal to the input paths minus the extension
+	 * - If set to 'extensionless-filename-only' then the keys will be set to
+	 *   the filename only.
+	 */
+	keyKind: 'extensionless-relative-path-from-base' | 'extensionless-filename-only';
 }
 
 export type NormalizedCreateExportMapFromPathsOptions = Defined<CreateExportMapFromPathsOptions>;
 
-export const normalizeCreateExportMapFromPathsOptions = (
-	options: CreateExportMapFromPathsOptions
-): NormalizedCreateExportMapFromPathsOptions => {
-	return {
-		srcDir: options.srcDir,
-		outDir: options.outDir,
-		basePath: options.basePath ?? '.',
-	};
-};
-
 /**
  * TODO: Enchance this by annotating each path with what kind of paths they are, relative to what targeting what (dist-to-dist, src-to-src, src-to-dist)
  */
-export const createExportMapFromPaths = (
+export const createExportMapFromPaths = <
+	Variants extends AllExportPathCombinations | AllBinPathCombinations =
+		| AllExportPathCombinations
+		| AllBinPathCombinations
+>(
 	pathsFromBase: string[],
-	rawOptions: CreateExportMapFromPathsOptions
-): ExportMap => {
-	const options = normalizeCreateExportMapFromPathsOptions(rawOptions);
-	return pathsFromBase.reduce<ExportMap>((exportMap, path) => {
-		const exportKey = './' + stripFileExtension(path);
-		// TODO: remove this block if not needed
-		// if (!exportKey.startsWith('./')) {
-		// 	exportKey = './' + exportKey;
-		// }
+	options: CreateExportMapFromPathsOptions
+): EntryPathVariantMap<Variants> => {
+	const basePath = options.basePath ?? '.';
+	const exportMap: EntryPathVariantMap<Variants> = {};
+
+	for (const path of pathsFromBase) {
+		const key =
+			options.keyKind === 'extensionless-filename-only'
+				? stripFileExtension(basename(path))
+				: './' + stripFileExtension(path);
 
 		/**
 		 * This is the path where we assume the file will be once it's bundled.
@@ -53,13 +68,20 @@ export const createExportMapFromPaths = (
 		 * amend this variable. The '*-to-source' entry is not using
 		 * this variable because that is not an assumption, but thruth.
 		 */
-		const assumedDistributionPath = posix.join(options.basePath, path);
+		const assumedDistributionPath = posix.join(basePath, path);
 
-		exportMap[exportKey] = {
-			'development-to-source': './' + posix.join(options.srcDir, options.basePath, path), // The original full path, not used by default but there's an option if preferred
+		const pathVariants: Record<string, string> = {
+			'development-to-source': './' + posix.join(options.srcDir, basePath, path), // The original full path, not used by default but there's an option if preferred
 			'development-to-dist': './' + posix.join(options.outDir, assumedDistributionPath), // It is assumed that files in the outDir replicate their folder structure from the srcDir
 			'distribution-to-dist': './' + assumedDistributionPath,
 		};
-		return exportMap;
-	}, {});
+
+		if (options.shimDir) {
+			pathVariants['development-to-shim'] = './' + join(options.shimDir, path);
+		}
+
+		exportMap[key] = pathVariants as PathVariantMap<Variants>;
+	}
+
+	return exportMap;
 };
