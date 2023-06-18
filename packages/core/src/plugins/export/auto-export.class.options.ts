@@ -1,4 +1,5 @@
 import { Defined } from '@alexaegis/common';
+import { PackageJsonExportTarget } from '../../index.js';
 import {
 	DEFAULT_PACKAGE_EXPORTS,
 	DEFAULT_PACKAGE_EXPORT_BASEDIR,
@@ -55,6 +56,30 @@ export interface AutoExportOptions {
 	 * @defaultValue '.'
 	 */
 	exportBaseDir?: string | undefined;
+
+	/**
+	 * Where should exports point to in your development packageJson file
+	 *
+	 * By default, to let you develop locally with the same code as you'd
+	 * publish, the development packageJson targets the outDir where your
+	 * built package is supposed to be. This expects you to build the package
+	 * before running it. (Turbo can orchestrate this for you!)
+	 *
+	 * But if you wish your local packages to use the source code directly
+	 * you can set this to 'source' and then exports will point inside your
+	 * 'src' folder. This can be useful for packages that are not transpiled
+	 * and are supposed to be used as is.
+	 *
+	 * Types always point to the source dir so the typescript LSP can provide
+	 * real-time feedback in other packages too without having to rebuild all
+	 * the time!
+	 *
+	 * @defaultValue 'dist'
+	 */
+	developmentPackageJsonExportsTarget?:
+		| PackageJsonExportTarget.DIST
+		| PackageJsonExportTarget.SOURCE
+		| undefined;
 }
 
 export type NormalizedAutoExportOptions = Defined<AutoExportOptions>;
@@ -67,5 +92,7 @@ export const normalizeAutoExportOptions = (
 		exportsIgnore: options?.exportsIgnore ?? [],
 		defaultExportsIgnore: options?.defaultExportsIgnore ?? DEFAULT_PACKAGE_EXPORT_IGNORES,
 		exportBaseDir: options?.exportBaseDir ?? DEFAULT_PACKAGE_EXPORT_BASEDIR,
+		developmentPackageJsonExportsTarget:
+			options?.developmentPackageJsonExportsTarget ?? PackageJsonExportTarget.DIST,
 	};
 };

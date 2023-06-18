@@ -14,7 +14,7 @@ import {
 	AutoExportOptions,
 	AutoExportStaticOptions,
 	AutoSortPackageJsonOptions,
-	AutolibFeature,
+	EveryAutolibFeature,
 	normalizeAutoExportOptions,
 	normalizeAutoExportStaticOptions,
 	normalizeAutoSortPackageJsonOptions,
@@ -98,13 +98,13 @@ export interface AutolibOptions
 	/**
 	 * If left empty, all features will remain enabled. Except the disabled ones
 	 */
-	enabledFeatures?: AutolibFeature[] | undefined;
+	enabledFeatures?: EveryAutolibFeature[] | undefined;
 
 	/**
 	 * If left empty, all features will remain enabled. Takes precedence over
 	 * 'enabledFeatures'
 	 */
-	disabledFeatures?: AutolibFeature[] | undefined;
+	disabledFeatures?: EveryAutolibFeature[] | undefined;
 }
 
 export type NormalizedAutolibOptions = Defined<

@@ -7,13 +7,13 @@ import { InternalModuleFormat } from 'rollup';
 import { LibraryFormats } from 'vite';
 
 import { PackageJsonKind } from '../package-json/package-json-kind.enum.js';
-import { AutolibPlugin, PackageExaminationResult } from '../plugins/autolib-plugin.type.js';
+import { AutolibFeature, PackageExaminationResult } from '../plugins/autolib-feature.type.js';
 import { AutoBin } from '../plugins/bin/auto-bin.class.js';
 import { AutoCopyLicense } from '../plugins/copy-license/auto-copy-license.class.js';
 import { AutoExportStatic } from '../plugins/export-static/auto-export-static.class.js';
 import { AutoExport } from '../plugins/export/auto-export.class.js';
 import { EntryPathVariantMap } from '../plugins/export/export-map.type.js';
-import { createDefaultViteFileNameFn } from '../plugins/export/helpers/append-bundle-file-extension.function.js';
+import { createDefaultViteFileNameFn } from '../plugins/export/helpers/bundle-file-name.function.js';
 import { AutoMetadata } from '../plugins/metadata/auto-metadata.class.js';
 import { AutoPeer } from '../plugins/peer/auto-peer.class.js';
 import { AutoSort } from '../plugins/sort-package-json/auto-sort-package-json.class.js';
@@ -27,8 +27,8 @@ import {
 import { findCurrentAndRootWorkspacePackage } from './find-current-and-root-workspace-package.function.js';
 
 export const createIsFeatureEnabled =
-	(enabledFeatures: AutolibFeature[], disabledFeatures: AutolibFeature[]) =>
-	(feature: AutolibFeature): boolean => {
+	(enabledFeatures: EveryAutolibFeature[], disabledFeatures: EveryAutolibFeature[]) =>
+	(feature: EveryAutolibFeature): boolean => {
 		const isEnabled = enabledFeatures.length === 0 || enabledFeatures.includes(feature);
 		const isDisabled = disabledFeatures.includes(feature);
 		return isEnabled && !isDisabled;
@@ -44,7 +44,7 @@ export const ALL_AUTOLIB_FEATURES = [
 	AutoSort.featureName,
 ] as const;
 
-export type AutolibFeature = (typeof ALL_AUTOLIB_FEATURES)[number];
+export type EveryAutolibFeature = (typeof ALL_AUTOLIB_FEATURES)[number];
 
 /**
  * This class does not execute anything on it's own, just provides itself as a
@@ -57,7 +57,7 @@ export class Autolib {
 	public readonly options: NormalizedAutolibOptions;
 	public readonly context: NormalizedAutolibContext;
 
-	private plugins: AutolibPlugin[] = [];
+	private features: AutolibFeature[] = [];
 
 	private constructor(context: NormalizedAutolibContext, options: NormalizedAutolibOptions) {
 		this.context = context;
@@ -68,83 +68,27 @@ export class Autolib {
 			this.options.disabledFeatures
 		);
 
-		if (isFeatureEnabled(AutoBin.featureName)) {
-			this.plugins.push(
-				new AutoBin(
+		this.features = [
+			AutoBin,
+			AutoExport,
+			AutoExportStatic,
+			AutoMetadata,
+			AutoSort,
+			AutoCopyLicense,
+			AutoPeer,
+		]
+			.filter((feature) => isFeatureEnabled(feature.featureName))
+			.map((feature) => {
+				return new feature(
 					{
 						...this.context,
-						logger: options.logger.getSubLogger({ name: AutoBin.featureName }),
+						logger: options.logger.getSubLogger({
+							name: feature.featureName,
+						}),
 					},
 					options
-				)
-			);
-		}
-
-		if (isFeatureEnabled(AutoExport.featureName)) {
-			this.plugins.push(
-				new AutoExport(
-					{
-						...this.context,
-						logger: options.logger.getSubLogger({ name: AutoExport.featureName }),
-					},
-					options
-				)
-			);
-		}
-
-		if (isFeatureEnabled(AutoExportStatic.featureName)) {
-			this.plugins.push(
-				new AutoExportStatic(
-					{
-						...this.context,
-						logger: options.logger.getSubLogger({ name: AutoExportStatic.featureName }),
-					},
-					options
-				)
-			);
-		}
-
-		if (isFeatureEnabled(AutoMetadata.featureName)) {
-			this.plugins.push(
-				new AutoMetadata(
-					{
-						...this.context,
-						logger: options.logger.getSubLogger({ name: AutoMetadata.featureName }),
-					},
-					options
-				)
-			);
-		}
-
-		if (isFeatureEnabled(AutoSort.featureName)) {
-			this.plugins.push(
-				new AutoSort(
-					{
-						...this.context,
-						logger: options.logger.getSubLogger({ name: AutoSort.featureName }),
-					},
-					options
-				)
-			);
-		}
-
-		if (isFeatureEnabled(AutoCopyLicense.featureName)) {
-			this.plugins.push(
-				new AutoCopyLicense({
-					...this.context,
-					logger: options.logger.getSubLogger({ name: AutoCopyLicense.featureName }),
-				})
-			);
-		}
-
-		if (isFeatureEnabled(AutoPeer.featureName)) {
-			this.plugins.push(
-				new AutoPeer({
-					...this.context,
-					logger: options.logger.getSubLogger({ name: AutoPeer.featureName }),
-				})
-			);
-		}
+				);
+			});
 	}
 
 	getLogger(): Logger<unknown> {
@@ -185,13 +129,15 @@ export class Autolib {
 	}
 
 	/**
-	 * 1st step
+	 * 1st step, examining the package. This step does not write anything.
+	 * It can be done before the build takes place as it's only supposed to
+	 * take a look at your source code.
 	 */
 	async examinePackage(
 		workspacePackage: WorkspacePackage = this.context.workspacePackage
 	): Promise<PackageExaminationResult> {
 		const detectedExports = await asyncFilterMap(
-			this.plugins,
+			this.features,
 			async (plugin) => await plugin.examinePackage?.(workspacePackage)
 		);
 
@@ -221,7 +167,7 @@ export class Autolib {
 		format: InternalModuleFormat
 	): Promise<{ updatedPackageJson: PackageJson; path: string }> {
 		const packageJsonUpdates = await asyncFilterMap(
-			this.plugins,
+			this.features,
 			async (plugin) =>
 				await plugin.process?.(structuredClone(packageJsonForArtifact), {
 					packageJsonKind,
@@ -234,7 +180,7 @@ export class Autolib {
 			...packageJsonUpdates
 		);
 
-		updatedPackageJson = this.plugins.reduce<PackageJson>(
+		updatedPackageJson = this.features.reduce<PackageJson>(
 			(packageJson, plugin) =>
 				plugin.postprocess?.(
 					{ ...this.context.workspacePackage, packageJson },

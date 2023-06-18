@@ -3,12 +3,22 @@ import {
 	DEFAULT_PACKAGE_EXPORTS,
 	DEFAULT_PACKAGE_EXPORT_BASEDIR,
 	DEFAULT_PACKAGE_EXPORT_IGNORES,
+	PackageJsonExportTarget,
 } from '@autolib/core';
 import type { Argv } from 'yargs';
 
 export const yargsForAutoExport = <T>(yargs: Argv<T>): Argv<T & AutoExportOptions> => {
 	return yargs
-		.group(['exports', 'exportsIgnore', 'defaultExportsIgnore', 'exportBaseDir'], 'auto-export')
+		.group(
+			[
+				'exports',
+				'exportsIgnore',
+				'defaultExportsIgnore',
+				'exportBaseDir',
+				'developmentPackageJsonExportsTarget',
+			],
+			'auto-export'
+		)
 		.option('exports', {
 			description:
 				'The files to treat as entry points to be exported from relative from ' +
@@ -43,5 +53,13 @@ export const yargsForAutoExport = <T>(yargs: Argv<T>): Argv<T & AutoExportOption
 				'different directory.',
 			string: true,
 			default: DEFAULT_PACKAGE_EXPORT_BASEDIR,
+		})
+		.option('developmentPackageJsonExportsTarget', {
+			description: 'Where should exports point to in your development packageJson file',
+			string: true,
+			choices: [PackageJsonExportTarget.DIST, PackageJsonExportTarget.SOURCE] as const,
+			default: PackageJsonExportTarget.DIST as
+				| PackageJsonExportTarget.DIST
+				| PackageJsonExportTarget.SOURCE,
 		});
 };

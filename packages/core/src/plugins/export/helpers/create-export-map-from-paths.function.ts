@@ -43,7 +43,7 @@ export interface CreateExportMapFromPathsOptions {
 export type NormalizedCreateExportMapFromPathsOptions = Defined<CreateExportMapFromPathsOptions>;
 
 /**
- * TODO: Enchance this by annotating each path with what kind of paths they are, relative to what targeting what (dist-to-dist, src-to-src, src-to-dist)
+ * The resulting paths still contain their original extensions.
  */
 export const createExportMapFromPaths = <
 	Variants extends AllExportPathCombinations | AllBinPathCombinations =

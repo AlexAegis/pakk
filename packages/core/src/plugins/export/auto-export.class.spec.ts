@@ -1,9 +1,9 @@
 import { Logger } from '@alexaegis/logging';
 import { MockLogger } from '@alexaegis/logging/mocks';
-import { describe, it, vi } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { NormalizedAutolibContext } from '../../index.js';
 import { AutoExport } from './auto-export.class.js';
-import { createDefaultViteFileNameFn } from './helpers/append-bundle-file-extension.function.js';
+import { createDefaultViteFileNameFn } from './helpers/bundle-file-name.function.js';
 
 // TODO: Make a reusable fixture out of this
 
@@ -44,6 +44,8 @@ describe('autoExport', () => {
 			const collectedExports = await autoExport.examinePackage(
 				mockAutolibContext.workspacePackage.packageJson
 			);
+
+			expect(collectedExports).toBeDefined();
 		});
 	});
 });

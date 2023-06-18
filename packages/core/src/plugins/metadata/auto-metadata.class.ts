@@ -1,8 +1,8 @@
 import { Awaitable } from '@alexaegis/common';
 import { type PackageJson, type WorkspacePackage } from '@alexaegis/workspace-tools';
-import { AutolibContext } from '../../internal/autolib.class.options.js';
+import { NormalizedAutolibContext } from '../../internal/autolib.class.options.js';
 import { PackageJsonKind } from '../../package-json/index.js';
-import type { AutolibPlugin, PackageExaminationResult } from '../autolib-plugin.type.js';
+import type { AutolibFeature, PackageExaminationResult } from '../autolib-feature.type.js';
 import {
 	normalizeAutoMetadataOptions,
 	type AutoMetadataOptions,
@@ -15,14 +15,14 @@ import {
  * be read from the workspace packageJson file. Or both, in which case if a key
  * is defined in both the manual takes precedence.
  */
-export class AutoMetadata implements AutolibPlugin {
+export class AutoMetadata implements AutolibFeature {
 	public static readonly featureName = 'metadata';
 
 	private readonly options: NormalizedAutoMetadataOptions;
-	private readonly context: AutolibContext;
+	private readonly context: NormalizedAutolibContext;
 	private metadataFromWorkspacePackageJson: PackageJson | undefined;
 
-	constructor(context: AutolibContext, rawOptions?: AutoMetadataOptions) {
+	constructor(context: NormalizedAutolibContext, rawOptions?: AutoMetadataOptions) {
 		this.context = context;
 		this.options = normalizeAutoMetadataOptions(rawOptions);
 	}
@@ -47,6 +47,7 @@ export class AutoMetadata implements AutolibPlugin {
 				...this.metadataFromWorkspacePackageJson,
 				...this.options.overrideEntries,
 			};
+
 			if (typeof filledPackageJson.repository === 'object') {
 				filledPackageJson.repository.directory =
 					workspacePackage.packagePathFromRootPackage;
@@ -57,10 +58,12 @@ export class AutoMetadata implements AutolibPlugin {
 			);
 
 			if (missingKeys.length > 0) {
-				throw new Error(
+				const errorMessage =
 					'Some keys are missing! Please define the following keys ' +
-						`in your packageJson file: ${missingKeys.join(', ')}`
-				);
+					`in your packageJson file: ${missingKeys.join(', ')}`;
+
+				this.context.logger.error(errorMessage);
+				throw new Error(errorMessage);
 			}
 
 			return filledPackageJson;

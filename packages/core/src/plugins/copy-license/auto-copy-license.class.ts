@@ -4,7 +4,7 @@ import { existsSync } from 'node:fs';
 import { cp } from 'node:fs/promises';
 import { basename, join } from 'node:path';
 import { NormalizedAutolibContext, PackageJsonKind } from '../../index.js';
-import type { AutolibPlugin, PackageExaminationResult } from '../autolib-plugin.type.js';
+import type { AutolibFeature, PackageExaminationResult } from '../autolib-feature.type.js';
 import { PackageExportPathContext } from '../export/auto-export.class.js';
 
 /**
@@ -13,14 +13,14 @@ import { PackageExportPathContext } from '../export/auto-export.class.js';
  * root of your project. Or if you wish to override it, place one into
  * the packages folder.
  */
-export class AutoCopyLicense implements AutolibPlugin {
+export class AutoCopyLicense implements AutolibFeature {
 	public static readonly featureName = 'copy-license';
 
 	private readonly context: NormalizedAutolibContext;
 
 	private licensePath: string | undefined;
 
-	constructor(context: NormalizedAutolibContext) {
+	constructor(context: NormalizedAutolibContext, _options: unknown) {
 		this.context = context;
 	}
 

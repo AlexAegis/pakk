@@ -29,7 +29,10 @@ export const updatePackageJsonPlugin = (options: UpdatePackageJsonPluginOptions)
 			let rawAugmentedPackageJson = JSON.stringify(augmentedPackageJson);
 
 			if (options.autoPrettier ?? true) {
-				const formatter = await getPrettierFormatter({ parser: 'json-stringify', cwd });
+				const formatter = await getPrettierFormatter({
+					parser: 'json-stringify',
+					cwd,
+				});
 				rawAugmentedPackageJson = formatter(rawAugmentedPackageJson);
 			}
 

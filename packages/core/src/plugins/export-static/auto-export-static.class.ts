@@ -5,7 +5,7 @@ import { existsSync } from 'node:fs';
 import { cp } from 'node:fs/promises';
 import posix, { basename, join } from 'node:path/posix';
 import { NormalizedAutolibContext } from '../../internal/autolib.class.options.js';
-import type { AutolibPlugin, PackageExaminationResult } from '../autolib-plugin.type.js';
+import type { AutolibFeature, PackageExaminationResult } from '../autolib-feature.type.js';
 import { PackageExportPathContext } from '../export/auto-export.class.js';
 import { stripFileExtension } from '../export/helpers/strip-file-extension.function.js';
 import {
@@ -14,7 +14,7 @@ import {
 	normalizeAutoExportStaticOptions,
 } from './auto-export-static.class.options.js';
 
-export class AutoExportStatic implements AutolibPlugin {
+export class AutoExportStatic implements AutolibFeature {
 	public static readonly featureName = 'export-static';
 
 	private readonly options: NormalizedAutoExportStaticOptions;

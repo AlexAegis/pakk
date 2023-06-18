@@ -1,15 +1,14 @@
 import { asyncFilterMap } from '@alexaegis/common';
 import { writeJson } from '@alexaegis/fs';
-import { Logger } from '@alexaegis/logging';
-import { DEFAULT_EXPORT_FORMATS } from '@alexaegis/vite';
+import { DEFAULT_EXPORT_FORMATS, DEFAULT_VITE_LIB_CONFIG } from '@alexaegis/vite';
 import { type PackageJson } from '@alexaegis/workspace-tools';
 import { Autolib, AutolibOptions, PackageJsonKind } from '@autolib/core';
 import { posix } from 'node:path';
-import { UserConfig, type Plugin } from 'vite';
+import { UserConfig, mergeConfig, type Plugin } from 'vite';
 
 export const autolib = (rawOptions?: AutolibOptions): Plugin => {
 	let autolib: Autolib;
-	let logger: Logger<unknown>;
+	let logger: ReturnType<Awaited<ReturnType<typeof Autolib.withContext>>['getLogger']>;
 
 	let error: Error | undefined;
 
@@ -25,7 +24,7 @@ export const autolib = (rawOptions?: AutolibOptions): Plugin => {
 					: DEFAULT_EXPORT_FORMATS;
 
 			const startTime = performance.now();
-			logger.trace('lifecycle: config', config, startTime);
+
 			autolib = await Autolib.withContext(
 				{
 					formats,
@@ -46,6 +45,7 @@ export const autolib = (rawOptions?: AutolibOptions): Plugin => {
 				}
 			);
 			logger = autolib.getLogger();
+			logger.trace('lifecycle: config', config, startTime);
 			logger.info('starting...');
 
 			logger.info(
@@ -55,17 +55,14 @@ export const autolib = (rawOptions?: AutolibOptions): Plugin => {
 
 			const examinationResult = await autolib.examinePackage();
 
-			const viteConfigUpdates: Partial<UserConfig> = {
+			const viteConfigUpdates: Partial<UserConfig> = mergeConfig(DEFAULT_VITE_LIB_CONFIG, {
 				build: {
-					sourcemap: true,
-					manifest: true,
-					ssr: true,
 					lib: {
 						formats: autolib.context.formats,
-						entry: examinationResult.bundlerEntryFiles,
+						entry: examinationResult.bundlerEntryFiles, // The entry has to be an array to keep the file's names in the output directory too.
 					},
 				},
-			};
+			});
 
 			logger.info(
 				`preparation phase took ${Math.floor(performance.now() - startTime)}ms to finish`

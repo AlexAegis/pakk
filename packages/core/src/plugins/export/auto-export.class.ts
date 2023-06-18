@@ -1,12 +1,6 @@
-import { isNotNullish } from '@alexaegis/common';
-import type {
-	PackageJson,
-	PackageJsonExportConditions,
-	PackageJsonExports,
-} from '@alexaegis/workspace-tools';
+import type { PackageJson, PackageJsonExportConditions } from '@alexaegis/workspace-tools';
 import { basename, join, posix } from 'node:path';
-import type { AutolibPlugin, PackageExaminationResult } from '../autolib-plugin.type.js';
-import { retargetPackageJsonPath } from './helpers/retarget-package-json-path.function.js';
+import type { AutolibFeature, PackageExaminationResult } from '../autolib-feature.type.js';
 import { stripFileExtension } from './helpers/strip-file-extension.function.js';
 
 import { toAbsolute } from '@alexaegis/fs';
@@ -69,7 +63,7 @@ export interface PackageExportPathContext {
 /**
  * Generates exports entries automatically
  */
-export class AutoExport implements AutolibPlugin {
+export class AutoExport implements AutolibFeature {
 	public static readonly featureName = 'export';
 
 	private readonly options: NormalizedAutoExportOptions;
@@ -110,80 +104,82 @@ export class AutoExport implements AutolibPlugin {
 	}
 
 	/**
-	 * TODO: should create simpler entries if there's only one format
-	 * @returns or Record<string, PackageJsonExportConditions>
+	 * This plugin compiles the exports object for a packageJson file
+	 *
+	 * For the distributed packageJson it should always contain paths that are
+	 * targeting the dist folder from the dist folder.
+	 *
+	 * For development packageJson the types always target the source for
+	 * immediate feedback by the LSP by local consumers of the package.
+	 * The actual code that's being imported by node has two options,
+	 * by default they target the outDir and expect libraries to be built
+	 * before actually running them in a local setting.
+	 * There's an alternative mode however that will target the source files.
 	 */
-	private static createPackageJsonExports(
-		exportMap: EntryPathVariantMap,
-		packageType: PackageJson['type'],
-		exportPathKind: AllExportPathCombinations,
-		pathContext: PackageExportPathContext
-	): PackageJson['exports'] {
-		// TODO: add 'types' too // TODO: this just resets some fields, add it somewhere else
-		// return { main: undefined, module: undefined, exports: this.entryExports };
-
-		return Object.entries(exportMap).reduce<Record<string, PackageJsonExportConditions>>(
-			(accumulator, [key, entryPathVariations]) => {
-				const entryPath = entryPathVariations[exportPathKind];
-
-				// TODO(svelte): verify if svelte file should keep their file extensions or not.
-				const extensionlessPath = stripFileExtension(entryPath);
-				const extensionlessFileName = basename(entryPath);
-				const dir = dirname(entryPath);
-				// Assume there will be a `.d.ts` generated
-				const typesPath = `.${posix.sep}${posix.normalize(`${extensionlessPath}.d.ts`)}`;
-
-				const exportConditions: PackageJsonExportConditions = {
-					types: typesPath,
-				};
-
-				accumulator[key] = exportConditions;
-
-				return accumulator;
-			},
-			{}
-		);
-	}
-
-	process(packageJson: PackageJson, pathContext: PackageExportPathContext): PackageJson {
-		// Todo fill this out (it's PackageJson['exports'])
+	process(_packageJson: PackageJson, pathContext: PackageExportPathContext): PackageJson {
 		const entryExports: Record<string, PackageJsonExportConditions> = {};
 
-		const entryExportsOffset = Object.entries(
-			packageJson.exports ?? {}
-		).reduce<PackageJsonExports>((accumulator, [conditionKey, exportCondition]) => {
-			accumulator[conditionKey] =
-				conditionKey in entryExports && typeof exportCondition === 'object'
-					? Object.entries(exportCondition).reduce<PackageJsonExportConditions>(
-							(conditions, [condition, path]) => {
-								const isTypesFieldOfDevPackageJson =
-									pathContext.packageJsonKind === PackageJsonKind.DEVELOPMENT &&
-									condition === 'types';
+		for (const [key, pathVariants] of Object.entries(this.exportMap)) {
+			let path: string;
+			let typesPath: string = pathVariants['development-to-source'];
 
-								if (isNotNullish(path)) {
-									const adjustedExtension = isTypesFieldOfDevPackageJson
-										? path.replace('.d.ts', '.ts')
-										: path;
-									conditions[condition] = retargetPackageJsonPath(
-										adjustedExtension,
-										{
-											packageJsonKind: pathContext.packageJsonKind,
-											packageJsonExportTarget: isTypesFieldOfDevPackageJson
-												? PackageJsonExportTarget.SOURCE
-												: PackageJsonExportTarget.DIST,
-											outDir: this.context.outDir,
-										}
-									);
-								}
-								return conditions;
-							},
-							{}
-					  )
-					: (exportCondition as PackageJsonExportConditions);
+			if (pathContext.packageJsonKind === PackageJsonKind.DISTRIBUTION) {
+				path = pathVariants['distribution-to-dist'];
+				typesPath = posix.join(
+					stripFileExtension(pathVariants['distribution-to-dist']),
+					'.d.ts'
+				);
+			} else if (
+				this.options.developmentPackageJsonExportsTarget === PackageJsonExportTarget.SOURCE
+			) {
+				path = pathVariants['development-to-source'];
+			} else {
+				path = pathVariants['development-to-dist'];
+			}
 
-			return accumulator;
-		}, {});
+			const fileName = basename(path);
+			const dir = dirname(path);
+			const extensionlessFileName = stripFileExtension(fileName);
 
-		return { exports: entryExportsOffset } satisfies PackageJson;
+			const exportConditions: PackageJsonExportConditions = {
+				types: typesPath,
+			};
+
+			if (this.context.formats.includes('cjs')) {
+				exportConditions.require =
+					'./' + posix.join(dir, this.context.fileName('cjs', extensionlessFileName));
+			} else {
+				if (this.context.formats.includes('umd')) {
+					exportConditions.require =
+						'./' + posix.join(dir, this.context.fileName('umd', extensionlessFileName));
+				} else if (this.context.formats.includes('iife')) {
+					exportConditions.require =
+						'./' +
+						posix.join(dir, this.context.fileName('iife', extensionlessFileName));
+				}
+			}
+
+			if (this.context.formats.includes('es')) {
+				exportConditions.import =
+					'./' + posix.join(dir, this.context.fileName('es', extensionlessFileName));
+			}
+
+			if (this.context.formats.includes(this.context.primaryFormat)) {
+				exportConditions.default =
+					'./' +
+					posix.join(
+						dir,
+						this.context.fileName(this.context.primaryFormat, extensionlessFileName)
+					);
+			}
+
+			if (path.endsWith('.svelte')) {
+				exportConditions['svelte'] = './' + path;
+			}
+
+			entryExports['./' + key] = exportConditions;
+		}
+
+		return { exports: entryExports } satisfies PackageJson;
 	}
 }

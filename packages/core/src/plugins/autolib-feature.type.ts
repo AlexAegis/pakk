@@ -18,7 +18,7 @@ export interface PackageExaminationResult {
 	bundlerEntryFiles: string[];
 }
 
-export interface AutolibPlugin {
+export interface AutolibFeature {
 	/**
 	 * Called once at the start of Autolib, giving a change for each plugin
 	 * to examine the package.

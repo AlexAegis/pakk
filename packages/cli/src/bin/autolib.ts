@@ -20,7 +20,10 @@ const yarguments = YargsBuilder.withDefaults(packageJson as PackageJson)
 
 void (async () => {
 	const options = await yarguments.parseAsync();
-	const logger = createLogger({ name: 'autolib', minLevel: options.logLevel });
+	const logger = createLogger({
+		name: 'autolib',
+		minLevel: options.logLevel,
+	});
 
 	logger.trace('Parsed options', options);
 	// await autolibStandaloneRunner({ ...options, logger });
