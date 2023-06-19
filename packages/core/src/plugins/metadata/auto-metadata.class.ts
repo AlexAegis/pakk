@@ -48,6 +48,7 @@ export class AutoMetadata implements AutolibFeature {
 				...this.options.overrideEntries,
 			};
 
+			console.log('filledPackageJson', filledPackageJson);
 			if (typeof filledPackageJson.repository === 'object') {
 				filledPackageJson.repository.directory =
 					workspacePackage.packagePathFromRootPackage;

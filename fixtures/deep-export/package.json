@@ -1,0 +1,79 @@
+{
+	"name": "@autolib/fixture-deep-export",
+	"description": "",
+	"version": "0.1.4",
+	"license": "MIT",
+	"private": true,
+	"archetype": {
+		"platform": "node",
+		"language": "ts",
+		"kind": "lib"
+	},
+	"keywords": [
+		"javascript",
+		"js",
+		"managed-by-autotool",
+		"ts",
+		"typescript",
+		"vite",
+		"vite-plugin"
+	],
+	"type": "module",
+	"publishConfig": {
+		"access": "public"
+	},
+	"scripts": {
+		"build": "turbo run build-lib_ --concurrency 16 --cache-dir .cache/turbo --filter @autolib/fixture-deep-export",
+		"build-lib_": "vite build",
+		"build-lib:require:typedoc_": "# chain",
+		"lint:depcheck": "turbo run lint:depcheck_ --concurrency 16 --cache-dir .cache/turbo --filter @autolib/fixture-deep-export",
+		"lint:depcheck_": "depcheck",
+		"lint:es": "turbo run lint:es_ --concurrency 16 --cache-dir .cache/turbo --filter @autolib/fixture-deep-export",
+		"lint:es_": "eslint --max-warnings=0 --fix --no-error-on-unmatched-pattern .",
+		"lint:format": "turbo run lint:format_ --concurrency 16 --cache-dir .cache/turbo --filter @autolib/fixture-deep-export",
+		"lint:format_": "prettier --no-plugin-search --cache-location .cache/prettier --check .",
+		"lint:md": "turbo run lint:md_ --concurrency 16 --cache-dir .cache/turbo --filter @autolib/fixture-deep-export",
+		"lint:md_": "remark --frail --no-stdout --silently-ignore .",
+		"lint:tsc": "turbo run lint:tsc_ --concurrency 16 --cache-dir .cache/turbo --filter @autolib/fixture-deep-export",
+		"lint:tsc_": "tsc --noEmit",
+		"publint": "turbo run publint_ --concurrency 16 --cache-dir .cache/turbo --filter @autolib/fixture-deep-export",
+		"publint_": "publint dist",
+		"all": "turbo run all_ --concurrency 16 --cache-dir .cache/turbo --filter @autolib/fixture-deep-export",
+		"format": "turbo run format_ --concurrency 16 --cache-dir .cache/turbo --filter @autolib/fixture-deep-export",
+		"format_": "prettier --no-plugin-search --cache-location .cache/prettier --write .",
+		"test": "turbo run test_ --concurrency 16 --cache-dir .cache/turbo --filter @autolib/fixture-deep-export",
+		"test_": "vitest --passWithNoTests --coverage --run",
+		"test:watch": "vitest --passWithNoTests --coverage"
+	},
+	"devDependencies": {
+		"@alexaegis/eslint-config-vitest": "^0.3.2",
+		"@alexaegis/ts": "^0.3.2",
+		"@alexaegis/vite": "^0.3.2",
+		"@alexaegis/vitest": "^0.3.2",
+		"@types/node": "^20.3.1",
+		"publint": "^0.1.12",
+		"vite": "^4.3.9",
+		"vite-plugin-dts": "^2.3.0",
+		"vitest": "^0.32.2"
+	},
+	"exports": {
+		".": {
+			"types": "./source/api/index.ts",
+			"require": "./dist/index.cjs",
+			"import": "./dist/index.js",
+			"default": "./dist/index.js"
+		},
+		"./bar/": {
+			"types": "./source/api/bar/index.ts",
+			"require": "./dist/bar/index.cjs",
+			"import": "./dist/bar/index.js",
+			"default": "./dist/bar/index.js"
+		},
+		"./bar/zed": {
+			"types": "./source/api/bar/zed.ts",
+			"require": "./dist/bar/zed.cjs",
+			"import": "./dist/bar/zed.js",
+			"default": "./dist/bar/zed.js"
+		}
+	}
+}

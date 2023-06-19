@@ -105,6 +105,11 @@ export interface AutolibOptions
 	 * 'enabledFeatures'
 	 */
 	disabledFeatures?: EveryAutolibFeature[] | undefined;
+
+	/**
+	 * Generate dts definitions using https://github.com/qmhc/vite-plugin-dts
+	 */
+	dts?: boolean | undefined;
 }
 
 export type NormalizedAutolibOptions = Defined<
@@ -127,5 +132,6 @@ export const normalizeAutolibOptions = (options?: AutolibOptions): NormalizedAut
 		enabledFeatures: options?.enabledFeatures ?? [],
 		disabledFeatures: options?.disabledFeatures ?? [],
 		autoPrettier: options?.autoPrettier ?? true,
+		dts: options?.dts ?? true,
 	};
 };

@@ -76,10 +76,7 @@ export interface AutoExportOptions {
 	 *
 	 * @defaultValue 'dist'
 	 */
-	developmentPackageJsonExportsTarget?:
-		| PackageJsonExportTarget.DIST
-		| PackageJsonExportTarget.SOURCE
-		| undefined;
+	developmentPackageJsonExportsTarget?: 'dist' | 'source' | undefined;
 }
 
 export type NormalizedAutoExportOptions = Defined<AutoExportOptions>;

@@ -1,5 +1,5 @@
 import type { PackageJson, PackageJsonExportConditions } from '@alexaegis/workspace-tools';
-import { basename, join, posix } from 'node:path';
+import { basename, posix } from 'node:path';
 import type { AutolibFeature, PackageExaminationResult } from '../autolib-feature.type.js';
 import { stripFileExtension } from './helpers/strip-file-extension.function.js';
 
@@ -78,29 +78,38 @@ export class AutoExport implements AutolibFeature {
 
 	async examinePackage(_packageJson: PackageJson): Promise<Partial<PackageExaminationResult>> {
 		const absoluteExportBaseDir = toAbsolute(
-			join(this.context.srcDir, this.options.exportBaseDir),
+			posix.join(this.context.srcDir, this.options.exportBaseDir),
 			{
 				cwd: this.context.workspacePackage.packagePath,
 			}
 		);
 
+		const ignore = [...this.options.exportsIgnore, ...this.options.defaultExportsIgnore];
+		this.context.logger.trace('ignoring exports', ignore);
+
 		const entryFiles = await globby(this.options.exports, {
 			cwd: absoluteExportBaseDir,
-			ignoreFiles: [...this.options.exportsIgnore, ...this.options.defaultExportsIgnore],
+			ignore,
 			onlyFiles: true,
 			dot: true,
 		});
+		this.context.logger.info('detected package exports', entryFiles);
 
-		const exportMap = createExportMapFromPaths(entryFiles, {
+		this.exportMap = createExportMapFromPaths(entryFiles, {
 			outDir: this.context.outDir,
 			srcDir: this.context.srcDir,
 			basePath: this.options.exportBaseDir,
 			keyKind: 'extensionless-relative-path-from-base',
 		});
 
-		this.exportMap = exportMap;
-
-		return { exportMap };
+		return {
+			bundlerEntryFiles: entryFiles.reduce<Record<string, string>>((acc, entryFile) => {
+				const path = posix.join(this.context.srcDir, this.options.exportBaseDir, entryFile);
+				const alias = stripFileExtension(entryFile);
+				acc[alias] = path;
+				return acc;
+			}, {}),
+		};
 	}
 
 	/**
@@ -125,10 +134,10 @@ export class AutoExport implements AutolibFeature {
 
 			if (pathContext.packageJsonKind === PackageJsonKind.DISTRIBUTION) {
 				path = pathVariants['distribution-to-dist'];
-				typesPath = posix.join(
-					stripFileExtension(pathVariants['distribution-to-dist']),
-					'.d.ts'
-				);
+
+				typesPath = pathVariants['distribution-to-dist'].endsWith('.ts')
+					? stripFileExtension(pathVariants['distribution-to-dist']) + '.d.ts'
+					: pathVariants['distribution-to-dist'];
 			} else if (
 				this.options.developmentPackageJsonExportsTarget === PackageJsonExportTarget.SOURCE
 			) {
@@ -173,13 +182,20 @@ export class AutoExport implements AutolibFeature {
 					);
 			}
 
+			// TODO: Figure out how to properly support svelte exports
 			if (path.endsWith('.svelte')) {
 				exportConditions['svelte'] = './' + path;
 			}
 
-			entryExports['./' + key] = exportConditions;
+			const indexNormalizedKey = key.replace(/\/index$/, '/').replace(/^.\/$/, '.');
+
+			entryExports[indexNormalizedKey] = exportConditions;
 		}
 
-		return { exports: entryExports } satisfies PackageJson;
+		// This arrangement will first clean the exports entry then re-populate it
+		return [
+			{ exports: undefined } satisfies PackageJson,
+			{ exports: entryExports } satisfies PackageJson,
+		];
 	}
 }

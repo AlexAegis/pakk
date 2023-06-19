@@ -12,7 +12,6 @@ import { AutoBin } from '../plugins/bin/auto-bin.class.js';
 import { AutoCopyLicense } from '../plugins/copy-license/auto-copy-license.class.js';
 import { AutoExportStatic } from '../plugins/export-static/auto-export-static.class.js';
 import { AutoExport } from '../plugins/export/auto-export.class.js';
-import { EntryPathVariantMap } from '../plugins/export/export-map.type.js';
 import { createDefaultViteFileNameFn } from '../plugins/export/helpers/bundle-file-name.function.js';
 import { AutoMetadata } from '../plugins/metadata/auto-metadata.class.js';
 import { AutoPeer } from '../plugins/peer/auto-peer.class.js';
@@ -89,6 +88,20 @@ export class Autolib {
 					options
 				);
 			});
+
+		this.options.logger.trace('features enabled:', this.features.length);
+		this.options.logger.trace('context', {
+			...this.context,
+			logger: 'SKIPPED FROM LOG',
+			rootWorkspacePackage: {
+				...this.context.rootWorkspacePackage,
+				packageJson: 'SKIPPED FROM LOG',
+			},
+			workspacePackage: {
+				...this.context.workspacePackage,
+				packageJson: 'SKIPPED FROM LOG',
+			},
+		});
 	}
 
 	getLogger(): Logger<unknown> {
@@ -141,18 +154,7 @@ export class Autolib {
 			async (plugin) => await plugin.examinePackage?.(workspacePackage)
 		);
 
-		// Todo: this can likely be replaced with a single deepMerge once array support is released
-		return {
-			bundlerEntryFiles: detectedExports.flatMap((e) => e.bundlerEntryFiles ?? []),
-			exportMap: deepMerge(
-				{} as EntryPathVariantMap,
-				detectedExports.map((e) => e.exportMap)
-			),
-			packageJsonUpdates: deepMerge(
-				{} as PackageJson,
-				detectedExports.map((e) => e.packageJsonUpdates)
-			),
-		} satisfies PackageExaminationResult;
+		return deepMerge({} as PackageExaminationResult, ...detectedExports);
 	}
 
 	/**
@@ -162,22 +164,21 @@ export class Autolib {
 	 * And also returns the path where it should be written to.
 	 */
 	async createUpdatedPackageJson(
-		packageJsonForArtifact: PackageJson,
 		packageJsonKind: PackageJsonKind,
 		format: InternalModuleFormat
 	): Promise<{ updatedPackageJson: PackageJson; path: string }> {
 		const packageJsonUpdates = await asyncFilterMap(
 			this.features,
 			async (plugin) =>
-				await plugin.process?.(structuredClone(packageJsonForArtifact), {
+				await plugin.process?.(structuredClone(this.context.workspacePackage.packageJson), {
 					packageJsonKind,
 					format,
 				})
 		);
 
 		let updatedPackageJson: PackageJson = deepMerge(
-			structuredClone(packageJsonForArtifact),
-			...packageJsonUpdates
+			structuredClone(this.context.workspacePackage.packageJson),
+			...packageJsonUpdates.flat(1)
 		);
 
 		updatedPackageJson = this.features.reduce<PackageJson>(

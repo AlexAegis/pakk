@@ -5,17 +5,16 @@ import type {
 	WorkspacePackage,
 } from '@alexaegis/workspace-tools';
 import { PackageJsonKind } from '@autolib/core';
+import type { InputOption } from 'rollup';
 import { PackageExportPathContext } from './export/auto-export.class.js';
-import type { EntryPathVariantMap } from './export/export-map.type.js';
 
 export interface PackageExaminationResult {
 	packageJsonUpdates: Partial<PackageJson>;
-	exportMap: EntryPathVariantMap;
 	/**
 	 * A list of package relative paths to all the exported/bin files.
 	 * This guarantees that everything that the package exposes is built.
 	 */
-	bundlerEntryFiles: string[];
+	bundlerEntryFiles: Exclude<InputOption, string | string[]>;
 }
 
 export interface AutolibFeature {
@@ -39,7 +38,7 @@ export interface AutolibFeature {
 	process?: (
 		packageJson: PackageJson,
 		pathContext: PackageExportPathContext
-	) => Awaitable<PackageJson | undefined>;
+	) => Awaitable<PackageJson | PackageJson[] | undefined>;
 
 	/**
 	 * A final, synchronous step to modify the packageJson file.

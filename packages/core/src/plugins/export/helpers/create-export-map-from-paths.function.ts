@@ -62,18 +62,10 @@ export const createExportMapFromPaths = <
 				? stripFileExtension(basename(path))
 				: './' + stripFileExtension(path);
 
-		/**
-		 * This is the path where we assume the file will be once it's bundled.
-		 * In case this assumption is broken and this has to be amended,
-		 * amend this variable. The '*-to-source' entry is not using
-		 * this variable because that is not an assumption, but thruth.
-		 */
-		const assumedDistributionPath = posix.join(basePath, path);
-
 		const pathVariants: Record<string, string> = {
 			'development-to-source': './' + posix.join(options.srcDir, basePath, path), // The original full path, not used by default but there's an option if preferred
-			'development-to-dist': './' + posix.join(options.outDir, assumedDistributionPath), // It is assumed that files in the outDir replicate their folder structure from the srcDir
-			'distribution-to-dist': './' + assumedDistributionPath,
+			'development-to-dist': './' + posix.join(options.outDir, path), // It is assumed that files in the outDir replicate their folder structure from the srcDir
+			'distribution-to-dist': './' + path,
 		};
 
 		if (options.shimDir) {
