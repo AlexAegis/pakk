@@ -1,6 +1,6 @@
 {
 	"name": "@autolib/fixture-deep-export",
-	"description": "",
+	"description": "Showcasing custom src and exportBaseDir options with deep exports",
 	"version": "0.1.4",
 	"license": "MIT",
 	"private": true,
@@ -57,23 +57,17 @@
 		"vitest": "^0.32.2"
 	},
 	"exports": {
-		".": {
-			"types": "./source/api/index.ts",
-			"require": "./dist/index.cjs",
-			"import": "./dist/index.js",
-			"default": "./dist/index.js"
+		"./bar/yod/": {
+			"types": "./source/api/bar/yod/index.ts",
+			"require": "./dist/bar/yod/index.cjs",
+			"import": "./dist/bar/yod/index.js",
+			"default": "./dist/bar/yod/index.js"
 		},
-		"./bar/": {
-			"types": "./source/api/bar/index.ts",
-			"require": "./dist/bar/index.cjs",
-			"import": "./dist/bar/index.js",
-			"default": "./dist/bar/index.js"
-		},
-		"./bar/zed": {
-			"types": "./source/api/bar/zed.ts",
-			"require": "./dist/bar/zed.cjs",
-			"import": "./dist/bar/zed.js",
-			"default": "./dist/bar/zed.js"
+		"./bar/yod/zed": {
+			"types": "./source/api/bar/yod/zed.ts",
+			"require": "./dist/bar/yod/zed.cjs",
+			"import": "./dist/bar/yod/zed.js",
+			"default": "./dist/bar/yod/zed.js"
 		}
 	}
 }

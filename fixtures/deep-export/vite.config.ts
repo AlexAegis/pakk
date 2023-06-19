@@ -10,7 +10,7 @@ export default defineConfig({
 			srcDir: 'source',
 			exportBaseDir: 'api',
 			exports: '**/*',
-			dts: false,
+			dts: true,
 		}),
 	],
 });

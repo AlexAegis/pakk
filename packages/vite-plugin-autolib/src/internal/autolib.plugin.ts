@@ -1,14 +1,38 @@
 import { asyncFilterMap } from '@alexaegis/common';
 import { writeJson } from '@alexaegis/fs';
 import { DEFAULT_EXPORT_FORMATS, createLazyAutoExternalsFunction } from '@alexaegis/vite';
-import { Autolib, AutolibOptions, DEFAULT_OUT_DIR, PackageJsonKind } from '@autolib/core';
+import { Autolib, AutolibOptions, PackageJsonKind, normalizeAutolibOptions } from '@autolib/core';
+import { join } from 'node:path';
 import { UserConfig, type Plugin } from 'vite';
 
 import dts from 'vite-plugin-dts';
 
+/**
+ * # Autolib
+ *
+ * Autofills your vite config, packageJson and distribution packageJson
+ * based on conventional file and directory layouts.
+ *
+ * Packaging a publishable library is as easy as defining a vite config with
+ * just this single plugin (also wraps [vite-plugin-dts](https://github.com/qmhc/vite-plugin-dts)):
+ *
+ * ```ts
+ * import { defineConfig } from 'vite';
+ * import { autolib } from 'vite-plugin-autolib';
+ *
+ * export default defineConfig({
+ * 	plugins: [
+ * 		autolib(),
+ * 	],
+ * });
+ * ```
+ *
+ */
 export const autolib = (rawOptions?: AutolibOptions): Plugin[] => {
 	let autolib: Autolib;
 	let logger: ReturnType<Awaited<ReturnType<typeof Autolib.withContext>>['getLogger']>;
+
+	const options = normalizeAutolibOptions(rawOptions);
 
 	const autolibPlugin: Plugin = {
 		name: 'autolib',
@@ -21,7 +45,7 @@ export const autolib = (rawOptions?: AutolibOptions): Plugin[] => {
 					? config.build.lib.formats
 					: DEFAULT_EXPORT_FORMATS;
 
-			const outDir: string = config.build?.outDir ?? rawOptions?.outDir ?? DEFAULT_OUT_DIR;
+			const outDir: string = config.build?.outDir ?? options.outDir;
 
 			autolib = await Autolib.withContext(
 				{
@@ -32,7 +56,7 @@ export const autolib = (rawOptions?: AutolibOptions): Plugin[] => {
 							: undefined,
 				},
 				{
-					...rawOptions,
+					...options,
 					outDir,
 				}
 			);
@@ -47,6 +71,13 @@ export const autolib = (rawOptions?: AutolibOptions): Plugin[] => {
 
 			if (config.build?.lib && !!config.build.lib.entry) {
 				logger.warn('build.lib.entry is defined in vite config, will be ignored!');
+			}
+
+			if (config.build?.outDir && rawOptions?.outDir) {
+				logger.info(
+					`vite plugin defines build.outDir as "${config.build.outDir}". ` +
+						`Using that over "${rawOptions.outDir}"`
+				);
 			}
 
 			const examinationResult = await autolib.examinePackage();
@@ -105,10 +136,12 @@ export const autolib = (rawOptions?: AutolibOptions): Plugin[] => {
 	} satisfies Plugin;
 
 	const plugins = [autolibPlugin];
-	if (rawOptions?.dts !== false) {
+	if (options.dts) {
 		plugins.push(
 			dts({
 				copyDtsFiles: true,
+				cleanVueFileName: true,
+				entryRoot: join(options.srcDir, options.exportBaseDir),
 			})
 		);
 	}
