@@ -4,9 +4,5 @@ import { defineConfig } from 'vite';
 import { autolib } from '../vite-plugin-autolib/src/index.js';
 
 export default defineConfig({
-	plugins: [
-		autolib({
-			enabledFeatures: ['export'],
-		}),
-	],
+	plugins: [autolib()],
 });

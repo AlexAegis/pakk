@@ -47,7 +47,19 @@
 		"test_": "vitest --passWithNoTests --coverage --run",
 		"test:watch": "vitest --passWithNoTests --coverage"
 	},
-	"bin": {},
+	"exports": {
+		".": {
+			"types": "./src/index.ts",
+			"import": "./dist/index.js",
+			"require": "./dist/index.cjs",
+			"default": "./dist/index.js"
+		},
+		"./readme": "./readme.md"
+	},
+	"bin": {
+		"autolib": "./shims/autolib.js",
+		"sort-json": "./shims/sort-json.js"
+	},
 	"dependencies": {
 		"@alexaegis/cli-tools": "^0.2.3",
 		"@alexaegis/common": "^0.2.3",
@@ -71,13 +83,5 @@
 		"publint": "^0.1.12",
 		"vite": "^4.3.9",
 		"vitest": "^0.32.2"
-	},
-	"exports": {
-		".": {
-			"types": "./src/index.ts",
-			"require": "./dist/index.cjs",
-			"import": "./dist/index.js",
-			"default": "./dist/index.js"
-		}
 	}
 }
