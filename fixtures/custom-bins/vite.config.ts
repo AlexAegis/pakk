@@ -13,6 +13,7 @@ export default defineConfig({
 				'sort-package-json',
 				'peer',
 				'export-static',
+				'metadata',
 			],
 			srcDir: 'source',
 			binBaseDir: 'cli',

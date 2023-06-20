@@ -1,4 +1,4 @@
-import { Awaitable } from '@alexaegis/common';
+import { Awaitable, deepMerge } from '@alexaegis/common';
 import { type PackageJson, type WorkspacePackage } from '@alexaegis/workspace-tools';
 import { NormalizedAutolibContext } from '../../internal/autolib.class.options.js';
 import { PackageJsonKind } from '../../package-json/index.js';
@@ -30,9 +30,16 @@ export class AutoMetadata implements AutolibFeature {
 	examinePackage(
 		workspacePackage: WorkspacePackage
 	): Awaitable<Partial<PackageExaminationResult>> {
+		this.context.logger.trace(
+			'collecting keys from workspace:',
+			this.options.keysFromWorkspace
+		);
+
 		this.metadataFromWorkspacePackageJson = Object.fromEntries(
-			Object.entries(workspacePackage.packageJson).filter(([key]) =>
-				this.options.keysFromWorkspace.includes(key)
+			Object.entries(this.context.rootWorkspacePackage.packageJson).filter(
+				([key]) =>
+					this.options.keysFromWorkspace.includes(key) &&
+					!Object.hasOwn(workspacePackage.packageJson, key)
 			)
 		);
 
@@ -41,14 +48,21 @@ export class AutoMetadata implements AutolibFeature {
 
 	postprocess(workspacePackage: WorkspacePackage, packageJsonKind: PackageJsonKind): PackageJson {
 		if (packageJsonKind === PackageJsonKind.DISTRIBUTION) {
-			const filledPackageJson = {
-				...this.options.fallbackEntries,
-				...workspacePackage.packageJson,
-				...this.metadataFromWorkspacePackageJson,
-				...this.options.overrideEntries,
-			};
+			this.context.logger.info('filling metadata for distributed packageJson');
+			this.context.logger.trace('fallbackEntries', this.options.fallbackEntries);
+			this.context.logger.trace(
+				'metadataFromWorkspacePackageJson',
+				this.metadataFromWorkspacePackageJson
+			);
+			this.context.logger.trace('overrideEntries', this.options.overrideEntries);
 
-			console.log('filledPackageJson', filledPackageJson);
+			const filledPackageJson: PackageJson = deepMerge(
+				structuredClone(this.options.fallbackEntries),
+				workspacePackage.packageJson,
+				this.metadataFromWorkspacePackageJson,
+				this.options.overrideEntries
+			);
+
 			if (typeof filledPackageJson.repository === 'object') {
 				filledPackageJson.repository.directory =
 					workspacePackage.packagePathFromRootPackage;

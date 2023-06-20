@@ -45,16 +45,12 @@ export class AutoExportStatic implements AutolibFeature {
 		relativeSourceFiles: string[],
 		outDirectory: string
 	): Promise<void> => {
-		const a = await Promise.allSettled(
+		await Promise.allSettled(
 			relativeSourceFiles
 				.map((sourceFile) => ({
 					sourceFile: join(cwd, sourceFile),
 					targetFile: join(cwd, outDirectory, sourceFile),
 				}))
-				.map((a) => {
-					console.log('SSFAF', a);
-					return a;
-				})
 				.filter(
 					({ sourceFile, targetFile }) =>
 						existsSync(sourceFile) && !existsSync(targetFile)
@@ -66,7 +62,6 @@ export class AutoExportStatic implements AutolibFeature {
 					})
 				)
 		);
-		console.log('ASDASD', a);
 	};
 
 	async examinePackage(

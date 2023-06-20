@@ -18,6 +18,7 @@
 		"vite",
 		"vite-plugin"
 	],
+	"homepage": "https://github.com/AlexAegis/autolib-fake",
 	"type": "module",
 	"publishConfig": {
 		"access": "public"
