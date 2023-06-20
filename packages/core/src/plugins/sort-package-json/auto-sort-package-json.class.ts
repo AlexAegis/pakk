@@ -20,7 +20,7 @@ export class AutoSort implements AutolibFeature {
 	}
 
 	postprocess(workspacePackage: RegularWorkspacePackage): PackageJson {
-		this.context.logger.trace('sorting packageJson...');
+		this.context.logger.info('sorting packageJson...');
 		return sortObject(workspacePackage.packageJson, this.options.sortingPreference);
 	}
 }
