@@ -1,9 +1,10 @@
-import { toAbsolute } from '@alexaegis/fs';
+import { mapObject } from '@alexaegis/common';
 import type { PackageJson, WorkspacePackage } from '@alexaegis/workspace-tools';
 import { globby } from 'globby';
 import { existsSync } from 'node:fs';
 import { cp } from 'node:fs/promises';
 import posix, { basename, join } from 'node:path/posix';
+import { PackageJsonKind } from '../../index.js';
 import { NormalizedAutolibContext } from '../../internal/autolib.class.options.js';
 import type { AutolibFeature, PackageExaminationResult } from '../autolib-feature.type.js';
 import { PackageExportPathContext } from '../export/auto-export.class.js';
@@ -44,12 +45,16 @@ export class AutoExportStatic implements AutolibFeature {
 		relativeSourceFiles: string[],
 		outDirectory: string
 	): Promise<void> => {
-		await Promise.allSettled(
+		const a = await Promise.allSettled(
 			relativeSourceFiles
 				.map((sourceFile) => ({
 					sourceFile: join(cwd, sourceFile),
 					targetFile: join(cwd, outDirectory, sourceFile),
 				}))
+				.map((a) => {
+					console.log('SSFAF', a);
+					return a;
+				})
 				.filter(
 					({ sourceFile, targetFile }) =>
 						existsSync(sourceFile) && !existsSync(targetFile)
@@ -61,6 +66,7 @@ export class AutoExportStatic implements AutolibFeature {
 					})
 				)
 		);
+		console.log('ASDASD', a);
 	};
 
 	async examinePackage(
@@ -76,19 +82,29 @@ export class AutoExportStatic implements AutolibFeature {
 
 	async process(
 		packageJson: PackageJson,
-		_pathContext: PackageExportPathContext
+		pathContext: PackageExportPathContext
 	): Promise<PackageJson> {
-		await AutoExportStatic.copyAll(
-			this.context.workspacePackage.packagePath,
-			Object.values(this.staticExports),
-			toAbsolute(this.context.outDir, this.context)
+		if (pathContext.packageJsonKind === PackageJsonKind.DISTRIBUTION) {
+			const staticFilePaths = Object.values(this.staticExports);
+
+			this.context.logger.info('copy all static files', staticFilePaths);
+			await AutoExportStatic.copyAll(
+				this.context.workspacePackage.packagePath,
+				staticFilePaths,
+				this.context.outDir
+			);
+		}
+
+		// this.staticExports[key] will be undefined if no longer exists, dropping that during merge. Non string exports are left alone.
+		const droppedExistingStaticExports = mapObject(packageJson.exports ?? {}, (value, key) =>
+			typeof value === 'string' ? this.staticExports[key] : value
 		);
 
 		return {
 			exports: {
 				...this.staticExports,
-				...packageJson.exports,
+				...droppedExistingStaticExports, // to not let static exports overwrite real ones
 			},
-		};
+		} as PackageJson;
 	}
 }
