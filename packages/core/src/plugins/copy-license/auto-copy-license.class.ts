@@ -51,18 +51,25 @@ export class AutoCopyLicense implements AutolibFeature {
 	}
 
 	async process(_packageJson: PackageJson, pathContext: PackageExportPathContext): Promise<void> {
-		if (pathContext.packageJsonKind === PackageJsonKind.DISTRIBUTION && this.licensePath) {
-			try {
-				const licenseFileDestination = join(
-					toAbsolute(this.context.outDir, this.context),
-					basename(this.licensePath)
-				);
-				await cp(this.licensePath, licenseFileDestination);
+		if (pathContext.packageJsonKind === PackageJsonKind.DISTRIBUTION) {
+			if (!this.licensePath) {
+				this.context.logger.warn('No license file found!');
+				return;
+			}
 
-				this.context.logger.trace('Copied license file', licenseFileDestination);
+			const licenseFileDestination = join(
+				toAbsolute(this.context.outDir, this.context),
+				basename(this.licensePath)
+			);
+
+			try {
+				await cp(this.licensePath, licenseFileDestination);
+				this.context.logger.info('Copied license file from', this.licensePath);
 			} catch (error) {
 				this.context.logger.error(
-					'Couldnt copy license file to ',
+					"Couldn't copy license file from",
+					this.licensePath,
+					'to',
 					this.context.outDir,
 					'error happened',
 					error

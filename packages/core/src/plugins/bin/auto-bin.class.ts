@@ -1,5 +1,9 @@
 import { getPrettierFormatter, toAbsolute, turnIntoExecutable } from '@alexaegis/fs';
-import { WorkspacePackage, type PackageJson } from '@alexaegis/workspace-tools';
+import {
+	WorkspacePackage,
+	getPackageJsonTemplateVariables,
+	type PackageJson,
+} from '@alexaegis/workspace-tools';
 
 import { existsSync } from 'node:fs';
 import { mkdir, readFile, rename, rm, symlink, writeFile } from 'node:fs/promises';
@@ -122,7 +126,7 @@ export class AutoBin implements AutolibFeature {
 		return Object.fromEntries(
 			Object.entries(workspacePackage.packageJson.bin ?? {}).filter(
 				([, path]) =>
-					!path.startsWith('.' + posix.sep + this.options.shimDir) ||
+					!path.startsWith('.' + posix.sep + posix.normalize(this.options.shimDir)) ||
 					!path.endsWith('js') ||
 					path.includes('manual')
 			)
@@ -133,6 +137,7 @@ export class AutoBin implements AutolibFeature {
 		workspacePackage: WorkspacePackage
 	): Promise<Partial<PackageExaminationResult>> {
 		this.existingManualBinEntries = this.collectManualBinEntries(workspacePackage);
+		this.context.logger.trace('existingManualBinEntries', this.existingManualBinEntries);
 
 		const absoluteBinBaseDir = toAbsolute(join(this.context.srcDir, this.options.binBaseDir), {
 			cwd: workspacePackage.packagePath,
@@ -140,7 +145,7 @@ export class AutoBin implements AutolibFeature {
 
 		const binFiles = await globby(this.options.bins, {
 			cwd: absoluteBinBaseDir,
-			ignoreFiles: [...this.options.binIgnore, ...this.options.defaultBinIgnore],
+			ignore: [...this.options.binIgnore, ...this.options.defaultBinIgnore],
 			onlyFiles: true,
 			dot: true,
 		});
@@ -161,9 +166,9 @@ export class AutoBin implements AutolibFeature {
 					this.options.binBaseDir,
 					binPath
 				),
-				'development-to-dist': join(this.context.outDir, binPath),
-				'distribution-to-dist': binPath,
-				'development-to-shim': join(this.options.shimDir, enterPathPosix(binPath, 1)),
+				'development-to-dist': join(this.context.outDir, this.options.binBaseDir, binPath),
+				'distribution-to-dist': join(this.options.binBaseDir, binPath),
+				'development-to-shim': join(this.options.shimDir, binPath),
 			};
 		}
 
@@ -177,7 +182,15 @@ export class AutoBin implements AutolibFeature {
 			}
 		}
 
-		return { packageJsonUpdates };
+		return {
+			packageJsonUpdates,
+			bundlerEntryFiles: binFiles.reduce<Record<string, string>>((acc, binFile) => {
+				const path = posix.join(this.context.srcDir, this.options.binBaseDir, binFile);
+				const alias = posix.join(this.options.binBaseDir, stripFileExtension(binFile));
+				acc[alias] = path;
+				return acc;
+			}, {}),
+		};
 	}
 
 	/**
@@ -210,7 +223,7 @@ export class AutoBin implements AutolibFeature {
 
 			// Mark all bins and shims as executable
 			await Promise.allSettled(
-				Object.values(this.binPathMap)
+				Object.values(binPathMapForFormat)
 					.flatMap((pathKinds) => [
 						pathKinds['development-to-dist'],
 						pathKinds['development-to-shim'],
@@ -225,11 +238,11 @@ export class AutoBin implements AutolibFeature {
 			);
 
 			await this.preLink(
-				mapObject(this.binPathMap, (pathKinds) => pathKinds['development-to-dist']),
+				mapObject(binPathMapForFormat, (pathKinds) => pathKinds['development-to-dist']),
 				packageName
 			);
 
-			const update = Object.entries(this.binPathMap).reduce<PackageJson>(
+			const update = Object.entries(binPathMapForFormat).reduce<PackageJson>(
 				(result, [key, value]) => {
 					if (result.scripts && this.options.enabledNpmHooks.includes(key)) {
 						if (
@@ -249,6 +262,15 @@ export class AutoBin implements AutolibFeature {
 						}
 						// Hooks are renamed to avoid conflicts, except for their scripts
 						key = packageName + '-' + key;
+					}
+
+					if (key.endsWith('index')) {
+						key = key.replace('index', '');
+					}
+
+					if (key === '') {
+						const packageJsonName = getPackageJsonTemplateVariables(packageJson);
+						key = packageJsonName.packageNameWithoutOrg;
 					}
 
 					if (!result.bin) {
@@ -278,9 +300,11 @@ export class AutoBin implements AutolibFeature {
 			if (typeof update.scripts === 'object' && Object.keys(update.scripts).length === 0) {
 				delete update.scripts;
 			}
-			return update;
+
+			return [{ bin: undefined } satisfies PackageJson, update];
+		} else {
+			return undefined;
 		}
-		return {};
 	}
 
 	/**
@@ -317,11 +341,10 @@ export class AutoBin implements AutolibFeature {
 			if (shimPathsToMake.length > 0) {
 				this.context.logger.info(`create shims for ${shimPathsToMake.join('; ')}`);
 
-				await mkdir(this.shimDirAbs, { recursive: true });
-
 				await Promise.allSettled(
-					shimPathsToMake.map((path) => {
-						const outBinPath = enterPathPosix(path, path.split(posix.sep).length - 1);
+					shimPathsToMake.map(async (path) => {
+						const outBinPath = enterPathPosix(path, 1);
+						//const outBinPath = path;
 						const builtBinFromShims = shimDirToOutBin + posix.sep + outBinPath;
 						const formattedESShimContent = formatJs(
 							`// autogenerated
@@ -344,10 +367,22 @@ export class AutoBin implements AutolibFeature {
 							__exportStar(require('${builtBinFromShims}'), exports);`
 						);
 
-						return writeFile(
-							join(this.shimDirAbs, outBinPath),
-							format === 'es' ? formattedESShimContent : formattedCJSShimContent
-						).catch(() => undefined);
+						const shimPathAbs = join(this.shimDirAbs, outBinPath);
+
+						try {
+							await mkdir(dirname(shimPathAbs), { recursive: true });
+							await writeFile(
+								shimPathAbs,
+								format === 'es' ? formattedESShimContent : formattedCJSShimContent
+							);
+						} catch (error) {
+							this.context.logger.error(
+								"Couldn't write",
+								shimPathAbs,
+								'error happened',
+								error
+							);
+						}
 					})
 				);
 			}

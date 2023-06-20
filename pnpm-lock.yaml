@@ -168,6 +168,36 @@ importers:
         specifier: ^0.32.2
         version: 0.32.2(@vitest/ui@0.32.2)(jsdom@22.1.0)
 
+  fixtures/custom-bins:
+    devDependencies:
+      '@alexaegis/eslint-config-vitest':
+        specifier: ^0.3.2
+        version: 0.3.2
+      '@alexaegis/ts':
+        specifier: ^0.3.2
+        version: 0.3.2(rollup@3.25.1)
+      '@alexaegis/vite':
+        specifier: ^0.3.2
+        version: 0.3.2(@types/node@20.3.1)(rollup@3.25.1)
+      '@alexaegis/vitest':
+        specifier: ^0.3.2
+        version: 0.3.2(svelte@3.59.1)(vite@4.3.9)
+      '@types/node':
+        specifier: ^20.3.1
+        version: 20.3.1
+      publint:
+        specifier: ^0.1.12
+        version: 0.1.12
+      vite:
+        specifier: ^4.3.9
+        version: 4.3.9(@types/node@20.3.1)
+      vite-plugin-dts:
+        specifier: ^2.3.0
+        version: 2.3.0(@types/node@20.3.1)(rollup@3.25.1)(vite@4.3.9)
+      vitest:
+        specifier: ^0.32.2
+        version: 0.32.2(@vitest/ui@0.32.2)(jsdom@22.1.0)
+
   fixtures/deep-export:
     devDependencies:
       '@alexaegis/eslint-config-vitest':
@@ -1909,7 +1939,7 @@ packages:
   /@types/concat-stream@2.0.0:
     resolution: {integrity: sha512-t3YCerNM7NTVjLuICZo5gYAXYoDvpuuTceCcFQWcDQz26kxUR5uIWolxbIR5jRNIXpMqhOpW/b8imCR1LEmuJw==}
     dependencies:
-      '@types/node': 18.16.18
+      '@types/node': 20.3.1
     dev: true
 
   /@types/cookie@0.5.1:
