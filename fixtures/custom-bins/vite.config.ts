@@ -6,7 +6,7 @@ import { autolib } from '../../packages/vite-plugin-autolib/src/index.js';
 export default defineConfig({
 	plugins: [
 		autolib({
-			enabledFeatures: ['export', 'copy-license', 'bin', 'sort-package-json'],
+			enabledFeatures: ['export', 'copy-license', 'bin', 'sort-package-json', 'peer'],
 			srcDir: 'source',
 			binBaseDir: 'cli',
 			bins: '**/*',

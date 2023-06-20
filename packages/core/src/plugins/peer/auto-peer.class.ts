@@ -30,16 +30,21 @@ export class AutoPeer implements AutolibFeature {
 			workspacePackage.packageJson.dependencies &&
 			workspacePackage.packageJson.peerDependencies
 		) {
-			this.context.logger.trace('removing dependencies that are also peerDependencies...');
+			this.context.logger.info('removing dependencies that are also peerDependencies...');
 			const peerDependencies = Object.keys(workspacePackage.packageJson.peerDependencies);
+
+			const deduplicatedDependencies = Object.fromEntries(
+				Object.entries(workspacePackage.packageJson.dependencies).filter(
+					([dependency]) => !peerDependencies.includes(dependency)
+				)
+			);
 			return {
 				...workspacePackage.packageJson,
-				dependencies: Object.fromEntries(
-					Object.entries(workspacePackage.packageJson.dependencies).filter(
-						([dependency]) => !peerDependencies.includes(dependency)
-					)
-				),
-			};
+				dependencies:
+					Object.values(deduplicatedDependencies).length > 0
+						? deduplicatedDependencies
+						: undefined,
+			} as PackageJson;
 		} else {
 			return workspacePackage.packageJson;
 		}

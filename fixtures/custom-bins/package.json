@@ -61,6 +61,12 @@
 		"foo": "./shims/foo.js",
 		"manual": "./manual.js"
 	},
+	"dependencies": {
+		"is-even": "^1.0.0"
+	},
+	"peerDependencies": {
+		"is-even": "^1.0.0"
+	},
 	"devDependencies": {
 		"@alexaegis/eslint-config-vitest": "^0.3.2",
 		"@alexaegis/ts": "^0.3.2",
