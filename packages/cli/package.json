@@ -82,6 +82,7 @@
 		"@types/yargs": "^17.0.24",
 		"publint": "^0.1.12",
 		"vite": "^4.3.9",
+		"vite-plugin-autolib": "workspace:^",
 		"vitest": "^0.32.2"
 	}
 }

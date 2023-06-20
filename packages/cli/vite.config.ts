@@ -1,7 +1,6 @@
 import { defineConfig } from 'vite';
 
-// ? Intentionally imported across packages, this isn't source code so it's fine.
-import { autolib } from '../vite-plugin-autolib/src/index.js';
+import { autolib } from 'vite-plugin-autolib';
 
 export default defineConfig({
 	plugins: [autolib()],
