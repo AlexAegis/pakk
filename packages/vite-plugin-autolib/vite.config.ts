@@ -1,17 +1,7 @@
-import { defineLibConfig } from '@alexaegis/vite';
+import { defineConfig } from 'vite';
 
-import dts from 'vite-plugin-dts';
+import { autolib } from './src/index.js';
 
-export default defineLibConfig({
-	build: {
-		lib: {
-			entry: ['src/index.ts'],
-		},
-	},
-	plugins: [
-		dts({
-			entryRoot: 'src',
-			copyDtsFiles: true,
-		}),
-	],
+export default defineConfig({
+	plugins: [autolib()],
 });

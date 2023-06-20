@@ -7,7 +7,7 @@
 	"archetype": {
 		"platform": "node",
 		"language": "ts",
-		"kind": "lib"
+		"kind": "fixture"
 	},
 	"keywords": [
 		"javascript",
@@ -47,37 +47,29 @@
 		"test_": "vitest --passWithNoTests --coverage --run",
 		"test:watch": "vitest --passWithNoTests --coverage"
 	},
-	"exports": {
-		".": {
-			"types": "./source/index.ts",
-			"default": "./dist/index.js",
-			"import": "./dist/index.js",
-			"require": "./dist/index.cjs"
-		},
-		"./test2": "./static/test2.txt"
-	},
-	"bin": {
-		"autolib-fixture-custom-bins-postinstall": "./shims/postinstall.js",
-		"bar": "./shims/inner/bar.js",
-		"fixture-custom-bins": "./shims/index.js",
-		"foo": "./shims/foo.js",
-		"manual": "./manual.js"
-	},
-	"dependencies": {
-		"is-even": "^1.0.0"
-	},
-	"peerDependencies": {
-		"is-even": "^1.0.0"
-	},
 	"devDependencies": {
 		"@alexaegis/eslint-config-vitest": "^0.3.2",
 		"@alexaegis/ts": "^0.3.2",
-		"@alexaegis/vite": "^0.3.2",
-		"@alexaegis/vitest": "^0.3.2",
 		"@types/node": "^20.3.1",
+		"@vitest/coverage-v8": "^0.32.2",
 		"publint": "^0.1.12",
 		"vite": "^4.3.9",
-		"vite-plugin-dts": "^2.3.0",
 		"vitest": "^0.32.2"
+	},
+	"bin": {
+		"manual": "./manual.js",
+		"foo": "./shims/foo.js",
+		"fixture-custom-bins": "./shims/index.js",
+		"autolib-fixture-custom-bins-postinstall": "./shims/postinstall.js",
+		"bar": "./shims/inner/bar.js"
+	},
+	"exports": {
+		".": {
+			"types": "./source/index.ts",
+			"require": "./dist/index.cjs",
+			"import": "./dist/index.js",
+			"default": "./dist/index.js"
+		},
+		"./test": "./static/test.txt"
 	}
 }

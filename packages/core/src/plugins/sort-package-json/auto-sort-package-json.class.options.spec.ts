@@ -20,7 +20,7 @@ describe('normalizeAutoSortPackageJsonOptions', () => {
 		expect(normalizedOptions).toEqual({
 			sortingPreference: [
 				'name',
-				{ key: 'exports', order: [{ key: '.*', order: ['types'] }] },
+				{ key: 'exports', order: [{ key: '.*', order: ['types', '.*', 'default'] }] },
 			],
 		} as AutoSortPackageJsonOptions);
 	});
@@ -32,7 +32,7 @@ describe('normalizeAutoSortPackageJsonOptions', () => {
 		expect(normalizedOptions).toEqual({
 			sortingPreference: [
 				'name',
-				{ key: 'exports', order: [{ key: '.*', order: ['types'] }] },
+				{ key: 'exports', order: [{ key: '.*', order: ['types', '.*', 'default'] }] },
 			],
 		} as AutoSortPackageJsonOptions);
 	});

@@ -1,18 +1,12 @@
-import { defineLibConfig } from '@alexaegis/vite';
-
-import dts from 'vite-plugin-dts';
+import { defineConfig } from 'vite';
 
 // ? Intentionally imported across packages, this isn't source code so it's fine.
 import { autolib } from '../vite-plugin-autolib/src/index.js';
 
-export default defineLibConfig({
+export default defineConfig({
 	plugins: [
 		autolib({
 			enabledFeatures: ['export'],
-		}),
-		dts({
-			entryRoot: 'src',
-			copyDtsFiles: true,
 		}),
 	],
 });

@@ -1,11 +1,16 @@
 import { asyncFilterMap } from '@alexaegis/common';
 import { writeJson } from '@alexaegis/fs';
-import { DEFAULT_EXPORT_FORMATS, createLazyAutoExternalsFunction } from '@alexaegis/vite';
-import { Autolib, AutolibOptions, PackageJsonKind, normalizeAutolibOptions } from '@autolib/core';
+import {
+	Autolib,
+	AutolibOptions,
+	DEFAULT_EXPORT_FORMATS,
+	PackageJsonKind,
+	normalizeAutolibOptions,
+} from '@autolib/core';
 import { join } from 'node:path';
 import { UserConfig, type Plugin } from 'vite';
-
 import dts from 'vite-plugin-dts';
+import { createLazyAutoExternalsFunction } from './rollup-externals.function.js';
 
 /**
  * # Autolib
@@ -117,8 +122,7 @@ export const autolib = (rawOptions?: AutolibOptions): Plugin[] => {
 
 			await asyncFilterMap(Object.values(PackageJsonKind), async (packageJsonTarget) => {
 				const { updatedPackageJson, path } = await autolib.createUpdatedPackageJson(
-					packageJsonTarget,
-					autolib.context.primaryFormat
+					packageJsonTarget
 				);
 
 				logger.info('writing updated package.json to', path);
@@ -133,7 +137,7 @@ export const autolib = (rawOptions?: AutolibOptions): Plugin[] => {
 				`update phase took ~${Math.floor(performance.now() - startTime)}ms to finish`
 			);
 		},
-	} satisfies Plugin;
+	} as Plugin;
 
 	const plugins = [autolibPlugin];
 	if (options.dts) {

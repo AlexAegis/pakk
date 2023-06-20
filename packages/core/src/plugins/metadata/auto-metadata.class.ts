@@ -16,8 +16,6 @@ import {
  * is defined in both the manual takes precedence.
  */
 export class AutoMetadata implements AutolibFeature {
-	public static readonly featureName = 'metadata';
-
 	private readonly options: NormalizedAutoMetadataOptions;
 	private readonly context: NormalizedAutolibContext;
 	private metadataFromWorkspacePackageJson: PackageJson | undefined;

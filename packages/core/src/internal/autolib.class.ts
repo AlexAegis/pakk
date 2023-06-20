@@ -3,7 +3,6 @@ import { toAbsolute } from '@alexaegis/fs';
 import { Logger } from '@alexaegis/logging';
 import { PackageJson, WorkspacePackage } from '@alexaegis/workspace-tools';
 import { join } from 'node:path';
-import { InternalModuleFormat } from 'rollup';
 import { LibraryFormats } from 'vite';
 
 import { PackageJsonKind } from '../package-json/package-json-kind.enum.js';
@@ -26,24 +25,26 @@ import {
 import { findCurrentAndRootWorkspacePackage } from './find-current-and-root-workspace-package.function.js';
 
 export const createIsFeatureEnabled =
-	(enabledFeatures: EveryAutolibFeature[], disabledFeatures: EveryAutolibFeature[]) =>
-	(feature: EveryAutolibFeature): boolean => {
+	(enabledFeatures: AutolibFeatureName[], disabledFeatures: AutolibFeatureName[]) =>
+	(feature: AutolibFeatureName): boolean => {
 		const isEnabled = enabledFeatures.length === 0 || enabledFeatures.includes(feature);
 		const isDisabled = disabledFeatures.includes(feature);
 		return isEnabled && !isDisabled;
 	};
 
-export const ALL_AUTOLIB_FEATURES = [
-	AutoBin.featureName,
-	AutoCopyLicense.featureName,
-	AutoExport.featureName,
-	AutoExportStatic.featureName,
-	AutoMetadata.featureName,
-	AutoPeer.featureName,
-	AutoSort.featureName,
-] as const;
+export const autolibFeatureMap = {
+	bin: AutoBin,
+	'copy-license': AutoCopyLicense,
+	export: AutoExport,
+	'export-static': AutoExportStatic,
+	metadata: AutoMetadata,
+	peer: AutoPeer,
+	sort: AutoSort,
+} as const;
 
-export type EveryAutolibFeature = (typeof ALL_AUTOLIB_FEATURES)[number];
+export const autolibFeatures = Object.keys(autolibFeatureMap) as AutolibFeatureName[];
+
+export type AutolibFeatureName = keyof typeof autolibFeatureMap;
 
 /**
  * This class does not execute anything on it's own, just provides itself as a
@@ -67,22 +68,14 @@ export class Autolib {
 			this.options.disabledFeatures
 		);
 
-		this.features = [
-			AutoBin,
-			AutoExport,
-			AutoExportStatic,
-			AutoMetadata,
-			AutoSort,
-			AutoCopyLicense,
-			AutoPeer,
-		]
-			.filter((feature) => isFeatureEnabled(feature.featureName))
-			.map((feature) => {
+		this.features = Object.entries(autolibFeatureMap)
+			.filter(([featureName]) => isFeatureEnabled(featureName as AutolibFeatureName))
+			.map(([featureName, feature]) => {
 				return new feature(
 					{
 						...this.context,
 						logger: options.logger.getSubLogger({
-							name: feature.featureName,
+							name: featureName,
 						}),
 					},
 					options
@@ -164,15 +157,14 @@ export class Autolib {
 	 * And also returns the path where it should be written to.
 	 */
 	async createUpdatedPackageJson(
-		packageJsonKind: PackageJsonKind,
-		format: InternalModuleFormat
+		packageJsonKind: PackageJsonKind
 	): Promise<{ updatedPackageJson: PackageJson; path: string }> {
 		const packageJsonUpdates = await asyncFilterMap(
 			this.features,
 			async (plugin) =>
 				await plugin.process?.(structuredClone(this.context.workspacePackage.packageJson), {
 					packageJsonKind,
-					format,
+					format: this.context.primaryFormat,
 				})
 		);
 

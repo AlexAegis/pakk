@@ -59,8 +59,6 @@ export const DEFAULT_STATIC_EXPORT_GLOBS = ['readme.md', 'static/**/*', 'export/
 
 /**
  * What formats to expect to be built by default
- *
- * TODO: Revisit if this is needed at all and could instead be figured out
  */
 export const DEFAULT_EXPORT_FORMATS: LibraryFormats[] = ['es', 'cjs'];
 

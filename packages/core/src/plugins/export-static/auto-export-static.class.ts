@@ -1,4 +1,3 @@
-import { mapObject } from '@alexaegis/common';
 import type { PackageJson, WorkspacePackage } from '@alexaegis/workspace-tools';
 import { globby } from 'globby';
 import { existsSync } from 'node:fs';
@@ -16,8 +15,6 @@ import {
 } from './auto-export-static.class.options.js';
 
 export class AutoExportStatic implements AutolibFeature {
-	public static readonly featureName = 'export-static';
-
 	private readonly options: NormalizedAutoExportStaticOptions;
 	private readonly context: NormalizedAutolibContext;
 
@@ -76,7 +73,7 @@ export class AutoExportStatic implements AutolibFeature {
 	}
 
 	async process(
-		packageJson: PackageJson,
+		_packageJson: PackageJson,
 		pathContext: PackageExportPathContext
 	): Promise<PackageJson> {
 		if (pathContext.packageJsonKind === PackageJsonKind.DISTRIBUTION) {
@@ -90,16 +87,22 @@ export class AutoExportStatic implements AutolibFeature {
 			);
 		}
 
-		// this.staticExports[key] will be undefined if no longer exists, dropping that during merge. Non string exports are left alone.
-		const droppedExistingStaticExports = mapObject(packageJson.exports ?? {}, (value, key) =>
-			typeof value === 'string' ? this.staticExports[key] : value
-		);
-
 		return {
-			exports: {
-				...this.staticExports,
-				...droppedExistingStaticExports, // to not let static exports overwrite real ones
-			},
+			exports: this.staticExports,
 		} as PackageJson;
+	}
+
+	postprocess(workspacePackage: WorkspacePackage): PackageJson {
+		if (workspacePackage.packageJson.exports) {
+			for (const [key, value] of Object.entries(workspacePackage.packageJson.exports)) {
+				// Remove no longer existing static exports
+				if (typeof value === 'string' && !this.staticExports[key]) {
+					// eslint-disable-next-line @typescript-eslint/no-dynamic-delete
+					delete workspacePackage.packageJson.exports[key];
+				}
+			}
+		}
+
+		return workspacePackage.packageJson;
 	}
 }

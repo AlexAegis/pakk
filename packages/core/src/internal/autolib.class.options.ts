@@ -5,7 +5,12 @@ import {
 	type CwdOption,
 	type WriteJsonOptions,
 } from '@alexaegis/fs';
-import { createLogger, type LoggerOption } from '@alexaegis/logging';
+import {
+	LogLevelOption,
+	createLogger,
+	normalizeLogLevelOption,
+	type LoggerOption,
+} from '@alexaegis/logging';
 import { PackageJson } from '@alexaegis/workspace-tools';
 import { LibraryFormats, LibraryOptions } from 'vite';
 import { AutoBinOptions, normalizeAutoBinOptions } from '../plugins/bin/auto-bin.class.options.js';
@@ -14,7 +19,7 @@ import {
 	AutoExportOptions,
 	AutoExportStaticOptions,
 	AutoSortPackageJsonOptions,
-	EveryAutolibFeature,
+	AutolibFeatureName,
 	normalizeAutoExportOptions,
 	normalizeAutoExportStaticOptions,
 	normalizeAutoSortPackageJsonOptions,
@@ -68,6 +73,7 @@ export interface AutolibOptions
 	extends WriteJsonOptions,
 		CwdOption,
 		LoggerOption,
+		LogLevelOption,
 		AutoBinOptions,
 		AutoExportOptions,
 		AutoExportStaticOptions,
@@ -98,13 +104,13 @@ export interface AutolibOptions
 	/**
 	 * If left empty, all features will remain enabled. Except the disabled ones
 	 */
-	enabledFeatures?: EveryAutolibFeature[] | undefined;
+	enabledFeatures?: AutolibFeatureName[] | undefined;
 
 	/**
 	 * If left empty, all features will remain enabled. Takes precedence over
 	 * 'enabledFeatures'
 	 */
-	disabledFeatures?: EveryAutolibFeature[] | undefined;
+	disabledFeatures?: AutolibFeatureName[] | undefined;
 
 	/**
 	 * Generate dts definitions using https://github.com/qmhc/vite-plugin-dts
@@ -117,15 +123,19 @@ export type NormalizedAutolibOptions = Defined<
 >;
 
 export const normalizeAutolibOptions = (options?: AutolibOptions): NormalizedAutolibOptions => {
+	const logLevelOptions = normalizeLogLevelOption(options);
 	return {
 		...normalizeCwdOption(options),
+		...logLevelOptions,
 		...normalizeWriteJsonOptions(options),
 		...normalizeAutoBinOptions(options),
 		...normalizeAutoExportOptions(options),
 		...normalizeAutoExportStaticOptions(options),
 		...normalizeAutoMetadataOptions(options),
 		...normalizeAutoSortPackageJsonOptions(options),
-		logger: options?.logger ?? createLogger({ name: 'autolib' }),
+		logger:
+			options?.logger ??
+			createLogger({ name: 'autolib', minLevel: logLevelOptions.logLevel }),
 		sourcePackageJson: options?.sourcePackageJson ?? 'package.json',
 		srcDir: options?.srcDir ?? DEFAULT_SRC_DIR,
 		outDir: options?.outDir ?? DEFAULT_OUT_DIR,

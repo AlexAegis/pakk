@@ -14,8 +14,6 @@ import { PackageExportPathContext } from '../export/auto-export.class.js';
  * the packages folder.
  */
 export class AutoCopyLicense implements AutolibFeature {
-	public static readonly featureName = 'copy-license';
-
 	private readonly context: NormalizedAutolibContext;
 
 	private licensePath: string | undefined;

@@ -1,4 +1,4 @@
-import { ALL_AUTOLIB_FEATURES, AutolibOptions } from '@autolib/core';
+import { AutolibOptions, autolibFeatures } from '@autolib/core';
 import type { Argv } from 'yargs';
 
 export const yargsForAutoLib = <T>(yargs: Argv<T>): Argv<T & AutolibOptions> => {
@@ -26,14 +26,14 @@ export const yargsForAutoLib = <T>(yargs: Argv<T>): Argv<T & AutolibOptions> => 
 		})
 		.option('enabledFeatures', {
 			description: 'When defined only these features will be enabled.',
-			choices: Object.values(ALL_AUTOLIB_FEATURES),
+			choices: autolibFeatures,
 			array: true,
 			string: true,
 			default: undefined,
 		})
 		.option('disabledFeatures', {
 			description: 'When defined these features will be disabled.',
-			choices: Object.values(ALL_AUTOLIB_FEATURES),
+			choices: autolibFeatures,
 			array: true,
 			string: true,
 			default: undefined,

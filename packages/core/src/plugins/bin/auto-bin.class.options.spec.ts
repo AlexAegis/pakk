@@ -22,7 +22,7 @@ describe('normalizeAutoBinOptions', () => {
 			defaultBinIgnore: DEFAULT_PACKAGE_EXPORT_IGNORES,
 			shimDir: DEFAULT_BINSHIM_DIR,
 			enabledNpmHooks: ALL_NPM_HOOKS,
-		} satisfies NormalizedAutoBinOptions);
+		} as NormalizedAutoBinOptions);
 	});
 
 	it('should use the provided values when defined', () => {
@@ -31,6 +31,8 @@ describe('normalizeAutoBinOptions', () => {
 			binBaseDir: 'foo',
 			bins: 'bin-*',
 			defaultBinIgnore: [],
+			shimDir: 'shimdir',
+			enabledNpmHooks: [],
 		};
 		expect(normalizeAutoBinOptions(manualOptions)).toEqual(manualOptions);
 	});

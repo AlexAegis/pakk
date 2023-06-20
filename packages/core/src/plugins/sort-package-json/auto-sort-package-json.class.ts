@@ -9,8 +9,6 @@ import {
 } from './auto-sort-package-json.class.options.js';
 
 export class AutoSort implements AutolibFeature {
-	public static readonly featureName = 'sort-package-json';
-
 	private readonly context: NormalizedAutolibContext;
 	private readonly options: NormalizedAutoSortPackageJsonOptions;
 

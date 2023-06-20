@@ -7,21 +7,16 @@ import { Autolib, AutolibOptions, PackageJsonKind } from '@autolib/core';
  * The standalone runner for autolib to be used on it's own instead of together
  * with a build tool
  */
-export const autolibStandaloneRunner = async (autolibOptions?: AutolibOptions): Promise<void> => {
-	const autolib = await Autolib.withContext({ formats: ['es', 'cjs'] }, autolibOptions);
+export const autolibStandaloneRunner = async (rawOptions?: AutolibOptions): Promise<void> => {
+	const autolib = await Autolib.withContext({ formats: ['es', 'cjs'] }, rawOptions);
 
-	const packageJson = await autolib.examinePackage();
+	await autolib.examinePackage();
 
 	await asyncFilterMap(Object.values(PackageJsonKind), async (packageJsonTarget) => {
 		const { updatedPackageJson, path } = await autolib.createUpdatedPackageJson(
-			packageJson,
-			packageJsonTarget,
-			autolib.context.primaryFormat
+			packageJsonTarget
 		);
 
-		return await writeJson(updatedPackageJson, path, {
-			autoPrettier: autolib.options.autoPrettier,
-			dry: autolib.options.dry,
-		});
+		return await writeJson(updatedPackageJson, path, autolib.options);
 	});
 };

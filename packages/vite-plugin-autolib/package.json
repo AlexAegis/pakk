@@ -53,18 +53,16 @@
 		".": {
 			"types": "./src/index.ts",
 			"import": "./dist/index.js",
-			"require": "./dist/index.cjs"
+			"require": "./dist/index.cjs",
+			"default": "./dist/index.js"
 		},
 		"./example": "./static/example.json",
 		"./readme": "./readme.md"
 	},
-	"bin": {
-		"reorder-json": "./shims/reorder-json.js"
-	},
 	"dependencies": {
-		"@alexaegis/common": "^0.2.2",
-		"@alexaegis/fs": "^0.2.2",
-		"@alexaegis/workspace-tools": "^0.2.2",
+		"@alexaegis/common": "^0.2.3",
+		"@alexaegis/fs": "^0.2.3",
+		"@alexaegis/workspace-tools": "^0.2.3",
 		"@autolib/core": "^0.1.4",
 		"@types/node": "^20.3.1",
 		"prettier": "^2.8.8",
@@ -76,7 +74,6 @@
 	"devDependencies": {
 		"@alexaegis/eslint-config-vitest": "^0.3.2",
 		"@alexaegis/ts": "^0.3.2",
-		"@alexaegis/vite": "^0.3.2",
 		"@alexaegis/vitest": "^0.3.2",
 		"@types/node": "^20.3.1",
 		"@types/yargs": "^17.0.24",

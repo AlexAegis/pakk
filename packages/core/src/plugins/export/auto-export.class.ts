@@ -64,8 +64,6 @@ export interface PackageExportPathContext {
  * Generates exports entries automatically
  */
 export class AutoExport implements AutolibFeature {
-	public static readonly featureName = 'export';
-
 	private readonly options: NormalizedAutoExportOptions;
 	private readonly context: NormalizedAutolibContext;
 
@@ -193,9 +191,6 @@ export class AutoExport implements AutolibFeature {
 		}
 
 		// This arrangement will first clean the exports entry then re-populate it
-		return [
-			{ exports: undefined } satisfies PackageJson,
-			{ exports: entryExports } satisfies PackageJson,
-		];
+		return [{ exports: undefined }, { exports: entryExports }];
 	}
 }

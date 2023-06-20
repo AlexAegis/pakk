@@ -13,8 +13,6 @@ import type { AutolibFeature } from '../autolib-feature.type.js';
  * step will remove the one that was meant to only be present locally.
  */
 export class AutoPeer implements AutolibFeature {
-	public static readonly featureName = 'peer';
-
 	private readonly context: NormalizedAutolibContext;
 
 	constructor(context: NormalizedAutolibContext) {

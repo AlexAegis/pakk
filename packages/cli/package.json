@@ -1,6 +1,6 @@
 {
 	"name": "@autolib/cli",
-	"description": "Automatically fills out your package.json for both local and published version",
+	"description": "The standalone cli of autolib, that can manage your package.json for library development.",
 	"version": "0.1.4",
 	"license": "MIT",
 	"private": false,
@@ -14,9 +14,7 @@
 		"js",
 		"managed-by-autotool",
 		"ts",
-		"typescript",
-		"vite",
-		"vite-plugin"
+		"typescript"
 	],
 	"homepage": "https://www.github.com/AlexAegis/autolib#readme",
 	"type": "module",
@@ -49,22 +47,13 @@
 		"test_": "vitest --passWithNoTests --coverage --run",
 		"test:watch": "vitest --passWithNoTests --coverage"
 	},
-	"exports": {
-		".": {
-			"types": "./src/index.ts",
-			"import": "./dist/index.js",
-			"require": "./dist/index.cjs"
-		},
-		"./example": "./static/example.json",
-		"./readme": "./readme.md"
-	},
 	"bin": {},
 	"dependencies": {
-		"@alexaegis/cli-tools": "^0.2.2",
-		"@alexaegis/common": "^0.2.2",
-		"@alexaegis/fs": "^0.2.2",
-		"@alexaegis/logging": "^0.2.2",
-		"@alexaegis/workspace-tools": "^0.2.2",
+		"@alexaegis/cli-tools": "^0.2.3",
+		"@alexaegis/common": "^0.2.3",
+		"@alexaegis/fs": "^0.2.3",
+		"@alexaegis/logging": "^0.2.3",
+		"@alexaegis/workspace-tools": "^0.2.3",
 		"@autolib/core": "^0.1.4",
 		"@types/node": "^20.3.1",
 		"prettier": "^2.8.8",
@@ -76,13 +65,19 @@
 	"devDependencies": {
 		"@alexaegis/eslint-config-vitest": "^0.3.2",
 		"@alexaegis/ts": "^0.3.2",
-		"@alexaegis/vite": "^0.3.2",
 		"@alexaegis/vitest": "^0.3.2",
 		"@types/node": "^20.3.1",
 		"@types/yargs": "^17.0.24",
 		"publint": "^0.1.12",
 		"vite": "^4.3.9",
-		"vite-plugin-dts": "^2.3.0",
 		"vitest": "^0.32.2"
+	},
+	"exports": {
+		".": {
+			"types": "./src/index.ts",
+			"require": "./dist/index.cjs",
+			"import": "./dist/index.js",
+			"default": "./dist/index.js"
+		}
 	}
 }

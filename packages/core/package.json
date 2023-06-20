@@ -1,6 +1,6 @@
 {
 	"name": "@autolib/core",
-	"description": "Automatically fills out your package.json for both local and published version",
+	"description": "The core library of autolib, that can manage your package.json for library development.",
 	"version": "0.1.4",
 	"license": "MIT",
 	"private": false,
@@ -14,9 +14,7 @@
 		"js",
 		"managed-by-autotool",
 		"ts",
-		"typescript",
-		"vite",
-		"vite-plugin"
+		"typescript"
 	],
 	"type": "module",
 	"config": {
@@ -50,10 +48,10 @@
 	},
 	"bin": {},
 	"dependencies": {
-		"@alexaegis/common": "^0.2.2",
-		"@alexaegis/fs": "^0.2.2",
-		"@alexaegis/logging": "^0.2.2",
-		"@alexaegis/workspace-tools": "^0.2.2",
+		"@alexaegis/common": "^0.2.3",
+		"@alexaegis/fs": "^0.2.3",
+		"@alexaegis/logging": "^0.2.3",
+		"@alexaegis/workspace-tools": "^0.2.3",
 		"@types/node": "^20.3.1",
 		"globby": "^13.2.0",
 		"prettier": "^2.8.8",
@@ -65,22 +63,14 @@
 	"devDependencies": {
 		"@alexaegis/eslint-config-vitest": "^0.3.2",
 		"@alexaegis/ts": "^0.3.2",
-		"@alexaegis/vite": "^0.3.2",
 		"@alexaegis/vitest": "^0.3.2",
 		"@types/node": "^20.3.1",
 		"@types/yargs": "^17.0.24",
 		"publint": "^0.1.12",
 		"vite": "^4.3.9",
-		"vite-plugin-dts": "^2.3.0",
 		"vitest": "^0.32.2"
 	},
 	"exports": {
-		"./hello": {
-			"types": "./src/hello.ts",
-			"require": "./dist/hello.cjs",
-			"import": "./dist/hello.js",
-			"default": "./dist/hello.js"
-		},
 		".": {
 			"types": "./src/index.ts",
 			"require": "./dist/index.cjs",
