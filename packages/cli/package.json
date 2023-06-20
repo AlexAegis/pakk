@@ -25,10 +25,10 @@
 		"access": "public"
 	},
 	"scripts": {
-		"build": "turbo run build-lib_ --concurrency 16 --cache-dir .cache/turbo --filter autolib-cli",
+		"build": "turbo run build-lib_ --concurrency 16 --cache-dir .cache/turbo --filter @autolib/cli",
 		"build-lib_": "vite build",
 		"build-lib:require:typedoc_": "# chain",
-		"lint:depcheck": "turbo run lint:depcheck_ --concurrency 16 --cache-dir .cache/turbo --filter autolib-cli",
+		"lint:depcheck": "turbo run lint:depcheck_ --concurrency 16 --cache-dir .cache/turbo --filter @autolib/cli",
 		"lint:depcheck_": "depcheck",
 		"lint:es": "turbo run lint:es_ --concurrency 16 --cache-dir .cache/turbo --filter @autolib/cli",
 		"lint:es_": "eslint --max-warnings=0 --fix --no-error-on-unmatched-pattern .",

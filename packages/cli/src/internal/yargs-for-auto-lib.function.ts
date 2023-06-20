@@ -29,13 +29,11 @@ export const yargsForAutoLib = <T>(yargs: Argv<T>): Argv<T & AutolibOptions> => 
 			choices: autolibFeatures,
 			array: true,
 			string: true,
-			default: undefined,
 		})
 		.option('disabledFeatures', {
 			description: 'When defined these features will be disabled.',
 			choices: autolibFeatures,
 			array: true,
 			string: true,
-			default: undefined,
 		});
 };

@@ -1,7 +1,13 @@
-import { YargsBuilder, yargsForDryOption, yargsForLogLevelOption } from '@alexaegis/cli-tools';
+import {
+	YargsBuilder,
+	yargsForCwdOption,
+	yargsForDryOption,
+	yargsForLogLevelOption,
+} from '@alexaegis/cli-tools';
 import { createLogger } from '@alexaegis/logging';
 import { PackageJson } from '@alexaegis/workspace-tools';
 import packageJson from '../../package.json';
+import { autolibStandaloneRunner } from '../internal/autolib-standalone-runner.function.js';
 import { yargsForAutoBin } from '../internal/yargs-for-auto-bin.function.js';
 import { yargsForAutoExportStatic } from '../internal/yargs-for-auto-export-static.function.js';
 import { yargsForAutoExport } from '../internal/yargs-for-auto-export.function.js';
@@ -15,6 +21,7 @@ const yarguments = YargsBuilder.withDefaults(packageJson as PackageJson)
 	.add(yargsForAutoExport)
 	.add(yargsForAutoExportStatic)
 	.add(yargsForAutoMetadata)
+	.add(yargsForCwdOption)
 	.add(yargsForDryOption)
 	.build();
 
@@ -26,5 +33,5 @@ void (async () => {
 	});
 
 	logger.trace('Parsed options', options);
-	// await autolibStandaloneRunner({ ...options, logger });
+	await autolibStandaloneRunner({ ...options, logger });
 })();

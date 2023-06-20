@@ -83,6 +83,9 @@ importers:
       '@alexaegis/ts':
         specifier: ^0.3.2
         version: 0.3.2(rollup@3.25.1)
+      '@autolib/cli':
+        specifier: workspace:^
+        version: link:packages/cli
       '@lcov-viewer/cli':
         specifier: ^1.3.0
         version: 1.3.0
