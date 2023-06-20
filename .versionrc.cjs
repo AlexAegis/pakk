@@ -1,3 +1,3 @@
 // managed-by-autotool
 
-module.exports = require('@alexaegis/autotool-plugin-standard-version/config').default;
+module.exports = require('@alexaegis/autotool-plugin-standard-version/config');
