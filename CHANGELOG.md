@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.2.0](https://github.com/AlexAegis/autolib/compare/v0.1.4...v0.2.0) (2023-06-20)
+
+
+### Features
+
+* **core:** bundle in vite-plugin-dts ([1e561d4](https://github.com/AlexAegis/autolib/commit/1e561d4c00f2c89217605c94e88e5a55da7fa87a))
+
+
+### Bug Fixes
+
+* added deep export example, fixed dts options ([52fa5df](https://github.com/AlexAegis/autolib/commit/52fa5df2797b136ea08ac90537926a7a100aafb1))
+* **cli:** fix some yargs defaults ([50abbee](https://github.com/AlexAegis/autolib/commit/50abbeee4957e9b3dc0177001e713ac9399ddaca))
+* **core:** bins are working ([00ea3ea](https://github.com/AlexAegis/autolib/commit/00ea3ea3459faf63ce200f11dc797eed9976c32d))
+* **core:** metadata now works ([893ff1d](https://github.com/AlexAegis/autolib/commit/893ff1d58b0ec44d77a5d0d1f3b2b1844b346c35))
+* **core:** remove empty dependencies object ([61a3338](https://github.com/AlexAegis/autolib/commit/61a3338a3464e04593a67a3b3280c850d1f88374))
+* **core:** static exports ([e4385e4](https://github.com/AlexAegis/autolib/commit/e4385e40d42e5d12d1420eca6c822acffcacf455))
+* resolve cyclic build requirements ([ce1c8ba](https://github.com/AlexAegis/autolib/commit/ce1c8ba027377b1a171f9f61add1f1baa531a24e))
+
 ## [0.1.4](https://github.com/AlexAegis/autolib/compare/v0.1.3...v0.1.4) (2023-05-29)
 
 
