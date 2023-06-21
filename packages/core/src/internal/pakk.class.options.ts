@@ -19,7 +19,7 @@ import {
 	AutoExportOptions,
 	AutoExportStaticOptions,
 	AutoSortPackageJsonOptions,
-	AutolibFeatureName,
+	PakkFeatureName,
 	normalizeAutoExportOptions,
 	normalizeAutoExportStaticOptions,
 	normalizeAutoSortPackageJsonOptions,
@@ -42,7 +42,7 @@ import { CurrentWorkspacePackageWithRoot } from './find-current-and-root-workspa
  */
 export type ViteFileNameFn = Exclude<LibraryOptions['fileName'], string | undefined>;
 
-export interface AutolibContext extends CurrentWorkspacePackageWithRoot, CwdOption, LoggerOption {
+export interface PakkContext extends CurrentWorkspacePackageWithRoot, CwdOption, LoggerOption {
 	formats: LibraryFormats[];
 	fileName?: ViteFileNameFn | undefined;
 	/**
@@ -67,9 +67,9 @@ export interface AutolibContext extends CurrentWorkspacePackageWithRoot, CwdOpti
 	outDir?: string | undefined;
 }
 
-export type NormalizedAutolibContext = Defined<AutolibContext>;
+export type NormalizedPakkContext = Defined<PakkContext>;
 
-export interface AutolibOptions
+export interface PakkOptions
 	extends WriteJsonOptions,
 		CwdOption,
 		LoggerOption,
@@ -104,13 +104,13 @@ export interface AutolibOptions
 	/**
 	 * If left empty, all features will remain enabled. Except the disabled ones
 	 */
-	enabledFeatures?: AutolibFeatureName[] | undefined;
+	enabledFeatures?: PakkFeatureName[] | undefined;
 
 	/**
 	 * If left empty, all features will remain enabled. Takes precedence over
 	 * 'enabledFeatures'
 	 */
-	disabledFeatures?: AutolibFeatureName[] | undefined;
+	disabledFeatures?: PakkFeatureName[] | undefined;
 
 	/**
 	 * Generate dts definitions using https://github.com/qmhc/vite-plugin-dts
@@ -118,11 +118,9 @@ export interface AutolibOptions
 	dts?: boolean | undefined;
 }
 
-export type NormalizedAutolibOptions = Defined<
-	Replace<AutolibOptions, { filterFeatures: RegExp[] }>
->;
+export type NormalizedPakkOptions = Defined<Replace<PakkOptions, { filterFeatures: RegExp[] }>>;
 
-export const normalizeAutolibOptions = (options?: AutolibOptions): NormalizedAutolibOptions => {
+export const normalizePakkOptions = (options?: PakkOptions): NormalizedPakkOptions => {
 	const logLevelOptions = normalizeLogLevelOption(options);
 	return {
 		...normalizeCwdOption(options),
@@ -134,8 +132,7 @@ export const normalizeAutolibOptions = (options?: AutolibOptions): NormalizedAut
 		...normalizeAutoMetadataOptions(options),
 		...normalizeAutoSortPackageJsonOptions(options),
 		logger:
-			options?.logger ??
-			createLogger({ name: 'autolib', minLevel: logLevelOptions.logLevel }),
+			options?.logger ?? createLogger({ name: 'pakk', minLevel: logLevelOptions.logLevel }),
 		sourcePackageJson: options?.sourcePackageJson ?? 'package.json',
 		srcDir: options?.srcDir ?? DEFAULT_SRC_DIR,
 		outDir: options?.outDir ?? DEFAULT_OUT_DIR,

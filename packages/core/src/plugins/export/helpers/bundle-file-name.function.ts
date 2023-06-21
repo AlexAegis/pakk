@@ -1,6 +1,6 @@
 import { PackageJson } from '@alexaegis/workspace-tools';
 import type { ModuleFormat } from 'rollup';
-import { ViteFileNameFn } from '../../../internal/autolib.class.options.js';
+import { ViteFileNameFn } from '../../../internal/pakk.class.options.js';
 import { stripFileExtension } from './strip-file-extension.function.js';
 
 export type JsExtensionStubs = 'js' | 'cjs' | 'mjs' | `${string}.js`;

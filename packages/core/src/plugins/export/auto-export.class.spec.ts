@@ -1,14 +1,14 @@
 import { Logger } from '@alexaegis/logging';
 import { MockLogger } from '@alexaegis/logging/mocks';
 import { describe, expect, it, vi } from 'vitest';
-import { NormalizedAutolibContext } from '../../index.js';
+import { NormalizedPakkContext } from '../../index.js';
 import { AutoExport } from './auto-export.class.js';
 import { createDefaultViteFileNameFn } from './helpers/bundle-file-name.function.js';
 
 // TODO: Make a reusable fixture out of this
 
 export const mockLogger = new MockLogger();
-export const mockAutolibContext: NormalizedAutolibContext = {
+export const mockAutolibContext: NormalizedPakkContext = {
 	formats: ['es', 'cjs'],
 	packageType: 'module',
 	primaryFormat: 'es',

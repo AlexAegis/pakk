@@ -1,8 +1,8 @@
 import { Awaitable, deepMerge } from '@alexaegis/common';
 import { type PackageJson, type WorkspacePackage } from '@alexaegis/workspace-tools';
-import { NormalizedAutolibContext } from '../../internal/autolib.class.options.js';
+import { NormalizedPakkContext } from '../../internal/pakk.class.options.js';
 import { PackageJsonKind } from '../../package-json/index.js';
-import type { AutolibFeature, PackageExaminationResult } from '../autolib-feature.type.js';
+import type { PackageExaminationResult, PakkFeature } from '../pakk-feature.type.js';
 import {
 	normalizeAutoMetadataOptions,
 	type AutoMetadataOptions,
@@ -15,12 +15,12 @@ import {
  * be read from the workspace packageJson file. Or both, in which case if a key
  * is defined in both the manual takes precedence.
  */
-export class AutoMetadata implements AutolibFeature {
+export class AutoMetadata implements PakkFeature {
 	private readonly options: NormalizedAutoMetadataOptions;
-	private readonly context: NormalizedAutolibContext;
+	private readonly context: NormalizedPakkContext;
 	private metadataFromWorkspacePackageJson: PackageJson | undefined;
 
-	constructor(context: NormalizedAutolibContext, rawOptions?: AutoMetadataOptions) {
+	constructor(context: NormalizedPakkContext, rawOptions?: AutoMetadataOptions) {
 		this.context = context;
 		this.options = normalizeAutoMetadataOptions(rawOptions);
 	}

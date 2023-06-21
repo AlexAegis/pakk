@@ -1,7 +1,7 @@
-import { AutolibOptions, autolibFeatures } from '@pakk/core';
+import { PakkOptions, pakkFeatures } from '@pakk/core';
 import type { Argv } from 'yargs';
 
-export const yargsForAutoLib = <T>(yargs: Argv<T>): Argv<T & AutolibOptions> => {
+export const yargsForPakk = <T>(yargs: Argv<T>): Argv<T & PakkOptions> => {
 	return yargs
 		.option('srcDir', {
 			description: 'Source root, relative to the package directory',
@@ -26,13 +26,13 @@ export const yargsForAutoLib = <T>(yargs: Argv<T>): Argv<T & AutolibOptions> => 
 		})
 		.option('enabledFeatures', {
 			description: 'When defined only these features will be enabled.',
-			choices: autolibFeatures,
+			choices: pakkFeatures,
 			array: true,
 			string: true,
 		})
 		.option('disabledFeatures', {
 			description: 'When defined these features will be disabled.',
-			choices: autolibFeatures,
+			choices: pakkFeatures,
 			array: true,
 			string: true,
 		});

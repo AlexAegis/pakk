@@ -20,15 +20,15 @@
 		"name": "Alex Aegis",
 		"url": "https://github.com/AlexAegis"
 	},
-	"homepage": "https://github.com/AlexAegis/autolib",
+	"homepage": "https://github.com/AlexAegis/pakk",
 	"repository": {
-		"url": "git+https://github.com/AlexAegis/autolib",
+		"url": "git+https://github.com/AlexAegis/pakk",
 		"type": "git",
 		"directory": "."
 	},
 	"bugs": {
 		"email": "alexaegis@gmail.com",
-		"url": "https://github.com/AlexAegis/autolib/issues"
+		"url": "https://github.com/AlexAegis/pakk/issues"
 	},
 	"type": "module",
 	"config": {

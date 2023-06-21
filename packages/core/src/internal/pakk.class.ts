@@ -6,33 +6,33 @@ import { join } from 'node:path';
 import { LibraryFormats } from 'vite';
 
 import { PackageJsonKind } from '../package-json/package-json-kind.enum.js';
-import { AutolibFeature, PackageExaminationResult } from '../plugins/autolib-feature.type.js';
 import { AutoBin } from '../plugins/bin/auto-bin.class.js';
 import { AutoCopyLicense } from '../plugins/copy-license/auto-copy-license.class.js';
 import { AutoExportStatic } from '../plugins/export-static/auto-export-static.class.js';
 import { AutoExport } from '../plugins/export/auto-export.class.js';
 import { createDefaultViteFileNameFn } from '../plugins/export/helpers/bundle-file-name.function.js';
 import { AutoMetadata } from '../plugins/metadata/auto-metadata.class.js';
+import { PackageExaminationResult, PakkFeature } from '../plugins/pakk-feature.type.js';
 import { AutoPeer } from '../plugins/peer/auto-peer.class.js';
 import { AutoSort } from '../plugins/sort-package-json/auto-sort-package-json.class.js';
-import {
-	AutolibContext,
-	AutolibOptions,
-	NormalizedAutolibContext,
-	NormalizedAutolibOptions,
-	normalizeAutolibOptions,
-} from './autolib.class.options.js';
 import { findCurrentAndRootWorkspacePackage } from './find-current-and-root-workspace-package.function.js';
+import {
+	NormalizedPakkContext,
+	NormalizedPakkOptions,
+	PakkContext,
+	PakkOptions,
+	normalizePakkOptions,
+} from './pakk.class.options.js';
 
 export const createIsFeatureEnabled =
-	(enabledFeatures: AutolibFeatureName[], disabledFeatures: AutolibFeatureName[]) =>
-	(feature: AutolibFeatureName): boolean => {
+	(enabledFeatures: PakkFeatureName[], disabledFeatures: PakkFeatureName[]) =>
+	(feature: PakkFeatureName): boolean => {
 		const isEnabled = enabledFeatures.length === 0 || enabledFeatures.includes(feature);
 		const isDisabled = disabledFeatures.includes(feature);
 		return isEnabled && !isDisabled;
 	};
 
-export const autolibFeatureMap = {
+export const pakkFeatureMap = {
 	bin: AutoBin,
 	'copy-license': AutoCopyLicense,
 	export: AutoExport,
@@ -42,9 +42,9 @@ export const autolibFeatureMap = {
 	sort: AutoSort,
 } as const;
 
-export const autolibFeatures = Object.keys(autolibFeatureMap) as AutolibFeatureName[];
+export const pakkFeatures = Object.keys(pakkFeatureMap) as PakkFeatureName[];
 
-export type AutolibFeatureName = keyof typeof autolibFeatureMap;
+export type PakkFeatureName = keyof typeof pakkFeatureMap;
 
 /**
  * This class does not execute anything on it's own, just provides itself as a
@@ -53,13 +53,13 @@ export type AutolibFeatureName = keyof typeof autolibFeatureMap;
  * the packageJson object that is being worked on has to be stored elsewhere
  * to avoid inner mutation.
  */
-export class Autolib {
-	public readonly options: NormalizedAutolibOptions;
-	public readonly context: NormalizedAutolibContext;
+export class Pakk {
+	public readonly options: NormalizedPakkOptions;
+	public readonly context: NormalizedPakkContext;
 
-	private features: AutolibFeature[] = [];
+	private features: PakkFeature[] = [];
 
-	private constructor(context: NormalizedAutolibContext, options: NormalizedAutolibOptions) {
+	private constructor(context: NormalizedPakkContext, options: NormalizedPakkOptions) {
 		this.context = context;
 		this.options = options;
 
@@ -68,8 +68,8 @@ export class Autolib {
 			this.options.disabledFeatures
 		);
 
-		this.features = Object.entries(autolibFeatureMap)
-			.filter(([featureName]) => isFeatureEnabled(featureName as AutolibFeatureName))
+		this.features = Object.entries(pakkFeatureMap)
+			.filter(([featureName]) => isFeatureEnabled(featureName as PakkFeatureName))
 			.map(([featureName, feature]) => {
 				return new feature(
 					{
@@ -102,18 +102,18 @@ export class Autolib {
 	}
 
 	static async withContext(
-		manualContext: Pick<AutolibContext, 'formats' | 'fileName'>,
-		rawOptions?: AutolibOptions | undefined
-	): Promise<Autolib> {
-		const options = normalizeAutolibOptions(rawOptions);
+		manualContext: Pick<PakkContext, 'formats' | 'fileName'>,
+		rawOptions?: PakkOptions | undefined
+	): Promise<Pakk> {
+		const options = normalizePakkOptions(rawOptions);
 		const workspaceContext = await findCurrentAndRootWorkspacePackage(options);
-		const primaryFormat = Autolib.primaryLibraryFormat(
+		const primaryFormat = Pakk.primaryLibraryFormat(
 			workspaceContext.workspacePackage.packageJson
 		);
 		const packageType =
 			workspaceContext.workspacePackage.packageJson.type === 'module' ? 'module' : 'commonjs';
 
-		const autolib = new Autolib(
+		const pakk = new Pakk(
 			{
 				...workspaceContext,
 				...manualContext,
@@ -127,7 +127,7 @@ export class Autolib {
 			},
 			options
 		);
-		return autolib;
+		return pakk;
 	}
 
 	static primaryLibraryFormat(packageJson: PackageJson): LibraryFormats {

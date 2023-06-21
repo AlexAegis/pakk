@@ -1,18 +1,18 @@
 import { sortObject } from '@alexaegis/common';
 import type { PackageJson, RegularWorkspacePackage } from '@alexaegis/workspace-tools';
-import { NormalizedAutolibContext } from '../../internal/autolib.class.options.js';
-import type { AutolibFeature } from '../autolib-feature.type.js';
+import { NormalizedPakkContext } from '../../internal/pakk.class.options.js';
+import type { PakkFeature } from '../pakk-feature.type.js';
 import {
 	NormalizedAutoSortPackageJsonOptions,
 	normalizeAutoSortPackageJsonOptions,
 	type AutoSortPackageJsonOptions,
 } from './auto-sort-package-json.class.options.js';
 
-export class AutoSort implements AutolibFeature {
-	private readonly context: NormalizedAutolibContext;
+export class AutoSort implements PakkFeature {
+	private readonly context: NormalizedPakkContext;
 	private readonly options: NormalizedAutoSortPackageJsonOptions;
 
-	constructor(context: NormalizedAutolibContext, options?: AutoSortPackageJsonOptions) {
+	constructor(context: NormalizedPakkContext, options?: AutoSortPackageJsonOptions) {
 		this.context = context;
 		this.options = normalizeAutoSortPackageJsonOptions(options);
 	}

@@ -3,9 +3,9 @@ import { PackageJson, WorkspacePackage } from '@alexaegis/workspace-tools';
 import { existsSync } from 'node:fs';
 import { cp } from 'node:fs/promises';
 import { basename, join } from 'node:path';
-import { NormalizedAutolibContext, PackageJsonKind } from '../../index.js';
-import type { AutolibFeature, PackageExaminationResult } from '../autolib-feature.type.js';
+import { NormalizedPakkContext, PackageJsonKind } from '../../index.js';
 import { PackageExportPathContext } from '../export/auto-export.class.js';
+import type { PackageExaminationResult, PakkFeature } from '../pakk-feature.type.js';
 
 /**
  * Automatically copies the license file to the outDir so it can be part
@@ -13,12 +13,12 @@ import { PackageExportPathContext } from '../export/auto-export.class.js';
  * root of your project. Or if you wish to override it, place one into
  * the packages folder.
  */
-export class AutoCopyLicense implements AutolibFeature {
-	private readonly context: NormalizedAutolibContext;
+export class AutoCopyLicense implements PakkFeature {
+	private readonly context: NormalizedPakkContext;
 
 	private licensePath: string | undefined;
 
-	constructor(context: NormalizedAutolibContext, _options: unknown) {
+	constructor(context: NormalizedPakkContext, _options: unknown) {
 		this.context = context;
 	}
 

@@ -18,7 +18,7 @@
 		"vite",
 		"vite-plugin"
 	],
-	"homepage": "https://www.github.com/AlexAegis/autolib#readme",
+	"homepage": "https://www.github.com/AlexAegis/pakk#readme",
 	"type": "module",
 	"config": {
 		"engine-strict": false

@@ -4,23 +4,23 @@ import { existsSync } from 'node:fs';
 import { cp } from 'node:fs/promises';
 import posix, { basename, join } from 'node:path/posix';
 import { PackageJsonKind } from '../../index.js';
-import { NormalizedAutolibContext } from '../../internal/autolib.class.options.js';
-import type { AutolibFeature, PackageExaminationResult } from '../autolib-feature.type.js';
+import { NormalizedPakkContext } from '../../internal/pakk.class.options.js';
 import { PackageExportPathContext } from '../export/auto-export.class.js';
 import { stripFileExtension } from '../export/helpers/strip-file-extension.function.js';
+import type { PackageExaminationResult, PakkFeature } from '../pakk-feature.type.js';
 import {
 	AutoExportStaticOptions,
 	NormalizedAutoExportStaticOptions,
 	normalizeAutoExportStaticOptions,
 } from './auto-export-static.class.options.js';
 
-export class AutoExportStatic implements AutolibFeature {
+export class AutoExportStatic implements PakkFeature {
 	private readonly options: NormalizedAutoExportStaticOptions;
-	private readonly context: NormalizedAutolibContext;
+	private readonly context: NormalizedPakkContext;
 
 	private staticExports: Record<string, string> = {};
 
-	constructor(context: NormalizedAutolibContext, options?: AutoExportStaticOptions) {
+	constructor(context: NormalizedPakkContext, options?: AutoExportStaticOptions) {
 		this.options = normalizeAutoExportStaticOptions(options);
 		this.context = context;
 	}

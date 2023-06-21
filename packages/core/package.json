@@ -1,6 +1,6 @@
 {
 	"name": "@pakk/core",
-	"description": "The core library of autolib, that can manage your package.json for library development.",
+	"description": "The core library of pakk, that can manage your package.json for library development.",
 	"version": "0.2.0",
 	"license": "MIT",
 	"private": false,

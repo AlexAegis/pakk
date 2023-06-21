@@ -1,6 +1,6 @@
 {
-	"name": "pakk",
-	"description": "The standalone cli of autolib, that can manage your package.json for library development.",
+	"name": "@pakk/cli",
+	"description": "The standalone cli of pakk, that can manage your package.json for library development.",
 	"version": "0.2.0",
 	"license": "MIT",
 	"private": false,
@@ -16,7 +16,7 @@
 		"ts",
 		"typescript"
 	],
-	"homepage": "https://www.github.com/AlexAegis/autolib#readme",
+	"homepage": "https://www.github.com/AlexAegis/pakk#readme",
 	"type": "module",
 	"config": {
 		"engine-strict": false
@@ -25,25 +25,25 @@
 		"access": "public"
 	},
 	"scripts": {
-		"build": "turbo run build-lib_ --concurrency 16 --cache-dir .cache/turbo --filter pakk",
+		"build": "turbo run build-lib_ --concurrency 16 --cache-dir .cache/turbo --filter @pakk/cli",
 		"build-lib_": "vite build",
 		"build-lib:require:typedoc_": "# chain",
-		"lint:depcheck": "turbo run lint:depcheck_ --concurrency 16 --cache-dir .cache/turbo --filter pakk",
+		"lint:depcheck": "turbo run lint:depcheck_ --concurrency 16 --cache-dir .cache/turbo --filter @pakk/cli",
 		"lint:depcheck_": "depcheck",
-		"lint:es": "turbo run lint:es_ --concurrency 16 --cache-dir .cache/turbo --filter pakk",
+		"lint:es": "turbo run lint:es_ --concurrency 16 --cache-dir .cache/turbo --filter @pakk/cli",
 		"lint:es_": "eslint --max-warnings=0 --fix --no-error-on-unmatched-pattern .",
-		"lint:format": "turbo run lint:format_ --concurrency 16 --cache-dir .cache/turbo --filter pakk",
+		"lint:format": "turbo run lint:format_ --concurrency 16 --cache-dir .cache/turbo --filter @pakk/cli",
 		"lint:format_": "prettier --no-plugin-search --cache-location .cache/prettier --check .",
-		"lint:md": "turbo run lint:md_ --concurrency 16 --cache-dir .cache/turbo --filter pakk",
+		"lint:md": "turbo run lint:md_ --concurrency 16 --cache-dir .cache/turbo --filter @pakk/cli",
 		"lint:md_": "remark --frail --no-stdout --silently-ignore .",
-		"lint:tsc": "turbo run lint:tsc_ --concurrency 16 --cache-dir .cache/turbo --filter pakk",
+		"lint:tsc": "turbo run lint:tsc_ --concurrency 16 --cache-dir .cache/turbo --filter @pakk/cli",
 		"lint:tsc_": "tsc --noEmit",
-		"publint": "turbo run publint_ --concurrency 16 --cache-dir .cache/turbo --filter pakk",
+		"publint": "turbo run publint_ --concurrency 16 --cache-dir .cache/turbo --filter @pakk/cli",
 		"publint_": "publint dist",
-		"all": "turbo run all_ --concurrency 16 --cache-dir .cache/turbo --filter pakk",
-		"format": "turbo run format_ --concurrency 16 --cache-dir .cache/turbo --filter pakk",
+		"all": "turbo run all_ --concurrency 16 --cache-dir .cache/turbo --filter @pakk/cli",
+		"format": "turbo run format_ --concurrency 16 --cache-dir .cache/turbo --filter @pakk/cli",
 		"format_": "prettier --no-plugin-search --cache-location .cache/prettier --write .",
-		"test": "turbo run test_ --concurrency 16 --cache-dir .cache/turbo --filter pakk",
+		"test": "turbo run test_ --concurrency 16 --cache-dir .cache/turbo --filter @pakk/cli",
 		"test_": "vitest --passWithNoTests --coverage --run",
 		"test:watch": "vitest --passWithNoTests --coverage"
 	},
@@ -57,7 +57,7 @@
 		"./readme": "./readme.md"
 	},
 	"bin": {
-		"autolib": "./shims/autolib.js",
+		"pakk": "./shims/pakk.js",
 		"sort-json": "./shims/sort-json.js"
 	},
 	"dependencies": {

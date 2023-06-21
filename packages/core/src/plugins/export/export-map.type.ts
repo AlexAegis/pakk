@@ -24,7 +24,7 @@ export type PathVariantMap<
  * 								- /a/index.ts
  * 								- /b/hello.ts
  *
- * With the following autolib config:
+ * With the following pakk config:
  * ```json
  * {
  * 		"srcDir": "src",
@@ -65,7 +65,7 @@ export type PathVariantMap<
  *
  * As you might notice, because inferring /index to the name of it's parent,
  * two paths can result in the same name if there is a file and a folder with
- * the same name. If this happens, autolib will simply throw an error.
+ * the same name. If this happens, pakk will simply throw an error.
  *
  * TODO: throw an error on name collisions like hello.ts vs hello/index.ts
  */

@@ -1,6 +1,6 @@
 import type { PackageJson, PackageJsonExportConditions } from '@alexaegis/workspace-tools';
 import { basename, posix } from 'node:path';
-import type { AutolibFeature, PackageExaminationResult } from '../autolib-feature.type.js';
+import type { PackageExaminationResult, PakkFeature } from '../pakk-feature.type.js';
 import { stripFileExtension } from './helpers/strip-file-extension.function.js';
 
 import { toAbsolute } from '@alexaegis/fs';
@@ -8,7 +8,7 @@ import { globby } from 'globby';
 import { dirname } from 'node:path/posix';
 import { InternalModuleFormat } from 'rollup';
 import { LibraryFormats } from 'vite';
-import { NormalizedAutolibContext } from '../../internal/autolib.class.options.js';
+import { NormalizedPakkContext } from '../../internal/pakk.class.options.js';
 import { PackageJsonExportTarget, PackageJsonKind, PathMap } from '../../package-json/index.js';
 
 import {
@@ -63,13 +63,13 @@ export interface PackageExportPathContext {
 /**
  * Generates exports entries automatically
  */
-export class AutoExport implements AutolibFeature {
+export class AutoExport implements PakkFeature {
 	private readonly options: NormalizedAutoExportOptions;
-	private readonly context: NormalizedAutolibContext;
+	private readonly context: NormalizedPakkContext;
 
 	private exportMap: EntryPathVariantMap<AllExportPathCombinations> = {};
 
-	constructor(context: NormalizedAutolibContext, options?: AutoExportOptions) {
+	constructor(context: NormalizedPakkContext, options?: AutoExportOptions) {
 		this.context = context;
 		this.options = normalizeAutoExportOptions(options);
 	}

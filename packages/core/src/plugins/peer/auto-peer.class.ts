@@ -1,8 +1,8 @@
 import type { PackageJson, RegularWorkspacePackage } from '@alexaegis/workspace-tools';
 
-import { NormalizedAutolibContext } from '../../index.js';
+import { NormalizedPakkContext } from '../../index.js';
 import { PackageJsonKind } from '../../package-json/index.js';
-import type { AutolibFeature } from '../autolib-feature.type.js';
+import type { PakkFeature } from '../pakk-feature.type.js';
 
 /**
  * Removes duplicated dependency and peerDependency entries leaving only the
@@ -12,10 +12,10 @@ import type { AutolibFeature } from '../autolib-feature.type.js';
  * them twice, once as a peerDependency, and once as a normal dependency. This
  * step will remove the one that was meant to only be present locally.
  */
-export class AutoPeer implements AutolibFeature {
-	private readonly context: NormalizedAutolibContext;
+export class AutoPeer implements PakkFeature {
+	private readonly context: NormalizedPakkContext;
 
-	constructor(context: NormalizedAutolibContext) {
+	constructor(context: NormalizedPakkContext) {
 		this.context = context;
 	}
 

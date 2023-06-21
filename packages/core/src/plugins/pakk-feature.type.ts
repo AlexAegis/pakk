@@ -17,7 +17,7 @@ export interface PackageExaminationResult {
 	bundlerEntryFiles: Exclude<InputOption, string | string[]>;
 }
 
-export interface AutolibFeature {
+export interface PakkFeature {
 	/**
 	 * Called once at the start of Autolib, giving a change for each plugin
 	 * to examine the package.
