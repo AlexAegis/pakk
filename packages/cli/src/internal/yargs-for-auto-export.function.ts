@@ -4,7 +4,7 @@ import {
 	DEFAULT_PACKAGE_EXPORT_BASEDIR,
 	DEFAULT_PACKAGE_EXPORT_IGNORES,
 	PackageJsonExportTarget,
-} from '@autolib/core';
+} from '@pakk/core';
 import type { Argv } from 'yargs';
 
 export const yargsForAutoExport = <T>(yargs: Argv<T>): Argv<T & AutoExportOptions> => {

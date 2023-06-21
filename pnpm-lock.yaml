@@ -191,7 +191,7 @@ importers:
       vite:
         specifier: ^4.3.9
         version: 4.3.9(@types/node@20.3.1)
-      vite-plugin-autolib:
+      vite-plugin-pakk:
         specifier: workspace:^0.2.0
         version: link:../../packages/vite-plugin-autolib
       vitest:
@@ -218,7 +218,7 @@ importers:
       vite:
         specifier: ^4.3.9
         version: 4.3.9(@types/node@20.3.1)
-      vite-plugin-autolib:
+      vite-plugin-pakk:
         specifier: workspace:^0.2.0
         version: link:../../packages/vite-plugin-autolib
       vitest:
@@ -242,7 +242,7 @@ importers:
       '@alexaegis/workspace-tools':
         specifier: ^0.2.3
         version: 0.2.3
-      '@autolib/core':
+      '@pakk/core':
         specifier: ^0.2.0
         version: link:../core
       '@types/node':
@@ -279,7 +279,7 @@ importers:
       publint:
         specifier: ^0.1.12
         version: 0.1.12
-      vite-plugin-autolib:
+      vite-plugin-pakk:
         specifier: workspace:^0.2.0
         version: link:../vite-plugin-autolib
       vitest:
@@ -352,7 +352,7 @@ importers:
       '@alexaegis/workspace-tools':
         specifier: ^0.2.3
         version: 0.2.3
-      '@autolib/core':
+      '@pakk/core':
         specifier: ^0.2.0
         version: link:../core
       '@types/node':

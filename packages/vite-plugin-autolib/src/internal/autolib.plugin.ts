@@ -6,7 +6,7 @@ import {
 	DEFAULT_EXPORT_FORMATS,
 	PackageJsonKind,
 	normalizeAutolibOptions,
-} from '@autolib/core';
+} from '@pakk/core';
 import { join } from 'node:path';
 import { UserConfig, type Plugin } from 'vite';
 import dts from 'vite-plugin-dts';
@@ -23,7 +23,7 @@ import { createLazyAutoExternalsFunction } from './rollup-externals.function.js'
  *
  * ```ts
  * import { defineConfig } from 'vite';
- * import { autolib } from 'vite-plugin-autolib';
+ * import { autolib } from 'vite-plugin-pakk';
  *
  * export default defineConfig({
  * 	plugins: [

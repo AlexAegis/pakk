@@ -4,7 +4,7 @@ import type {
 	RegularWorkspacePackage,
 	WorkspacePackage,
 } from '@alexaegis/workspace-tools';
-import { PackageJsonKind } from '@autolib/core';
+import { PackageJsonKind } from '@pakk/core';
 import type { InputOption } from 'rollup';
 import { PackageExportPathContext } from './export/auto-export.class.js';
 

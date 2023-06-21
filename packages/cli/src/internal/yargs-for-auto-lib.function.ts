@@ -1,4 +1,4 @@
-import { AutolibOptions, autolibFeatures } from '@autolib/core';
+import { AutolibOptions, autolibFeatures } from '@pakk/core';
 import type { Argv } from 'yargs';
 
 export const yargsForAutoLib = <T>(yargs: Argv<T>): Argv<T & AutolibOptions> => {

@@ -291,7 +291,7 @@ jobs:
     needs: [build, test, lint, typedoc]
     strategy:
       matrix:
-        artifact: ['cli', 'core', 'vite-plugin-autolib']
+        artifact: ['cli', 'core', 'vite-plugin-pakk']
     steps:
       - name: checkout
         uses: actions/checkout@v3

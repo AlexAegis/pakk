@@ -1,4 +1,4 @@
-import { AutoMetadataOptions, DEFAULT_AUTO_METADATA_KEYS_FROM_WORKSPACE } from '@autolib/core';
+import { AutoMetadataOptions, DEFAULT_AUTO_METADATA_KEYS_FROM_WORKSPACE } from '@pakk/core';
 import type { Argv } from 'yargs';
 
 /**

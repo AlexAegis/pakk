@@ -5,7 +5,7 @@ import {
 	DEFAULT_BIN_DIR,
 	DEFAULT_BIN_GLOB,
 	DEFAULT_PACKAGE_EXPORT_IGNORES,
-} from '@autolib/core';
+} from '@pakk/core';
 import type { Argv } from 'yargs';
 
 export const yargsForAutoBin = <T>(yargs: Argv<T>): Argv<T & AutoBinOptions> => {

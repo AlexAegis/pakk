@@ -32,7 +32,7 @@ All notable changes to this project will be documented in this file. See [commit
 
 ### Features
 
-* **vite-plugin-autolib:** automatically fill repository.directory ([631909a](https://github.com/AlexAegis/autolib/commit/631909a8904ff55770aefd4840287af5a0a906fa))
+* **vite-plugin-pakk:** automatically fill repository.directory ([631909a](https://github.com/AlexAegis/autolib/commit/631909a8904ff55770aefd4840287af5a0a906fa))
 
 ## [0.1.2](https://github.com/AlexAegis/autolib/compare/v0.1.1...v0.1.2) (2023-05-23)
 

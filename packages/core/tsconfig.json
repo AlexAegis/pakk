@@ -14,7 +14,7 @@
 		"*",
 		"*.json",
 		"**/*.json",
-		"../vite-plugin-autolib/src/internal/rollup-externals.function.ts"
+		"../vite-plugin-pakk/src/internal/rollup-externals.function.ts"
 	],
 	"exclude": ["node_modules", "dist", "coverage", "typedoc", "vite*.config.ts.timestamp-*"]
 }

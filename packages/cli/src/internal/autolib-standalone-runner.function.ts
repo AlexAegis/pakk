@@ -1,7 +1,7 @@
 import { asyncFilterMap } from '@alexaegis/common';
 import { writeJson } from '@alexaegis/fs';
 
-import { Autolib, AutolibOptions, PackageJsonKind } from '@autolib/core';
+import { Autolib, AutolibOptions, PackageJsonKind } from '@pakk/core';
 
 /**
  * The standalone runner for autolib to be used on it's own instead of together
