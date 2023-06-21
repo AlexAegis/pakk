@@ -13,7 +13,7 @@ import dts from 'vite-plugin-dts';
 import { createLazyAutoExternalsFunction } from './rollup-externals.function.js';
 
 /**
- * # Autolib
+ * # Pakk
  *
  * Autofills your vite config, packageJson and distribution packageJson
  * based on conventional file and directory layouts.
@@ -23,17 +23,17 @@ import { createLazyAutoExternalsFunction } from './rollup-externals.function.js'
  *
  * ```ts
  * import { defineConfig } from 'vite';
- * import { autolib } from 'vite-plugin-pakk';
+ * import { pakk } from 'vite-plugin-pakk';
  *
  * export default defineConfig({
  * 	plugins: [
- * 		autolib(),
+ * 		pakk(),
  * 	],
  * });
  * ```
  *
  */
-export const autolib = (rawOptions?: AutolibOptions): Plugin[] => {
+export const pakk = (rawOptions?: AutolibOptions): Plugin[] => {
 	let autolib: Autolib;
 	let logger: ReturnType<Awaited<ReturnType<typeof Autolib.withContext>>['getLogger']>;
 

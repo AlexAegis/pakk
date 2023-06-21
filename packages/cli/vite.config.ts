@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite';
 
-import { autolib } from '../vite-plugin/src/index.js';
+import { pakk } from 'vite-plugin-pakk';
 
 export default defineConfig({
-	plugins: [autolib()],
+	plugins: [pakk()],
 });

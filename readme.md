@@ -12,21 +12,15 @@ variants.
 
 Add it to the `plugins` array in your `vite.config.ts` file!
 
-> Highly recommended to add a plugin to generate dts files like
-> [vite-plugin-dts](https://github.com/qmhc/vite-plugin-dts)
+> It is also wrapping
+> [vite-plugin-dts](https://github.com/qmhc/vite-plugin-dts)!
 
 ```ts
 import { defineConfig } from 'vite';
-import dts from 'vite-plugin-dts';
-import { autolib } from 'vite-plugin-pakk';
+import { pakk } from 'vite-plugin-pakk';
 
 export default defineConfig({
-  plugins: [
-    autolib(),
-    dts({
-      entryRoot: 'src',
-    }),
-  ],
+  plugins: [pakk()],
 });
 ```
 

@@ -1,10 +1,9 @@
 import { defineConfig } from 'vite';
-
-import { autolib } from 'vite-plugin-pakk';
+import { pakk } from 'vite-plugin-pakk';
 
 export default defineConfig({
 	plugins: [
-		autolib({
+		pakk({
 			enabledFeatures: ['export', 'bin', 'copy-license', 'export-static'],
 			srcDir: 'source',
 			binBaseDir: 'cli',
