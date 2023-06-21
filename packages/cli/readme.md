@@ -13,5 +13,4 @@ and `dist` packageJson files.
 > the output the same way autolib generates the package.json.
 
 If you're using [`vite`](https://vitejs.dev/) as your build tool I recommend
-using the vite plugin form of this tool:
-[`vite-plugin-pakk`](../vite-plugin-pakk/)
+using the vite plugin form of this tool: [`vite-plugin-pakk`](../vite-plugin/)

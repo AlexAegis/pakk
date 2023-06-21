@@ -6,5 +6,5 @@
 [![codecov](https://codecov.io/github/AlexAegis/autolib/branch/master/graph/badge.svg?token=OUxofr6zE8)](https://codecov.io/github/AlexAegis/autolib)
 
 This package contains the internal logic of autolib, it's exposed through the
-[`pakk`](../cli/) and the [`vite-plugin-pakk`](../vite-plugin-pakk/) packages
-for usage.
+[`pakk`](../cli/) and the [`vite-plugin-pakk`](../vite-plugin/) packages for
+usage.
