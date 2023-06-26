@@ -13,4 +13,20 @@ describe('stripFileExtension', () => {
 	it('should just remove extension names, leaving paths alone', () => {
 		expect(stripFileExtension('/bar/foo.js')).toBe('/bar/foo');
 	});
+
+	it('should not remove anything beyond the last extension portion', () => {
+		expect(stripFileExtension('/bar/foo.config.js')).toBe('/bar/foo.config');
+	});
+
+	describe('dts files', () => {
+		it('should also remove the d in the special case of a d.ts file', () => {
+			expect(stripFileExtension('/bar/foo.config.d.ts')).toBe('/bar/foo.config');
+		});
+
+		it('should not remove the d from a d.ts file if not allowed', () => {
+			expect(stripFileExtension('/bar/foo.config.d.ts', { stripDts: false })).toBe(
+				'/bar/foo.config.d'
+			);
+		});
+	});
 });

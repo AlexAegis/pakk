@@ -11,6 +11,7 @@ export default defineConfig({
 			binIgnore: ['ignore'],
 			staticExports: ['static'],
 			dts: true,
+			logLevel: 1,
 		}),
 	],
 });

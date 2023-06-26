@@ -29,18 +29,6 @@ export type ExportPathMap = PathMap<AllExportPathCombinations>;
 
 export type ExportTargetFileFormats = LibraryFormats;
 
-/*
-export interface PackageExportPathContextDevelopment {
-	type: PackageJsonKind.DEVELOPMENT;
-}
-
-export interface PackageExportPathContextDistribution {
-	type: PackageJsonKind.DISTRIBUTION;
-	format: InternalModuleFormat;
-	fileName?: ViteFileNameFn;
-}
-*/
-
 export interface PackageExportPathContext {
 	/**
 	 * When 'packageJsonKind' is set to DEVELOPMENT and this context is used
@@ -99,6 +87,8 @@ export class AutoExport implements PakkFeature {
 			basePath: this.options.exportBaseDir,
 			keyKind: 'extensionless-relative-path-from-base',
 		});
+
+		this.context.logger.trace('exportMap', this.exportMap);
 
 		return {
 			bundlerEntryFiles: entryFiles.reduce<Record<string, string>>((acc, entryFile) => {

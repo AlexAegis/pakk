@@ -1,17 +1,30 @@
 import { PackageJson } from '@alexaegis/workspace-tools';
 import type { ModuleFormat } from 'rollup';
 import { ViteFileNameFn } from '../../../internal/pakk.class.options.js';
-import { stripFileExtension } from './strip-file-extension.function.js';
 
 export type JsExtensionStubs = 'js' | 'cjs' | 'mjs' | `${string}.js`;
 export type JsExtensions = `.${JsExtensionStubs}`;
 
+/**
+ * This function is used to replicate the default vite behavior when naming
+ * bundles. Pakk doesn't try to figure out filenames by reading the filesystem
+ * instead it just tries to reuse the defined fileName fn on vite's config.
+ * If not available, this will be the fallback.
+ *
+ * This function only replicates the file naming behavior when vite's entry
+ * files are defined as named entries via an object. The naming is different
+ * when entries are defined using an array. That is not implemented as pakk
+ * will always force a named entry object.
+ *
+ * Vite's fileName fn is called without the extension, For example when
+ * bundling a file called `index.ts` the fileName fn will get only `index`,
+ * when called with `foo.config.js` it will recieve `foo.config`.
+ *
+ * @returns a function that behaves like how vite does by default
+ */
 export const createDefaultViteFileNameFn: (packageType: PackageJson['type']) => ViteFileNameFn =
-	(packageType) => (format, fileName) => {
-		const extension = getDefaultViteBundleFileExtension(format, packageType);
-
-		return stripFileExtension(fileName) + extension;
-	};
+	(packageType) => (format, extensionlessFileName) =>
+		extensionlessFileName + getDefaultViteBundleFileExtension(format, packageType);
 
 /**
  * Default vite behavior: if no fileName fn is defined, then a commonjs package
