@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.2.1](https://github.com/AlexAegis/pakk/compare/v0.2.0...v0.2.1) (2023-06-26)
+
+
+### Features
+
+* finish renaming ([e0199fd](https://github.com/AlexAegis/pakk/commit/e0199fdd6dbf1ffa5ea8a4ec80be4c2672c6f87c))
+* rename autolib to pakk ([77ab3d9](https://github.com/AlexAegis/pakk/commit/77ab3d98ec0bd889577be781dacc94b169cdbca9))
+* rename autolib to pakk phase 1 ([a4ee217](https://github.com/AlexAegis/pakk/commit/a4ee21772ac8e16615ff8ef427210b0bfa5a52eb))
+* rename autolib to pakk phase 2 ([259f76c](https://github.com/AlexAegis/pakk/commit/259f76c98426b376c443759bbd4c161526b8b5f6))
+
+
+### Bug Fixes
+
+* workaround entry merge bug in vite ([496234c](https://github.com/AlexAegis/pakk/commit/496234c083b7075d40e861a47758b652daa76278))
+
 ## [0.2.0](https://github.com/AlexAegis/pakk/compare/v0.1.4...v0.2.0) (2023-06-20)
 
 
