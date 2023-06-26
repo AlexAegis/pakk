@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.2.2](https://github.com/AlexAegis/pakk/compare/v0.2.1...v0.2.2) (2023-06-26)
+
+
+### Bug Fixes
+
+* **core:** do not double-strip file extensions ([7fb95ea](https://github.com/AlexAegis/pakk/commit/7fb95ea8a0ad4012199d77d3dc750b1e21f67d21))
+
 ## [0.2.1](https://github.com/AlexAegis/pakk/compare/v0.2.0...v0.2.1) (2023-06-26)
 
 
