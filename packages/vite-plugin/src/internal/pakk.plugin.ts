@@ -35,10 +35,7 @@ import { createLazyAutoExternalsFunction } from './rollup-externals.function.js'
  */
 export const pakk = (rawOptions?: PakkOptions): Plugin[] => {
 	let pakk: Pakk;
-	let logger: ReturnType<Awaited<ReturnType<typeof Pakk.withContext>>['getLogger']>;
-
 	const options = normalizePakkOptions(rawOptions);
-
 	const pakkPlugin: Plugin = {
 		name: 'pakk',
 		apply: 'build',
@@ -65,21 +62,22 @@ export const pakk = (rawOptions?: PakkOptions): Plugin[] => {
 					outDir,
 				}
 			);
-			logger = pakk.getLogger();
 
-			logger.info(
+			options.logger.info(
 				'examining workspace package at',
 				pakk.context.workspacePackage.packageJsonPath
 			);
 
-			logger.trace('initial vite config', config);
+			options.logger.trace('initial vite config', config);
 
 			if (config.build?.lib && !!config.build.lib.entry) {
-				logger.warn('build.lib.entry is defined in vite config, will be ignored!');
+				options.logger.warn('build.lib.entry is defined in vite config, will be ignored!');
+				// If the original vite config had it's entries defined as an array it would result in an error https://github.com/vitejs/vite/issues/13641
+				config.build.lib.entry = {};
 			}
 
 			if (config.build?.outDir && rawOptions?.outDir) {
-				logger.info(
+				options.logger.info(
 					`vite plugin defines build.outDir as "${config.build.outDir}". ` +
 						`Using that over "${rawOptions.outDir}"`
 				);
@@ -87,8 +85,8 @@ export const pakk = (rawOptions?: PakkOptions): Plugin[] => {
 
 			const examinationResult = await pakk.examinePackage();
 
-			logger.trace('examination result', examinationResult);
-			logger.trace('outDir', outDir);
+			options.logger.trace('examination result', examinationResult);
+			options.logger.trace('outDir', outDir);
 			const viteConfigUpdates: Partial<UserConfig> = {
 				build: {
 					minify: false,
@@ -105,14 +103,14 @@ export const pakk = (rawOptions?: PakkOptions): Plugin[] => {
 				},
 			};
 
-			logger.info(
+			options.logger.info(
 				`preparation phase took ${Math.floor(performance.now() - startTime)}ms to finish`
 			);
 
 			return viteConfigUpdates;
 		},
 		closeBundle: async () => {
-			logger.info(
+			options.logger.info(
 				'processing workspace package at',
 				pakk.context.workspacePackage.packageJsonPath
 			);
@@ -125,7 +123,7 @@ export const pakk = (rawOptions?: PakkOptions): Plugin[] => {
 					packageJsonTarget
 				);
 
-				logger.info('writing updated package.json to', path);
+				options.logger.info('writing updated package.json to', path);
 
 				return await writeJson(updatedPackageJson, path, {
 					autoPrettier: pakk.options.autoPrettier,
@@ -133,7 +131,7 @@ export const pakk = (rawOptions?: PakkOptions): Plugin[] => {
 				});
 			});
 
-			logger.info(
+			options.logger.info(
 				`update phase took ~${Math.floor(performance.now() - startTime)}ms to finish`
 			);
 		},
