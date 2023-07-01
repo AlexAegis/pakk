@@ -192,7 +192,7 @@ importers:
         specifier: ^4.3.9
         version: 4.3.9(@types/node@20.3.3)
       vite-plugin-pakk:
-        specifier: workspace:^0.2.2
+        specifier: workspace:^
         version: link:../../packages/vite-plugin
       vitest:
         specifier: ^0.32.2
@@ -219,7 +219,7 @@ importers:
         specifier: ^4.3.9
         version: 4.3.9(@types/node@20.3.3)
       vite-plugin-pakk:
-        specifier: workspace:^0.2.2
+        specifier: workspace:^
         version: link:../../packages/vite-plugin
       vitest:
         specifier: ^0.32.2
@@ -243,7 +243,7 @@ importers:
         specifier: ^0.3.2
         version: 0.3.2
       '@pakk/core':
-        specifier: ^0.2.2
+        specifier: ^0.2.3
         version: link:../core
       '@types/node':
         specifier: ^20.3.3
@@ -283,7 +283,7 @@ importers:
         specifier: ^0.1.13
         version: 0.1.13
       vite-plugin-pakk:
-        specifier: workspace:^0.2.2
+        specifier: workspace:^
         version: link:../vite-plugin
       vitest:
         specifier: ^0.32.2
@@ -359,7 +359,7 @@ importers:
         specifier: ^0.3.2
         version: 0.3.2
       '@pakk/core':
-        specifier: ^0.2.2
+        specifier: ^0.2.3
         version: link:../core
       '@types/node':
         specifier: ^20.3.3

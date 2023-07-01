@@ -1,7 +1,7 @@
 {
 	"name": "@pakk/cli",
 	"description": "The standalone cli of pakk, that can manage your package.json for library development.",
-	"version": "0.2.2",
+	"version": "0.2.3",
 	"license": "MIT",
 	"private": false,
 	"archetype": {
@@ -65,7 +65,7 @@
 		"@alexaegis/fs": "^0.3.2",
 		"@alexaegis/logging": "^0.3.2",
 		"@alexaegis/workspace-tools": "^0.3.2",
-		"@pakk/core": "^0.2.2",
+		"@pakk/core": "^0.2.3",
 		"@types/node": "^20.3.3",
 		"prettier": "^2.8.8",
 		"ts-node": "^10.9.1",
@@ -82,7 +82,7 @@
 		"@types/yargs": "^17.0.24",
 		"publint": "^0.1.13",
 		"vite": "^4.3.9",
-		"vite-plugin-pakk": "workspace:^0.2.2",
+		"vite-plugin-pakk": "workspace:^",
 		"vitest": "^0.32.2"
 	}
 }
