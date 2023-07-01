@@ -1,7 +1,7 @@
-import { defineConfig } from 'vite';
+import { defineLibConfig } from '@alexaegis/vite';
 
 import { pakk } from './src/index.js';
 
-export default defineConfig({
+export default defineLibConfig({
 	plugins: [pakk()],
 });

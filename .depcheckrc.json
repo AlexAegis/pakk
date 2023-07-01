@@ -29,7 +29,6 @@
 		"husky",
 		"@typescript-eslint/*",
 		"prettier-plugin-svelte",
-		"@vitest/coverage-c8",
 		"@vitest/coverage-v8",
 		"commitlint",
 		"depcheck",

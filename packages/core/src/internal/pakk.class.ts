@@ -147,7 +147,13 @@ export class Pakk {
 			async (plugin) => await plugin.examinePackage?.(workspacePackage)
 		);
 
-		return deepMerge({} as PackageExaminationResult, ...detectedExports);
+		return deepMerge([
+			{
+				bundlerEntryFiles: {},
+				packageJsonUpdates: {},
+			} as PackageExaminationResult,
+			...detectedExports,
+		]);
 	}
 
 	/**
@@ -168,10 +174,10 @@ export class Pakk {
 				})
 		);
 
-		let updatedPackageJson: PackageJson = deepMerge(
-			structuredClone(this.context.workspacePackage.packageJson),
-			...packageJsonUpdates.flat(1)
-		);
+		let updatedPackageJson: PackageJson = deepMerge([
+			this.context.workspacePackage.packageJson,
+			...packageJsonUpdates.flat(1),
+		]);
 
 		updatedPackageJson = this.features.reduce<PackageJson>(
 			(packageJson, plugin) =>

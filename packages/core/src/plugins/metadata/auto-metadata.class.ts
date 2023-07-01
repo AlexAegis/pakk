@@ -54,12 +54,12 @@ export class AutoMetadata implements PakkFeature {
 			);
 			this.context.logger.trace('overrideEntries', this.options.overrideEntries);
 
-			const filledPackageJson: PackageJson = deepMerge(
-				structuredClone(this.options.fallbackEntries),
+			const filledPackageJson: PackageJson = deepMerge([
+				this.options.fallbackEntries,
 				workspacePackage.packageJson,
 				this.metadataFromWorkspacePackageJson,
-				this.options.overrideEntries
-			);
+				this.options.overrideEntries,
+			]);
 
 			if (typeof filledPackageJson.repository === 'object') {
 				filledPackageJson.repository.directory =
