@@ -87,14 +87,16 @@ export const pakk = (rawOptions?: PakkOptions): Plugin[] => {
 
 			options.logger.trace('examination result', examinationResult);
 			options.logger.trace('outDir', outDir);
+
 			const viteConfigUpdates: Partial<UserConfig> = {
 				build: {
-					minify: false,
-					sourcemap: true,
+					target: config.build?.target ?? 'es2022',
+					minify: config.build?.minify ?? false,
+					sourcemap: config.build?.sourcemap ?? false,
 					outDir,
 					rollupOptions: {
 						external: createLazyAutoExternalsFunction(), // I'm always using this, but pakk also adds it with the other defaults if they are not defined
-						treeshake: true,
+						treeshake: config.build?.rollupOptions?.treeshake ?? true,
 					},
 					lib: {
 						formats: pakk.context.formats,
