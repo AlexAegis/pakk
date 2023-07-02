@@ -33,8 +33,6 @@
 		"lint:md_": "remark --frail --no-stdout --silently-ignore .",
 		"lint:tsc": "turbo run lint:tsc_ --concurrency 16 --cache-dir .cache/turbo --filter @pakk/fixture-deep-export",
 		"lint:tsc_": "tsc --noEmit",
-		"publint": "turbo run publint_ --concurrency 16 --cache-dir .cache/turbo --filter @pakk/fixture-deep-export",
-		"publint_": "publint dist",
 		"all": "turbo run all_ --concurrency 16 --cache-dir .cache/turbo --filter @pakk/fixture-deep-export",
 		"format": "turbo run format_ --concurrency 16 --cache-dir .cache/turbo --filter @pakk/fixture-deep-export",
 		"format_": "prettier --no-plugin-search --cache-location .cache/prettier --write .",
@@ -61,7 +59,6 @@
 		"@alexaegis/ts": "^0.3.4",
 		"@types/node": "^20.3.3",
 		"@vitest/coverage-v8": "^0.32.2",
-		"publint": "^0.1.13",
 		"vite": "^4.3.9",
 		"vite-plugin-pakk": "workspace:^",
 		"vitest": "^0.32.2"
