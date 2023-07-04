@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.2.4](https://github.com/AlexAegis/pakk/compare/v0.2.3...v0.2.4) (2023-07-04)
+
+
+### Features
+
+* respect explicit externals fn ([769fc76](https://github.com/AlexAegis/pakk/commit/769fc76540f48e16d2e3b25a97551b425e36038a))
+* **vite-plugin-pakk:** respect default build option, default to es2022 ([06751e4](https://github.com/AlexAegis/pakk/commit/06751e4c3950ad1f6207d16a99bf9308dcfed5ca))
+
 ## [0.2.3](https://github.com/AlexAegis/pakk/compare/v0.2.2...v0.2.3) (2023-07-01)
 
 ## [0.2.2](https://github.com/AlexAegis/pakk/compare/v0.2.1...v0.2.2) (2023-06-26)

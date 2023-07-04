@@ -237,7 +237,7 @@ importers:
         specifier: ^0.3.2
         version: 0.3.2
       '@pakk/core':
-        specifier: ^0.2.3
+        specifier: ^0.2.4
         version: link:../core
       '@types/node':
         specifier: ^20.3.3
@@ -353,7 +353,7 @@ importers:
         specifier: ^0.3.2
         version: 0.3.2
       '@pakk/core':
-        specifier: ^0.2.3
+        specifier: ^0.2.4
         version: link:../core
       '@types/node':
         specifier: ^20.3.3
