@@ -75,8 +75,8 @@
 		"@alexaegis/vitest": "^0.3.4",
 		"@types/node": "^20.3.3",
 		"@types/yargs": "^17.0.24",
-		"publint": "^0.1.13",
+		"publint": "^0.1.15",
 		"vite": "^4.3.9",
-		"vitest": "^0.32.2"
+		"vitest": "^0.32.4"
 	}
 }
