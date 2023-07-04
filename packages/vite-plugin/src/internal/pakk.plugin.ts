@@ -95,7 +95,9 @@ export const pakk = (rawOptions?: PakkOptions): Plugin[] => {
 					sourcemap: config.build?.sourcemap ?? false,
 					outDir,
 					rollupOptions: {
-						external: createLazyAutoExternalsFunction(), // I'm always using this, but pakk also adds it with the other defaults if they are not defined
+						external:
+							config.build?.rollupOptions?.external ??
+							createLazyAutoExternalsFunction(),
 						treeshake: config.build?.rollupOptions?.treeshake ?? true,
 					},
 					lib: {
