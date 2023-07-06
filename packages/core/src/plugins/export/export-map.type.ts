@@ -4,7 +4,7 @@ import { AllExportPathCombinations } from './auto-export.class.js';
 export type PathVariantMap<
 	Variants extends AllExportPathCombinations | AllBinPathCombinations =
 		| AllExportPathCombinations
-		| AllBinPathCombinations
+		| AllBinPathCombinations,
 > = Record<Variants, string>;
 
 /**
@@ -72,5 +72,5 @@ export type PathVariantMap<
 export type EntryPathVariantMap<
 	Variants extends AllExportPathCombinations | AllBinPathCombinations =
 		| AllExportPathCombinations
-		| AllBinPathCombinations
+		| AllBinPathCombinations,
 > = Record<string, PathVariantMap<Variants>>;

@@ -65,7 +65,7 @@ export class Pakk {
 
 		const isFeatureEnabled = createIsFeatureEnabled(
 			this.options.enabledFeatures,
-			this.options.disabledFeatures
+			this.options.disabledFeatures,
 		);
 
 		this.features = Object.entries(pakkFeatureMap)
@@ -78,7 +78,7 @@ export class Pakk {
 							name: featureName,
 						}),
 					},
-					options
+					options,
 				);
 			});
 
@@ -103,12 +103,12 @@ export class Pakk {
 
 	static async withContext(
 		manualContext: Pick<PakkContext, 'formats' | 'fileName'>,
-		rawOptions?: PakkOptions | undefined
+		rawOptions?: PakkOptions | undefined,
 	): Promise<Pakk> {
 		const options = normalizePakkOptions(rawOptions);
 		const workspaceContext = await findCurrentAndRootWorkspacePackage(options);
 		const primaryFormat = Pakk.primaryLibraryFormat(
-			workspaceContext.workspacePackage.packageJson
+			workspaceContext.workspacePackage.packageJson,
 		);
 		const packageType =
 			workspaceContext.workspacePackage.packageJson.type === 'module' ? 'module' : 'commonjs';
@@ -125,7 +125,7 @@ export class Pakk {
 				cwd: options.cwd,
 				logger: options.logger,
 			},
-			options
+			options,
 		);
 		return pakk;
 	}
@@ -140,11 +140,11 @@ export class Pakk {
 	 * take a look at your source code.
 	 */
 	async examinePackage(
-		workspacePackage: WorkspacePackage = this.context.workspacePackage
+		workspacePackage: WorkspacePackage = this.context.workspacePackage,
 	): Promise<PackageExaminationResult> {
 		const detectedExports = await asyncFilterMap(
 			this.features,
-			async (plugin) => await plugin.examinePackage?.(workspacePackage)
+			async (plugin) => await plugin.examinePackage?.(workspacePackage),
 		);
 
 		return deepMerge([
@@ -163,7 +163,7 @@ export class Pakk {
 	 * And also returns the path where it should be written to.
 	 */
 	async createUpdatedPackageJson(
-		packageJsonKind: PackageJsonKind
+		packageJsonKind: PackageJsonKind,
 	): Promise<{ updatedPackageJson: PackageJson; path: string }> {
 		const packageJsonUpdates = await asyncFilterMap(
 			this.features,
@@ -171,7 +171,7 @@ export class Pakk {
 				await plugin.process?.(structuredClone(this.context.workspacePackage.packageJson), {
 					packageJsonKind,
 					format: this.context.primaryFormat,
-				})
+				}),
 		);
 
 		let updatedPackageJson: PackageJson = deepMerge([
@@ -183,9 +183,9 @@ export class Pakk {
 			(packageJson, plugin) =>
 				plugin.postprocess?.(
 					{ ...this.context.workspacePackage, packageJson },
-					packageJsonKind
+					packageJsonKind,
 				) ?? packageJson,
-			updatedPackageJson
+			updatedPackageJson,
 		);
 
 		const path =
@@ -194,13 +194,13 @@ export class Pakk {
 						join(
 							this.context.workspacePackage.packagePath,
 							this.options.outDir,
-							'package.json'
+							'package.json',
 						),
-						this.options
+						this.options,
 				  )
 				: toAbsolute(
 						join(this.context.workspacePackage.packagePath, 'package.json'),
-						this.options
+						this.options,
 				  );
 
 		return { updatedPackageJson, path };

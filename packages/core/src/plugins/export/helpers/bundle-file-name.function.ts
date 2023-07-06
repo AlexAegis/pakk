@@ -40,7 +40,7 @@ export const createDefaultViteFileNameFn: (packageType: PackageJson['type']) => 
  */
 export const getDefaultViteBundleFileExtension = (
 	format: ModuleFormat,
-	packageType: PackageJson['type'] = 'commonjs'
+	packageType: PackageJson['type'] = 'commonjs',
 ): JsExtensions => {
 	switch (format) {
 		case 'es':
@@ -52,7 +52,7 @@ export const getDefaultViteBundleFileExtension = (
 		}
 		default: {
 			throw new Error(
-				`Cannot determine default fileName for format: ${format} only esm and cjs can be auto determined.`
+				`Cannot determine default fileName for format: ${format} only esm and cjs can be auto determined.`,
 			);
 		}
 	}

@@ -25,7 +25,7 @@ describe('stripFileExtension', () => {
 
 		it('should not remove the d from a d.ts file if not allowed', () => {
 			expect(stripFileExtension('/bar/foo.config.d.ts', { stripDts: false })).toBe(
-				'/bar/foo.config.d'
+				'/bar/foo.config.d',
 			);
 		});
 	});

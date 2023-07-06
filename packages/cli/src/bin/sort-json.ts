@@ -39,7 +39,7 @@ void (async () => {
 				dry: options.dry,
 				logger,
 			});
-		})
+		}),
 	);
 
 	if (options.check && sortResults.some((status) => !status)) {

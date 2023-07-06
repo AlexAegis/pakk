@@ -17,7 +17,7 @@ export const yargsForAutoExport = <T>(yargs: Argv<T>): Argv<T & AutoExportOption
 				'exportBaseDir',
 				'developmentPackageJsonExportsTarget',
 			],
-			'auto-export'
+			'auto-export',
 		)
 		.option('exports', {
 			description:

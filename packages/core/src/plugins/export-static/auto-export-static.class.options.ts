@@ -17,7 +17,7 @@ export interface AutoExportStaticOptions {
 export type NormalizedAutoExportStaticOptions = Defined<AutoExportStaticOptions>;
 
 export const normalizeAutoExportStaticOptions = (
-	options?: AutoExportStaticOptions
+	options?: AutoExportStaticOptions,
 ): NormalizedAutoExportStaticOptions => {
 	return {
 		staticExports: options?.staticExports ?? DEFAULT_STATIC_EXPORT_GLOBS,

@@ -60,12 +60,12 @@ export const pakk = (rawOptions?: PakkOptions): Plugin[] => {
 				{
 					...options,
 					outDir,
-				}
+				},
 			);
 
 			options.logger.info(
 				'examining workspace package at',
-				pakk.context.workspacePackage.packageJsonPath
+				pakk.context.workspacePackage.packageJsonPath,
 			);
 
 			options.logger.trace('initial vite config', config);
@@ -79,7 +79,7 @@ export const pakk = (rawOptions?: PakkOptions): Plugin[] => {
 			if (config.build?.outDir && rawOptions?.outDir) {
 				options.logger.info(
 					`vite plugin defines build.outDir as "${config.build.outDir}". ` +
-						`Using that over "${rawOptions.outDir}"`
+						`Using that over "${rawOptions.outDir}"`,
 				);
 			}
 
@@ -108,7 +108,7 @@ export const pakk = (rawOptions?: PakkOptions): Plugin[] => {
 			};
 
 			options.logger.info(
-				`preparation phase took ${Math.floor(performance.now() - startTime)}ms to finish`
+				`preparation phase took ${Math.floor(performance.now() - startTime)}ms to finish`,
 			);
 
 			return viteConfigUpdates;
@@ -116,7 +116,7 @@ export const pakk = (rawOptions?: PakkOptions): Plugin[] => {
 		closeBundle: async () => {
 			options.logger.info(
 				'processing workspace package at',
-				pakk.context.workspacePackage.packageJsonPath
+				pakk.context.workspacePackage.packageJsonPath,
 			);
 			// I have to cheat a little bit by starting the timer here because other plugins can
 			// steal the thread during an async copy step
@@ -124,7 +124,7 @@ export const pakk = (rawOptions?: PakkOptions): Plugin[] => {
 
 			await asyncFilterMap(Object.values(PackageJsonKind), async (packageJsonTarget) => {
 				const { updatedPackageJson, path } = await pakk.createUpdatedPackageJson(
-					packageJsonTarget
+					packageJsonTarget,
 				);
 
 				options.logger.info('writing updated package.json to', path);
@@ -136,7 +136,7 @@ export const pakk = (rawOptions?: PakkOptions): Plugin[] => {
 			});
 
 			options.logger.info(
-				`update phase took ~${Math.floor(performance.now() - startTime)}ms to finish`
+				`update phase took ~${Math.floor(performance.now() - startTime)}ms to finish`,
 			);
 		},
 	} as Plugin;
@@ -148,7 +148,7 @@ export const pakk = (rawOptions?: PakkOptions): Plugin[] => {
 				copyDtsFiles: true,
 				cleanVueFileName: true,
 				entryRoot: join(options.srcDir, options.exportBaseDir),
-			})
+			}),
 		);
 	}
 	return plugins;

@@ -31,7 +31,7 @@ export class AutoCopyLicense implements PakkFeature {
 		const possibleLiceseFileNames = ['license', 'LICENSE'];
 
 		const possibleLicenseFileLocations = pathsOfInterest.flatMap((path) =>
-			possibleLiceseFileNames.map((fileName) => join(path, fileName))
+			possibleLiceseFileNames.map((fileName) => join(path, fileName)),
 		);
 
 		this.licensePath = possibleLicenseFileLocations.find((path) => existsSync(path));
@@ -41,7 +41,7 @@ export class AutoCopyLicense implements PakkFeature {
 		} else {
 			this.context.logger.warn(
 				'no license file found in the following locations',
-				possibleLicenseFileLocations
+				possibleLicenseFileLocations,
 			);
 		}
 
@@ -57,7 +57,7 @@ export class AutoCopyLicense implements PakkFeature {
 
 			const licenseFileDestination = join(
 				toAbsolute(this.context.outDir, this.context),
-				basename(this.licensePath)
+				basename(this.licensePath),
 			);
 
 			try {
@@ -70,7 +70,7 @@ export class AutoCopyLicense implements PakkFeature {
 					'to',
 					this.context.outDir,
 					'error happened',
-					error
+					error,
 				);
 			}
 		}

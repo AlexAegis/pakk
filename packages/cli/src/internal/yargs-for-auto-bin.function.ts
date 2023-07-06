@@ -12,7 +12,7 @@ export const yargsForAutoBin = <T>(yargs: Argv<T>): Argv<T & AutoBinOptions> => 
 	return yargs
 		.group(
 			['bins', 'binIgnore', 'defaultBinIgnore', 'binBaseDir', 'enabledNpmHooks', 'shimDir'],
-			'auto-bin'
+			'auto-bin',
 		)
 		.option('bins', {
 			description:

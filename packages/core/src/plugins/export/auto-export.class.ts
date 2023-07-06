@@ -67,7 +67,7 @@ export class AutoExport implements PakkFeature {
 			posix.join(this.context.srcDir, this.options.exportBaseDir),
 			{
 				cwd: this.context.workspacePackage.packagePath,
-			}
+			},
 		);
 
 		const ignore = [...this.options.exportsIgnore, ...this.options.defaultExportsIgnore];
@@ -166,7 +166,7 @@ export class AutoExport implements PakkFeature {
 					'./' +
 					posix.join(
 						dir,
-						this.context.fileName(this.context.primaryFormat, extensionlessFileName)
+						this.context.fileName(this.context.primaryFormat, extensionlessFileName),
 					);
 			}
 

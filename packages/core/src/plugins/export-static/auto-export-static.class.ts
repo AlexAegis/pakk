@@ -27,7 +27,7 @@ export class AutoExportStatic implements PakkFeature {
 
 	private static collectFileMap = async (
 		cwd: string,
-		globs: string[]
+		globs: string[],
 	): Promise<Record<string, string>> => {
 		const globbyResult = await globby(globs, { cwd, dot: true });
 		return globbyResult.reduce<Record<string, string>>((accumulator, next) => {
@@ -40,7 +40,7 @@ export class AutoExportStatic implements PakkFeature {
 	private static copyAll = async (
 		cwd: string,
 		relativeSourceFiles: string[],
-		outDirectory: string
+		outDirectory: string,
 	): Promise<void> => {
 		await Promise.allSettled(
 			relativeSourceFiles
@@ -50,23 +50,23 @@ export class AutoExportStatic implements PakkFeature {
 				}))
 				.filter(
 					({ sourceFile, targetFile }) =>
-						existsSync(sourceFile) && !existsSync(targetFile)
+						existsSync(sourceFile) && !existsSync(targetFile),
 				)
 				.map(({ sourceFile, targetFile }) =>
 					cp(sourceFile, targetFile, {
 						preserveTimestamps: true,
 						recursive: true,
-					})
-				)
+					}),
+				),
 		);
 	};
 
 	async examinePackage(
-		_workspacePackage: WorkspacePackage
+		_workspacePackage: WorkspacePackage,
 	): Promise<Partial<PackageExaminationResult>> {
 		this.staticExports = await AutoExportStatic.collectFileMap(
 			this.context.workspacePackage.packagePath,
-			this.options.staticExports
+			this.options.staticExports,
 		);
 
 		return {};
@@ -74,7 +74,7 @@ export class AutoExportStatic implements PakkFeature {
 
 	async process(
 		_packageJson: PackageJson,
-		pathContext: PackageExportPathContext
+		pathContext: PackageExportPathContext,
 	): Promise<PackageJson> {
 		if (pathContext.packageJsonKind === PackageJsonKind.DISTRIBUTION) {
 			const staticFilePaths = Object.values(this.staticExports);
@@ -83,7 +83,7 @@ export class AutoExportStatic implements PakkFeature {
 			await AutoExportStatic.copyAll(
 				this.context.workspacePackage.packagePath,
 				staticFilePaths,
-				this.context.outDir
+				this.context.outDir,
 			);
 		}
 

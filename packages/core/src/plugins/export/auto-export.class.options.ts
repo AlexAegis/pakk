@@ -82,7 +82,7 @@ export interface AutoExportOptions {
 export type NormalizedAutoExportOptions = Defined<AutoExportOptions>;
 
 export const normalizeAutoExportOptions = (
-	options?: AutoExportOptions
+	options?: AutoExportOptions,
 ): NormalizedAutoExportOptions => {
 	return {
 		exports: options?.exports ?? DEFAULT_PACKAGE_EXPORTS,

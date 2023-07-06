@@ -29,7 +29,7 @@ export interface AutoSortPackageJsonOptions {
 export type NormalizedAutoSortPackageJsonOptions = Defined<AutoSortPackageJsonOptions>;
 
 export const normalizeAutoSortPackageJsonOptions = (
-	options?: AutoSortPackageJsonOptions
+	options?: AutoSortPackageJsonOptions,
 ): NormalizedAutoSortPackageJsonOptions => {
 	return {
 		sortingPreference: options?.sortingPreference

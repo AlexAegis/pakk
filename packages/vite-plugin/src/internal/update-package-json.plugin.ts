@@ -21,7 +21,7 @@ export const updatePackageJsonPlugin = (options: UpdatePackageJsonPluginOptions)
 			const packageJson = await readJson<PackageJson>(packageJsonLocation);
 			if (!packageJson) {
 				console.warn(
-					`updatePackageJsonPlugin didn't find packageJson at ${packageJsonLocation}!`
+					`updatePackageJsonPlugin didn't find packageJson at ${packageJsonLocation}!`,
 				);
 				return;
 			}
@@ -33,7 +33,7 @@ export const updatePackageJsonPlugin = (options: UpdatePackageJsonPluginOptions)
 					parser: 'json-stringify',
 					cwd,
 				});
-				rawAugmentedPackageJson = formatter(rawAugmentedPackageJson);
+				rawAugmentedPackageJson = await formatter(rawAugmentedPackageJson);
 			}
 
 			await writeFile(packageJsonLocation, rawAugmentedPackageJson);

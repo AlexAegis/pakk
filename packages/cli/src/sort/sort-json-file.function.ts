@@ -16,7 +16,7 @@ import { basename } from 'node:path';
  */
 export const sortJsonFile = async (
 	path: string,
-	options: SortJsonFileOptions
+	options: SortJsonFileOptions,
 ): Promise<boolean> => {
 	const content = await readJson<Record<string, unknown>>(path);
 	if (content) {

@@ -62,7 +62,7 @@ export const DEFAULT_AUTO_METADATA_MANDATORY_KEYS = ['name', 'description', 'ver
 export type NormalizedAutoMetadataOptions = Required<AutoMetadataOptions>;
 
 export const normalizeAutoMetadataOptions = (
-	options?: AutoMetadataOptions
+	options?: AutoMetadataOptions,
 ): NormalizedAutoMetadataOptions => {
 	return {
 		...normalizeLoggerOption(options),

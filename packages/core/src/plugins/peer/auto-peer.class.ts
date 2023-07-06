@@ -21,7 +21,7 @@ export class AutoPeer implements PakkFeature {
 
 	postprocess(
 		workspacePackage: RegularWorkspacePackage,
-		packageJsonKind: PackageJsonKind
+		packageJsonKind: PackageJsonKind,
 	): PackageJson {
 		if (
 			packageJsonKind === PackageJsonKind.DISTRIBUTION &&
@@ -33,8 +33,8 @@ export class AutoPeer implements PakkFeature {
 
 			const deduplicatedDependencies = Object.fromEntries(
 				Object.entries(workspacePackage.packageJson.dependencies).filter(
-					([dependency]) => !peerDependencies.includes(dependency)
-				)
+					([dependency]) => !peerDependencies.includes(dependency),
+				),
 			);
 			return {
 				...workspacePackage.packageJson,

@@ -42,7 +42,7 @@ describe('autoExport', () => {
 			const autoExport = new AutoExport(mockAutolibContext);
 
 			const collectedExports = await autoExport.examinePackage(
-				mockAutolibContext.workspacePackage.packageJson
+				mockAutolibContext.workspacePackage.packageJson,
 			);
 
 			expect(collectedExports).toBeDefined();

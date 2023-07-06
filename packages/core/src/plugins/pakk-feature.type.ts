@@ -28,7 +28,7 @@ export interface PakkFeature {
 	 * keep your result in the plugin. This could return void
 	 */
 	examinePackage?: (
-		workspacePackage: WorkspacePackage
+		workspacePackage: WorkspacePackage,
 	) => Awaitable<Partial<PackageExaminationResult>>;
 
 	/**
@@ -37,7 +37,7 @@ export interface PakkFeature {
 	 */
 	process?: (
 		packageJson: PackageJson,
-		pathContext: PackageExportPathContext
+		pathContext: PackageExportPathContext,
 	) => Awaitable<PackageJson | PackageJson[] | undefined>;
 
 	/**
@@ -49,6 +49,6 @@ export interface PakkFeature {
 	 */
 	postprocess?: (
 		workspacePackage: RegularWorkspacePackage,
-		sourcePackageJsonTarget: PackageJsonKind
+		sourcePackageJsonTarget: PackageJsonKind,
 	) => PackageJson;
 }

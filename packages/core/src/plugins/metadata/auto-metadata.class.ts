@@ -26,19 +26,19 @@ export class AutoMetadata implements PakkFeature {
 	}
 
 	examinePackage(
-		workspacePackage: WorkspacePackage
+		workspacePackage: WorkspacePackage,
 	): Awaitable<Partial<PackageExaminationResult>> {
 		this.context.logger.trace(
 			'collecting keys from workspace:',
-			this.options.keysFromWorkspace
+			this.options.keysFromWorkspace,
 		);
 
 		this.metadataFromWorkspacePackageJson = Object.fromEntries(
 			Object.entries(this.context.rootWorkspacePackage.packageJson).filter(
 				([key]) =>
 					this.options.keysFromWorkspace.includes(key) &&
-					!Object.hasOwn(workspacePackage.packageJson, key)
-			)
+					!Object.hasOwn(workspacePackage.packageJson, key),
+			),
 		);
 
 		return {};
@@ -50,7 +50,7 @@ export class AutoMetadata implements PakkFeature {
 			this.context.logger.trace('fallbackEntries', this.options.fallbackEntries);
 			this.context.logger.trace(
 				'metadataFromWorkspacePackageJson',
-				this.metadataFromWorkspacePackageJson
+				this.metadataFromWorkspacePackageJson,
 			);
 			this.context.logger.trace('overrideEntries', this.options.overrideEntries);
 
@@ -67,7 +67,7 @@ export class AutoMetadata implements PakkFeature {
 			}
 
 			const missingKeys = this.options.mandatoryKeys.filter(
-				(mandatoryKey) => !Object.hasOwn(filledPackageJson, mandatoryKey)
+				(mandatoryKey) => !Object.hasOwn(filledPackageJson, mandatoryKey),
 			);
 
 			if (missingKeys.length > 0) {

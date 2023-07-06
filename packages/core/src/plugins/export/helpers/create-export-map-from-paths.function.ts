@@ -48,10 +48,10 @@ export type NormalizedCreateExportMapFromPathsOptions = Defined<CreateExportMapF
 export const createExportMapFromPaths = <
 	Variants extends AllExportPathCombinations | AllBinPathCombinations =
 		| AllExportPathCombinations
-		| AllBinPathCombinations
+		| AllBinPathCombinations,
 >(
 	pathsFromBase: string[],
-	options: CreateExportMapFromPathsOptions
+	options: CreateExportMapFromPathsOptions,
 ): EntryPathVariantMap<Variants> => {
 	const basePath = options.basePath ?? '.';
 	const exportMap: EntryPathVariantMap<Variants> = {};

@@ -12,7 +12,7 @@ export interface CurrentWorkspacePackageWithRoot {
 }
 
 export const findCurrentAndRootWorkspacePackage = async (
-	rawOptions?: CwdOption
+	rawOptions?: CwdOption,
 ): Promise<CurrentWorkspacePackageWithRoot> => {
 	const options = normalizeCwdOption(rawOptions);
 	const packageDirName = options.cwd.slice(Math.max(0, options.cwd.lastIndexOf(sep)));
@@ -20,14 +20,14 @@ export const findCurrentAndRootWorkspacePackage = async (
 
 	const rootWorkspacePackage = workspace.find(
 		(workspacePackage): workspacePackage is RootWorkspacePackage =>
-			workspacePackage.packageKind === 'root'
+			workspacePackage.packageKind === 'root',
 	);
 
 	const workspacePackage = workspace.find(
 		(workspacePackage): workspacePackage is RegularWorkspacePackage =>
 			workspacePackage.packageKind === 'regular' &&
 			workspacePackage.packagePath.includes(options.cwd) &&
-			(workspacePackage.packagePath + sep).includes(packageDirName + sep)
+			(workspacePackage.packagePath + sep).includes(packageDirName + sep),
 	);
 
 	if (!rootWorkspacePackage || !workspacePackage) {
