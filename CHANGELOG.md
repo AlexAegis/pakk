@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.3.0](https://github.com/AlexAegis/pakk/compare/v0.2.4...v0.3.0) (2023-07-06)
+
+
+### Features
+
+* updated to prettier v3 ([e9f3d88](https://github.com/AlexAegis/pakk/commit/e9f3d882df4c81309195bd84d811aaccfc992589))
+
 ## [0.2.4](https://github.com/AlexAegis/pakk/compare/v0.2.3...v0.2.4) (2023-07-04)
 
 
