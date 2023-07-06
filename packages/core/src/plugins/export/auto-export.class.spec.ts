@@ -1,5 +1,4 @@
-import { Logger } from '@alexaegis/logging';
-import { MockLogger } from '@alexaegis/logging/mocks';
+import { createMockLogger } from '@alexaegis/logging/mocks';
 import { describe, expect, it, vi } from 'vitest';
 import { NormalizedPakkContext } from '../../index.js';
 import { AutoExport } from './auto-export.class.js';
@@ -7,7 +6,7 @@ import { createDefaultViteFileNameFn } from './helpers/bundle-file-name.function
 
 // TODO: Make a reusable fixture out of this
 
-export const mockLogger = new MockLogger();
+export const { logger, mockLogger } = createMockLogger(vi);
 export const mockAutolibContext: NormalizedPakkContext = {
 	formats: ['es', 'cjs'],
 	packageType: 'module',
@@ -31,7 +30,7 @@ export const mockAutolibContext: NormalizedPakkContext = {
 	outDir: 'dist',
 	srcDir: 'src',
 	cwd: '/foo',
-	logger: mockLogger as unknown as Logger<unknown>,
+	logger,
 };
 
 vi.spyOn(process, 'cwd').mockReturnValue('/foo');
