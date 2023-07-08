@@ -1,7 +1,7 @@
 {
 	"name": "@pakk/fixture-deep-export",
 	"description": "Showcasing custom src and exportBaseDir options with deep exports",
-	"version": "0.3.2",
+	"version": "0.3.3",
 	"license": "MIT",
 	"private": true,
 	"archetype": {
