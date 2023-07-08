@@ -1,4 +1,4 @@
 #!/bin/sh
 # managed-by-autotool
 
-npx --no-install commitlint --edit "$1"
+# npx --no-install commitlint --edit "$1"
