@@ -18,7 +18,7 @@ import { AutoBinOptions, normalizeAutoBinOptions } from '../plugins/bin/auto-bin
 import {
 	AutoExportOptions,
 	AutoExportStaticOptions,
-	AutoSortPackageJsonOptions,
+	NormalizedAutoSortPackageJsonOptions,
 	PakkFeatureName,
 	normalizeAutoExportOptions,
 	normalizeAutoExportStaticOptions,
@@ -77,8 +77,7 @@ export interface PakkOptions
 		AutoBinOptions,
 		AutoExportOptions,
 		AutoExportStaticOptions,
-		AutoMetadataOptions,
-		AutoSortPackageJsonOptions {
+		AutoMetadataOptions {
 	/**
 	 * Source root, relative to the package directory
 	 *
@@ -118,7 +117,8 @@ export interface PakkOptions
 	dts?: boolean | undefined;
 }
 
-export type NormalizedPakkOptions = Defined<Replace<PakkOptions, { filterFeatures: RegExp[] }>>;
+export type NormalizedPakkOptions = Defined<Replace<PakkOptions, { filterFeatures: RegExp[] }>> &
+	NormalizedAutoSortPackageJsonOptions;
 
 export const normalizePakkOptions = (options?: PakkOptions): NormalizedPakkOptions => {
 	const logLevelOptions = normalizeLogLevelOption(options);

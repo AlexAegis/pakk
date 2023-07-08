@@ -1,10 +1,7 @@
 import type { Defined, ObjectKeyOrder } from '@alexaegis/common';
-import {
-	DEFAULT_PACKAGE_JSON_SORTING_PREFERENCE,
-	normalizeSortingPreferenceForPackageJson,
-} from '@alexaegis/workspace-tools';
+import { CwdOption, normalizeCwdOption } from '@alexaegis/fs';
 
-export interface AutoSortPackageJsonOptions {
+export interface AutoSortPackageJsonOptions extends CwdOption {
 	/**
 	 * ### AutoSortPackageJson
 	 *
@@ -23,17 +20,16 @@ export interface AutoSortPackageJsonOptions {
 	 * @example ['name', '.*', { key: 'scripts', order: ['start', 'build.*'] }, '.*']
 	 * @defaultValue []
 	 */
-	sortingPreference?: ObjectKeyOrder;
+	sortingPreference?: ObjectKeyOrder | undefined;
 }
 
-export type NormalizedAutoSortPackageJsonOptions = Defined<AutoSortPackageJsonOptions>;
+export type NormalizedAutoSortPackageJsonOptions = Defined<CwdOption> & AutoSortPackageJsonOptions;
 
 export const normalizeAutoSortPackageJsonOptions = (
 	options?: AutoSortPackageJsonOptions,
 ): NormalizedAutoSortPackageJsonOptions => {
 	return {
-		sortingPreference: options?.sortingPreference
-			? normalizeSortingPreferenceForPackageJson(options.sortingPreference)
-			: DEFAULT_PACKAGE_JSON_SORTING_PREFERENCE,
+		...normalizeCwdOption(options),
+		sortingPreference: options?.sortingPreference,
 	};
 };

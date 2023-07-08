@@ -1,4 +1,3 @@
-import { DEFAULT_PACKAGE_JSON_SORTING_PREFERENCE } from '@alexaegis/workspace-tools';
 import { describe, expect, it } from 'vitest';
 import {
 	normalizeAutoSortPackageJsonOptions,
@@ -9,31 +8,30 @@ describe('normalizeAutoSortPackageJsonOptions', () => {
 	it('returns the default options if no options was set', () => {
 		const normalizedOptions = normalizeAutoSortPackageJsonOptions();
 		expect(normalizedOptions).toEqual({
-			sortingPreference: DEFAULT_PACKAGE_JSON_SORTING_PREFERENCE,
+			sortingPreference: undefined,
+			cwd: process.cwd(),
 		} as AutoSortPackageJsonOptions);
 	});
 
 	it('should autofix exports ordering if its not even present', () => {
 		const normalizedOptions = normalizeAutoSortPackageJsonOptions({
 			sortingPreference: ['name'],
+			cwd: '/foo',
 		});
 		expect(normalizedOptions).toEqual({
-			sortingPreference: [
-				'name',
-				{ key: 'exports', order: [{ key: '.*', order: ['types', '.*', 'default'] }] },
-			],
+			sortingPreference: ['name'],
+			cwd: '/foo',
 		} as AutoSortPackageJsonOptions);
 	});
 
 	it('should autofix exports ordering if its present as a string', () => {
 		const normalizedOptions = normalizeAutoSortPackageJsonOptions({
 			sortingPreference: ['name', 'exports'],
+			cwd: '/foo',
 		});
 		expect(normalizedOptions).toEqual({
-			sortingPreference: [
-				'name',
-				{ key: 'exports', order: [{ key: '.*', order: ['types', '.*', 'default'] }] },
-			],
+			sortingPreference: ['name', 'exports'],
+			cwd: '/foo',
 		} as AutoSortPackageJsonOptions);
 	});
 });
