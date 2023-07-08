@@ -237,7 +237,7 @@ importers:
         specifier: ^0.4.4
         version: 0.4.4
       '@pakk/core':
-        specifier: ^0.3.1
+        specifier: ^0.3.2
         version: link:../core
       '@types/node':
         specifier: ^20.4.1
@@ -277,7 +277,7 @@ importers:
         specifier: ^0.1.16
         version: 0.1.16
       vite-plugin-pakk:
-        specifier: ^0.3.1
+        specifier: ^0.3.2
         version: link:../vite-plugin
       vitest:
         specifier: ^0.33.0
@@ -353,7 +353,7 @@ importers:
         specifier: ^0.4.4
         version: 0.4.4
       '@pakk/core':
-        specifier: ^0.3.1
+        specifier: ^0.3.2
         version: link:../core
       '@types/node':
         specifier: ^20.4.1
@@ -1992,7 +1992,7 @@ packages:
   /@types/concat-stream@2.0.0:
     resolution: {integrity: sha512-t3YCerNM7NTVjLuICZo5gYAXYoDvpuuTceCcFQWcDQz26kxUR5uIWolxbIR5jRNIXpMqhOpW/b8imCR1LEmuJw==}
     dependencies:
-      '@types/node': 20.4.1
+      '@types/node': 18.16.19
     dev: true
 
   /@types/cookie@0.5.1:
