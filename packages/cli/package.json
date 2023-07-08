@@ -60,7 +60,7 @@
 		"sort-json": "./shims/sort-json.js"
 	},
 	"dependencies": {
-		"@alexaegis/cli-tools": "^0.4.3",
+		"@alexaegis/cli-tools": "^0.4.4",
 		"@alexaegis/common": "^0.4.4",
 		"@alexaegis/fs": "^0.4.4",
 		"@alexaegis/logging": "^0.4.4",

@@ -43,14 +43,14 @@
 	"exports": {
 		"./bar/yod/": {
 			"types": "./source/api/bar/yod/index.ts",
-			"require": "./dist/bar/yod/index.cjs",
 			"import": "./dist/bar/yod/index.js",
+			"require": "./dist/bar/yod/index.cjs",
 			"default": "./dist/bar/yod/index.js"
 		},
 		"./bar/yod/zed": {
 			"types": "./source/api/bar/yod/zed.ts",
-			"require": "./dist/bar/yod/zed.cjs",
 			"import": "./dist/bar/yod/zed.js",
+			"require": "./dist/bar/yod/zed.cjs",
 			"default": "./dist/bar/yod/zed.js"
 		}
 	},

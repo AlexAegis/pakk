@@ -46,32 +46,32 @@
 		"test:watch": "vitest --passWithNoTests --coverage"
 	},
 	"exports": {
-		"./custom.config": {
-			"types": "./source/custom.config.ts",
-			"require": "./dist/custom.config.cjs",
-			"import": "./dist/custom.config.js",
-			"default": "./dist/custom.config.js"
-		},
 		".": {
 			"types": "./source/index.ts",
-			"require": "./dist/index.cjs",
 			"import": "./dist/index.js",
+			"require": "./dist/index.cjs",
 			"default": "./dist/index.js"
+		},
+		"./custom.config": {
+			"types": "./source/custom.config.ts",
+			"import": "./dist/custom.config.js",
+			"require": "./dist/custom.config.cjs",
+			"default": "./dist/custom.config.js"
 		},
 		"./some": {
 			"types": "./source/some.d.ts",
-			"require": "./dist/some.cjs",
 			"import": "./dist/some.js",
+			"require": "./dist/some.cjs",
 			"default": "./dist/some.js"
 		},
 		"./test": "./static/test.txt"
 	},
 	"bin": {
-		"manual": "./manual.js",
-		"foo.config": "./shims/foo.config.js",
+		"bar": "./shims/inner/bar.js",
 		"fixture-custom-bins": "./shims/index.js",
-		"pakk-fixture-custom-bins-postinstall": "./shims/postinstall.js",
-		"bar": "./shims/inner/bar.js"
+		"foo.config": "./shims/foo.config.js",
+		"manual": "./manual.js",
+		"pakk-fixture-custom-bins-postinstall": "./shims/postinstall.js"
 	},
 	"devDependencies": {
 		"@alexaegis/eslint-config-vitest": "^0.4.1",
