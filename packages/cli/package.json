@@ -74,10 +74,10 @@
 		"yargs": "^17.7.2"
 	},
 	"devDependencies": {
-		"@alexaegis/eslint-config-vitest": "^0.4.1",
-		"@alexaegis/ts": "^0.4.1",
-		"@alexaegis/vite": "^0.4.1",
-		"@alexaegis/vitest": "^0.4.1",
+		"@alexaegis/eslint-config-vitest": "^0.4.2",
+		"@alexaegis/ts": "^0.4.2",
+		"@alexaegis/vite": "^0.4.2",
+		"@alexaegis/vitest": "^0.4.2",
 		"@types/node": "^20.4.1",
 		"@types/yargs": "^17.0.24",
 		"publint": "^0.1.16",
