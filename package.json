@@ -1,7 +1,7 @@
 {
 	"name": "@pakk/workspace",
 	"description": "Pakk",
-	"version": "0.3.3",
+	"version": "0.3.4",
 	"license": "mit",
 	"private": true,
 	"keywords": [
