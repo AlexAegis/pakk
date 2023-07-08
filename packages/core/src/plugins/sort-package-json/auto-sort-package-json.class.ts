@@ -10,6 +10,8 @@ import {
 } from './auto-sort-package-json.class.options.js';
 
 export class AutoSort implements PakkFeature {
+	public readonly order = 7;
+
 	private readonly context: NormalizedPakkContext;
 	private readonly options: NormalizedAutoSortPackageJsonOptions;
 	private sortingNormalizer!: Awaited<ReturnType<typeof createJsonSortingPreferenceNormalizer>>;

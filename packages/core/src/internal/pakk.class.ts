@@ -4,7 +4,6 @@ import { Logger } from '@alexaegis/logging';
 import { PackageJson, WorkspacePackage } from '@alexaegis/workspace-tools';
 import { join } from 'node:path';
 import { LibraryFormats } from 'vite';
-
 import { PackageJsonKind } from '../package-json/package-json-kind.enum.js';
 import { AutoBin } from '../plugins/bin/auto-bin.class.js';
 import { AutoCopyLicense } from '../plugins/copy-license/auto-copy-license.class.js';
@@ -80,7 +79,8 @@ export class Pakk {
 					},
 					options,
 				);
-			});
+			})
+			.sort((a, b) => a.order - b.order);
 
 		this.options.logger.trace('features enabled:', this.features.length);
 		this.options.logger.trace('context', {

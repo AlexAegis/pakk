@@ -15,6 +15,8 @@ import {
 } from './auto-export-static.class.options.js';
 
 export class AutoExportStatic implements PakkFeature {
+	public readonly order = 2;
+
 	private readonly options: NormalizedAutoExportStaticOptions;
 	private readonly context: NormalizedPakkContext;
 

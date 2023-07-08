@@ -14,6 +14,8 @@ import type { PackageExaminationResult, PakkFeature } from '../pakk-feature.type
  * the packages folder.
  */
 export class AutoCopyLicense implements PakkFeature {
+	public readonly order = 4;
+
 	private readonly context: NormalizedPakkContext;
 
 	private licensePath: string | undefined;

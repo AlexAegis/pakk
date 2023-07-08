@@ -4,7 +4,7 @@ import { pakk } from 'vite-plugin-pakk';
 export default defineConfig({
 	plugins: [
 		pakk({
-			enabledFeatures: ['export', 'bin', 'copy-license', 'export-static'],
+			enabledFeatures: ['export', 'bin', 'copy-license', 'export-static', 'sort'],
 			srcDir: 'source',
 			binBaseDir: 'cli',
 			bins: '**/*',

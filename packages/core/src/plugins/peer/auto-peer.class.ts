@@ -13,6 +13,8 @@ import type { PakkFeature } from '../pakk-feature.type.js';
  * step will remove the one that was meant to only be present locally.
  */
 export class AutoPeer implements PakkFeature {
+	public readonly order = 5;
+
 	private readonly context: NormalizedPakkContext;
 
 	constructor(context: NormalizedPakkContext) {

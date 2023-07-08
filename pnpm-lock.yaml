@@ -371,8 +371,8 @@ importers:
         specifier: ^4.4.2
         version: 4.4.2(@types/node@20.4.1)
       vite-plugin-dts:
-        specifier: ^3.1.1
-        version: 3.1.1(@types/node@20.4.1)(typescript@5.1.6)
+        specifier: ^3.2.0
+        version: 3.2.0(@types/node@20.4.1)(typescript@5.1.6)
     devDependencies:
       '@alexaegis/eslint-config-vitest':
         specifier: ^0.4.2
@@ -10136,8 +10136,8 @@ packages:
       - terser
     dev: true
 
-  /vite-plugin-dts@3.1.1(@types/node@20.4.1)(typescript@5.1.6):
-    resolution: {integrity: sha512-OgCa6Mch3D1RyGbx3baHx9n6IVzfizDIo2J5EnC96SHyirPwD9CdVAH6yit4/5exoIhc2x7Zdi0Gw7tPewycfA==}
+  /vite-plugin-dts@3.2.0(@types/node@20.4.1)(typescript@5.1.6):
+    resolution: {integrity: sha512-s+dwJvDcb/AWgb49oVbq9JiUSIMwaVpFfV4SVIaBZmv9OZyeyDGxujaq+z4HJ4LB4hUG5c4oRAJyLfV66c763Q==}
     engines: {node: ^14.18.0 || >=16.0.0}
     peerDependencies:
       typescript: '*'
@@ -10177,7 +10177,7 @@ packages:
       ts-node: 10.9.1(@types/node@20.4.1)(typescript@5.1.6)
       typescript: 5.1.6
       vite: 4.4.2(@types/node@20.4.1)
-      vite-plugin-dts: 3.1.1(@types/node@20.4.1)(typescript@5.1.6)
+      vite-plugin-dts: 3.2.0(@types/node@20.4.1)(typescript@5.1.6)
     transitivePeerDependencies:
       - '@swc/core'
       - '@swc/wasm'

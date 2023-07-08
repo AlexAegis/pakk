@@ -16,6 +16,8 @@ import {
  * is defined in both the manual takes precedence.
  */
 export class AutoMetadata implements PakkFeature {
+	public readonly order = 6;
+
 	private readonly options: NormalizedAutoMetadataOptions;
 	private readonly context: NormalizedPakkContext;
 	private metadataFromWorkspacePackageJson: PackageJson | undefined;

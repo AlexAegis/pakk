@@ -19,6 +19,14 @@ export interface PackageExaminationResult {
 
 export interface PakkFeature {
 	/**
+	 * The higher the number the later the feature will be invoked within each
+	 * step.
+	 *
+	 * The only real use of this is to make sure the sorting of the packageJson
+	 * file happens last.
+	 */
+	order: number;
+	/**
 	 * Called once at the start of Autolib, giving a change for each plugin
 	 * to examine the package.
 	 *

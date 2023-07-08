@@ -52,6 +52,8 @@ export interface PackageExportPathContext {
  * Generates exports entries automatically
  */
 export class AutoExport implements PakkFeature {
+	public readonly order = 1;
+
 	private readonly options: NormalizedAutoExportOptions;
 	private readonly context: NormalizedPakkContext;
 
