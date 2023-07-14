@@ -4,7 +4,7 @@ import { Logger } from '@alexaegis/logging';
 import { PackageJson, WorkspacePackage } from '@alexaegis/workspace-tools';
 import { join } from 'node:path';
 import { LibraryFormats } from 'vite';
-import { PackageJsonKind } from '../package-json/package-json-kind.enum.js';
+import { PACKAGE_JSON_KIND, PackageJsonKindType } from '../package-json/package-json-kind.enum.js';
 import { AutoBin } from '../plugins/bin/auto-bin.class.js';
 import { AutoCopyLicense } from '../plugins/copy-license/auto-copy-license.class.js';
 import { AutoExportStatic } from '../plugins/export-static/auto-export-static.class.js';
@@ -101,6 +101,12 @@ export class Pakk {
 		return this.options.logger;
 	}
 
+	getTargetPackageJsonKinds(): PackageJsonKindType[] {
+		return this.options.targetPackageJsonKind
+			? [this.options.targetPackageJsonKind]
+			: Object.values(PACKAGE_JSON_KIND);
+	}
+
 	static async withContext(
 		manualContext: Pick<PakkContext, 'formats' | 'fileName'>,
 		rawOptions?: PakkOptions | undefined,
@@ -163,7 +169,7 @@ export class Pakk {
 	 * And also returns the path where it should be written to.
 	 */
 	async createUpdatedPackageJson(
-		packageJsonKind: PackageJsonKind,
+		packageJsonKind: PackageJsonKindType,
 	): Promise<{ updatedPackageJson: PackageJson; path: string }> {
 		const packageJsonUpdates = await asyncFilterMap(
 			this.features,
@@ -189,7 +195,7 @@ export class Pakk {
 		);
 
 		const path =
-			packageJsonKind === PackageJsonKind.DISTRIBUTION
+			packageJsonKind === PACKAGE_JSON_KIND.DISTRIBUTION
 				? toAbsolute(
 						join(
 							this.context.workspacePackage.packagePath,

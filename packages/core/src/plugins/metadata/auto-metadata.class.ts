@@ -1,7 +1,7 @@
 import { Awaitable, deepMerge } from '@alexaegis/common';
 import { type PackageJson, type WorkspacePackage } from '@alexaegis/workspace-tools';
 import { NormalizedPakkContext } from '../../internal/pakk.class.options.js';
-import { PackageJsonKind } from '../../package-json/index.js';
+import { PACKAGE_JSON_KIND, PackageJsonKindType } from '../../package-json/index.js';
 import type { PackageExaminationResult, PakkFeature } from '../pakk-feature.type.js';
 import {
 	normalizeAutoMetadataOptions,
@@ -46,8 +46,11 @@ export class AutoMetadata implements PakkFeature {
 		return {};
 	}
 
-	postprocess(workspacePackage: WorkspacePackage, packageJsonKind: PackageJsonKind): PackageJson {
-		if (packageJsonKind === PackageJsonKind.DISTRIBUTION) {
+	postprocess(
+		workspacePackage: WorkspacePackage,
+		packageJsonKind: PackageJsonKindType,
+	): PackageJson {
+		if (packageJsonKind === PACKAGE_JSON_KIND.DISTRIBUTION) {
 			this.context.logger.info('filling metadata for distributed packageJson');
 			this.context.logger.trace('fallbackEntries', this.options.fallbackEntries);
 			this.context.logger.trace(

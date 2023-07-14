@@ -9,7 +9,12 @@ import { dirname } from 'node:path/posix';
 import { InternalModuleFormat } from 'rollup';
 import { LibraryFormats } from 'vite';
 import { NormalizedPakkContext } from '../../internal/pakk.class.options.js';
-import { PackageJsonExportTarget, PackageJsonKind, PathMap } from '../../package-json/index.js';
+import {
+	PACKAGE_JSON_KIND,
+	PackageJsonExportTarget,
+	PackageJsonKindType,
+	PathMap,
+} from '../../package-json/index.js';
 
 import {
 	AutoExportOptions,
@@ -20,9 +25,9 @@ import { EntryPathVariantMap } from './export-map.type.js';
 import { createExportMapFromPaths } from './helpers/create-export-map-from-paths.function.js';
 
 export const allExportPathCombinations = [
-	`${PackageJsonKind.DEVELOPMENT}-to-${PackageJsonExportTarget.SOURCE}`,
-	`${PackageJsonKind.DEVELOPMENT}-to-${PackageJsonExportTarget.DIST}`,
-	`${PackageJsonKind.DISTRIBUTION}-to-${PackageJsonExportTarget.DIST}`,
+	`${PACKAGE_JSON_KIND.DEVELOPMENT}-to-${PackageJsonExportTarget.SOURCE}`,
+	`${PACKAGE_JSON_KIND.DEVELOPMENT}-to-${PackageJsonExportTarget.DIST}`,
+	`${PACKAGE_JSON_KIND.DISTRIBUTION}-to-${PackageJsonExportTarget.DIST}`,
 ] as const;
 export type AllExportPathCombinations = (typeof allExportPathCombinations)[number];
 export type ExportPathMap = PathMap<AllExportPathCombinations>;
@@ -35,7 +40,7 @@ export interface PackageExportPathContext {
 	 * to calculate the paths towards the source files, 'formats' and
 	 * 'fileNameFn' are not used.
 	 */
-	packageJsonKind: PackageJsonKind;
+	packageJsonKind: PackageJsonKindType;
 	/**
 	 * The kind of files an export can point to. It's used to guess/calculate how
 	 * the fileName will change once it ends up in the outDir after building.
@@ -122,15 +127,24 @@ export class AutoExport implements PakkFeature {
 			let path: string;
 			let typesPath: string = pathVariants['development-to-source'];
 
-			if (pathContext.packageJsonKind === PackageJsonKind.DISTRIBUTION) {
+			const isSvelteFile = pathVariants['distribution-to-dist'].endsWith('.svelte');
+			// Forcing dev package to consume only source files.
+			// TODO: verify if this is okay
+			const developmentPackageJsonExportsTarget = this.options.svelte
+				? PackageJsonExportTarget.SOURCE
+				: this.options.developmentPackageJsonExportsTarget;
+
+			if (pathContext.packageJsonKind === PACKAGE_JSON_KIND.DISTRIBUTION) {
 				path = pathVariants['distribution-to-dist'];
 
-				typesPath = pathVariants['distribution-to-dist'].endsWith('.ts')
-					? stripFileExtension(pathVariants['distribution-to-dist']) + '.d.ts'
-					: pathVariants['distribution-to-dist'];
-			} else if (
-				this.options.developmentPackageJsonExportsTarget === PackageJsonExportTarget.SOURCE
-			) {
+				if (isSvelteFile) {
+					typesPath = pathVariants['distribution-to-dist'] + '.d.ts'; // foo.svelte => foo.svelte.d.ts
+				} else if (pathVariants['distribution-to-dist'].endsWith('.ts')) {
+					typesPath = stripFileExtension(pathVariants['distribution-to-dist']) + '.d.ts'; // foo.ts => foo.d.ts
+				} else {
+					typesPath = pathVariants['distribution-to-dist'];
+				}
+			} else if (developmentPackageJsonExportsTarget === PackageJsonExportTarget.SOURCE) {
 				path = pathVariants['development-to-source'];
 			} else {
 				path = pathVariants['development-to-dist'];
@@ -168,13 +182,29 @@ export class AutoExport implements PakkFeature {
 					'./' +
 					posix.join(
 						dir,
-						this.context.fileName(this.context.primaryFormat, extensionlessFileName),
+						isSvelteFile
+							? fileName
+							: this.context.fileName(
+									this.context.primaryFormat,
+									extensionlessFileName,
+							  ),
 					);
 			}
 
-			// TODO: Figure out how to properly support svelte exports
-			if (path.endsWith('.svelte')) {
-				exportConditions['svelte'] = './' + path;
+			if (this.options.svelte) {
+				exportConditions['svelte'] =
+					'./' +
+					posix.join(
+						dir, // Let svelte import the source file regardless
+						isSvelteFile
+							? fileName
+							: this.context.fileName('es', extensionlessFileName),
+					);
+
+				if (isSvelteFile) {
+					delete exportConditions.import;
+					delete exportConditions.require;
+				}
 			}
 
 			const indexNormalizedKey = key.replace(/\/index$/, '/').replace(/^.\/$/, '.');

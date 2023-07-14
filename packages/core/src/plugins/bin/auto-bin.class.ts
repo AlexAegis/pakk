@@ -15,8 +15,8 @@ import { globby } from 'globby';
 import { NormalizedPakkContext, ViteFileNameFn } from '../../index.js';
 import {
 	NPM_INSTALL_HOOKS,
+	PACKAGE_JSON_KIND,
 	PackageJsonExportTarget,
-	PackageJsonKind,
 	PathMap,
 } from '../../package-json/index.js';
 import { PackageExportPathContext } from '../export/auto-export.class.js';
@@ -46,10 +46,10 @@ const mapObject = <T extends Record<SimpleObjectKey, unknown>, K>(
 };
 
 export const allBinPathCombinations = [
-	`${PackageJsonKind.DEVELOPMENT}-to-${PackageJsonExportTarget.SOURCE}`,
-	`${PackageJsonKind.DEVELOPMENT}-to-${PackageJsonExportTarget.DIST}`,
-	`${PackageJsonKind.DISTRIBUTION}-to-${PackageJsonExportTarget.DIST}`,
-	`${PackageJsonKind.DEVELOPMENT}-to-${PackageJsonExportTarget.SHIM}`,
+	`${PACKAGE_JSON_KIND.DEVELOPMENT}-to-${PackageJsonExportTarget.SOURCE}`,
+	`${PACKAGE_JSON_KIND.DEVELOPMENT}-to-${PackageJsonExportTarget.DIST}`,
+	`${PACKAGE_JSON_KIND.DISTRIBUTION}-to-${PackageJsonExportTarget.DIST}`,
+	`${PACKAGE_JSON_KIND.DEVELOPMENT}-to-${PackageJsonExportTarget.SHIM}`,
 ] as const;
 
 export const mapPathMapToFormat = (
@@ -211,7 +211,7 @@ export class AutoBin implements PakkFeature {
 
 			await this.ensureEsmBinEntriesRenamed();
 
-			if (pathContext.packageJsonKind === PackageJsonKind.DEVELOPMENT) {
+			if (pathContext.packageJsonKind === PACKAGE_JSON_KIND.DEVELOPMENT) {
 				await this.createShims(
 					Object.values(binPathMapForFormat).map(
 						(pathKinds) => pathKinds['development-to-shim'],
@@ -248,7 +248,7 @@ export class AutoBin implements PakkFeature {
 							!packageJson.scripts?.[key] ||
 							packageJson.scripts[key]?.endsWith(markComment)
 						) {
-							if (pathContext.packageJsonKind === PackageJsonKind.DISTRIBUTION) {
+							if (pathContext.packageJsonKind === PACKAGE_JSON_KIND.DISTRIBUTION) {
 								result.scripts[key] = value['distribution-to-dist'] + markComment; // before update
 							} else if (NPM_INSTALL_HOOKS.includes(key)) {
 								// Disable local postinstall hooks
@@ -281,7 +281,7 @@ export class AutoBin implements PakkFeature {
 					result.bin[key] =
 						'.' +
 						posix.sep +
-						(pathContext.packageJsonKind === PackageJsonKind.DISTRIBUTION
+						(pathContext.packageJsonKind === PACKAGE_JSON_KIND.DISTRIBUTION
 							? value['distribution-to-dist']
 							: value['development-to-shim']);
 

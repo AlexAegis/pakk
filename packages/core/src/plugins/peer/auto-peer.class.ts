@@ -1,7 +1,7 @@
 import type { PackageJson, RegularWorkspacePackage } from '@alexaegis/workspace-tools';
 
 import { NormalizedPakkContext } from '../../index.js';
-import { PackageJsonKind } from '../../package-json/index.js';
+import { PACKAGE_JSON_KIND, PackageJsonKindType } from '../../package-json/index.js';
 import type { PakkFeature } from '../pakk-feature.type.js';
 
 /**
@@ -23,10 +23,10 @@ export class AutoPeer implements PakkFeature {
 
 	postprocess(
 		workspacePackage: RegularWorkspacePackage,
-		packageJsonKind: PackageJsonKind,
+		packageJsonKind: PackageJsonKindType,
 	): PackageJson {
 		if (
-			packageJsonKind === PackageJsonKind.DISTRIBUTION &&
+			packageJsonKind === PACKAGE_JSON_KIND.DISTRIBUTION &&
 			workspacePackage.packageJson.dependencies &&
 			workspacePackage.packageJson.peerDependencies
 		) {

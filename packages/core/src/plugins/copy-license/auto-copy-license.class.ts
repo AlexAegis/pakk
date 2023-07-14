@@ -3,7 +3,7 @@ import { PackageJson, WorkspacePackage } from '@alexaegis/workspace-tools';
 import { existsSync } from 'node:fs';
 import { cp } from 'node:fs/promises';
 import { basename, join } from 'node:path';
-import { NormalizedPakkContext, PackageJsonKind } from '../../index.js';
+import { NormalizedPakkContext, PACKAGE_JSON_KIND } from '../../index.js';
 import { PackageExportPathContext } from '../export/auto-export.class.js';
 import type { PackageExaminationResult, PakkFeature } from '../pakk-feature.type.js';
 
@@ -51,7 +51,7 @@ export class AutoCopyLicense implements PakkFeature {
 	}
 
 	async process(_packageJson: PackageJson, pathContext: PackageExportPathContext): Promise<void> {
-		if (pathContext.packageJsonKind === PackageJsonKind.DISTRIBUTION) {
+		if (pathContext.packageJsonKind === PACKAGE_JSON_KIND.DISTRIBUTION) {
 			if (!this.licensePath) {
 				this.context.logger.warn('No license file found!');
 				return;

@@ -1,12 +1,6 @@
 import { asyncFilterMap } from '@alexaegis/common';
 import { writeJson } from '@alexaegis/fs';
-import {
-	DEFAULT_EXPORT_FORMATS,
-	PackageJsonKind,
-	Pakk,
-	PakkOptions,
-	normalizePakkOptions,
-} from '@pakk/core';
+import { DEFAULT_EXPORT_FORMATS, Pakk, PakkOptions, normalizePakkOptions } from '@pakk/core';
 import { join } from 'node:path';
 import { UserConfig, type Plugin } from 'vite';
 import dts from 'vite-plugin-dts';
@@ -122,7 +116,7 @@ export const pakk = (rawOptions?: PakkOptions): Plugin[] => {
 			// steal the thread during an async copy step
 			const startTime = performance.now();
 
-			await asyncFilterMap(Object.values(PackageJsonKind), async (packageJsonTarget) => {
+			await asyncFilterMap(pakk.getTargetPackageJsonKinds(), async (packageJsonTarget) => {
 				const { updatedPackageJson, path } = await pakk.createUpdatedPackageJson(
 					packageJsonTarget,
 				);

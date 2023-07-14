@@ -77,6 +77,13 @@ export interface AutoExportOptions {
 	 * @defaultValue 'dist'
 	 */
 	developmentPackageJsonExportsTarget?: 'dist' | 'source' | undefined;
+
+	/**
+	 * Add svelte export conditions or not
+	 *
+	 * @defaultValue false
+	 */
+	svelte?: boolean | undefined;
 }
 
 export type NormalizedAutoExportOptions = Defined<AutoExportOptions>;
@@ -91,5 +98,6 @@ export const normalizeAutoExportOptions = (
 		exportBaseDir: options?.exportBaseDir ?? DEFAULT_PACKAGE_EXPORT_BASEDIR,
 		developmentPackageJsonExportsTarget:
 			options?.developmentPackageJsonExportsTarget ?? PackageJsonExportTarget.DIST,
+		svelte: options?.svelte ?? false,
 	};
 };

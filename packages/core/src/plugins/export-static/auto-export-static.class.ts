@@ -3,7 +3,7 @@ import { globby } from 'globby';
 import { existsSync } from 'node:fs';
 import { cp } from 'node:fs/promises';
 import posix, { basename, join } from 'node:path/posix';
-import { PackageJsonKind } from '../../index.js';
+import { PACKAGE_JSON_KIND } from '../../index.js';
 import { NormalizedPakkContext } from '../../internal/pakk.class.options.js';
 import { PackageExportPathContext } from '../export/auto-export.class.js';
 import { stripFileExtension } from '../export/helpers/strip-file-extension.function.js';
@@ -78,7 +78,7 @@ export class AutoExportStatic implements PakkFeature {
 		_packageJson: PackageJson,
 		pathContext: PackageExportPathContext,
 	): Promise<PackageJson> {
-		if (pathContext.packageJsonKind === PackageJsonKind.DISTRIBUTION) {
+		if (pathContext.packageJsonKind === PACKAGE_JSON_KIND.DISTRIBUTION) {
 			const staticFilePaths = Object.values(this.staticExports);
 
 			this.context.logger.info('copy all static files', staticFilePaths);

@@ -1,7 +1,7 @@
 import { asyncFilterMap } from '@alexaegis/common';
 import { writeJson } from '@alexaegis/fs';
 
-import { PackageJsonKind, Pakk, PakkOptions } from '@pakk/core';
+import { Pakk, PakkOptions } from '@pakk/core';
 
 /**
  * The standalone runner for pakk to be used on it's own instead of together
@@ -12,7 +12,7 @@ export const pakkStandaloneRunner = async (rawOptions?: PakkOptions): Promise<vo
 
 	await pakk.examinePackage();
 
-	await asyncFilterMap(Object.values(PackageJsonKind), async (packageJsonTarget) => {
+	await asyncFilterMap(pakk.getTargetPackageJsonKinds(), async (packageJsonTarget) => {
 		const { updatedPackageJson, path } = await pakk.createUpdatedPackageJson(packageJsonTarget);
 
 		return await writeJson(updatedPackageJson, path, pakk.options);

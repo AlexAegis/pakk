@@ -19,6 +19,7 @@ import {
 	AutoExportOptions,
 	AutoExportStaticOptions,
 	NormalizedAutoSortPackageJsonOptions,
+	PackageJsonKindType,
 	PakkFeatureName,
 	normalizeAutoExportOptions,
 	normalizeAutoExportStaticOptions,
@@ -101,6 +102,17 @@ export interface PakkOptions
 	sourcePackageJson?: string | undefined;
 
 	/**
+	 * Which packageJson to act on. Will do both when left empty.
+	 * - 'development': the one in your packages folder that you yourself edit too
+	 * - 'distribution': the one that is coped to the 'dist' folder
+	 *
+	 * By default is undefined, meaning both.
+	 *
+	 * @defaultValue undefined
+	 */
+	targetPackageJsonKind?: PackageJsonKindType | undefined;
+
+	/**
 	 * If left empty, all features will remain enabled. Except the disabled ones
 	 */
 	enabledFeatures?: PakkFeatureName[] | undefined;
@@ -117,7 +129,10 @@ export interface PakkOptions
 	dts?: boolean | undefined;
 }
 
-export type NormalizedPakkOptions = Defined<Replace<PakkOptions, { filterFeatures: RegExp[] }>> &
+export type NormalizedPakkOptions = Defined<
+	Replace<Omit<PakkOptions, 'targetPackageJsonKind'>, { filterFeatures: RegExp[] }>
+> &
+	Pick<PakkOptions, 'targetPackageJsonKind'> &
 	NormalizedAutoSortPackageJsonOptions;
 
 export const normalizePakkOptions = (options?: PakkOptions): NormalizedPakkOptions => {
@@ -140,5 +155,6 @@ export const normalizePakkOptions = (options?: PakkOptions): NormalizedPakkOptio
 		disabledFeatures: options?.disabledFeatures ?? [],
 		autoPrettier: options?.autoPrettier ?? true,
 		dts: options?.dts ?? true,
+		targetPackageJsonKind: options?.targetPackageJsonKind,
 	};
 };

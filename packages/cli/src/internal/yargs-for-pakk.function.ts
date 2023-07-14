@@ -1,4 +1,4 @@
-import { PakkOptions, pakkFeatures } from '@pakk/core';
+import { PACKAGE_JSON_KIND, PakkOptions, pakkFeatures } from '@pakk/core';
 import type { Argv } from 'yargs';
 
 export const yargsForPakk = <T>(yargs: Argv<T>): Argv<T & PakkOptions> => {
@@ -23,6 +23,16 @@ export const yargsForPakk = <T>(yargs: Argv<T>): Argv<T & PakkOptions> => {
 			description: 'Enable prettier integration',
 			boolean: true,
 			default: true,
+		})
+		.option('svelte', {
+			description: 'Features for svelte libraries, like defining svelte exports',
+			boolean: true,
+			default: false,
+		})
+		.option('targetPackageJsonKind', {
+			description: 'Which packageJson to act on. Will do both when left empty.',
+			choices: Object.values(PACKAGE_JSON_KIND),
+			default: undefined,
 		})
 		.option('enabledFeatures', {
 			description: 'When defined only these features will be enabled.',
