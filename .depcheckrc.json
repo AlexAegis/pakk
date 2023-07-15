@@ -1,11 +1,12 @@
 {
-	"$schema": "https://json.schemastore.org/typings?mark=managed-by-autotool",
+	"$schema": "https://json.schemastore.org/typings",
 	"ignores": [
 		"@alexaegis/ts",
 		"@alexaegis/nuke",
 		"@alexaegis/setup-*",
 		"@alexaegis/coverage-tools",
 		"@alexaegis/stylelint-config",
+		"@pakk/cli",
 		"autotool",
 		"autotool-plugin-*",
 		"@alexaegis/autotool-plugin-*",
