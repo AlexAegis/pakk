@@ -55,7 +55,7 @@
 			"default": "./src/index.js"
 		},
 		"./direct": {
-			"types": "./src/direct.svelte",
+			"types": "./dist/direct.svelte.d.ts",
 			"svelte": "./src/direct.svelte",
 			"default": "./src/direct.svelte"
 		},

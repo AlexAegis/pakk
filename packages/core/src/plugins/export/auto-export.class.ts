@@ -129,7 +129,6 @@ export class AutoExport implements PakkFeature {
 
 			const isSvelteFile = pathVariants['distribution-to-dist'].endsWith('.svelte');
 			// Forcing dev package to consume only source files.
-			// TODO: verify if this is okay
 			const developmentPackageJsonExportsTarget = this.options.svelte
 				? PackageJsonExportTarget.SOURCE
 				: this.options.developmentPackageJsonExportsTarget;
@@ -145,6 +144,20 @@ export class AutoExport implements PakkFeature {
 					typesPath = pathVariants['distribution-to-dist'];
 				}
 			} else if (developmentPackageJsonExportsTarget === PackageJsonExportTarget.SOURCE) {
+				// svelte files are not recognised by typescript when imported across node_modules,
+				// so even local packages are pointing to the compiled d.ts files
+				// this makes it a complete inversion of regular ts files where instead of
+				// types point to the source for instant feedback and source files to the compiled
+				// ones to not compile the same source multiple times
+				// for svelte, you point types to the compiled d.ts because you don't have an option
+				// and you point the implementation to the source because there's no difference,
+				// the source will be distributed anyway as svelte files
+				// But this only applies for direct exports. If you instead export a ts file as
+				// your package api, and export a svelte module from that, types will work just fine
+				// so it's better to do that instead.
+				if (isSvelteFile) {
+					typesPath = pathVariants['development-to-dist'] + '.d.ts'; // foo.svelte => foo.svelte.d.ts
+				}
 				path = pathVariants['development-to-source'];
 			} else {
 				path = pathVariants['development-to-dist'];
