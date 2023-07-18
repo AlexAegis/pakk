@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.4.1](https://github.com/AlexAegis/pakk/compare/v0.4.0...v0.4.1) (2023-07-18)
+
+
+### Features
+
+* types of direct svelte exports in the source package should point to dist ([c382cdf](https://github.com/AlexAegis/pakk/commit/c382cdf6d25bbc71074e3f25a92673d5141f8997))
+
 ## [0.4.0](https://github.com/AlexAegis/pakk/compare/v0.3.4...v0.4.0) (2023-07-15)
 
 
