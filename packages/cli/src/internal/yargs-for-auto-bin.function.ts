@@ -1,10 +1,10 @@
 import {
 	ALL_NPM_HOOKS,
-	AutoBinOptions,
 	DEFAULT_BINSHIM_DIR,
 	DEFAULT_BIN_DIR,
 	DEFAULT_BIN_GLOB,
 	DEFAULT_PACKAGE_EXPORT_IGNORES,
+	type AutoBinOptions,
 } from '@pakk/core';
 import type { Argv } from 'yargs';
 

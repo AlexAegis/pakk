@@ -1,8 +1,8 @@
 import { asyncFilterMap } from '@alexaegis/common';
 import { writeJson } from '@alexaegis/fs';
-import { DEFAULT_EXPORT_FORMATS, Pakk, PakkOptions, normalizePakkOptions } from '@pakk/core';
+import { DEFAULT_EXPORT_FORMATS, Pakk, normalizePakkOptions, type PakkOptions } from '@pakk/core';
 import { join } from 'node:path';
-import { UserConfig, type Plugin } from 'vite';
+import type { Plugin, UserConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 import { createLazyAutoExternalsFunction } from './rollup-externals.function.js';
 
@@ -123,7 +123,7 @@ export const pakk = (rawOptions?: PakkOptions): Plugin[] => {
 
 				options.logger.info('writing updated package.json to', path);
 
-				return await writeJson(updatedPackageJson, path, {
+				await writeJson(updatedPackageJson, path, {
 					autoPrettier: pakk.options.autoPrettier,
 					dry: pakk.options.dry,
 				});

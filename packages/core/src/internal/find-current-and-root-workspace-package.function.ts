@@ -1,8 +1,8 @@
-import { CwdOption, normalizeCwdOption } from '@alexaegis/fs';
+import { normalizeCwdOption, type CwdOption } from '@alexaegis/fs';
 import {
-	RegularWorkspacePackage,
-	RootWorkspacePackage,
 	collectWorkspacePackages,
+	type RegularWorkspacePackage,
+	type RootWorkspacePackage,
 } from '@alexaegis/workspace-tools';
 import { sep } from 'node:path';
 

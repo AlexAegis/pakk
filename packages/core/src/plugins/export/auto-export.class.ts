@@ -6,22 +6,21 @@ import { stripFileExtension } from './helpers/strip-file-extension.function.js';
 import { toAbsolute } from '@alexaegis/fs';
 import { globby } from 'globby';
 import { dirname } from 'node:path/posix';
-import { InternalModuleFormat } from 'rollup';
-import { LibraryFormats } from 'vite';
-import { NormalizedPakkContext } from '../../internal/pakk.class.options.js';
+import type { InternalModuleFormat } from 'rollup';
+import type { LibraryFormats } from 'vite';
+import type { NormalizedPakkContext } from '../../internal/pakk.class.options.js';
 import {
 	PACKAGE_JSON_KIND,
 	PackageJsonExportTarget,
-	PackageJsonKindType,
-	PathMap,
+	type PackageJsonKindType,
+	type PathMap,
 } from '../../package-json/index.js';
-
 import {
-	AutoExportOptions,
-	NormalizedAutoExportOptions,
 	normalizeAutoExportOptions,
+	type AutoExportOptions,
+	type NormalizedAutoExportOptions,
 } from './auto-export.class.options.js';
-import { EntryPathVariantMap } from './export-map.type.js';
+import type { EntryPathVariantMap } from './export-map.type.js';
 import { createExportMapFromPaths } from './helpers/create-export-map-from-paths.function.js';
 
 export const allExportPathCombinations = [

@@ -1,7 +1,7 @@
 import {
 	PACKAGE_JSON_NAME,
-	PackageJson,
 	collectPackageJsonPathsUpDirectoryTree,
+	type PackageJson,
 } from '@alexaegis/workspace-tools';
 import { readFileSync } from 'node:fs';
 import { builtinModules } from 'node:module';

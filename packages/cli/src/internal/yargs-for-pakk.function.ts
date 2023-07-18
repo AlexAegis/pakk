@@ -1,4 +1,4 @@
-import { PACKAGE_JSON_KIND, PakkOptions, pakkFeatures } from '@pakk/core';
+import { PACKAGE_JSON_KIND, pakkFeatures, type PakkOptions } from '@pakk/core';
 import type { Argv } from 'yargs';
 
 export const yargsForPakk = <T>(yargs: Argv<T>): Argv<T & PakkOptions> => {

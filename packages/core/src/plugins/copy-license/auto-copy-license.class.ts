@@ -1,10 +1,10 @@
 import { toAbsolute } from '@alexaegis/fs';
-import { PackageJson, WorkspacePackage } from '@alexaegis/workspace-tools';
+import type { PackageJson, WorkspacePackage } from '@alexaegis/workspace-tools';
 import { existsSync } from 'node:fs';
 import { cp } from 'node:fs/promises';
 import { basename, join } from 'node:path';
-import { NormalizedPakkContext, PACKAGE_JSON_KIND } from '../../index.js';
-import { PackageExportPathContext } from '../export/auto-export.class.js';
+import { PACKAGE_JSON_KIND, type NormalizedPakkContext } from '../../index.js';
+import type { PackageExportPathContext } from '../export/auto-export.class.js';
 import type { PackageExaminationResult, PakkFeature } from '../pakk-feature.type.js';
 
 /**

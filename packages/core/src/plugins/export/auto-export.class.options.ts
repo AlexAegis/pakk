@@ -1,4 +1,4 @@
-import { Defined } from '@alexaegis/common';
+import type { Defined } from '@alexaegis/common';
 import { PackageJsonExportTarget } from '../../index.js';
 import {
 	DEFAULT_PACKAGE_EXPORTS,

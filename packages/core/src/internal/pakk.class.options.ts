@@ -1,4 +1,4 @@
-import { Replace, type Defined } from '@alexaegis/common';
+import type { Defined, Replace } from '@alexaegis/common';
 import {
 	normalizeCwdOption,
 	normalizeWriteJsonOptions,
@@ -6,31 +6,34 @@ import {
 	type WriteJsonOptions,
 } from '@alexaegis/fs';
 import {
-	LogLevelOption,
 	createLogger,
 	normalizeLogLevelOption,
+	type LogLevelOption,
 	type LoggerOption,
 } from '@alexaegis/logging';
-import { PackageJson } from '@alexaegis/workspace-tools';
-import { LibraryFormats, LibraryOptions } from 'vite';
-import { AutoBinOptions, normalizeAutoBinOptions } from '../plugins/bin/auto-bin.class.options.js';
+import type { PackageJson } from '@alexaegis/workspace-tools';
+import type { LibraryFormats, LibraryOptions } from 'vite';
+import {
+	normalizeAutoBinOptions,
+	type AutoBinOptions,
+} from '../plugins/bin/auto-bin.class.options.js';
 
 import {
-	AutoExportOptions,
-	AutoExportStaticOptions,
-	NormalizedAutoSortPackageJsonOptions,
-	PackageJsonKindType,
-	PakkFeatureName,
 	normalizeAutoExportOptions,
 	normalizeAutoExportStaticOptions,
 	normalizeAutoSortPackageJsonOptions,
+	type AutoExportOptions,
+	type AutoExportStaticOptions,
+	type NormalizedAutoSortPackageJsonOptions,
+	type PackageJsonKindType,
+	type PakkFeatureName,
 } from '../index.js';
 import {
-	AutoMetadataOptions,
 	normalizeAutoMetadataOptions,
+	type AutoMetadataOptions,
 } from '../plugins/metadata/auto-metadata.class.options.js';
 import { DEFAULT_OUT_DIR, DEFAULT_SRC_DIR } from './defaults.const.js';
-import { CurrentWorkspacePackageWithRoot } from './find-current-and-root-workspace-package.function.js';
+import type { CurrentWorkspacePackageWithRoot } from './find-current-and-root-workspace-package.function.js';
 
 /**
  * A function that can be defined on Vite where it expects you to decide the

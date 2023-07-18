@@ -1,4 +1,4 @@
-import { AutoExportOptions, DEFAULT_STATIC_EXPORT_GLOBS } from '@pakk/core';
+import { DEFAULT_STATIC_EXPORT_GLOBS, type AutoExportOptions } from '@pakk/core';
 import type { Argv } from 'yargs';
 
 export const yargsForAutoExportStatic = <T>(yargs: Argv<T>): Argv<T & AutoExportOptions> => {

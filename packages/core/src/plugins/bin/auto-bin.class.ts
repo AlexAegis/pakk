@@ -1,8 +1,8 @@
 import { getPrettierFormatter, toAbsolute, turnIntoExecutable } from '@alexaegis/fs';
 import {
-	WorkspacePackage,
 	getPackageJsonTemplateVariables,
 	type PackageJson,
+	type WorkspacePackage,
 } from '@alexaegis/workspace-tools';
 
 import { existsSync } from 'node:fs';
@@ -10,24 +10,24 @@ import { mkdir, readFile, rename, rm, symlink, writeFile } from 'node:fs/promise
 import posix, { basename, dirname, join, relative } from 'node:path/posix';
 import type { InternalModuleFormat } from 'rollup';
 
-import { SimpleObjectKey } from '@alexaegis/common';
+import type { SimpleObjectKey } from '@alexaegis/common';
 import { globby } from 'globby';
-import { NormalizedPakkContext, ViteFileNameFn } from '../../index.js';
+import type { NormalizedPakkContext, ViteFileNameFn } from '../../index.js';
 import {
 	NPM_INSTALL_HOOKS,
 	PACKAGE_JSON_KIND,
 	PackageJsonExportTarget,
-	PathMap,
+	type PathMap,
 } from '../../package-json/index.js';
-import { PackageExportPathContext } from '../export/auto-export.class.js';
+import type { PackageExportPathContext } from '../export/auto-export.class.js';
 import { createExportMapFromPaths } from '../export/helpers/create-export-map-from-paths.function.js';
 import { enterPathPosix } from '../export/helpers/enter-path.function.js';
 import { stripFileExtension } from '../export/helpers/strip-file-extension.function.js';
 import type { PackageExaminationResult, PakkFeature } from '../pakk-feature.type.js';
 import {
-	AutoBinOptions,
-	NormalizedAutoBinOptions,
 	normalizeAutoBinOptions,
+	type AutoBinOptions,
+	type NormalizedAutoBinOptions,
 } from './auto-bin.class.options.js';
 import { normalizePackageName } from './helpers/normalize-package-name.function.js';
 

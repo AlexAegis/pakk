@@ -1,5 +1,5 @@
 import type { Defined, ObjectKeyOrder } from '@alexaegis/common';
-import { CwdOption, normalizeCwdOption } from '@alexaegis/fs';
+import { normalizeCwdOption, type CwdOption } from '@alexaegis/fs';
 
 export interface AutoSortPackageJsonOptions extends CwdOption {
 	/**

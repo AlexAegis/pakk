@@ -1,9 +1,9 @@
 import {
-	AutoExportOptions,
 	DEFAULT_PACKAGE_EXPORTS,
 	DEFAULT_PACKAGE_EXPORT_BASEDIR,
 	DEFAULT_PACKAGE_EXPORT_IGNORES,
 	PackageJsonExportTarget,
+	type AutoExportOptions,
 } from '@pakk/core';
 import type { Argv } from 'yargs';
 

@@ -1,26 +1,29 @@
 import { asyncFilterMap, deepMerge } from '@alexaegis/common';
 import { toAbsolute } from '@alexaegis/fs';
-import { Logger } from '@alexaegis/logging';
-import { PackageJson, WorkspacePackage } from '@alexaegis/workspace-tools';
+import type { Logger } from '@alexaegis/logging';
+import type { PackageJson, WorkspacePackage } from '@alexaegis/workspace-tools';
 import { join } from 'node:path';
-import { LibraryFormats } from 'vite';
-import { PACKAGE_JSON_KIND, PackageJsonKindType } from '../package-json/package-json-kind.enum.js';
+import type { LibraryFormats } from 'vite';
+import {
+	PACKAGE_JSON_KIND,
+	type PackageJsonKindType,
+} from '../package-json/package-json-kind.enum.js';
 import { AutoBin } from '../plugins/bin/auto-bin.class.js';
 import { AutoCopyLicense } from '../plugins/copy-license/auto-copy-license.class.js';
 import { AutoExportStatic } from '../plugins/export-static/auto-export-static.class.js';
 import { AutoExport } from '../plugins/export/auto-export.class.js';
 import { createDefaultViteFileNameFn } from '../plugins/export/helpers/bundle-file-name.function.js';
 import { AutoMetadata } from '../plugins/metadata/auto-metadata.class.js';
-import { PackageExaminationResult, PakkFeature } from '../plugins/pakk-feature.type.js';
+import type { PackageExaminationResult, PakkFeature } from '../plugins/pakk-feature.type.js';
 import { AutoPeer } from '../plugins/peer/auto-peer.class.js';
 import { AutoSort } from '../plugins/sort-package-json/auto-sort-package-json.class.js';
 import { findCurrentAndRootWorkspacePackage } from './find-current-and-root-workspace-package.function.js';
 import {
-	NormalizedPakkContext,
-	NormalizedPakkOptions,
-	PakkContext,
-	PakkOptions,
 	normalizePakkOptions,
+	type NormalizedPakkContext,
+	type NormalizedPakkOptions,
+	type PakkContext,
+	type PakkOptions,
 } from './pakk.class.options.js';
 
 export const createIsFeatureEnabled =

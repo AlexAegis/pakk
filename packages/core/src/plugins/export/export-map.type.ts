@@ -1,5 +1,5 @@
-import { AllBinPathCombinations } from '../bin/auto-bin.class.js';
-import { AllExportPathCombinations } from './auto-export.class.js';
+import type { AllBinPathCombinations } from '../bin/auto-bin.class.js';
+import type { AllExportPathCombinations } from './auto-export.class.js';
 
 export type PathVariantMap<
 	Variants extends AllExportPathCombinations | AllBinPathCombinations =

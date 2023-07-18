@@ -5,8 +5,8 @@ import type {
 	WorkspacePackage,
 } from '@alexaegis/workspace-tools';
 import type { InputOption } from 'rollup';
-import { PackageJsonKindType } from '../index.js';
-import { PackageExportPathContext } from './export/auto-export.class.js';
+import type { PackageJsonKindType } from '../index.js';
+import type { PackageExportPathContext } from './export/auto-export.class.js';
 
 export interface PackageExaminationResult {
 	packageJsonUpdates: Partial<PackageJson>;

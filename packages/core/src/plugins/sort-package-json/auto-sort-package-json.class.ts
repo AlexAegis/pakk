@@ -1,12 +1,12 @@
 import { sortObject } from '@alexaegis/common';
 import type { PackageJson, RegularWorkspacePackage } from '@alexaegis/workspace-tools';
 import { createJsonSortingPreferenceNormalizer } from '@alexaegis/workspace-tools/sort';
-import { NormalizedPakkContext } from '../../internal/pakk.class.options.js';
+import type { NormalizedPakkContext } from '../../internal/pakk.class.options.js';
 import type { PackageExaminationResult, PakkFeature } from '../pakk-feature.type.js';
 import {
-	NormalizedAutoSortPackageJsonOptions,
 	normalizeAutoSortPackageJsonOptions,
 	type AutoSortPackageJsonOptions,
+	type NormalizedAutoSortPackageJsonOptions,
 } from './auto-sort-package-json.class.options.js';
 
 export class AutoSort implements PakkFeature {

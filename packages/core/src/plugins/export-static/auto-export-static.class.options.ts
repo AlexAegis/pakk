@@ -1,4 +1,4 @@
-import { Defined } from '@alexaegis/common';
+import type { Defined } from '@alexaegis/common';
 import { DEFAULT_STATIC_EXPORT_GLOBS } from '../../internal/defaults.const.js';
 
 export interface AutoExportStaticOptions {

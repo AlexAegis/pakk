@@ -4,14 +4,14 @@ import { existsSync } from 'node:fs';
 import { cp } from 'node:fs/promises';
 import posix, { basename, join } from 'node:path/posix';
 import { PACKAGE_JSON_KIND } from '../../index.js';
-import { NormalizedPakkContext } from '../../internal/pakk.class.options.js';
-import { PackageExportPathContext } from '../export/auto-export.class.js';
+import type { NormalizedPakkContext } from '../../internal/pakk.class.options.js';
+import type { PackageExportPathContext } from '../export/auto-export.class.js';
 import { stripFileExtension } from '../export/helpers/strip-file-extension.function.js';
 import type { PackageExaminationResult, PakkFeature } from '../pakk-feature.type.js';
 import {
-	AutoExportStaticOptions,
-	NormalizedAutoExportStaticOptions,
 	normalizeAutoExportStaticOptions,
+	type AutoExportStaticOptions,
+	type NormalizedAutoExportStaticOptions,
 } from './auto-export-static.class.options.js';
 
 export class AutoExportStatic implements PakkFeature {

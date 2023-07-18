@@ -1,6 +1,6 @@
 import { createMockLogger } from '@alexaegis/logging/mocks';
 import { describe, expect, it, vi } from 'vitest';
-import { NormalizedPakkContext } from '../../index.js';
+import type { NormalizedPakkContext } from '../../index.js';
 import { AutoExport } from './auto-export.class.js';
 import { createDefaultViteFileNameFn } from './helpers/bundle-file-name.function.js';
 

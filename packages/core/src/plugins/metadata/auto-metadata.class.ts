@@ -1,7 +1,7 @@
-import { Awaitable, deepMerge } from '@alexaegis/common';
+import { deepMerge, type Awaitable } from '@alexaegis/common';
 import { type PackageJson, type WorkspacePackage } from '@alexaegis/workspace-tools';
-import { NormalizedPakkContext } from '../../internal/pakk.class.options.js';
-import { PACKAGE_JSON_KIND, PackageJsonKindType } from '../../package-json/index.js';
+import type { NormalizedPakkContext } from '../../internal/pakk.class.options.js';
+import { PACKAGE_JSON_KIND, type PackageJsonKindType } from '../../package-json/index.js';
 import type { PackageExaminationResult, PakkFeature } from '../pakk-feature.type.js';
 import {
 	normalizeAutoMetadataOptions,

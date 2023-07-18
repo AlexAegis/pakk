@@ -1,7 +1,7 @@
 import type { PackageJson, RegularWorkspacePackage } from '@alexaegis/workspace-tools';
 
-import { NormalizedPakkContext } from '../../index.js';
-import { PACKAGE_JSON_KIND, PackageJsonKindType } from '../../package-json/index.js';
+import type { NormalizedPakkContext } from '../../index.js';
+import { PACKAGE_JSON_KIND, type PackageJsonKindType } from '../../package-json/index.js';
 import type { PakkFeature } from '../pakk-feature.type.js';
 
 /**

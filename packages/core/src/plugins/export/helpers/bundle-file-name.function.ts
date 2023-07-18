@@ -1,6 +1,6 @@
-import { PackageJson } from '@alexaegis/workspace-tools';
+import type { PackageJson } from '@alexaegis/workspace-tools';
 import type { ModuleFormat } from 'rollup';
-import { ViteFileNameFn } from '../../../internal/pakk.class.options.js';
+import type { ViteFileNameFn } from '../../../internal/pakk.class.options.js';
 
 export type JsExtensionStubs = 'js' | 'cjs' | 'mjs' | `${string}.js`;
 export type JsExtensions = `.${JsExtensionStubs}`;

@@ -1,8 +1,8 @@
-import { Defined } from '@alexaegis/common';
+import type { Defined } from '@alexaegis/common';
 import { basename, join, posix } from 'node:path';
-import { AllBinPathCombinations } from '../../bin/auto-bin.class.js';
-import { AllExportPathCombinations } from '../auto-export.class.js';
-import { EntryPathVariantMap, PathVariantMap } from '../export-map.type.js';
+import type { AllBinPathCombinations } from '../../bin/auto-bin.class.js';
+import type { AllExportPathCombinations } from '../auto-export.class.js';
+import type { EntryPathVariantMap, PathVariantMap } from '../export-map.type.js';
 import { stripFileExtension } from './strip-file-extension.function.js';
 
 export interface CreateExportMapFromPathsOptions {
