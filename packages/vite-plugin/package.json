@@ -59,9 +59,9 @@
 		"./readme": "./readme.md"
 	},
 	"dependencies": {
-		"@alexaegis/common": "^0.4.4",
-		"@alexaegis/fs": "^0.4.4",
-		"@alexaegis/workspace-tools": "^0.4.4",
+		"@alexaegis/common": "^0.4.5",
+		"@alexaegis/fs": "^0.4.5",
+		"@alexaegis/workspace-tools": "^0.4.5",
 		"@pakk/core": "^0.4.1",
 		"@types/node": "^20.4.2",
 		"prettier": "^3.0.0",
