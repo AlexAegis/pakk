@@ -70,3 +70,10 @@ export const ALL_ROLLUP_MODULE_FORMATS: readonly InternalModuleFormat[] = [
 	'iife',
 	'system',
 ] as const;
+
+export const ALL_VITE_LIBRARY_FORMATS: readonly LibraryFormats[] = [
+	'es',
+	'cjs',
+	'umd',
+	'iife',
+] as const;

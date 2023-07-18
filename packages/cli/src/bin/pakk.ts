@@ -29,7 +29,7 @@ void (async () => {
 	const options = await yarguments.parseAsync();
 	const logger = createLogger({
 		name: 'pakk',
-		minLevel: options.logLevel,
+		minLevel: options.logLevel as number,
 	});
 
 	logger.trace('Parsed options', options);

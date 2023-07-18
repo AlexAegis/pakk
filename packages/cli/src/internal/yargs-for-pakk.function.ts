@@ -1,7 +1,13 @@
-import { PACKAGE_JSON_KIND, pakkFeatures, type PakkOptions } from '@pakk/core';
+import {
+	ALL_VITE_LIBRARY_FORMATS,
+	PACKAGE_JSON_KIND,
+	pakkFeatures,
+	type PakkOptions,
+} from '@pakk/core';
 import type { Argv } from 'yargs';
+import type { PakkStandaloneOptions } from './pakk-standalone-runner.function.options.js';
 
-export const yargsForPakk = <T>(yargs: Argv<T>): Argv<T & PakkOptions> => {
+export const yargsForPakk = <T>(yargs: Argv<T>): Argv<T & PakkOptions & PakkStandaloneOptions> => {
 	return yargs
 		.option('srcDir', {
 			description: 'Source root, relative to the package directory',
@@ -43,6 +49,12 @@ export const yargsForPakk = <T>(yargs: Argv<T>): Argv<T & PakkOptions> => {
 		.option('disabledFeatures', {
 			description: 'When defined these features will be disabled.',
 			choices: pakkFeatures,
+			array: true,
+			string: true,
+		})
+		.option('formats', {
+			description: 'What library formats to expect to be output',
+			choices: ALL_VITE_LIBRARY_FORMATS,
 			array: true,
 			string: true,
 		});
