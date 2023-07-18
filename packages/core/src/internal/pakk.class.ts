@@ -65,6 +65,11 @@ export class Pakk {
 		this.context = context;
 		this.options = options;
 
+		if (this.options.svelte) {
+			this.options.logger.info("svelte mode: forcing 'es' only output format");
+			this.context.formats = ['es']; // only es format is suppored for svelte
+		}
+
 		const isFeatureEnabled = createIsFeatureEnabled(
 			this.options.enabledFeatures,
 			this.options.disabledFeatures,
