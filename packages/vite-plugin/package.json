@@ -1,7 +1,7 @@
 {
 	"name": "vite-plugin-pakk",
 	"description": "Automatically fills out your package.json for both local and published version",
-	"version": "0.4.1",
+	"version": "0.4.2",
 	"license": "MIT",
 	"private": false,
 	"archetype": {
@@ -62,7 +62,7 @@
 		"@alexaegis/common": "^0.4.5",
 		"@alexaegis/fs": "^0.4.5",
 		"@alexaegis/workspace-tools": "^0.4.5",
-		"@pakk/core": "^0.4.1",
+		"@pakk/core": "^0.4.2",
 		"@types/node": "^20.4.2",
 		"prettier": "^3.0.0",
 		"ts-node": "^10.9.1",

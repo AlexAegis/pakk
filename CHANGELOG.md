@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.4.2](https://github.com/AlexAegis/pakk/compare/v0.4.1...v0.4.2) (2023-07-18)
+
+
+### Features
+
+* **cli:** allow format to be selected from the cli ([3ae022d](https://github.com/AlexAegis/pakk/commit/3ae022d01822e30aaac148656ae88f575745a30a))
+* **core:** force es only output format in svelte mode ([96118e2](https://github.com/AlexAegis/pakk/commit/96118e2d5918d53b73299d0dc2c6364156c4242a))
+
 ## [0.4.1](https://github.com/AlexAegis/pakk/compare/v0.4.0...v0.4.1) (2023-07-18)
 
 
