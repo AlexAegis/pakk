@@ -34,7 +34,7 @@
 		"lint:es": "turbo run lint:es_ --concurrency 16 --cache-dir .cache/turbo --filter vite-plugin-pakk",
 		"lint:es_": "eslint --max-warnings=0 --fix --no-error-on-unmatched-pattern .",
 		"lint:format": "turbo run lint:format_ --concurrency 16 --cache-dir .cache/turbo --filter vite-plugin-pakk",
-		"lint:format_": "prettier --cache-location .cache/prettier --check .",
+		"lint:format_": "prettier --cache-location .cache/prettier --plugin prettier-plugin-svelte --plugin prettier-plugin-tailwindcss --check .",
 		"lint:md": "turbo run lint:md_ --concurrency 16 --cache-dir .cache/turbo --filter vite-plugin-pakk",
 		"lint:md_": "remark --frail --no-stdout --silently-ignore .",
 		"lint:tsc": "turbo run lint:tsc_ --concurrency 16 --cache-dir .cache/turbo --filter vite-plugin-pakk",
@@ -43,7 +43,7 @@
 		"publint_": "publint dist",
 		"all": "turbo run all_ --concurrency 16 --cache-dir .cache/turbo --filter vite-plugin-pakk",
 		"format": "turbo run format_ --concurrency 16 --cache-dir .cache/turbo --filter vite-plugin-pakk",
-		"format_": "prettier --cache-location .cache/prettier --write .",
+		"format_": "prettier --cache-location .cache/prettier --plugin prettier-plugin-svelte --plugin prettier-plugin-tailwindcss --write .",
 		"test": "turbo run test_ --concurrency 16 --cache-dir .cache/turbo --filter vite-plugin-pakk",
 		"test_": "vitest --passWithNoTests --coverage --run",
 		"test:watch": "vitest --passWithNoTests --coverage"
@@ -71,10 +71,10 @@
 		"vite-plugin-dts": "^3.3.1"
 	},
 	"devDependencies": {
-		"@alexaegis/eslint-config-vitest": "^0.5.1",
-		"@alexaegis/ts": "^0.5.1",
-		"@alexaegis/vite": "^0.5.1",
-		"@alexaegis/vitest": "^0.5.1",
+		"@alexaegis/eslint-config-vitest": "^0.5.6",
+		"@alexaegis/ts": "^0.5.6",
+		"@alexaegis/vite": "^0.5.6",
+		"@alexaegis/vitest": "^0.5.6",
 		"@types/node": "^20.4.2",
 		"@types/yargs": "^17.0.24",
 		"publint": "^0.1.16",
