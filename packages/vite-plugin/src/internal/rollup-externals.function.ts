@@ -29,7 +29,7 @@ export const createRollupExternalsFn = (...packageJsons: PackageJson[]) => {
 
 	return (source: string, _importer: string | undefined, _isResolved: boolean): boolean => {
 		return (
-			dependencyNames.includes(source) ||
+			dependencyNames.some((dep) => source === dep || source.startsWith(dep + '/')) ||
 			builtinModules.includes(source) ||
 			source.startsWith('node:')
 		);

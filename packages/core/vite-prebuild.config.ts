@@ -15,7 +15,7 @@ export default defineConfig({
 					[
 						...Object.keys(packageJson.dependencies),
 						...Object.keys(packageJson.devDependencies),
-					].includes(source) ||
+					].some((dep) => source === dep || source.startsWith(dep + '/')) ||
 					builtinModules.includes(source) ||
 					source.startsWith('node:')
 				);
