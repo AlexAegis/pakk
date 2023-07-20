@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.4.3](https://github.com/AlexAegis/pakk/compare/v0.4.2...v0.4.3) (2023-07-20)
+
+
+### Features
+
+* **vite-plugin-pakk:** externals function now lets deep imports be externalised too ([b63fe02](https://github.com/AlexAegis/pakk/commit/b63fe02ee249e9990183c31b05bec31faa34e8c0))
+
 ## [0.4.2](https://github.com/AlexAegis/pakk/compare/v0.4.1...v0.4.2) (2023-07-18)
 
 
