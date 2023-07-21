@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.5.0](https://github.com/AlexAegis/pakk/compare/v0.4.3...v0.5.0) (2023-07-21)
+
+
+### Features
+
+* added directive support starting with not-distributed ([4b9de84](https://github.com/AlexAegis/pakk/commit/4b9de84a61087a1497be710eb20fc05934edcb7e))
+
 ## [0.4.3](https://github.com/AlexAegis/pakk/compare/v0.4.2...v0.4.3) (2023-07-20)
 
 
