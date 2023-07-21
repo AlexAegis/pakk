@@ -1,5 +1,6 @@
 export * from './bin/index.js';
 export * from './copy-license/index.js';
+export * from './directive/auto-directive.class.js';
 export * from './export-static/index.js';
 export * from './export/index.js';
 export * from './metadata/index.js';

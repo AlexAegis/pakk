@@ -41,6 +41,8 @@
 		"all": "turbo run all_ --concurrency 16 --cache-dir .cache/turbo --filter @pakk/core",
 		"format": "turbo run format_ --concurrency 16 --cache-dir .cache/turbo --filter @pakk/core",
 		"format_": "prettier --cache-location .cache/prettier --plugin prettier-plugin-svelte --plugin prettier-plugin-tailwindcss --write .",
+		"imnotworking:pakk:asd": "echo This line should make a warning during build",
+		"postinstall": "echo I should not run for other people # pakk:not-distributed",
 		"prebuild_": "vite build --config vite-prebuild.config.ts",
 		"test": "turbo run test_ --concurrency 16 --cache-dir .cache/turbo --filter @pakk/core",
 		"test_": "vitest --passWithNoTests --coverage --run",
@@ -56,10 +58,10 @@
 		"./readme": "./readme.md"
 	},
 	"dependencies": {
-		"@alexaegis/common": "^0.4.5",
-		"@alexaegis/fs": "^0.4.5",
-		"@alexaegis/logging": "^0.4.5",
-		"@alexaegis/workspace-tools": "^0.4.5",
+		"@alexaegis/common": "^0.5.0",
+		"@alexaegis/fs": "^0.5.0",
+		"@alexaegis/logging": "^0.5.0",
+		"@alexaegis/workspace-tools": "^0.5.0",
 		"@types/node": "^20.4.2",
 		"globby": "^13.2.2",
 		"prettier": "^3.0.0",

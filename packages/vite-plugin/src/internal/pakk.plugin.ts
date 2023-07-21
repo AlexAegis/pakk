@@ -65,7 +65,7 @@ export const pakk = (rawOptions?: PakkOptions): Plugin[] => {
 			options.logger.trace('initial vite config', config);
 
 			if (config.build?.lib && !!config.build.lib.entry) {
-				options.logger.warn('build.lib.entry is defined in vite config, will be ignored!');
+				options.logger.info('build.lib.entry is defined in vite config, will be ignored!');
 				// If the original vite config had it's entries defined as an array it would result in an error https://github.com/vitejs/vite/issues/13641
 				config.build.lib.entry = {};
 			}

@@ -1,5 +1,5 @@
 {
-	"$schema": "https://json.schemastore.org/typings",
+	"$schema": "https://json.schemastore.org/typings?TODO:reenableautotool",
 	"ignores": [
 		"@alexaegis/ts",
 		"@alexaegis/nuke",
@@ -29,7 +29,7 @@
 		"nodemon",
 		"husky",
 		"@typescript-eslint/*",
-		"prettier-plugin-svelte",
+		"prettier*",
 		"@vitest/coverage-v8",
 		"commitlint",
 		"depcheck",

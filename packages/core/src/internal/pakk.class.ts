@@ -10,6 +10,7 @@ import {
 } from '../package-json/package-json-kind.enum.js';
 import { AutoBin } from '../plugins/bin/auto-bin.class.js';
 import { AutoCopyLicense } from '../plugins/copy-license/auto-copy-license.class.js';
+import { AutoDirective } from '../plugins/directive/auto-directive.class.js';
 import { AutoExportStatic } from '../plugins/export-static/auto-export-static.class.js';
 import { AutoExport } from '../plugins/export/auto-export.class.js';
 import { createDefaultViteFileNameFn } from '../plugins/export/helpers/bundle-file-name.function.js';
@@ -42,6 +43,7 @@ export const pakkFeatureMap = {
 	metadata: AutoMetadata,
 	peer: AutoPeer,
 	sort: AutoSort,
+	directive: AutoDirective,
 } as const;
 
 export const pakkFeatures = Object.keys(pakkFeatureMap) as PakkFeatureName[];
