@@ -1,15 +1,7 @@
 // managed-by-autotool
+import { libConfiguration } from '@alexaegis/svelte-config';
 
-import sveltePreprocess from 'svelte-preprocess';
-
+/** @type {import('@sveltejs/kit').Config} */
 export default {
-	// Consult https://github.com/sveltejs/svelte-preprocess
-	// for more information about preprocessors
-	preprocess: sveltePreprocess(),
-	vitePlugin: {
-		inspector: {
-			holdMode: true,
-			toggleKeyCombo: 'shift',
-		},
-	},
+	...libConfiguration,
 };
