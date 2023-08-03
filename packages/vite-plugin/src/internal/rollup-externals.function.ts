@@ -1,6 +1,6 @@
 import {
 	PACKAGE_JSON_NAME,
-	collectPackageJsonPathsUpDirectoryTree,
+	collectFileDirnamePathsUpDirectoryTree,
 	type PackageJson,
 } from '@alexaegis/workspace-tools';
 import { readFileSync } from 'node:fs';
@@ -44,7 +44,9 @@ export const createLazyAutoExternalsFunction = () => {
 	return (source: string, importer: string | undefined, isResolved: boolean): boolean => {
 		if (!externalsFn) {
 			externalsFn = createRollupExternalsFn(
-				...collectPackageJsonPathsUpDirectoryTree().map(
+				...collectFileDirnamePathsUpDirectoryTree(PACKAGE_JSON_NAME, {
+					maxPackages: 2,
+				}).map(
 					(path) =>
 						JSON.parse(
 							readFileSync(join(path, PACKAGE_JSON_NAME), { encoding: 'utf8' }),

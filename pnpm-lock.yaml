@@ -9,83 +9,83 @@ importers:
   .:
     devDependencies:
       '@alexaegis/autotool-plugin-commitlint':
-        specifier: ^0.6.2
-        version: 0.6.2
+        specifier: ^0.7.1
+        version: 0.7.1
       '@alexaegis/autotool-plugin-depcheck':
-        specifier: ^0.6.2
-        version: 0.6.2
+        specifier: ^0.7.1
+        version: 0.7.1
       '@alexaegis/autotool-plugin-editorconfig':
-        specifier: ^0.6.2
-        version: 0.6.2
+        specifier: ^0.7.1
+        version: 0.7.1
       '@alexaegis/autotool-plugin-eslint':
-        specifier: ^0.6.2
-        version: 0.6.2
+        specifier: ^0.7.1
+        version: 0.7.1
       '@alexaegis/autotool-plugin-git':
-        specifier: ^0.6.2
-        version: 0.6.2
+        specifier: ^0.7.1
+        version: 0.7.1
       '@alexaegis/autotool-plugin-github':
-        specifier: ^0.6.2
-        version: 0.6.2
+        specifier: ^0.7.1
+        version: 0.7.1
       '@alexaegis/autotool-plugin-husky':
-        specifier: ^0.6.2
-        version: 0.6.2
+        specifier: ^0.7.1
+        version: 0.7.1
       '@alexaegis/autotool-plugin-ncu':
-        specifier: ^0.6.2
-        version: 0.6.2
+        specifier: ^0.7.1
+        version: 0.7.1
       '@alexaegis/autotool-plugin-prettier':
-        specifier: ^0.6.2
-        version: 0.6.2(svelte@4.1.2)
+        specifier: ^0.7.1
+        version: 0.7.1(svelte@4.1.2)
       '@alexaegis/autotool-plugin-publint':
-        specifier: ^0.6.2
-        version: 0.6.2
+        specifier: ^0.7.1
+        version: 0.7.1
       '@alexaegis/autotool-plugin-remark':
-        specifier: ^0.6.2
-        version: 0.6.2
+        specifier: ^0.7.1
+        version: 0.7.1
       '@alexaegis/autotool-plugin-standard-version':
-        specifier: ^0.6.2
-        version: 0.6.2
+        specifier: ^0.7.1
+        version: 0.7.1
       '@alexaegis/autotool-plugin-stylelint':
-        specifier: ^0.6.2
-        version: 0.6.2
+        specifier: ^0.7.1
+        version: 0.7.1
       '@alexaegis/autotool-plugin-svelte':
-        specifier: ^0.6.2
-        version: 0.6.2
+        specifier: ^0.7.1
+        version: 0.7.1
       '@alexaegis/autotool-plugin-ts':
-        specifier: ^0.6.2
-        version: 0.6.2
+        specifier: ^0.7.1
+        version: 0.7.1
       '@alexaegis/autotool-plugin-turbo':
-        specifier: ^0.6.2
-        version: 0.6.2
+        specifier: ^0.7.1
+        version: 0.7.1
       '@alexaegis/autotool-plugin-typedoc':
-        specifier: ^0.6.2
-        version: 0.6.2(typescript@5.1.6)
+        specifier: ^0.7.1
+        version: 0.7.1(typescript@5.1.6)
       '@alexaegis/autotool-plugin-vite':
-        specifier: ^0.6.2
-        version: 0.6.2(@types/node@20.4.5)
+        specifier: ^0.7.1
+        version: 0.7.1(@types/node@20.4.6)
       '@alexaegis/autotool-plugin-vitest':
-        specifier: ^0.6.2
-        version: 0.6.2
+        specifier: ^0.7.1
+        version: 0.7.1
       '@alexaegis/autotool-plugin-vscode':
-        specifier: ^0.6.2
-        version: 0.6.2
+        specifier: ^0.7.1
+        version: 0.7.1
       '@alexaegis/autotool-plugin-workspace':
-        specifier: ^0.6.2
-        version: 0.6.2
+        specifier: ^0.7.1
+        version: 0.7.1
       '@alexaegis/coverage-tools':
-        specifier: ^0.5.2
-        version: 0.5.2
+        specifier: ^0.6.1
+        version: 0.6.1
       '@alexaegis/eslint-config-core':
-        specifier: ^0.6.2
-        version: 0.6.2
+        specifier: ^0.7.1
+        version: 0.7.1
       '@alexaegis/nuke':
-        specifier: ^0.6.2
-        version: 0.6.2
+        specifier: ^0.7.1
+        version: 0.7.1
       '@alexaegis/stylelint-config':
-        specifier: ^0.6.2
-        version: 0.6.2(postcss-html@1.5.0)(postcss@8.4.27)(stylelint@15.10.2)
+        specifier: ^0.7.1
+        version: 0.7.1(postcss-html@1.5.0)(postcss@8.4.27)(stylelint@15.10.2)
       '@alexaegis/ts':
-        specifier: ^0.6.2
-        version: 0.6.2(rollup@3.27.0)
+        specifier: ^0.7.1
+        version: 0.7.1(rollup@3.27.0)
       '@lcov-viewer/cli':
         specifier: ^1.3.0
         version: 1.3.0
@@ -120,8 +120,8 @@ importers:
         specifier: ^13.4.12
         version: 13.4.12(eslint@8.46.0)(typescript@5.1.6)
       eslint-config-prettier:
-        specifier: ^8.9.0
-        version: 8.9.0(eslint@8.46.0)
+        specifier: ^8.10.0
+        version: 8.10.0(eslint@8.46.0)
       eslint-config-turbo:
         specifier: ^1.10.12
         version: 1.10.12(eslint@8.46.0)
@@ -141,8 +141,14 @@ importers:
         specifier: ^16.10.17
         version: 16.10.17
       prettier:
-        specifier: ^3.0.0
-        version: 3.0.0
+        specifier: ^3.0.1
+        version: 3.0.1
+      prettier-plugin-svelte:
+        specifier: ^3.0.3
+        version: 3.0.3(prettier@3.0.1)(svelte@4.1.2)
+      prettier-plugin-tailwindcss:
+        specifier: ^0.4.1
+        version: 0.4.1(prettier-plugin-svelte@3.0.3)(prettier@3.0.1)
       remark:
         specifier: ^14.0.3
         version: 14.0.3
@@ -157,7 +163,7 @@ importers:
         version: 3.4.6(postcss@8.4.27)(svelte@4.1.2)
       ts-node:
         specifier: ^10.9.1
-        version: 10.9.1(@types/node@20.4.5)(typescript@5.1.6)
+        version: 10.9.1(@types/node@20.4.6)(typescript@5.1.6)
       turbo:
         specifier: ^1.10.12
         version: 1.10.12
@@ -177,20 +183,20 @@ importers:
   fixtures/custom-bins:
     devDependencies:
       '@alexaegis/eslint-config-vitest':
-        specifier: ^0.6.2
-        version: 0.6.2
+        specifier: ^0.7.1
+        version: 0.7.1
       '@alexaegis/ts':
-        specifier: ^0.6.2
-        version: 0.6.2(rollup@3.27.0)
+        specifier: ^0.7.1
+        version: 0.7.1(rollup@3.27.0)
       '@types/node':
-        specifier: ^20.4.5
-        version: 20.4.5
+        specifier: ^20.4.6
+        version: 20.4.6
       '@vitest/coverage-v8':
         specifier: ^0.34.1
         version: 0.34.1(vitest@0.34.1)
       vite:
         specifier: ^4.4.8
-        version: 4.4.8(@types/node@20.4.5)
+        version: 4.4.8(@types/node@20.4.6)
       vite-plugin-pakk:
         specifier: workspace:^
         version: link:../../packages/vite-plugin
@@ -201,20 +207,20 @@ importers:
   fixtures/deep-export:
     devDependencies:
       '@alexaegis/eslint-config-vitest':
-        specifier: ^0.6.2
-        version: 0.6.2
+        specifier: ^0.7.1
+        version: 0.7.1
       '@alexaegis/ts':
-        specifier: ^0.6.2
-        version: 0.6.2(rollup@3.27.0)
+        specifier: ^0.7.1
+        version: 0.7.1(rollup@3.27.0)
       '@types/node':
-        specifier: ^20.4.5
-        version: 20.4.5
+        specifier: ^20.4.6
+        version: 20.4.6
       '@vitest/coverage-v8':
         specifier: ^0.34.1
         version: 0.34.1(vitest@0.34.1)
       vite:
         specifier: ^4.4.8
-        version: 4.4.8(@types/node@20.4.5)
+        version: 4.4.8(@types/node@20.4.6)
       vite-plugin-pakk:
         specifier: workspace:^
         version: link:../../packages/vite-plugin
@@ -229,17 +235,17 @@ importers:
         version: 4.1.2
     devDependencies:
       '@alexaegis/eslint-config-svelte':
-        specifier: ^0.6.2
-        version: 0.6.2(svelte@4.1.2)(ts-node@10.9.1)
+        specifier: ^0.7.1
+        version: 0.7.1(svelte@4.1.2)(ts-node@10.9.1)
       '@alexaegis/eslint-config-vitest':
-        specifier: ^0.6.2
-        version: 0.6.2
+        specifier: ^0.7.1
+        version: 0.7.1
       '@alexaegis/svelte-config':
-        specifier: ^0.6.2
-        version: 0.6.2(postcss@8.4.27)(svelte@4.1.2)(typescript@5.1.6)(vite@4.4.8)
+        specifier: ^0.7.1
+        version: 0.7.1(postcss@8.4.27)(svelte@4.1.2)(typescript@5.1.6)(vite@4.4.8)
       '@alexaegis/ts':
-        specifier: ^0.6.2
-        version: 0.6.2(rollup@3.27.0)
+        specifier: ^0.7.1
+        version: 0.7.1(rollup@3.27.0)
       '@pakk/cli':
         specifier: workspace:^
         version: link:../../packages/cli
@@ -247,8 +253,8 @@ importers:
         specifier: ^2.2.0
         version: 2.2.0(svelte@4.1.2)(typescript@5.1.6)
       '@types/node':
-        specifier: ^20.4.5
-        version: 20.4.5
+        specifier: ^20.4.6
+        version: 20.4.6
       '@vitest/coverage-v8':
         specifier: ^0.34.1
         version: 0.34.1(vitest@0.34.1)
@@ -265,54 +271,54 @@ importers:
   packages/cli:
     dependencies:
       '@alexaegis/cli-tools':
-        specifier: ^0.5.2
-        version: 0.5.2
+        specifier: ^0.6.1
+        version: 0.6.1
       '@alexaegis/common':
-        specifier: ^0.5.2
-        version: 0.5.2
+        specifier: ^0.6.1
+        version: 0.6.1
       '@alexaegis/fs':
-        specifier: ^0.5.2
-        version: 0.5.2
+        specifier: ^0.6.1
+        version: 0.6.1
       '@alexaegis/logging':
-        specifier: ^0.5.2
-        version: 0.5.2
+        specifier: ^0.6.1
+        version: 0.6.1
       '@alexaegis/workspace-tools':
-        specifier: ^0.5.2
-        version: 0.5.2
+        specifier: ^0.6.1
+        version: 0.6.1
       '@pakk/core':
         specifier: ^0.5.0
         version: link:../core
       '@types/node':
-        specifier: ^20.4.5
-        version: 20.4.5
+        specifier: ^20.4.6
+        version: 20.4.6
       prettier:
-        specifier: ^3.0.0
-        version: 3.0.0
+        specifier: ^3.0.1
+        version: 3.0.1
       ts-node:
         specifier: ^10.9.1
-        version: 10.9.1(@types/node@20.4.5)(typescript@5.1.6)
+        version: 10.9.1(@types/node@20.4.6)(typescript@5.1.6)
       typescript:
         specifier: ^5.1.6
         version: 5.1.6
       vite:
         specifier: ^4.4.8
-        version: 4.4.8(@types/node@20.4.5)
+        version: 4.4.8(@types/node@20.4.6)
       yargs:
         specifier: ^17.7.2
         version: 17.7.2
     devDependencies:
       '@alexaegis/eslint-config-vitest':
-        specifier: ^0.6.2
-        version: 0.6.2
+        specifier: ^0.7.1
+        version: 0.7.1
       '@alexaegis/ts':
-        specifier: ^0.6.2
-        version: 0.6.2(rollup@3.27.0)
+        specifier: ^0.7.1
+        version: 0.7.1(rollup@3.27.0)
       '@alexaegis/vite':
-        specifier: ^0.6.2
-        version: 0.6.2(@types/node@20.4.5)(rollup@3.27.0)
+        specifier: ^0.7.1
+        version: 0.7.1(@types/node@20.4.6)(rollup@3.27.0)
       '@alexaegis/vitest':
-        specifier: ^0.6.2
-        version: 0.6.2(svelte@4.1.2)(vite@4.4.8)
+        specifier: ^0.7.1
+        version: 0.7.1(svelte@4.1.2)(vite@4.4.8)
       '@types/yargs':
         specifier: ^17.0.24
         version: 17.0.24
@@ -329,51 +335,51 @@ importers:
   packages/core:
     dependencies:
       '@alexaegis/common':
-        specifier: ^0.5.2
-        version: 0.5.2
+        specifier: ^0.6.1
+        version: 0.6.1
       '@alexaegis/fs':
-        specifier: ^0.5.2
-        version: 0.5.2
+        specifier: ^0.6.1
+        version: 0.6.1
       '@alexaegis/logging':
-        specifier: ^0.5.2
-        version: 0.5.2
+        specifier: ^0.6.1
+        version: 0.6.1
       '@alexaegis/workspace-tools':
-        specifier: ^0.5.2
-        version: 0.5.2
+        specifier: ^0.6.1
+        version: 0.6.1
       '@types/node':
-        specifier: ^20.4.5
-        version: 20.4.5
+        specifier: ^20.4.6
+        version: 20.4.6
       globby:
         specifier: ^13.2.2
         version: 13.2.2
       prettier:
-        specifier: ^3.0.0
-        version: 3.0.0
+        specifier: ^3.0.1
+        version: 3.0.1
       rollup:
         specifier: ^3.27.0
         version: 3.27.0
       ts-node:
         specifier: ^10.9.1
-        version: 10.9.1(@types/node@20.4.5)(typescript@5.1.6)
+        version: 10.9.1(@types/node@20.4.6)(typescript@5.1.6)
       typescript:
         specifier: ^5.1.6
         version: 5.1.6
       vite:
         specifier: ^4.4.8
-        version: 4.4.8(@types/node@20.4.5)
+        version: 4.4.8(@types/node@20.4.6)
     devDependencies:
       '@alexaegis/eslint-config-vitest':
-        specifier: ^0.6.2
-        version: 0.6.2
+        specifier: ^0.7.1
+        version: 0.7.1
       '@alexaegis/ts':
-        specifier: ^0.6.2
-        version: 0.6.2(rollup@3.27.0)
+        specifier: ^0.7.1
+        version: 0.7.1(rollup@3.27.0)
       '@alexaegis/vite':
-        specifier: ^0.6.2
-        version: 0.6.2(@types/node@20.4.5)(rollup@3.27.0)
+        specifier: ^0.7.1
+        version: 0.7.1(@types/node@20.4.6)(rollup@3.27.0)
       '@alexaegis/vitest':
-        specifier: ^0.6.2
-        version: 0.6.2(svelte@4.1.2)(vite@4.4.8)
+        specifier: ^0.7.1
+        version: 0.7.1(svelte@4.1.2)(vite@4.4.8)
       '@types/yargs':
         specifier: ^17.0.24
         version: 17.0.24
@@ -387,48 +393,48 @@ importers:
   packages/vite-plugin:
     dependencies:
       '@alexaegis/common':
-        specifier: ^0.5.2
-        version: 0.5.2
+        specifier: ^0.6.1
+        version: 0.6.1
       '@alexaegis/fs':
-        specifier: ^0.5.2
-        version: 0.5.2
+        specifier: ^0.6.1
+        version: 0.6.1
       '@alexaegis/workspace-tools':
-        specifier: ^0.5.2
-        version: 0.5.2
+        specifier: ^0.6.1
+        version: 0.6.1
       '@pakk/core':
         specifier: ^0.5.0
         version: link:../core
       '@types/node':
-        specifier: ^20.4.5
-        version: 20.4.5
+        specifier: ^20.4.6
+        version: 20.4.6
       prettier:
-        specifier: ^3.0.0
-        version: 3.0.0
+        specifier: ^3.0.1
+        version: 3.0.1
       ts-node:
         specifier: ^10.9.1
-        version: 10.9.1(@types/node@20.4.5)(typescript@5.1.6)
+        version: 10.9.1(@types/node@20.4.6)(typescript@5.1.6)
       typescript:
         specifier: ^5.1.6
         version: 5.1.6
       vite:
         specifier: ^4.4.8
-        version: 4.4.8(@types/node@20.4.5)
+        version: 4.4.8(@types/node@20.4.6)
       vite-plugin-dts:
         specifier: ^3.4.0
-        version: 3.4.0(@types/node@20.4.5)(rollup@3.27.0)(typescript@5.1.6)(vite@4.4.8)
+        version: 3.4.0(@types/node@20.4.6)(rollup@3.27.0)(typescript@5.1.6)(vite@4.4.8)
     devDependencies:
       '@alexaegis/eslint-config-vitest':
-        specifier: ^0.6.2
-        version: 0.6.2
+        specifier: ^0.7.1
+        version: 0.7.1
       '@alexaegis/ts':
-        specifier: ^0.6.2
-        version: 0.6.2(rollup@3.27.0)
+        specifier: ^0.7.1
+        version: 0.7.1(rollup@3.27.0)
       '@alexaegis/vite':
-        specifier: ^0.6.2
-        version: 0.6.2(@types/node@20.4.5)(rollup@3.27.0)
+        specifier: ^0.7.1
+        version: 0.7.1(@types/node@20.4.6)(rollup@3.27.0)
       '@alexaegis/vitest':
-        specifier: ^0.6.2
-        version: 0.6.2(svelte@4.1.2)(vite@4.4.8)
+        specifier: ^0.7.1
+        version: 0.7.1(svelte@4.1.2)(vite@4.4.8)
       '@types/yargs':
         specifier: ^17.0.24
         version: 17.0.24
@@ -446,12 +452,12 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /@alexaegis/autotool-plugin-commitlint@0.6.2:
-    resolution: {integrity: sha512-Dv068yKeVdwXbbzN6ukTqr/6986Wr00l4uKE4eQpAhSorfZ5AiE5PpMdUELKPoRCJjfTk2tqAtf8wcVvagdS5A==}
+  /@alexaegis/autotool-plugin-commitlint@0.7.1:
+    resolution: {integrity: sha512-Xo3OwY1Ynzpi7xXxiPvZ22KWZ9YDDm3Lw/H5XXXfeuwG7PFha1nsq195gccQETitYwnCRd2G/RLyrO8Za9WRkw==}
     engines: {node: '>=18.10.0', pnpm: '>=8.0.0'}
     dependencies:
-      '@alexaegis/commitlint-config': 0.6.2
-      '@alexaegis/logging': 0.5.2
+      '@alexaegis/commitlint-config': 0.7.1
+      '@alexaegis/logging': 0.6.1
       autotool-plugin: 0.2.3
       commitlint: 17.6.7
     transitivePeerDependencies:
@@ -459,54 +465,54 @@ packages:
       - '@swc/wasm'
     dev: true
 
-  /@alexaegis/autotool-plugin-depcheck@0.6.2:
-    resolution: {integrity: sha512-SvvOgozRRao66CfNY129/dD8vdDfs3RYLpYnej2tG/+XpbHOM5ZVAzk8+bkrAQFqOJOT9tUM+4mVYsWps/7XUQ==}
+  /@alexaegis/autotool-plugin-depcheck@0.7.1:
+    resolution: {integrity: sha512-gtxem7NOpBCiY7VstjmrtYBDaPq4W/UTpb0DqaLnSP/4D3g6fBI5GZ2zuFl5o+JIe/cHAOpRz0VZ1S+LJSIeCQ==}
     engines: {node: '>=18.10.0', pnpm: '>=8.0.0'}
     dependencies:
-      '@alexaegis/logging': 0.5.2
-      '@alexaegis/predicate': 0.5.2
+      '@alexaegis/logging': 0.6.1
+      '@alexaegis/predicate': 0.6.1
       autotool-plugin: 0.2.3
     dev: true
 
-  /@alexaegis/autotool-plugin-editorconfig@0.6.2:
-    resolution: {integrity: sha512-RxaPpmx9VCFcQYWydt0P3353qtvHHQ4oaJBG32qfEO0ydAP3xXYmFqLsML4+twxJY+WNysXbyiJICM7l0wp0zA==}
+  /@alexaegis/autotool-plugin-editorconfig@0.7.1:
+    resolution: {integrity: sha512-kQniIKjedl+sG8hHcGwmcIaM8JrP5s7iVfEZwdfT2PdA3Su5n7TqcJLWCKNchAEDkTvIr4iV1cCu1Nv1P1Jghg==}
     engines: {node: '>=18.10.0', pnpm: '>=8.0.0'}
     dependencies:
-      '@alexaegis/logging': 0.5.2
+      '@alexaegis/logging': 0.6.1
       autotool-plugin: 0.2.3
     dev: true
 
-  /@alexaegis/autotool-plugin-eslint@0.6.2:
-    resolution: {integrity: sha512-HAdrwXNMup4+drTo3i6R+eIcAgraKWrJOOsE+OXro4EITEd4jP3b+vTSeKkbCbIDcucYouDSfg+nVgy4F/FNBw==}
+  /@alexaegis/autotool-plugin-eslint@0.7.1:
+    resolution: {integrity: sha512-/VfoMsiKA5lu1CXh4tlz80D5yam8NGgSrGZ88vxmwLdJZSkiAH82mzy4bIGwtXqG8GHiMpYz8b53/bszXGhZwg==}
     engines: {node: '>=18.10.0', pnpm: '>=8.0.0'}
     dependencies:
-      '@alexaegis/logging': 0.5.2
-      '@alexaegis/predicate': 0.5.2
+      '@alexaegis/logging': 0.6.1
+      '@alexaegis/predicate': 0.6.1
       autotool-plugin: 0.2.3
     dev: true
 
-  /@alexaegis/autotool-plugin-git@0.6.2:
-    resolution: {integrity: sha512-dZ48vGAInGkIYKXXmQiZIdRpq99iR5nvK5qCKLxCPkd679WKHiqH6cXjw1LUY9IqWVA+pIrjhzDf3sC4tXgBYg==}
+  /@alexaegis/autotool-plugin-git@0.7.1:
+    resolution: {integrity: sha512-qFIMwyWBk3XoFukYAaOzxYZ9HTkeQKMRsVQaDuzWNwyl2C34pHKk3t4qRF0NlRR9h+zmQPdPS4dbrQluzOunxg==}
     engines: {node: '>=18.10.0', pnpm: '>=8.0.0'}
     dependencies:
-      '@alexaegis/logging': 0.5.2
+      '@alexaegis/logging': 0.6.1
       autotool-plugin: 0.2.3
     dev: true
 
-  /@alexaegis/autotool-plugin-github@0.6.2:
-    resolution: {integrity: sha512-IwLoVRbpmmSMdjc6qRuYFnNHRQeMe9OUIiXTCXrQAreRlXDfDf7GIgvlgqJ11I35Ets//zbtO2STE3knwrwyHg==}
+  /@alexaegis/autotool-plugin-github@0.7.1:
+    resolution: {integrity: sha512-L7GWCuexzH6Y//tOPJSfNdO9tHPCIHoiVQvzW/91CGJ0ifBu7UXCzQNg2Hr1htnqCaR14IK4K1z5cTTG+rbkpw==}
     engines: {node: '>=18.10.0', pnpm: '>=8.0.0'}
     dependencies:
-      '@alexaegis/logging': 0.5.2
+      '@alexaegis/logging': 0.6.1
       autotool-plugin: 0.2.3
     dev: true
 
-  /@alexaegis/autotool-plugin-husky@0.6.2:
-    resolution: {integrity: sha512-3K3VdcxD55AAlNxYd88uOLoa7fAD6d64+OfOOV+cb0rsVwdpnTvburg4dezKZd9r4gzJJ3KKmzG9uy2OKt5Gvg==}
+  /@alexaegis/autotool-plugin-husky@0.7.1:
+    resolution: {integrity: sha512-u4uwzRAhrGsURcJHANxXoDZhKZlbH8v/pCx39ASgKdFcDz7ljcTYFsOePgubr30v+ilfCm731MAPuXEtcErQLQ==}
     engines: {node: '>=18.10.0', pnpm: '>=8.0.0'}
     dependencies:
-      '@alexaegis/lint-staged-config': 0.6.2
-      '@alexaegis/logging': 0.5.2
+      '@alexaegis/lint-staged-config': 0.7.1
+      '@alexaegis/logging': 0.6.1
       '@commitlint/config-conventional': 17.6.7
       autotool-plugin: 0.2.3
       husky: 8.0.3
@@ -516,11 +522,11 @@ packages:
       - supports-color
     dev: true
 
-  /@alexaegis/autotool-plugin-ncu@0.6.2:
-    resolution: {integrity: sha512-Ua69QIR/Z9BGAqFetwo460aY5u7dzUXVDjcSpOs4XCenN5TpfPw7GsbPbh8XV/243nZLII3mVRrcSyPe41FyKA==}
+  /@alexaegis/autotool-plugin-ncu@0.7.1:
+    resolution: {integrity: sha512-B8RljJUlsPqnI2KyrxbM29c24RIw4VfZv9F5X4MLAv1JQxwQo45yCvMD+TZbQ2I9rL5yMmj6eaIXVqemvZd6Sg==}
     engines: {node: '>=18.10.0', pnpm: '>=8.0.0'}
     dependencies:
-      '@alexaegis/logging': 0.5.2
+      '@alexaegis/logging': 0.6.1
       autotool-plugin: 0.2.3
       npm-check-updates: 16.10.17
     transitivePeerDependencies:
@@ -528,16 +534,16 @@ packages:
       - supports-color
     dev: true
 
-  /@alexaegis/autotool-plugin-prettier@0.6.2(svelte@4.1.2):
-    resolution: {integrity: sha512-aFTRgWCbyvb/gloKFmx89BpI9IXWPP7vAnNm8QZk3wsP21kEAn94xpSNvH1WTdDSzX4mjs323GNJLO8Fao5i4Q==}
+  /@alexaegis/autotool-plugin-prettier@0.7.1(svelte@4.1.2):
+    resolution: {integrity: sha512-UygudOb1ETbsN5+9v33eoaGqEfnBqP4Qsc0aXPzsds4F8ShOqKwitbNH4AKRhx/1zg2xpKcXmgVl9BBPi7a/Lw==}
     engines: {node: '>=18.10.0', pnpm: '>=8.0.0'}
     dependencies:
-      '@alexaegis/logging': 0.5.2
-      '@alexaegis/prettier-config': 0.6.2(prettier@3.0.0)(svelte@4.1.2)
+      '@alexaegis/logging': 0.6.1
+      '@alexaegis/prettier-config': 0.7.1(prettier@3.0.1)(svelte@4.1.2)
       autotool-plugin: 0.2.3
-      prettier: 3.0.0
-      prettier-plugin-svelte: 3.0.3(prettier@3.0.0)(svelte@4.1.2)
-      prettier-plugin-tailwindcss: 0.4.1(prettier-plugin-svelte@3.0.3)(prettier@3.0.0)
+      prettier: 3.0.1
+      prettier-plugin-svelte: 3.0.3(prettier@3.0.1)(svelte@4.1.2)
+      prettier-plugin-tailwindcss: 0.4.1(prettier-plugin-svelte@3.0.3)(prettier@3.0.1)
     transitivePeerDependencies:
       - '@ianvs/prettier-plugin-sort-imports'
       - '@prettier/plugin-pug'
@@ -556,94 +562,92 @@ packages:
       - svelte
     dev: true
 
-  /@alexaegis/autotool-plugin-publint@0.6.2:
-    resolution: {integrity: sha512-p3P6tfNFZxr2XogR4VN2PJD6Te8IJbsHKN4nTV8Wk3osyuH+HJUOk5IsdIBVYm42usKY7cG7UoC+/Zzb33Chzg==}
+  /@alexaegis/autotool-plugin-publint@0.7.1:
+    resolution: {integrity: sha512-7Us/VJRfZa5/6nEV6e7HN3OJHr3Y5PMOXwem/c2H37DEFNTf8K+SfpuQR+YNQ56oMAabQT2XOt7eHNTyd2EXqw==}
     engines: {node: '>=18.10.0', pnpm: '>=8.0.0'}
     dependencies:
-      '@alexaegis/logging': 0.5.2
+      '@alexaegis/logging': 0.6.1
       autotool-plugin: 0.2.3
     dev: true
 
-  /@alexaegis/autotool-plugin-remark@0.6.2:
-    resolution: {integrity: sha512-R232JPgkDzi3XAqRJWR0YoO0YAHzZqhCilaWxvCcXf/J+/MZlX1DwN22rc703VXeOjC0qVMM0mqBz4Le8O4NEg==}
+  /@alexaegis/autotool-plugin-remark@0.7.1:
+    resolution: {integrity: sha512-XNeGJ+J85nxcpn7L8ireM3TbToJPBvDk711kaEKbW/YfxvfGshhrf1NLazys5IUljLklhP9twIwiYI4I60pynA==}
     engines: {node: '>=18.10.0', pnpm: '>=8.0.0'}
     dependencies:
-      '@alexaegis/logging': 0.5.2
-      '@alexaegis/remark-preset': 0.6.2
+      '@alexaegis/logging': 0.6.1
+      '@alexaegis/remark-preset': 0.7.1
       autotool-plugin: 0.2.3
     transitivePeerDependencies:
       - supports-color
     dev: true
 
-  /@alexaegis/autotool-plugin-standard-version@0.6.2:
-    resolution: {integrity: sha512-YXrq5zW+SNV0vrrtiiU0QC1cLLJbL53qkIbb9mGBF4HrciuyLgXFuVHSkvaSUdU5jvG8xpAmAH+y/fbylzJmRw==}
+  /@alexaegis/autotool-plugin-standard-version@0.7.1:
+    resolution: {integrity: sha512-xLXEMpIDB2cz2xzG3WtyM8Bw4bF7giM8Lm+wzFxBA9N8AVtQ0dij5dAMWl8DruURoWB9len7+ZzIOAjdRTFdag==}
     engines: {node: '>=18.10.0', pnpm: '>=8.0.0'}
     dependencies:
-      '@alexaegis/logging': 0.5.2
-      '@alexaegis/standard-version': 0.6.2
+      '@alexaegis/logging': 0.6.1
+      '@alexaegis/standard-version': 0.7.1
       autotool-plugin: 0.2.3
       commit-and-tag-version: 11.2.2
     dev: true
 
-  /@alexaegis/autotool-plugin-stylelint@0.6.2:
-    resolution: {integrity: sha512-Dxcz2pF8ysa17x0zsUuJVrwAF64g58A2yDhHC8Stzhmdghc9dHWnHaqjyR3rV4SBr6A2EsP13FSUVGbkEOnqRA==}
+  /@alexaegis/autotool-plugin-stylelint@0.7.1:
+    resolution: {integrity: sha512-AusMAiERA3RAf49L+XE1oFnKtbRu8Ylybi65AJ4eiqMO8jGXoDW/lEB7w4VNp80E/ZxN8Fq5PkpNZyDpYuMDwg==}
     engines: {node: '>=18.10.0', pnpm: '>=8.0.0'}
     dependencies:
-      '@alexaegis/logging': 0.5.2
+      '@alexaegis/logging': 0.6.1
       autotool-plugin: 0.2.3
     dev: true
 
-  /@alexaegis/autotool-plugin-svelte@0.6.2:
-    resolution: {integrity: sha512-FOgSGbZYV5EMZWgLg0FisNvsOZUzhTJo02NpRe1SC+6um9uxkvPsM5+9RFF5th0ipUglKU8XJWKLEFMPJPKPEw==}
+  /@alexaegis/autotool-plugin-svelte@0.7.1:
+    resolution: {integrity: sha512-jxrLTUVotLuTl5sZ9TRnYfoQ5l39862IZk62bze4sCtQ035Cdp8GEd63gD8SFwPmYDzYMd+cJoCOaj4VJKk0IA==}
     engines: {node: '>=18.10.0', pnpm: '>=8.0.0'}
     dependencies:
-      '@alexaegis/coverage-tools': 0.5.2
-      '@alexaegis/logging': 0.5.2
-      '@alexaegis/predicate': 0.5.2
+      '@alexaegis/coverage-tools': 0.6.1
+      '@alexaegis/logging': 0.6.1
+      '@alexaegis/predicate': 0.6.1
       autotool-plugin: 0.2.3
     dev: true
 
-  /@alexaegis/autotool-plugin-ts@0.6.2:
-    resolution: {integrity: sha512-1LWX/njdfc+zH1bWayQ7+RpzIRsJFvt2B1ujlEeLzCQy3OUbD1yVrQEDMgll5tftI5rNz2NFI0L7Rv+ffdz2lQ==}
+  /@alexaegis/autotool-plugin-ts@0.7.1:
+    resolution: {integrity: sha512-Jxq5O0On0Yeim0teT6/lOE94pegF7Wy9UzXAAnud34LRZfKNoCXFIA2Xzajra8KFx8ncz+2Dq6MJ4ILMtx+ZrA==}
     engines: {node: '>=18.10.0', pnpm: '>=8.0.0'}
     dependencies:
-      '@alexaegis/logging': 0.5.2
-      '@alexaegis/match': 0.5.2
-      '@alexaegis/predicate': 0.5.2
-      '@alexaegis/workspace-tools': 0.5.2
+      '@alexaegis/logging': 0.6.1
+      '@alexaegis/match': 0.6.1
+      '@alexaegis/predicate': 0.6.1
+      '@alexaegis/workspace-tools': 0.6.1
       autotool-plugin: 0.2.3
       typescript: 5.1.6
     dev: true
 
-  /@alexaegis/autotool-plugin-turbo@0.6.2:
-    resolution: {integrity: sha512-o7O2xIEpwWj3+A3D4yfuUxDCT26jkLYkxqOU1qJkORgg3niFrotbnmQfTdLJaIygDsdwx19LVVVv/sfZsM3YIw==}
+  /@alexaegis/autotool-plugin-turbo@0.7.1:
+    resolution: {integrity: sha512-XhpQ25Y50eg/pUi0Zec2KSWUNmQ0nBJ+9GY7soiLZJQo0t71x5YnIQgtjCh10f5JyBGVZq+cTYF4FZlMbINvhQ==}
     engines: {node: '>=18.10.0', pnpm: '>=8.0.0'}
     dependencies:
-      '@alexaegis/logging': 0.5.2
+      '@alexaegis/logging': 0.6.1
       autotool-plugin: 0.2.3
     dev: true
 
-  /@alexaegis/autotool-plugin-typedoc@0.6.2(typescript@5.1.6):
-    resolution: {integrity: sha512-GxuttsvrAguhYKP83gmI4oVkC9PrbhgbPKR63PlWO+YWEUNXwVTXqsB2j9ilI0ONqZrErSPk75b0cTA25mz6Eg==}
+  /@alexaegis/autotool-plugin-typedoc@0.7.1(typescript@5.1.6):
+    resolution: {integrity: sha512-GpwXbFf45ObM2tb83/I1F6RbXqysqQad9XYhwQ/0tS15DKZw2L9UgWq1k7KeRBy32SWyOcQyfmyKzXrNoi8hqQ==}
     engines: {node: '>=18.10.0', pnpm: '>=8.0.0'}
     dependencies:
-      '@alexaegis/logging': 0.5.2
+      '@alexaegis/logging': 0.6.1
       autotool-plugin: 0.2.3
       typedoc: 0.24.8(typescript@5.1.6)
     transitivePeerDependencies:
       - typescript
     dev: true
 
-  /@alexaegis/autotool-plugin-vite@0.6.2(@types/node@20.4.5):
-    resolution: {integrity: sha512-WvXmhWAYLWRp+xl09S42uqKXAezUrEZ2FBoPOvp8ay4IqQ17UQNLXyuPYpKsy4y3p7HjKgZrSQtXqilpiS0CtQ==}
+  /@alexaegis/autotool-plugin-vite@0.7.1(@types/node@20.4.6):
+    resolution: {integrity: sha512-wtCzCuypJcg/DiTaZ4h4e9XIWkNA/neqfN0Jju1MrrxzAyfEELgo5tR9GZC7CpwibNvVYFBVmpshuKRldbEojw==}
     engines: {node: '>=18.10.0', pnpm: '>=8.0.0'}
     dependencies:
-      '@alexaegis/logging': 0.5.2
-      '@alexaegis/predicate': 0.5.2
+      '@alexaegis/logging': 0.6.1
+      '@alexaegis/predicate': 0.6.1
       autotool-plugin: 0.2.3
-      concurrently: 8.2.0
-      nodemon: 3.0.1
-      vite: 4.4.8(@types/node@20.4.5)
+      vite: 4.4.8(@types/node@20.4.6)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -654,29 +658,29 @@ packages:
       - terser
     dev: true
 
-  /@alexaegis/autotool-plugin-vitest@0.6.2:
-    resolution: {integrity: sha512-TfE9HbHwTlD7dKqRHf/tLSLdcaZx6rkmOqxVlndQWTY1DKjDcUOPJk2XWhoNFa7rYw0xnwTHA6yClQXgfRzCPg==}
+  /@alexaegis/autotool-plugin-vitest@0.7.1:
+    resolution: {integrity: sha512-Vh2JzgHAIjHqYvVCllbRHaujmPGhqVJYyWxwR8qIYYUBcpUMQBYFyGDetWElkhPr6sZAapKnmPRAvUkCYxAdww==}
     engines: {node: '>=18.10.0', pnpm: '>=8.0.0'}
     dependencies:
-      '@alexaegis/coverage-tools': 0.5.2
-      '@alexaegis/logging': 0.5.2
-      '@alexaegis/predicate': 0.5.2
+      '@alexaegis/coverage-tools': 0.6.1
+      '@alexaegis/logging': 0.6.1
+      '@alexaegis/predicate': 0.6.1
       autotool-plugin: 0.2.3
     dev: true
 
-  /@alexaegis/autotool-plugin-vscode@0.6.2:
-    resolution: {integrity: sha512-dq2S2VAbivjWd+5Yr3AuXN/DTc6lwj+z6cS5Z7kTVr/OKBB9CQYyBfU7QO9I7pFpHtQzaxq544wlijo1klBesw==}
+  /@alexaegis/autotool-plugin-vscode@0.7.1:
+    resolution: {integrity: sha512-C2xI3nGkkZWkttnOtcNNPxZcxi5mmSQQWC6kIVLAXP3JB37ull0qnnQzxKX5JxHODNXNIN31TKT3muYig9mtXA==}
     engines: {node: '>=18.10.0', pnpm: '>=8.0.0'}
     dependencies:
-      '@alexaegis/logging': 0.5.2
+      '@alexaegis/logging': 0.6.1
       autotool-plugin: 0.2.3
     dev: true
 
-  /@alexaegis/autotool-plugin-workspace@0.6.2:
-    resolution: {integrity: sha512-BC/2gaR3Y9rYrPMGkifBV7jH4PIZ4qD47MhKk/hGyFJLTjlXITOHHJgWXGXHTzhSxVNQffor3XsG0Gj6EqbeXg==}
+  /@alexaegis/autotool-plugin-workspace@0.7.1:
+    resolution: {integrity: sha512-XO1ZW8vgKGkyIBpWVRKCcqG0hrukA5s/JZBBWQ+nIXRWSSuIQCZeD2jKX1SCPu5I0YvgLc4ELL5j8fi2G+YjxA==}
     engines: {node: '>=18.10.0', pnpm: '>=8.0.0'}
     dependencies:
-      '@alexaegis/logging': 0.5.2
+      '@alexaegis/logging': 0.6.1
       autotool-plugin: 0.2.3
     dev: true
 
@@ -692,22 +696,22 @@ packages:
       yargs: 17.7.2
     dev: true
 
-  /@alexaegis/cli-tools@0.5.2:
-    resolution: {integrity: sha512-UrYY51Zv4DkRB74KYe6cr/tj8J1eClu6zYNTnHGBOuvWFpbGhkZc7h9947c5dy5chrDGYPOyU7dlYFwxODa6ZA==}
+  /@alexaegis/cli-tools@0.6.1:
+    resolution: {integrity: sha512-7TjK7jrUk/KA6G412uZPvJFQcqr2GFGKVr56CLt+1lyix90+ymWYpyAEK/ISbaHWcAY2x5AelWg153b5DCuQsw==}
     engines: {node: '>=18.10.0', pnpm: '>=8.0.0'}
     dependencies:
-      '@alexaegis/common': 0.5.2
-      '@alexaegis/fs': 0.5.2
-      '@alexaegis/logging': 0.5.2
-      '@alexaegis/workspace-tools': 0.5.2
+      '@alexaegis/common': 0.6.1
+      '@alexaegis/fs': 0.6.1
+      '@alexaegis/logging': 0.6.1
+      '@alexaegis/workspace-tools': 0.6.1
       '@types/yargs': 17.0.24
       yargs: 17.7.2
 
-  /@alexaegis/commitlint-config@0.6.2:
-    resolution: {integrity: sha512-Y1DOr3IhwejSfgLRdLUYmFwCnIAwvzAJq+SMxugaMVac+OJIHwK0zc2KEAntssw+EQx16C/v3SpWy2aLcTEOGA==}
+  /@alexaegis/commitlint-config@0.7.1:
+    resolution: {integrity: sha512-6V1HZ6TgShLkX54hX87h6JNH8Bc1Dw+nRarJF9AsUgG76BG9jOltfVttCbDy/Od8+hil1SfvDEUgKbEHqjYWng==}
     engines: {node: '>=18.10.0', pnpm: '>=8.0.0'}
     dependencies:
-      '@alexaegis/standard-version': 0.6.2
+      '@alexaegis/standard-version': 0.7.1
     dev: true
 
   /@alexaegis/common@0.4.5:
@@ -718,27 +722,32 @@ packages:
   /@alexaegis/common@0.5.2:
     resolution: {integrity: sha512-QoxBhh8Qf30jNYiqcMLZLlXOaFSlJtmcqWUtHe7vjv1D5iG7mGGrD6YzqGGaq3VDm9bCr2nElsHmgEkbgHAfAA==}
     engines: {node: '>=18.10.0', pnpm: '>=8.0.0'}
+    dev: true
 
-  /@alexaegis/coverage-tools@0.5.2:
-    resolution: {integrity: sha512-oaUoGu40QSXoWRXr40ifBaOYEaw9EZen1FzSSdRChjeLerQuDCOIRswpvk0AHRPfLcVjYpL6BdcwyKSCGU3wTQ==}
+  /@alexaegis/common@0.6.1:
+    resolution: {integrity: sha512-hetpgU5iyE+kMY0y3OmSPbVsug3ZYT9+xTwB1BZBwAkbvv9oGu30NTxykvhdtoWJiK9u0KBCf1Hs40muws84Dg==}
+    engines: {node: '>=18.10.0', pnpm: '>=8.0.0'}
+
+  /@alexaegis/coverage-tools@0.6.1:
+    resolution: {integrity: sha512-HkGqZ1TL3QYwmUy+WqvNUu+xP4SB+OB6VTA8AyomkebFzyiXgS3Id+bvgEDjDU12bpjNPmTPISWhMasjey3DoQ==}
     engines: {node: '>=18.10.0', pnpm: '>=8.0.0'}
     hasBin: true
     dependencies:
-      '@alexaegis/common': 0.5.2
-      '@alexaegis/logging': 0.5.2
-      '@alexaegis/workspace-tools': 0.5.2
+      '@alexaegis/common': 0.6.1
+      '@alexaegis/logging': 0.6.1
+      '@alexaegis/workspace-tools': 0.6.1
       globby: 13.2.2
     dev: true
 
-  /@alexaegis/eslint-config-core@0.6.2:
-    resolution: {integrity: sha512-eBa/11z7A6eJhviTDyJgsF/EffBDjUJXjp35EVa/WMQC7TeBY0TLvHqFlR75av3dM0x0KXER5OOWBPVrpYiXqw==}
+  /@alexaegis/eslint-config-core@0.7.1:
+    resolution: {integrity: sha512-qKveL/+jHTgLhfN2GweGgG1DeRP1k0NkN4NDds5HSqLyQDl2s5c0bKIfn5Uhf/g74nZwvLVhx4gUTHAeaQbaOA==}
     engines: {node: '>=18.10.0', pnpm: '>=8.0.0'}
     dependencies:
       '@typescript-eslint/eslint-plugin': 6.2.1(@typescript-eslint/parser@6.2.1)(eslint@8.46.0)(typescript@5.1.6)
       '@typescript-eslint/parser': 6.2.1(eslint@8.46.0)(typescript@5.1.6)
       eslint: 8.46.0
       eslint-config-next: 13.4.12(eslint@8.46.0)(typescript@5.1.6)
-      eslint-config-prettier: 8.9.0(eslint@8.46.0)
+      eslint-config-prettier: 8.10.0(eslint@8.46.0)
       eslint-config-turbo: 1.10.12(eslint@8.46.0)
       eslint-plugin-react: 7.33.1(eslint@8.46.0)
       eslint-plugin-unicorn: 48.0.1(eslint@8.46.0)
@@ -748,15 +757,15 @@ packages:
       - supports-color
     dev: true
 
-  /@alexaegis/eslint-config-svelte@0.6.2(svelte@4.1.2)(ts-node@10.9.1):
-    resolution: {integrity: sha512-eo0qpynu7q3u0OsCb4dxmmkClAICRZgz1ZNd5uE1oumdn3xhsJDz+E/U22C4DhSlDnrgqxK/ol7J3+5HsnbMXw==}
+  /@alexaegis/eslint-config-svelte@0.7.1(svelte@4.1.2)(ts-node@10.9.1):
+    resolution: {integrity: sha512-JGHTknBl2Ok0KFEgeoIbQPGkdxMeVPYRSyvR+zqN1IOY94XN32jJIOOHD5FwuFFwoibsPPwsl8aXsvhXva8bLg==}
     engines: {node: '>=18.10.0', pnpm: '>=8.0.0'}
     dependencies:
       '@typescript-eslint/eslint-plugin': 6.2.1(@typescript-eslint/parser@6.2.1)(eslint@8.46.0)(typescript@5.1.6)
       '@typescript-eslint/parser': 6.2.1(eslint@8.46.0)(typescript@5.1.6)
       eslint: 8.46.0
       eslint-config-next: 13.4.12(eslint@8.46.0)(typescript@5.1.6)
-      eslint-config-prettier: 8.9.0(eslint@8.46.0)
+      eslint-config-prettier: 8.10.0(eslint@8.46.0)
       eslint-config-turbo: 1.10.12(eslint@8.46.0)
       eslint-plugin-react: 7.33.1(eslint@8.46.0)
       eslint-plugin-svelte: 2.32.4(eslint@8.46.0)(svelte@4.1.2)(ts-node@10.9.1)
@@ -769,15 +778,15 @@ packages:
       - ts-node
     dev: true
 
-  /@alexaegis/eslint-config-vitest@0.6.2:
-    resolution: {integrity: sha512-doH4ghi/+LNp8TAP00bHarst8k8rtUhmqILX0Bp1zIuCvUAUgxotDDF6PDG4ku4M9oeipVqOVdR15VJherLwhg==}
+  /@alexaegis/eslint-config-vitest@0.7.1:
+    resolution: {integrity: sha512-FtOxXO0G8R3NcqtAtm4lUar3pKBtAlN3PnbZQJOi5YO0WIjsK6ic4Offzhcuv5rL2a5izIaK5ompP2FozpOQ7A==}
     engines: {node: '>=18.10.0', pnpm: '>=8.0.0'}
     dependencies:
       '@typescript-eslint/eslint-plugin': 6.2.1(@typescript-eslint/parser@6.2.1)(eslint@8.46.0)(typescript@5.1.6)
       '@typescript-eslint/parser': 6.2.1(eslint@8.46.0)(typescript@5.1.6)
       eslint: 8.46.0
       eslint-config-next: 13.4.12(eslint@8.46.0)(typescript@5.1.6)
-      eslint-config-prettier: 8.9.0(eslint@8.46.0)
+      eslint-config-prettier: 8.10.0(eslint@8.46.0)
       eslint-config-turbo: 1.10.12(eslint@8.46.0)
       eslint-plugin-react: 7.33.1(eslint@8.46.0)
       eslint-plugin-unicorn: 48.0.1(eslint@8.46.0)
@@ -795,7 +804,7 @@ packages:
       '@alexaegis/logging': 0.4.5
       js-yaml: 4.1.0
     optionalDependencies:
-      prettier: 3.0.0
+      prettier: 3.0.1
     dev: true
 
   /@alexaegis/fs@0.5.2:
@@ -806,13 +815,24 @@ packages:
       '@alexaegis/logging': 0.5.2
       js-yaml: 4.1.0
     optionalDependencies:
-      prettier: 3.0.0
+      prettier: 3.0.1
+    dev: true
 
-  /@alexaegis/lint-staged-config@0.6.2:
-    resolution: {integrity: sha512-VdMNA8J+vEzIvCq7kIzEMLtJl7fVUL2Y8Cz/GEQe/dVbpC/AO1/G1txc6GV3SK5zKY9+xeE88yeAwxcHk3ioQA==}
+  /@alexaegis/fs@0.6.1:
+    resolution: {integrity: sha512-UTOoeoru9r49cBi64d9EQNEJZFiikFRVUX5akymiaujaePC9HIeC+T8VJ7IynIvJURPHHTrZkLJvr4v8ERgnLQ==}
     engines: {node: '>=18.10.0', pnpm: '>=8.0.0'}
     dependencies:
-      '@alexaegis/fs': 0.5.2
+      '@alexaegis/common': 0.6.1
+      '@alexaegis/logging': 0.6.1
+      js-yaml: 4.1.0
+    optionalDependencies:
+      prettier: 3.0.1
+
+  /@alexaegis/lint-staged-config@0.7.1:
+    resolution: {integrity: sha512-HqIR+LQaSBldQXAsrdDgHD3YguMBtbNq96tg7nFDPR0eU90Yi4XsykaZbXSK89Ja+dYF+//KTecXGckU7kn1UA==}
+    engines: {node: '>=18.10.0', pnpm: '>=8.0.0'}
+    dependencies:
+      '@alexaegis/fs': 0.6.1
       lint-staged: 13.2.3
       typescript: 5.1.6
     transitivePeerDependencies:
@@ -834,6 +854,14 @@ packages:
     dependencies:
       '@alexaegis/common': 0.5.2
       tslog: 4.8.2
+    dev: true
+
+  /@alexaegis/logging@0.6.1:
+    resolution: {integrity: sha512-SkDayzM5/uGOMpOsKch6du+0d7ZSXobUZpfMfgGQ/RujiC9GSrVWnSHVz1J2YJD/Xe5XoWvQ1N69Ag1oS244MA==}
+    engines: {node: '>=18.10.0', pnpm: '>=8.0.0'}
+    dependencies:
+      '@alexaegis/common': 0.6.1
+      tslog: 4.8.2
 
   /@alexaegis/match@0.4.5:
     resolution: {integrity: sha512-oflbngKM1/kuzoQIu3EaAac1/PYHaEYKZ5WSvNUlL+AZz2kkJGgRYVX1kEwV+9F/eWw/yq4pVZIze1CwnwERMQ==}
@@ -843,30 +871,35 @@ packages:
   /@alexaegis/match@0.5.2:
     resolution: {integrity: sha512-B6ITRRSgDaCEddKEaiI2yaIWGMiVXJxJqakMMKrQKZV60GCXvrnI+QF3fpG7DWRN8BAM6mDuRp7bUnvY55P7Lw==}
     engines: {node: '>=18.10.0', pnpm: '>=8.0.0'}
+    dev: true
 
-  /@alexaegis/nuke@0.6.2:
-    resolution: {integrity: sha512-+B190bci9VRD3focBNoL9SChlbB4szDh4hl11NWQ9jxGdW/gkMcY7rYoUxJAY9s5n/Nas672oGOSTJhlNNnexA==}
+  /@alexaegis/match@0.6.1:
+    resolution: {integrity: sha512-yiigrBIw03JZYsLMuJwmu3S0snJ99KBzaXX5UblVWBKQ0TUZbnt055UjesdYetteyCt7ZptXVd8iSQjl9txHVQ==}
+    engines: {node: '>=18.10.0', pnpm: '>=8.0.0'}
+
+  /@alexaegis/nuke@0.7.1:
+    resolution: {integrity: sha512-yPOj/baHq96Q6IePRCkV5AVyB/KudACYn0krusVEyRM+VKWLFq6EHR9XSMtl15AiQLoTyZFS4B5kF75sMFVvCQ==}
     engines: {node: '>=18.10.0', pnpm: '>=8.0.0'}
     hasBin: true
     dependencies:
-      '@alexaegis/cli-tools': 0.5.2
-      '@alexaegis/common': 0.5.2
-      '@alexaegis/logging': 0.5.2
-      '@alexaegis/workspace-tools': 0.5.2
+      '@alexaegis/cli-tools': 0.6.1
+      '@alexaegis/common': 0.6.1
+      '@alexaegis/logging': 0.6.1
+      '@alexaegis/workspace-tools': 0.6.1
       globby: 13.2.2
     dev: true
 
-  /@alexaegis/predicate@0.5.2:
-    resolution: {integrity: sha512-t4cB6+rLs+izyCPZgsp4xs7yypu+eFxahgVnXXE6e2/tlkwksODzBdipd7xQwDYolQ5iBZiEaW7LPNX5nOrxmQ==}
+  /@alexaegis/predicate@0.6.1:
+    resolution: {integrity: sha512-pOYO+XrzXVvr8o9e9YBvzdqvZR2Xd44k1heDn8D26fEzx4xnpvmet23UKLwexGzraUJnSBM13xjg913gV7ffQw==}
     engines: {node: '>=18.10.0', pnpm: '>=8.0.0'}
     dev: true
 
-  /@alexaegis/prettier-config@0.6.2(prettier@3.0.0)(svelte@4.1.2):
-    resolution: {integrity: sha512-O3+KRfIuNTu5nPHEzeEpJjo6/P4h2cZxT2ZXEx9vufpSyxPUDnY4hjTUMH4fdBJKcSo+VeffarC5DQTyHcjf0w==}
+  /@alexaegis/prettier-config@0.7.1(prettier@3.0.1)(svelte@4.1.2):
+    resolution: {integrity: sha512-NM9vZfsIPLUfzlYHfQiNSp+2HvzWewEmAErdMZotENu9wbS71DrG7gSt6Vxh5zlOcs6vdkIS2nVEB/Tl26Oqsw==}
     engines: {node: '>=18.10.0', pnpm: '>=8.0.0'}
     dependencies:
-      prettier-plugin-svelte: 3.0.3(prettier@3.0.0)(svelte@4.1.2)
-      prettier-plugin-tailwindcss: 0.4.1(prettier-plugin-svelte@3.0.3)(prettier@3.0.0)
+      prettier-plugin-svelte: 3.0.3(prettier@3.0.1)(svelte@4.1.2)
+      prettier-plugin-tailwindcss: 0.4.1(prettier-plugin-svelte@3.0.3)(prettier@3.0.1)
     transitivePeerDependencies:
       - '@ianvs/prettier-plugin-sort-imports'
       - '@prettier/plugin-pug'
@@ -886,8 +919,8 @@ packages:
       - svelte
     dev: true
 
-  /@alexaegis/remark-preset@0.6.2:
-    resolution: {integrity: sha512-5SZnvwJXmVclPgPx1mgx7Cz2qcuSRmHQBLP/R+Ty1r79DvZLFHoxBpeEuOqDg9hI+WtnXq/K+aK2KmwwBmegUQ==}
+  /@alexaegis/remark-preset@0.7.1:
+    resolution: {integrity: sha512-u+P2108CSX54+J10qjMIEqvfFnA186wethscPSI449BvYilECg5FGLtwXC0g6CAH4MqWbacUhVSAk/YasY0Tzw==}
     engines: {node: '>=18.10.0', pnpm: '>=8.0.0'}
     dependencies:
       remark-gfm: 3.0.1
@@ -900,28 +933,28 @@ packages:
       remark-preset-lint-consistent: 5.1.2
       remark-preset-lint-markdown-style-guide: 5.1.3
       remark-preset-lint-recommended: 6.1.3
-      remark-preset-prettier: 2.0.1(prettier@3.0.0)
+      remark-preset-prettier: 2.0.1(prettier@3.0.1)
       remark-validate-links: 12.1.1
       unified-consistency: 1.0.1
-      unified-prettier: 1.0.2(prettier@3.0.0)
+      unified-prettier: 1.0.2(prettier@3.0.1)
     optionalDependencies:
-      prettier: 3.0.0
+      prettier: 3.0.1
     transitivePeerDependencies:
       - supports-color
     dev: true
 
-  /@alexaegis/standard-version@0.6.2:
-    resolution: {integrity: sha512-BpDDPJauJbdHZsUt8UIaO/fE+eyu0upnmpSzuW1JbtrYaJDYVFUOdl593v1zbpr8/OI0+ttQpUFnHyp9q5nxnQ==}
+  /@alexaegis/standard-version@0.7.1:
+    resolution: {integrity: sha512-GCmZRsyXNKVV0234nFgJFngICwOBYOfM8d/y0EurT7bmJMo7fA830nNSRhleFgcHfZqLTyzyJuq2f4QizclnjA==}
     engines: {node: '>=18.10.0', pnpm: '>=8.0.0'}
     dependencies:
-      '@alexaegis/coverage-tools': 0.5.2
-      '@alexaegis/workspace-tools': 0.5.2
+      '@alexaegis/coverage-tools': 0.6.1
+      '@alexaegis/workspace-tools': 0.6.1
       glob: 10.3.3
       js-yaml: 4.1.0
     dev: true
 
-  /@alexaegis/stylelint-config@0.6.2(postcss-html@1.5.0)(postcss@8.4.27)(stylelint@15.10.2):
-    resolution: {integrity: sha512-QE7Yu3U0jQncA1bljbKPfRoLgi1arLe9jpYxQ6gNXPgZgGrSpKDb7/KqXBJ54IZew+QnJceJAU+DgOlPDXjX7Q==}
+  /@alexaegis/stylelint-config@0.7.1(postcss-html@1.5.0)(postcss@8.4.27)(stylelint@15.10.2):
+    resolution: {integrity: sha512-ZwRyjiEiUBwNEmm46eXKB7SNhQeY48xBMhw0/wxtSM0LIA1eMdXPY8fx+6Klg8LzJhHisDlkzWVyku4I4n90Bg==}
     engines: {node: '>=18.10.0', pnpm: '>=8.0.0'}
     dependencies:
       stylelint-config-html: 1.1.0(postcss-html@1.5.0)(stylelint@15.10.2)
@@ -933,8 +966,8 @@ packages:
       - stylelint
     dev: true
 
-  /@alexaegis/svelte-config@0.6.2(postcss@8.4.27)(svelte@4.1.2)(typescript@5.1.6)(vite@4.4.8):
-    resolution: {integrity: sha512-8erxUT3wzutbbHTSEkevLP6QEWMqrQFRX8sPsaLSzRDkmOfquyWDQ/XZInXAICRSZL53eIM6EwzfnHSfJnV3Iw==}
+  /@alexaegis/svelte-config@0.7.1(postcss@8.4.27)(svelte@4.1.2)(typescript@5.1.6)(vite@4.4.8):
+    resolution: {integrity: sha512-AFEUI6K7SlIvjan8SBLjqW0o3OsMdXWRDZziDqv+SJUIor8r20lkiKwXW8cjA5Mu/mW4n0zxyE2ow8ZUrvQqvQ==}
     engines: {node: '>=18.10.0', pnpm: '>=8.0.0'}
     dependencies:
       '@sveltejs/adapter-auto': 2.1.0(@sveltejs/kit@1.22.4)
@@ -960,15 +993,15 @@ packages:
       - vite
     dev: true
 
-  /@alexaegis/ts@0.6.2(rollup@3.27.0):
-    resolution: {integrity: sha512-M95DV+bVRBvML3SNU7k+CwgjzvXqPKye5eZ+5HZjfDzhz2zv0nOS4eyB4c2WS4mTvc6FjgtK80NMCKnih7aF5A==}
+  /@alexaegis/ts@0.7.1(rollup@3.27.0):
+    resolution: {integrity: sha512-E74+j7SMv4iPQu5rBgJRn4BpZBDBALjwdMdvKiA9Izj8LlzRo8zVOGK+SNlqFU9JWNuWMdm1YKlUPIeT+wiubg==}
     engines: {node: '>=18.10.0', pnpm: '>=8.0.0'}
     dependencies:
-      '@alexaegis/vite': 0.6.2(@types/node@20.4.5)(rollup@3.27.0)
-      '@types/node': 20.4.5
-      ts-node: 10.9.1(@types/node@20.4.5)(typescript@5.1.6)
+      '@alexaegis/vite': 0.7.1(@types/node@20.4.6)(rollup@3.27.0)
+      '@types/node': 20.4.6
+      ts-node: 10.9.1(@types/node@20.4.6)(typescript@5.1.6)
       typescript: 5.1.6
-      vite: 4.4.8(@types/node@20.4.5)
+      vite: 4.4.8(@types/node@20.4.6)
     transitivePeerDependencies:
       - '@swc/core'
       - '@swc/wasm'
@@ -982,14 +1015,12 @@ packages:
       - terser
     dev: true
 
-  /@alexaegis/vite@0.6.2(@types/node@20.4.5)(rollup@3.27.0):
-    resolution: {integrity: sha512-Iu8SlrdIfYEjxapT3FQ6Wk3PTvStbgAL2lhDFBgS/U06KFNeDr8f22yqHLYTxZz/wzohI63UXM68uMUiwlEjKA==}
+  /@alexaegis/vite@0.7.1(@types/node@20.4.6)(rollup@3.27.0):
+    resolution: {integrity: sha512-l4opojQr2tosRL0D2MTnTzrOnyXfYirSNwE+oanEQghJuXop09yr8zdoE77EfAqA+NCSHilDhnFdFN3n/Kb0Pw==}
     engines: {node: '>=18.10.0', pnpm: '>=8.0.0'}
     dependencies:
-      '@alexaegis/logging': 0.5.2
-      concurrently: 8.2.0
-      nodemon: 3.0.1
-      vite: 4.4.8(@types/node@20.4.5)
+      '@alexaegis/logging': 0.6.1
+      vite: 4.4.8(@types/node@20.4.6)
       vite-plugin-pakk: 0.5.0(rollup@3.27.0)
     transitivePeerDependencies:
       - '@swc/core'
@@ -1005,8 +1036,8 @@ packages:
       - terser
     dev: true
 
-  /@alexaegis/vitest@0.6.2(svelte@4.1.2)(vite@4.4.8):
-    resolution: {integrity: sha512-FAy2zX4jI5xp/ejttAMUNW4lFMks70T+CvRtK5x5VPqpxp06HrDrC0RRaud0Y7agrv/w3AE18xzHVb9f1dJmwQ==}
+  /@alexaegis/vitest@0.7.1(svelte@4.1.2)(vite@4.4.8):
+    resolution: {integrity: sha512-Hthzr1cJWeuZJpHhQLhGNxGFMsTlbXVFDoARY52yfzWVSD00Y7KVNb/FqDZLEtMZoBndV+2ejPTsP2E1p2iHfA==}
     engines: {node: '>=18.10.0', pnpm: '>=8.0.0'}
     hasBin: true
     dependencies:
@@ -1056,6 +1087,18 @@ packages:
       '@alexaegis/fs': 0.5.2
       '@alexaegis/logging': 0.5.2
       '@alexaegis/match': 0.5.2
+      '@schemastore/package': 0.0.10
+      globby: 13.2.2
+    dev: true
+
+  /@alexaegis/workspace-tools@0.6.1:
+    resolution: {integrity: sha512-vw1PDhRJyPWkVsvGdMSMo91Gl42AHwOc3q6/uoZPR5e+1Flsf2qK1hDKeaEkumkptPVpoY6WwK+D4YkrBsK5Cg==}
+    engines: {node: '>=18.10.0', pnpm: '>=8.0.0'}
+    dependencies:
+      '@alexaegis/common': 0.6.1
+      '@alexaegis/fs': 0.6.1
+      '@alexaegis/logging': 0.6.1
+      '@alexaegis/match': 0.6.1
       '@schemastore/package': 0.0.10
       globby: 13.2.2
 
@@ -1281,15 +1324,15 @@ packages:
       '@commitlint/execute-rule': 17.4.0
       '@commitlint/resolve-extends': 17.6.7
       '@commitlint/types': 17.4.4
-      '@types/node': 20.4.5
+      '@types/node': 20.4.6
       chalk: 4.1.2
       cosmiconfig: 8.2.0
-      cosmiconfig-typescript-loader: 4.4.0(@types/node@20.4.5)(cosmiconfig@8.2.0)(ts-node@10.9.1)(typescript@5.1.6)
+      cosmiconfig-typescript-loader: 4.4.0(@types/node@20.4.6)(cosmiconfig@8.2.0)(ts-node@10.9.1)(typescript@5.1.6)
       lodash.isplainobject: 4.0.6
       lodash.merge: 4.6.2
       lodash.uniq: 4.5.0
       resolve-from: 5.0.0
-      ts-node: 10.9.1(@types/node@20.4.5)(typescript@5.1.6)
+      ts-node: 10.9.1(@types/node@20.4.6)(typescript@5.1.6)
       typescript: 5.1.6
     transitivePeerDependencies:
       - '@swc/core'
@@ -1728,23 +1771,23 @@ packages:
       - supports-color
     dev: true
 
-  /@microsoft/api-extractor-model@7.27.5(@types/node@20.4.5):
+  /@microsoft/api-extractor-model@7.27.5(@types/node@20.4.6):
     resolution: {integrity: sha512-9/tBzYMJitR+o+zkPr1lQh2+e8ClcaTF6eZo7vZGDqRt2O5XmXWPbYJZmxyM3wb5at6lfJNEeGZrQXLjsQ0Nbw==}
     dependencies:
       '@microsoft/tsdoc': 0.14.2
       '@microsoft/tsdoc-config': 0.16.2
-      '@rushstack/node-core-library': 3.59.6(@types/node@20.4.5)
+      '@rushstack/node-core-library': 3.59.6(@types/node@20.4.6)
     transitivePeerDependencies:
       - '@types/node'
 
-  /@microsoft/api-extractor@7.36.3(@types/node@20.4.5):
+  /@microsoft/api-extractor@7.36.3(@types/node@20.4.6):
     resolution: {integrity: sha512-u0H6362AQq+r55X8drHx4npgkrCfJnMzRRHfQo8PMNKB8TcBnrTLfXhXWi+xnTM6CzlU/netEN8c4bq581Rnrg==}
     hasBin: true
     dependencies:
-      '@microsoft/api-extractor-model': 7.27.5(@types/node@20.4.5)
+      '@microsoft/api-extractor-model': 7.27.5(@types/node@20.4.6)
       '@microsoft/tsdoc': 0.14.2
       '@microsoft/tsdoc-config': 0.16.2
-      '@rushstack/node-core-library': 3.59.6(@types/node@20.4.5)
+      '@rushstack/node-core-library': 3.59.6(@types/node@20.4.6)
       '@rushstack/rig-package': 0.4.0
       '@rushstack/ts-command-line': 4.15.1
       colors: 1.2.5
@@ -1885,13 +1928,13 @@ packages:
       '@alexaegis/fs': 0.5.2
       '@alexaegis/logging': 0.5.2
       '@alexaegis/workspace-tools': 0.5.2
-      '@types/node': 20.4.5
+      '@types/node': 20.4.6
       globby: 13.2.2
-      prettier: 3.0.0
+      prettier: 3.0.1
       rollup: 3.27.0
-      ts-node: 10.9.1(@types/node@20.4.5)(typescript@5.1.6)
+      ts-node: 10.9.1(@types/node@20.4.6)(typescript@5.1.6)
       typescript: 5.1.6
-      vite: 4.4.8(@types/node@20.4.5)
+      vite: 4.4.8(@types/node@20.4.6)
     transitivePeerDependencies:
       - '@swc/core'
       - '@swc/wasm'
@@ -2022,7 +2065,7 @@ packages:
     resolution: {integrity: sha512-V+MvGwaHH03hYhY+k6Ef/xKd6RYlc4q8WBx+2ANmipHJcKuktNcI/NgEsJgdSUF6Lw32njT6OnrRsKYCdgHjYw==}
     dev: true
 
-  /@rushstack/node-core-library@3.59.6(@types/node@20.4.5):
+  /@rushstack/node-core-library@3.59.6(@types/node@20.4.6):
     resolution: {integrity: sha512-bMYJwNFfWXRNUuHnsE9wMlW/mOB4jIwSUkRKtu02CwZhQdmzMsUbxE0s1xOLwTpNIwlzfW/YT7OnOHgDffLgYg==}
     peerDependencies:
       '@types/node': '*'
@@ -2030,7 +2073,7 @@ packages:
       '@types/node':
         optional: true
     dependencies:
-      '@types/node': 20.4.5
+      '@types/node': 20.4.6
       colors: 1.2.5
       fs-extra: 7.0.1
       import-lazy: 4.0.0
@@ -2155,7 +2198,7 @@ packages:
       sirv: 2.0.3
       svelte: 4.1.2
       undici: 5.22.1
-      vite: 4.4.8(@types/node@20.4.5)
+      vite: 4.4.8(@types/node@20.4.6)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -2188,7 +2231,7 @@ packages:
       '@sveltejs/vite-plugin-svelte': 2.4.3(svelte@4.1.2)(vite@4.4.8)
       debug: 4.3.4
       svelte: 4.1.2
-      vite: 4.4.8(@types/node@20.4.5)
+      vite: 4.4.8(@types/node@20.4.6)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -2207,7 +2250,7 @@ packages:
       magic-string: 0.30.2
       svelte: 4.1.2
       svelte-hmr: 0.15.2(svelte@4.1.2)
-      vite: 4.4.8(@types/node@20.4.5)
+      vite: 4.4.8(@types/node@20.4.6)
       vitefu: 0.2.4(vite@4.4.8)
     transitivePeerDependencies:
       - supports-color
@@ -2343,8 +2386,8 @@ packages:
     resolution: {integrity: sha512-xlR1jahfizdplZYRU59JlUx9uzF1ARa8jbhM11ccpCJya8kvos5jwdm2ZAgxSCwOl0fq21svP18EVwPBXMQudw==}
     dev: true
 
-  /@types/node@20.4.5:
-    resolution: {integrity: sha512-rt40Nk13II9JwQBdeYqmbn2Q6IVTA5uPhvSO+JVqdXw/6/4glI6oR9ezty/A9Hg5u7JH4OmYmuQ+XvjKm0Datg==}
+  /@types/node@20.4.6:
+    resolution: {integrity: sha512-q0RkvNgMweWWIvSMDiXhflGUKMdIxBo2M2tYM/0kEGDueQByFzK4KZAgu5YHGFNxziTlppNpTIBcqHQAxlfHdA==}
 
   /@types/normalize-package-data@2.4.1:
     resolution: {integrity: sha512-Gj7cI7z+98M282Tqmp2K5EIsoouUEzbBJhQQzDE3jSIRk6r9gsz0oUokqIUR4u1R3dMHo0pDHM7sNOHyhulypw==}
@@ -3568,22 +3611,6 @@ packages:
       typedarray: 0.0.6
     dev: true
 
-  /concurrently@8.2.0:
-    resolution: {integrity: sha512-nnLMxO2LU492mTUj9qX/az/lESonSZu81UznYDoXtz1IQf996ixVqPAgHXwvHiHCAef/7S8HIK+fTFK7Ifk8YA==}
-    engines: {node: ^14.13.0 || >=16.0.0}
-    hasBin: true
-    dependencies:
-      chalk: 4.1.2
-      date-fns: 2.30.0
-      lodash: 4.17.21
-      rxjs: 7.8.1
-      shell-quote: 1.8.1
-      spawn-command: 0.0.2
-      supports-color: 8.1.1
-      tree-kill: 1.2.2
-      yargs: 17.7.2
-    dev: true
-
   /config-chain@1.1.13:
     resolution: {integrity: sha512-qj+f8APARXHrM0hraqXYb2/bOVSV4PvJQlNZ/DVj0QrmNM2q2euizkeuVckQ57J+W0mRH6Hvi+k50M4Jul2VRQ==}
     dependencies:
@@ -3730,7 +3757,7 @@ packages:
     dependencies:
       conventional-commits-filter: 2.0.7
       dateformat: 3.0.3
-      handlebars: 4.7.7
+      handlebars: 4.7.8
       json-stringify-safe: 5.0.1
       lodash: 4.17.21
       meow: 8.1.2
@@ -3823,7 +3850,7 @@ packages:
     resolution: {integrity: sha512-ZQBvi1DcpJ4GDqanjucZ2Hj3wEO5pZDS89BWbkcrvdxksJorwUDDZamX9ldFkp9aw2lmBDLgkObEA4DWNJ9FYQ==}
     dev: true
 
-  /cosmiconfig-typescript-loader@4.4.0(@types/node@20.4.5)(cosmiconfig@8.2.0)(ts-node@10.9.1)(typescript@5.1.6):
+  /cosmiconfig-typescript-loader@4.4.0(@types/node@20.4.6)(cosmiconfig@8.2.0)(ts-node@10.9.1)(typescript@5.1.6):
     resolution: {integrity: sha512-BabizFdC3wBHhbI4kJh0VkQP9GkBfoHPydD0COMce1nJ1kJAB3F2TmJ/I7diULBKtmEWSwEbuN/KDtgnmUUVmw==}
     engines: {node: '>=v14.21.3'}
     peerDependencies:
@@ -3832,9 +3859,9 @@ packages:
       ts-node: '>=10'
       typescript: '>=4'
     dependencies:
-      '@types/node': 20.4.5
+      '@types/node': 20.4.6
       cosmiconfig: 8.2.0
-      ts-node: 10.9.1(@types/node@20.4.5)(typescript@5.1.6)
+      ts-node: 10.9.1(@types/node@20.4.6)(typescript@5.1.6)
       typescript: 5.1.6
     dev: true
 
@@ -3921,13 +3948,6 @@ packages:
       whatwg-url: 12.0.1
     dev: true
 
-  /date-fns@2.30.0:
-    resolution: {integrity: sha512-fnULvOpxnC5/Vg3NCiWelDsLiUc9bRwAPs/+LfTLNvetFCtCTN+yQz15C/fs4AwX1R9K5GLtLfn8QW+dWisaAw==}
-    engines: {node: '>=0.11'}
-    dependencies:
-      '@babel/runtime': 7.22.6
-    dev: true
-
   /dateformat@3.0.3:
     resolution: {integrity: sha512-jyCETtSl3VMZMWeRo7iY1FL19ges1t55hMo5yaam4Jrsm5EPL89UQkoQRyiI+Yf4k8r2ZpdngkV8hr1lIdjb3Q==}
     dev: true
@@ -3935,7 +3955,7 @@ packages:
   /de-indent@1.0.2:
     resolution: {integrity: sha512-e/1zu3xH5MQryN2zdVaF0OrdNLUbvWxzMbi+iNA6Bky7l1RoP8a2fIbRocyHclXt/arDrrR6lL3TqFD9pMQTsg==}
 
-  /debug@3.2.7(supports-color@5.5.0):
+  /debug@3.2.7:
     resolution: {integrity: sha512-CFjzYYAi4ThfiQvizrFQevTTXHtnCqWfe7x1AhgEscTz6ZbLbfoLRLPugTQyBth6f8ZERVUSyWHFD/7Wu4t1XQ==}
     peerDependencies:
       supports-color: '*'
@@ -3944,7 +3964,6 @@ packages:
         optional: true
     dependencies:
       ms: 2.1.3
-      supports-color: 5.5.0
     dev: true
 
   /debug@4.3.4:
@@ -4420,8 +4439,8 @@ packages:
       - supports-color
     dev: true
 
-  /eslint-config-prettier@8.9.0(eslint@8.46.0):
-    resolution: {integrity: sha512-+sbni7NfVXnOpnRadUA8S28AUlsZt9GjgFvABIRL9Hkn8KqNzOp+7Lw4QWtrwn20KzU3wqu1QoOj2m+7rKRqkA==}
+  /eslint-config-prettier@8.10.0(eslint@8.46.0):
+    resolution: {integrity: sha512-SM8AMJdeQqRYT9O9zguiruQZaN7+z+E4eAP9oiLNGKMtomwaB1E9dcgUD6ZAn/eQAb52USbvezbiljfZUhbJcg==}
     hasBin: true
     peerDependencies:
       eslint: '>=7.0.0'
@@ -4441,7 +4460,7 @@ packages:
   /eslint-import-resolver-node@0.3.7:
     resolution: {integrity: sha512-gozW2blMLJCeFpBwugLTGyvVjNoeo1knonXAcatC6bjPBZitotxdWf7Gimr25N4c0AAOo4eOUfaG82IJPDpqCA==}
     dependencies:
-      debug: 3.2.7(supports-color@5.5.0)
+      debug: 3.2.7
       is-core-module: 2.12.1
       resolve: 1.22.2
     transitivePeerDependencies:
@@ -4494,7 +4513,7 @@ packages:
         optional: true
     dependencies:
       '@typescript-eslint/parser': 5.62.0(eslint@8.46.0)(typescript@5.1.6)
-      debug: 3.2.7(supports-color@5.5.0)
+      debug: 3.2.7
       eslint: 8.46.0
       eslint-import-resolver-node: 0.3.7
       eslint-import-resolver-typescript: 3.5.5(@typescript-eslint/parser@5.62.0)(eslint-import-resolver-node@0.3.7)(eslint-plugin-import@2.28.0)(eslint@8.46.0)
@@ -4517,7 +4536,7 @@ packages:
       array.prototype.findlastindex: 1.2.2
       array.prototype.flat: 1.3.1
       array.prototype.flatmap: 1.3.1
-      debug: 3.2.7(supports-color@5.5.0)
+      debug: 3.2.7
       doctrine: 2.1.0
       eslint: 8.46.0
       eslint-import-resolver-node: 0.3.7
@@ -5333,8 +5352,8 @@ packages:
     resolution: {integrity: sha512-EtKwoO6kxCL9WO5xipiHTZlSzBm7WLT627TqC/uVRd0HKmq8NXyebnNYxDoBi7wt8eTWrUrKXCOVaFq9x1kgag==}
     dev: true
 
-  /handlebars@4.7.7:
-    resolution: {integrity: sha512-aAcXm5OAfE/8IXkcZvCepKU3VzW1/39Fb5ZuqMtgI/hT8X2YgoMvBY5dLhq/cpOvw7Lk1nK/UF71aLG/ZnVYRA==}
+  /handlebars@4.7.8:
+    resolution: {integrity: sha512-vafaFqs8MZkRrSX7sFVUdo3ap/eNiLnb4IakshzvP56X5Nr1iGKAIqdX6tMlm6HcNRIkr6AxO5jFEoJzzpT8aQ==}
     engines: {node: '>=0.4.7'}
     hasBin: true
     dependencies:
@@ -5519,10 +5538,6 @@ packages:
       safer-buffer: 2.1.2
     dev: true
 
-  /ignore-by-default@1.0.1:
-    resolution: {integrity: sha512-Ius2VYcGNk7T90CppJqcIkS5ooHUZyIQK+ClZfMfMNFEF9VSE73Fq+906u/CWu92x4gzZMWOwfFYckPObzdEbA==}
-    dev: true
-
   /ignore-walk@5.0.1:
     resolution: {integrity: sha512-yemi4pMf51WKT7khInJqAvsIGzoqYXblnsz0ql8tM+yi1EKYTY1evX4NAbJrLL/Aanr2HyZeluqU+Oi7MGHokw==}
     engines: {node: ^12.13.0 || ^14.15.0 || >=16.0.0}
@@ -5541,8 +5556,8 @@ packages:
     resolution: {integrity: sha512-MAb38BcSbH0eHNBxn7ql2NH/kX33OkB3lZ1BNdh7ENeRChHTYsTvWrMubiIAMNS2llXEEgZ1MUOBtXChP3kaFQ==}
     engines: {node: '>= 4'}
 
-  /immutable@4.3.1:
-    resolution: {integrity: sha512-lj9cnmB/kVS0QHsJnYKD1uo3o39nrbKxszjnqS9Fr6NB7bZzW45U6WSGBPKXDL/CvDKqDNPA4r3DoDQ8GTxo2A==}
+  /immutable@4.3.2:
+    resolution: {integrity: sha512-oGXzbEDem9OOpDWZu88jGiYCvIsLHMvGw+8OXlpsvTFvIQplQbjg1B1cvKg8f7Hoch6+NGjpPsH1Fr+Mc2D1aA==}
     dev: true
 
   /import-fresh@3.3.0:
@@ -7179,30 +7194,6 @@ packages:
       - supports-color
     dev: true
 
-  /nodemon@3.0.1:
-    resolution: {integrity: sha512-g9AZ7HmkhQkqXkRc20w+ZfQ73cHLbE8hnPbtaFbFtCumZsjyMhKk9LajQ07U5Ux28lvFjZ5X7HvWR1xzU8jHVw==}
-    engines: {node: '>=10'}
-    hasBin: true
-    dependencies:
-      chokidar: 3.5.3
-      debug: 3.2.7(supports-color@5.5.0)
-      ignore-by-default: 1.0.1
-      minimatch: 3.1.2
-      pstree.remy: 1.1.8
-      semver: 7.5.4
-      simple-update-notifier: 2.0.0
-      supports-color: 5.5.0
-      touch: 3.1.0
-      undefsafe: 2.0.5
-    dev: true
-
-  /nopt@1.0.10:
-    resolution: {integrity: sha512-NWmpvLSqUrgrAC9HCuxEvb+PSloHpqVu+FqcO4eeF2h5qYRhA7ev6KvelyQAKtegUbC6RypJnlEOhd8vloNKYg==}
-    hasBin: true
-    dependencies:
-      abbrev: 1.1.1
-    dev: true
-
   /nopt@5.0.0:
     resolution: {integrity: sha512-Tbj67rffqceeLpcRXrT7vKAN8CwfPeIBgM7E6iBkmKLV7bEMwpGgYLGv0jACUsECaa/vuxP0IjEont6umdMgtQ==}
     engines: {node: '>=6'}
@@ -7834,7 +7825,7 @@ packages:
     dependencies:
       lilconfig: 2.1.0
       postcss: 8.4.27
-      ts-node: 10.9.1(@types/node@20.4.5)(typescript@5.1.6)
+      ts-node: 10.9.1(@types/node@20.4.6)(typescript@5.1.6)
       yaml: 1.10.2
     dev: true
 
@@ -7896,17 +7887,17 @@ packages:
       fast-diff: 1.3.0
     dev: true
 
-  /prettier-plugin-svelte@3.0.3(prettier@3.0.0)(svelte@4.1.2):
+  /prettier-plugin-svelte@3.0.3(prettier@3.0.1)(svelte@4.1.2):
     resolution: {integrity: sha512-dLhieh4obJEK1hnZ6koxF+tMUrZbV5YGvRpf2+OADyanjya5j0z1Llo8iGwiHmFWZVG/hLEw/AJD5chXd9r3XA==}
     peerDependencies:
       prettier: ^3.0.0
       svelte: ^3.2.0 || ^4.0.0-next.0
     dependencies:
-      prettier: 3.0.0
+      prettier: 3.0.1
       svelte: 4.1.2
     dev: true
 
-  /prettier-plugin-tailwindcss@0.4.1(prettier-plugin-svelte@3.0.3)(prettier@3.0.0):
+  /prettier-plugin-tailwindcss@0.4.1(prettier-plugin-svelte@3.0.3)(prettier@3.0.1):
     resolution: {integrity: sha512-hwn2EiJmv8M+AW4YDkbjJ6HlZCTzLyz1QlySn9sMuKV/Px0fjwldlB7tol8GzdgqtkdPtzT3iJ4UzdnYXP25Ag==}
     engines: {node: '>=12.17.0'}
     peerDependencies:
@@ -7958,12 +7949,12 @@ packages:
       prettier-plugin-twig-melody:
         optional: true
     dependencies:
-      prettier: 3.0.0
-      prettier-plugin-svelte: 3.0.3(prettier@3.0.0)(svelte@4.1.2)
+      prettier: 3.0.1
+      prettier-plugin-svelte: 3.0.3(prettier@3.0.1)(svelte@4.1.2)
     dev: true
 
-  /prettier@3.0.0:
-    resolution: {integrity: sha512-zBf5eHpwHOGPC47h0zrPyNn+eAEIdEzfywMoYn2XPi0P44Zp0tSq64rq0xAREh4auw2cJZHo9QUob+NqCQky4g==}
+  /prettier@3.0.1:
+    resolution: {integrity: sha512-fcOWSnnpCrovBsmFZIGIy9UqK2FaI7Hqax+DIO0A9UxeVoY4iweyaFjS5TavZN97Hfehph0nhsZnjlVKzEQSrQ==}
     engines: {node: '>=14'}
     hasBin: true
 
@@ -8035,10 +8026,6 @@ packages:
 
   /psl@1.9.0:
     resolution: {integrity: sha512-E/ZsdU4HLs/68gYzgGTkMicWTLPdAftJLfJFlLUAAKZGkStNU72sZjT66SnMDVOfOWY/YAoiD7Jxa9iHvngcag==}
-    dev: true
-
-  /pstree.remy@1.1.8:
-    resolution: {integrity: sha512-77DZwxQmxKnu3aR542U+X8FypNzbfJ+C5XQDk3uWjWxn6151aIMGthWYRXTqT1E5oJvg+ljaa2OJi+VfvCOQ8w==}
     dev: true
 
   /publint@0.2.0:
@@ -8968,13 +8955,13 @@ packages:
       - supports-color
     dev: true
 
-  /remark-preset-prettier@2.0.1(prettier@3.0.0):
+  /remark-preset-prettier@2.0.1(prettier@3.0.1):
     resolution: {integrity: sha512-1+cZaM080zTlhQIvZDOj7SFWvW9zevfxsLjTZspLEsBYivMDwCyTodvNvaZLc9p5dUSMik/BjMFKicfhZXh7qg==}
     engines: {node: '>=14.8'}
     peerDependencies:
       prettier: '>=1.0.0'
     dependencies:
-      prettier: 3.0.0
+      prettier: 3.0.1
     dev: true
 
   /remark-stringify@10.0.3:
@@ -9224,7 +9211,7 @@ packages:
     hasBin: true
     dependencies:
       chokidar: 3.5.3
-      immutable: 4.3.1
+      immutable: 4.3.2
       source-map-js: 1.0.2
     dev: true
 
@@ -9303,10 +9290,6 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /shell-quote@1.8.1:
-    resolution: {integrity: sha512-6j1W9l1iAs/4xYBI1SYOVZyFcCis9b4KCLQ8fgAGG07QvzaRLVVRQvAy85yNmmZSjYjg4MWh4gNvlPujU/5LpA==}
-    dev: true
-
   /shiki@0.14.3:
     resolution: {integrity: sha512-U3S/a+b0KS+UkTyMjoNojvTgrBHjgp7L6ovhFVZsXmBGnVdQ4K4U9oK0z63w538S91ATngv1vXigHCSWOwnr+g==}
     dependencies:
@@ -9348,13 +9331,6 @@ packages:
       make-fetch-happen: 11.1.1
     transitivePeerDependencies:
       - supports-color
-    dev: true
-
-  /simple-update-notifier@2.0.0:
-    resolution: {integrity: sha512-a2B9Y0KlNXl9u/vsW6sTIu9vGEpfKu2wRV6l1H3XEas/0gUIzGzBoP/IouTcUQbm9JWZLH3COxyn03TYlFax6w==}
-    engines: {node: '>=10'}
-    dependencies:
-      semver: 7.5.4
     dev: true
 
   /sirv@2.0.3:
@@ -9453,10 +9429,6 @@ packages:
   /source-map@0.6.1:
     resolution: {integrity: sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g==}
     engines: {node: '>=0.10.0'}
-
-  /spawn-command@0.0.2:
-    resolution: {integrity: sha512-zC8zGoGkmc8J9ndvml8Xksr1Amk9qBujgbF0JAIWO7kXr43w0h/0GJNM/Vustixu+YE8N/MTrQ7N31FvHUACxQ==}
-    dev: true
 
   /spawn-please@2.0.1:
     resolution: {integrity: sha512-W+cFbZR2q2mMTfjz5ZGvhBAiX+e/zczFCNlbS9mxiSdYswBXwUuBUT+a0urH+xZZa8f/bs0mXHyZsZHR9hKogA==}
@@ -9649,8 +9621,8 @@ packages:
     engines: {node: '>=14.16'}
     dev: true
 
-  /strip-literal@1.0.1:
-    resolution: {integrity: sha512-QZTsipNpa2Ppr6v1AmJHESqJ3Uz247MUS0OjrnnZjFAvEoWqxuyFuXn2xLgMtRnijJShAa1HL0gtJyUs7u7n3Q==}
+  /strip-literal@1.3.0:
+    resolution: {integrity: sha512-PugKzOsyXpArk0yWmUwqOZecSO0GH0bPoctLcqNDH9J04pVW3lflYE0ujElBGTloevcxF5MofAOZ7C5l2b+wLg==}
     dependencies:
       acorn: 8.10.0
     dev: true
@@ -9808,13 +9780,6 @@ packages:
   /supports-color@7.2.0:
     resolution: {integrity: sha512-qpCAvRl9stuOHveKsn7HncJRvv501qIacKzQlO/+Lwxc9+0q2wLyv4Dfvt80/DPn2pqOBsJdDiogXGR9+OvwRw==}
     engines: {node: '>=8'}
-    dependencies:
-      has-flag: 4.0.0
-    dev: true
-
-  /supports-color@8.1.1:
-    resolution: {integrity: sha512-MpUEN2OodtUzxvKQl72cUF7RQ5EiHsGvSsVG0ia9c5RbWGL2CI4C7EpPS8UTBIplnlzZiNuV56w+FuNxy3ty2Q==}
-    engines: {node: '>=10'}
     dependencies:
       has-flag: 4.0.0
     dev: true
@@ -10087,13 +10052,6 @@ packages:
     engines: {node: '>=6'}
     dev: true
 
-  /touch@3.1.0:
-    resolution: {integrity: sha512-WBx8Uy5TLtOSRtIq+M03/sKDrXCLHxwDcquSP2c43Le03/9serjQBIztjRz6FkJez9D/hleyAXTBGLwwZUw9lA==}
-    hasBin: true
-    dependencies:
-      nopt: 1.0.10
-    dev: true
-
   /tough-cookie@4.1.3:
     resolution: {integrity: sha512-aX/y5pVRkfRnfmuX+OdbSdXvPe6ieKX/G2s7e98f4poJHnqH3281gDPm/metm6E/WRamfx7WC4HUqkWHfQHprw==}
     engines: {node: '>=6'}
@@ -10113,11 +10071,6 @@ packages:
     engines: {node: '>=14'}
     dependencies:
       punycode: 2.3.0
-    dev: true
-
-  /tree-kill@1.2.2:
-    resolution: {integrity: sha512-L0Orpi8qGpRG//Nd+H90vFB+3iHnue1zSSGmNOOCh1GLJ7rUKVwV2HvijphGQS2UmhUZewS9VgvxYIdgr+fG1A==}
-    hasBin: true
     dev: true
 
   /trim-newlines@3.0.1:
@@ -10143,7 +10096,7 @@ packages:
       typescript: 5.1.6
     dev: true
 
-  /ts-node@10.9.1(@types/node@20.4.5)(typescript@5.1.6):
+  /ts-node@10.9.1(@types/node@20.4.6)(typescript@5.1.6):
     resolution: {integrity: sha512-NtVysVPkxxrwFGUUxGYhfux8k78pQB3JqYBXlLRZgdGUqTO5wU/UyHop5p70iEbGhB7q5KmiZiU0Y3KlJrScEw==}
     hasBin: true
     peerDependencies:
@@ -10162,7 +10115,7 @@ packages:
       '@tsconfig/node12': 1.0.11
       '@tsconfig/node14': 1.0.3
       '@tsconfig/node16': 1.0.4
-      '@types/node': 20.4.5
+      '@types/node': 20.4.6
       acorn: 8.10.0
       acorn-walk: 8.2.0
       arg: 4.1.3
@@ -10425,10 +10378,6 @@ packages:
       which-boxed-primitive: 1.0.2
     dev: true
 
-  /undefsafe@2.0.5:
-    resolution: {integrity: sha512-WxONCrssBM8TSPRqN5EmsjVrsv4A8X12J4ArBiiayv3DyyG3ZlIg6yysuuSYdZsVz3TKcTg2fd//Ujd4CHV1iA==}
-    dev: true
-
   /undici@5.22.1:
     resolution: {integrity: sha512-Ji2IJhFXZY0x/0tVBXeQwgPlLWw13GVzpsWPQ3rV50IFMMof2I55PZZxtm4P6iNq+L5znYN9nSTAq0ZyE6lSJw==}
     engines: {node: '>=14.0'}
@@ -10510,12 +10459,12 @@ packages:
       vfile-message: 3.1.4
     dev: true
 
-  /unified-prettier@1.0.2(prettier@3.0.0):
+  /unified-prettier@1.0.2(prettier@3.0.1):
     resolution: {integrity: sha512-Hal9mbA+X9cRiVc3SPKo7L2cL1/PIdYxA2XX93iQVDs1uAVLjFaS/Qg4miFgBXypMrgXWclBU5c6+H9I0atjCw==}
     peerDependencies:
       prettier: ^3.0.0
     dependencies:
-      prettier: 3.0.0
+      prettier: 3.0.1
       unified: 10.1.2
     dev: true
 
@@ -10756,7 +10705,7 @@ packages:
       vfile-message: 3.1.4
     dev: true
 
-  /vite-node@0.34.1(@types/node@20.4.5):
+  /vite-node@0.34.1(@types/node@20.4.6):
     resolution: {integrity: sha512-odAZAL9xFMuAg8aWd7nSPT+hU8u2r9gU3LRm9QKjxBEF2rRdWpMuqkrkjvyVQEdNFiBctqr2Gg4uJYizm5Le6w==}
     engines: {node: '>=v14.18.0'}
     hasBin: true
@@ -10766,7 +10715,7 @@ packages:
       mlly: 1.4.0
       pathe: 1.1.1
       picocolors: 1.0.0
-      vite: 4.4.8(@types/node@20.4.5)
+      vite: 4.4.8(@types/node@20.4.6)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -10778,7 +10727,7 @@ packages:
       - terser
     dev: true
 
-  /vite-plugin-dts@3.4.0(@types/node@20.4.5)(rollup@3.27.0)(typescript@5.1.6)(vite@4.4.8):
+  /vite-plugin-dts@3.4.0(@types/node@20.4.6)(rollup@3.27.0)(typescript@5.1.6)(vite@4.4.8):
     resolution: {integrity: sha512-B5UbhiF83hPlJpdri3k2FlseO2qIQfY95XJib7z1s8NTQKgPK+KgeuOQf8FR1hnE/pSU+RA3ra2T18HvymPDyA==}
     engines: {node: ^14.18.0 || >=16.0.0}
     peerDependencies:
@@ -10788,13 +10737,13 @@ packages:
       vite:
         optional: true
     dependencies:
-      '@microsoft/api-extractor': 7.36.3(@types/node@20.4.5)
+      '@microsoft/api-extractor': 7.36.3(@types/node@20.4.6)
       '@rollup/pluginutils': 5.0.2(rollup@3.27.0)
       '@vue/language-core': 1.8.8(typescript@5.1.6)
       debug: 4.3.4
       kolorist: 1.8.0
       typescript: 5.1.6
-      vite: 4.4.8(@types/node@20.4.5)
+      vite: 4.4.8(@types/node@20.4.6)
       vue-tsc: 1.8.8(typescript@5.1.6)
     transitivePeerDependencies:
       - '@types/node'
@@ -10809,12 +10758,12 @@ packages:
       '@alexaegis/fs': 0.5.2
       '@alexaegis/workspace-tools': 0.5.2
       '@pakk/core': 0.5.0
-      '@types/node': 20.4.5
-      prettier: 3.0.0
-      ts-node: 10.9.1(@types/node@20.4.5)(typescript@5.1.6)
+      '@types/node': 20.4.6
+      prettier: 3.0.1
+      ts-node: 10.9.1(@types/node@20.4.6)(typescript@5.1.6)
       typescript: 5.1.6
-      vite: 4.4.8(@types/node@20.4.5)
-      vite-plugin-dts: 3.4.0(@types/node@20.4.5)(rollup@3.27.0)(typescript@5.1.6)(vite@4.4.8)
+      vite: 4.4.8(@types/node@20.4.6)
+      vite-plugin-dts: 3.4.0(@types/node@20.4.6)(rollup@3.27.0)(typescript@5.1.6)(vite@4.4.8)
     transitivePeerDependencies:
       - '@swc/core'
       - '@swc/wasm'
@@ -10828,7 +10777,7 @@ packages:
       - terser
     dev: true
 
-  /vite@4.4.8(@types/node@20.4.5):
+  /vite@4.4.8(@types/node@20.4.6):
     resolution: {integrity: sha512-LONawOUUjxQridNWGQlNizfKH89qPigK36XhMI7COMGztz8KNY0JHim7/xDd71CZwGT4HtSRgI7Hy+RlhG0Gvg==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
@@ -10856,7 +10805,7 @@ packages:
       terser:
         optional: true
     dependencies:
-      '@types/node': 20.4.5
+      '@types/node': 20.4.6
       esbuild: 0.18.17
       postcss: 8.4.27
       rollup: 3.27.0
@@ -10871,7 +10820,7 @@ packages:
       vite:
         optional: true
     dependencies:
-      vite: 4.4.8(@types/node@20.4.5)
+      vite: 4.4.8(@types/node@20.4.6)
     dev: true
 
   /vitest@0.34.1(@vitest/ui@0.34.1)(jsdom@22.1.0):
@@ -10907,7 +10856,7 @@ packages:
     dependencies:
       '@types/chai': 4.3.5
       '@types/chai-subset': 1.3.3
-      '@types/node': 20.4.5
+      '@types/node': 20.4.6
       '@vitest/expect': 0.34.1
       '@vitest/runner': 0.34.1
       '@vitest/snapshot': 0.34.1
@@ -10925,11 +10874,11 @@ packages:
       pathe: 1.1.1
       picocolors: 1.0.0
       std-env: 3.3.3
-      strip-literal: 1.0.1
+      strip-literal: 1.3.0
       tinybench: 2.5.0
       tinypool: 0.7.0
-      vite: 4.4.8(@types/node@20.4.5)
-      vite-node: 0.34.1(@types/node@20.4.5)
+      vite: 4.4.8(@types/node@20.4.6)
+      vite-node: 0.34.1(@types/node@20.4.6)
       why-is-node-running: 2.2.2
     transitivePeerDependencies:
       - less
