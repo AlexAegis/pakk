@@ -117,9 +117,8 @@ export const pakk = (rawOptions?: PakkOptions): Plugin[] => {
 			const startTime = performance.now();
 
 			await asyncFilterMap(pakk.getTargetPackageJsonKinds(), async (packageJsonTarget) => {
-				const { updatedPackageJson, path } = await pakk.createUpdatedPackageJson(
-					packageJsonTarget,
-				);
+				const { updatedPackageJson, path } =
+					await pakk.createUpdatedPackageJson(packageJsonTarget);
 
 				options.logger.info('writing updated package.json to', path);
 
