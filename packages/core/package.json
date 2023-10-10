@@ -58,27 +58,27 @@
 		"./readme": "./readme.md"
 	},
 	"dependencies": {
-		"@alexaegis/common": "^0.7.0",
-		"@alexaegis/fs": "^0.7.0",
-		"@alexaegis/logging": "^0.7.0",
-		"@alexaegis/workspace-tools": "^0.7.0",
-		"@types/node": "^20.5.7",
+		"@alexaegis/common": "^0.7.1",
+		"@alexaegis/fs": "^0.7.1",
+		"@alexaegis/logging": "^0.7.1",
+		"@alexaegis/workspace-tools": "^0.7.1",
+		"@types/node": "^20.8.4",
 		"globby": "^13.2.2",
 		"prettier": "^3.0.3",
-		"rollup": "^3.28.1",
+		"rollup": "^4.0.2",
 		"ts-node": "^10.9.1",
 		"typescript": "^5.2.2",
-		"vite": "^4.4.9"
+		"vite": "^4.4.11"
 	},
 	"devDependencies": {
-		"@alexaegis/eslint-config-vitest": "^0.8.0",
-		"@alexaegis/ts": "^0.8.0",
-		"@alexaegis/vite": "^0.8.0",
-		"@alexaegis/vitest": "^0.8.0",
-		"@types/node": "^20.5.7",
-		"@types/yargs": "^17.0.24",
-		"publint": "^0.2.2",
-		"vite": "^4.4.9",
-		"vitest": "^0.34.3"
+		"@alexaegis/eslint-config-vitest": "^0.8.3",
+		"@alexaegis/ts": "^0.8.3",
+		"@alexaegis/vite": "^0.8.3",
+		"@alexaegis/vitest": "^0.8.3",
+		"@types/node": "^20.8.4",
+		"@types/yargs": "^17.0.28",
+		"publint": "^0.2.4",
+		"vite": "^4.4.11",
+		"vitest": "^0.34.6"
 	}
 }
