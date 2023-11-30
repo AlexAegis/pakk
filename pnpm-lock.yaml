@@ -280,7 +280,7 @@ importers:
         specifier: ^0.7.3
         version: 0.7.3
       '@pakk/core':
-        specifier: ^0.7.0
+        specifier: ^0.8.0
         version: link:../core
       '@types/node':
         specifier: ^20.10.1
@@ -320,7 +320,7 @@ importers:
         specifier: ^0.2.5
         version: 0.2.5
       vite-plugin-pakk:
-        specifier: ^0.7.0
+        specifier: ^0.8.0
         version: link:../vite-plugin
       vitest:
         specifier: ^0.34.6
@@ -396,7 +396,7 @@ importers:
         specifier: ^0.7.3
         version: 0.7.3
       '@pakk/core':
-        specifier: ^0.7.0
+        specifier: ^0.8.0
         version: link:../core
       '@types/node':
         specifier: ^20.10.1
