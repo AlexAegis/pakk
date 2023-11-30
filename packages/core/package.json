@@ -24,8 +24,6 @@
 		"access": "public"
 	},
 	"scripts": {
-		"build": "turbo run build-lib_ --concurrency 16 --cache-dir .cache/turbo --filter @pakk/core",
-		"build-lib_": "vite build",
 		"lint:depcheck": "turbo run lint:depcheck_ --concurrency 16 --cache-dir .cache/turbo --filter @pakk/core",
 		"lint:depcheck_": "depcheck",
 		"lint:es": "turbo run lint:es_ --concurrency 16 --cache-dir .cache/turbo --filter @pakk/core",
@@ -38,15 +36,17 @@
 		"lint:tsc_": "tsc --noEmit",
 		"publint": "BUILD_REASON='publish' turbo run publint_ --concurrency 16 --cache-dir .cache/turbo --filter @pakk/core",
 		"publint_": "publint dist",
+		"test": "turbo run test_ --concurrency 16 --cache-dir .cache/turbo --filter @pakk/core",
+		"test_": "vitest --passWithNoTests --coverage --run",
+		"test:watch": "vitest --passWithNoTests --coverage",
 		"all": "BUILD_REASON='publish' turbo run all_ --concurrency 16 --cache-dir .cache/turbo --filter @pakk/core",
+		"build": "turbo run build-lib_ --concurrency 16 --cache-dir .cache/turbo --filter @pakk/core",
+		"build-lib_": "vite build",
 		"format": "turbo run format_ --concurrency 16 --cache-dir .cache/turbo --filter @pakk/core",
 		"format_": "prettier --cache-location .cache/prettier --plugin prettier-plugin-svelte --plugin prettier-plugin-tailwindcss --write .",
 		"imnotworking:pakk:asd": "echo This line should make a warning during build",
 		"postinstall": "echo I should not run for other people # pakk:not-distributed",
-		"prebuild_": "vite build --config vite-prebuild.config.ts",
-		"test": "turbo run test_ --concurrency 16 --cache-dir .cache/turbo --filter @pakk/core",
-		"test_": "vitest --passWithNoTests --coverage --run",
-		"test:watch": "vitest --passWithNoTests --coverage"
+		"prebuild_": "vite build --config vite-prebuild.config.ts"
 	},
 	"exports": {
 		".": {
@@ -58,27 +58,27 @@
 		"./readme": "./readme.md"
 	},
 	"dependencies": {
-		"@alexaegis/common": "^0.7.1",
-		"@alexaegis/fs": "^0.7.1",
-		"@alexaegis/logging": "^0.7.1",
-		"@alexaegis/workspace-tools": "^0.7.1",
-		"@types/node": "^20.8.4",
-		"globby": "^13.2.2",
-		"prettier": "^3.0.3",
-		"rollup": "^4.0.2",
+		"@alexaegis/common": "^0.7.3",
+		"@alexaegis/fs": "^0.7.3",
+		"@alexaegis/logging": "^0.7.3",
+		"@alexaegis/workspace-tools": "^0.7.3",
+		"@types/node": "^20.10.1",
+		"globby": "^14.0.0",
+		"prettier": "^3.1.0",
+		"rollup": "^4.6.1",
 		"ts-node": "^10.9.1",
-		"typescript": "^5.2.2",
-		"vite": "^4.4.11"
+		"typescript": "^5.3.2",
+		"vite": "^5.0.4"
 	},
 	"devDependencies": {
-		"@alexaegis/eslint-config-vitest": "^0.8.3",
-		"@alexaegis/ts": "^0.8.3",
-		"@alexaegis/vite": "^0.8.3",
-		"@alexaegis/vitest": "^0.8.3",
-		"@types/node": "^20.8.4",
-		"@types/yargs": "^17.0.28",
-		"publint": "^0.2.4",
-		"vite": "^4.4.11",
+		"@alexaegis/eslint-config-vitest": "^0.8.4",
+		"@alexaegis/ts": "^0.8.4",
+		"@alexaegis/vite": "^0.8.4",
+		"@alexaegis/vitest": "^0.8.4",
+		"@types/node": "^20.10.1",
+		"@types/yargs": "^17.0.32",
+		"publint": "^0.2.5",
+		"vite": "^5.0.4",
 		"vitest": "^0.34.6"
 	}
 }

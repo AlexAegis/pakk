@@ -1,10 +1,10 @@
-import { YargsBuilder, yargsForDryOption } from '@alexaegis/cli-tools';
+import { defaultYargsFromPackageJson, yargsForDryOption } from '@alexaegis/cli-tools';
 import { createLogger } from '@alexaegis/logging';
 import type { PackageJson } from '@alexaegis/workspace-tools';
 import { createJsonSortingPreferenceNormalizer } from '@alexaegis/workspace-tools/sort';
 
 import { basename } from 'node:path';
-import { type Argv } from 'yargs';
+import yargs, { type Argv } from 'yargs';
 import packageJson from '../../package.json';
 
 import { sortJsonFile } from '../sort/index.js';
@@ -19,10 +19,11 @@ const yargsForSortJson = <T>(yargs: Argv<T>): Argv<T & { check: boolean }> => {
 	});
 };
 
-const yarguments = YargsBuilder.withDefaults(packageJson as PackageJson)
-	.add(yargsForSortJson)
-	.add(yargsForDryOption)
-	.build();
+const yarguments = yargsForDryOption(
+	yargsForSortJson(
+		defaultYargsFromPackageJson(packageJson as PackageJson)(yargs(process.argv.splice(2))),
+	),
+);
 
 void (async () => {
 	const options = await yarguments.parseAsync();

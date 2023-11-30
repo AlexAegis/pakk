@@ -1,13 +1,7 @@
-import {
-	ALL_VITE_LIBRARY_FORMATS,
-	PACKAGE_JSON_KIND,
-	pakkFeatures,
-	type PakkOptions,
-} from '@pakk/core';
+import { ALL_VITE_LIBRARY_FORMATS, PACKAGE_JSON_KIND, pakkFeatures } from '@pakk/core';
 import type { Argv } from 'yargs';
-import type { PakkStandaloneOptions } from './pakk-standalone-runner.function.options.js';
 
-export const yargsForPakk = <T>(yargs: Argv<T>): Argv<T & PakkOptions & PakkStandaloneOptions> => {
+export const yargsForPakk = (yargs: Argv<unknown>): Argv<unknown> => {
 	return yargs
 		.option('srcDir', {
 			description: 'Source root, relative to the package directory',
