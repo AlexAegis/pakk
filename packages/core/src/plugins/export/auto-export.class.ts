@@ -199,7 +199,7 @@ export class AutoExport implements PakkFeature {
 							: this.context.fileName(
 									this.context.primaryFormat,
 									extensionlessFileName,
-							  ),
+								),
 					);
 			}
 

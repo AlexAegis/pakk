@@ -213,11 +213,11 @@ export class Pakk {
 							'package.json',
 						),
 						this.options,
-				  )
+					)
 				: toAbsolute(
 						join(this.context.workspacePackage.packagePath, 'package.json'),
 						this.options,
-				  );
+					);
 
 		return { updatedPackageJson, path };
 	}
