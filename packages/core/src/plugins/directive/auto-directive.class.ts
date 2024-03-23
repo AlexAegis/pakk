@@ -6,7 +6,7 @@ import { type PackageJsonKindType } from '../../package-json/index.js';
 import type { PakkFeature } from '../pakk-feature.type.js';
 
 export const pakkDirectivePrefix = 'pakk:';
-export const pakkDirectiveNotDistributed = `${pakkDirectivePrefix}not-distributed` as const;
+export const pakkDirectiveNotDistributed = `${pakkDirectivePrefix}not-distributed`;
 export const everyPakkDirective = [pakkDirectiveNotDistributed] as const;
 
 /**

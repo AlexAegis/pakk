@@ -102,7 +102,7 @@ export const pakk = (rawOptions?: PakkOptions): Plugin[] => {
 			};
 
 			options.logger.info(
-				`preparation phase took ${Math.floor(performance.now() - startTime)}ms to finish`,
+				`preparation phase took ${Math.floor(performance.now() - startTime).toString()}ms to finish`,
 			);
 
 			return viteConfigUpdates;
@@ -129,7 +129,7 @@ export const pakk = (rawOptions?: PakkOptions): Plugin[] => {
 			});
 
 			options.logger.info(
-				`update phase took ~${Math.floor(performance.now() - startTime)}ms to finish`,
+				`update phase took ~${Math.floor(performance.now() - startTime).toString()}ms to finish`,
 			);
 		},
 	} as Plugin;
