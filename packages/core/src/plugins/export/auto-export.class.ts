@@ -1,5 +1,5 @@
 import type { PackageJson, PackageJsonExportConditions } from '@alexaegis/workspace-tools';
-import { basename, posix } from 'node:path';
+import p from 'node:path';
 import type { PackageExaminationResult, PakkFeature } from '../pakk-feature.type.js';
 import { stripFileExtension } from './helpers/strip-file-extension.function.js';
 
@@ -70,7 +70,7 @@ export class AutoExport implements PakkFeature {
 
 	async examinePackage(_packageJson: PackageJson): Promise<Partial<PackageExaminationResult>> {
 		const absoluteExportBaseDir = toAbsolute(
-			posix.join(this.context.srcDir, this.options.exportBaseDir),
+			p.posix.join(this.context.srcDir, this.options.exportBaseDir),
 			{
 				cwd: this.context.workspacePackage.packagePath,
 			},
@@ -98,7 +98,11 @@ export class AutoExport implements PakkFeature {
 
 		return {
 			bundlerEntryFiles: entryFiles.reduce<Record<string, string>>((acc, entryFile) => {
-				const path = posix.join(this.context.srcDir, this.options.exportBaseDir, entryFile);
+				const path = p.posix.join(
+					this.context.srcDir,
+					this.options.exportBaseDir,
+					entryFile,
+				);
 				const alias = stripFileExtension(entryFile);
 				acc[alias] = path;
 				return acc;
@@ -162,7 +166,7 @@ export class AutoExport implements PakkFeature {
 				path = pathVariants['development-to-dist'];
 			}
 
-			const fileName = basename(path);
+			const fileName = p.basename(path);
 			const dir = dirname(path);
 			const extensionlessFileName = stripFileExtension(fileName);
 
@@ -172,27 +176,28 @@ export class AutoExport implements PakkFeature {
 
 			if (this.context.formats.includes('cjs')) {
 				exportConditions.require =
-					'./' + posix.join(dir, this.context.fileName('cjs', extensionlessFileName));
+					'./' + p.posix.join(dir, this.context.fileName('cjs', extensionlessFileName));
 			} else {
 				if (this.context.formats.includes('umd')) {
 					exportConditions.require =
-						'./' + posix.join(dir, this.context.fileName('umd', extensionlessFileName));
+						'./' +
+						p.posix.join(dir, this.context.fileName('umd', extensionlessFileName));
 				} else if (this.context.formats.includes('iife')) {
 					exportConditions.require =
 						'./' +
-						posix.join(dir, this.context.fileName('iife', extensionlessFileName));
+						p.posix.join(dir, this.context.fileName('iife', extensionlessFileName));
 				}
 			}
 
 			if (this.context.formats.includes('es')) {
 				exportConditions.import =
-					'./' + posix.join(dir, this.context.fileName('es', extensionlessFileName));
+					'./' + p.posix.join(dir, this.context.fileName('es', extensionlessFileName));
 			}
 
 			if (this.context.formats.includes(this.context.primaryFormat)) {
 				exportConditions.default =
 					'./' +
-					posix.join(
+					p.posix.join(
 						dir,
 						isSvelteFile
 							? fileName
@@ -206,7 +211,7 @@ export class AutoExport implements PakkFeature {
 			if (this.options.svelte) {
 				exportConditions['svelte'] =
 					'./' +
-					posix.join(
+					p.posix.join(
 						dir, // Let svelte import the source file regardless
 						isSvelteFile
 							? fileName

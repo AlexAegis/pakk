@@ -1,7 +1,7 @@
 import { asyncFilterMap } from '@alexaegis/common';
 import { writeJson } from '@alexaegis/fs';
 import { DEFAULT_EXPORT_FORMATS, Pakk, normalizePakkOptions, type PakkOptions } from '@pakk/core';
-import { join } from 'node:path';
+import p from 'node:path';
 import type { Plugin, UserConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 import { createLazyAutoExternalsFunction } from './rollup-externals.function.js';
@@ -140,7 +140,7 @@ export const pakk = (rawOptions?: PakkOptions): Plugin[] => {
 			dts({
 				copyDtsFiles: true,
 				cleanVueFileName: true,
-				entryRoot: join(options.srcDir, options.exportBaseDir),
+				entryRoot: p.join(options.srcDir, options.exportBaseDir),
 			}),
 		);
 	}

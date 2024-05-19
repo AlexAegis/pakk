@@ -1,5 +1,5 @@
 import type { Defined } from '@alexaegis/common';
-import { basename, join, posix } from 'node:path';
+import p from 'node:path';
 import type { AllBinPathCombinations } from '../../bin/auto-bin.class.js';
 import type { AllExportPathCombinations } from '../auto-export.class.js';
 import type { EntryPathVariantMap, PathVariantMap } from '../export-map.type.js';
@@ -59,17 +59,17 @@ export const createExportMapFromPaths = <
 	for (const path of pathsFromBase) {
 		const key =
 			options.keyKind === 'extensionless-filename-only'
-				? stripFileExtension(basename(path))
+				? stripFileExtension(p.basename(path))
 				: './' + stripFileExtension(path);
 
 		const pathVariants: Record<string, string> = {
-			'development-to-source': './' + posix.join(options.srcDir, basePath, path), // The original full path, not used by default but there's an option if preferred
-			'development-to-dist': './' + posix.join(options.outDir, path), // It is assumed that files in the outDir replicate their folder structure from the srcDir
+			'development-to-source': './' + p.posix.join(options.srcDir, basePath, path), // The original full path, not used by default but there's an option if preferred
+			'development-to-dist': './' + p.posix.join(options.outDir, path), // It is assumed that files in the outDir replicate their folder structure from the srcDir
 			'distribution-to-dist': './' + path,
 		};
 
 		if (options.shimDir) {
-			pathVariants['development-to-shim'] = './' + join(options.shimDir, path);
+			pathVariants['development-to-shim'] = './' + p.join(options.shimDir, path);
 		}
 
 		exportMap[key] = pathVariants as PathVariantMap<Variants>;

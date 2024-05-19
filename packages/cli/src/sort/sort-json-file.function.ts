@@ -2,7 +2,7 @@ import { sortObject, type ObjectKeyOrder } from '@alexaegis/common';
 import { readJson, writeJson } from '@alexaegis/fs';
 import type { Logger } from '@alexaegis/logging';
 import { normalizeSortingPreferenceForPackageJson } from '@alexaegis/workspace-tools';
-import { basename } from 'node:path';
+import p from 'node:path';
 
 /**
  * Reads a json file, sorts it based on a sorting config then writes it back,
@@ -22,7 +22,7 @@ export const sortJsonFile = async (
 	if (content) {
 		let sortPreferences = options.sortingPreference;
 
-		if (basename(path) === 'package.json') {
+		if (p.basename(path) === 'package.json') {
 			sortPreferences = normalizeSortingPreferenceForPackageJson(sortPreferences);
 		}
 

@@ -74,12 +74,12 @@
 		"pakk-fixture-custom-bins-postinstall": "./shims/postinstall.js"
 	},
 	"devDependencies": {
-		"@alexaegis/eslint-config-vitest": "^0.10.3",
-		"@alexaegis/ts": "^0.10.3",
-		"@types/node": "^20.11.30",
-		"@vitest/coverage-v8": "^1.4.0",
-		"vite": "^5.2.4",
+		"@alexaegis/eslint-config-vitest": "^0.10.4",
+		"@alexaegis/ts": "^0.10.4",
+		"@types/node": "^20.12.12",
+		"@vitest/coverage-v8": "^1.6.0",
+		"vite": "^5.2.11",
 		"vite-plugin-pakk": "workspace:^",
-		"vitest": "^1.4.0"
+		"vitest": "^1.6.0"
 	}
 }

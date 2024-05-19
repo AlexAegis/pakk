@@ -4,7 +4,7 @@ import {
 	type RegularWorkspacePackage,
 	type RootWorkspacePackage,
 } from '@alexaegis/workspace-tools';
-import { sep } from 'node:path';
+import p from 'node:path';
 
 export interface CurrentWorkspacePackageWithRoot {
 	workspacePackage: RegularWorkspacePackage;
@@ -15,7 +15,7 @@ export const findCurrentAndRootWorkspacePackage = async (
 	rawOptions?: CwdOption,
 ): Promise<CurrentWorkspacePackageWithRoot> => {
 	const options = normalizeCwdOption(rawOptions);
-	const packageDirName = options.cwd.slice(Math.max(0, options.cwd.lastIndexOf(sep)));
+	const packageDirName = options.cwd.slice(Math.max(0, options.cwd.lastIndexOf(p.sep)));
 	const workspace = await collectWorkspacePackages(options);
 
 	const rootWorkspacePackage = workspace.find(
@@ -27,7 +27,7 @@ export const findCurrentAndRootWorkspacePackage = async (
 		(workspacePackage): workspacePackage is RegularWorkspacePackage =>
 			workspacePackage.packageKind === 'regular' &&
 			workspacePackage.packagePath.includes(options.cwd) &&
-			(workspacePackage.packagePath + sep).includes(packageDirName + sep),
+			(workspacePackage.packagePath + p.sep).includes(packageDirName + p.sep),
 	);
 
 	if (!rootWorkspacePackage || !workspacePackage) {

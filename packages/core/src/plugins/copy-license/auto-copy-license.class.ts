@@ -2,7 +2,7 @@ import { toAbsolute } from '@alexaegis/fs';
 import type { PackageJson, WorkspacePackage } from '@alexaegis/workspace-tools';
 import { existsSync } from 'node:fs';
 import { cp } from 'node:fs/promises';
-import { basename, join } from 'node:path';
+import p from 'node:path';
 import { PACKAGE_JSON_KIND, type NormalizedPakkContext } from '../../index.js';
 import type { PackageExportPathContext } from '../export/auto-export.class.js';
 import type { PackageExaminationResult, PakkFeature } from '../pakk-feature.type.js';
@@ -33,7 +33,7 @@ export class AutoCopyLicense implements PakkFeature {
 		const possibleLiceseFileNames = ['license', 'LICENSE'];
 
 		const possibleLicenseFileLocations = pathsOfInterest.flatMap((path) =>
-			possibleLiceseFileNames.map((fileName) => join(path, fileName)),
+			possibleLiceseFileNames.map((fileName) => p.join(path, fileName)),
 		);
 
 		this.licensePath = possibleLicenseFileLocations.find((path) => existsSync(path));
@@ -57,9 +57,9 @@ export class AutoCopyLicense implements PakkFeature {
 				return;
 			}
 
-			const licenseFileDestination = join(
+			const licenseFileDestination = p.join(
 				toAbsolute(this.context.outDir, this.context),
-				basename(this.licensePath),
+				p.basename(this.licensePath),
 			);
 
 			try {

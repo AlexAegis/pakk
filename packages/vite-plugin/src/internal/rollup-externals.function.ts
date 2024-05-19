@@ -5,7 +5,7 @@ import {
 } from '@alexaegis/workspace-tools';
 import { readFileSync } from 'node:fs';
 import { builtinModules } from 'node:module';
-import { join } from 'node:path';
+import p from 'node:path';
 
 export const createRollupExternalsFn = (...packageJsons: PackageJson[]) => {
 	const dependencyNames: string[] = [];
@@ -49,7 +49,7 @@ export const createLazyAutoExternalsFunction = () => {
 				}).map(
 					(path) =>
 						JSON.parse(
-							readFileSync(join(path, PACKAGE_JSON_NAME), { encoding: 'utf8' }),
+							readFileSync(p.join(path, PACKAGE_JSON_NAME), { encoding: 'utf8' }),
 						) as PackageJson,
 				),
 			);

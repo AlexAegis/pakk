@@ -3,7 +3,7 @@ import { createLogger } from '@alexaegis/logging';
 import type { PackageJson } from '@alexaegis/workspace-tools';
 import { createJsonSortingPreferenceNormalizer } from '@alexaegis/workspace-tools/sort';
 
-import { basename } from 'node:path';
+import p from 'node:path';
 import yargs, { type Argv } from 'yargs';
 import packageJson from '../../package.json';
 
@@ -31,7 +31,7 @@ void (async () => {
 
 	const sortResults = await Promise.allSettled(
 		options._.map(async (positional) => {
-			const fileName = basename(positional.toString());
+			const fileName = p.basename(positional.toString());
 			const sortNormalizer = await createJsonSortingPreferenceNormalizer(fileName);
 			const sortingPreference = sortNormalizer();
 

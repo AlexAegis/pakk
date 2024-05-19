@@ -1,4 +1,4 @@
-import { extname } from 'node:path';
+import p from 'node:path';
 
 const dtsExtension = '.d.ts';
 
@@ -9,6 +9,6 @@ const dtsExtension = '.d.ts';
  */
 export const stripFileExtension = (name: string, options?: { stripDts: boolean }): string => {
 	const extension =
-		name.endsWith(dtsExtension) && options?.stripDts !== false ? dtsExtension : extname(name);
+		name.endsWith(dtsExtension) && options?.stripDts !== false ? dtsExtension : p.extname(name);
 	return name.replace(new RegExp(`${extension}$`), '');
 };

@@ -2,7 +2,7 @@ import { asyncFilterMap, deepMerge } from '@alexaegis/common';
 import { toAbsolute } from '@alexaegis/fs';
 import type { Logger } from '@alexaegis/logging';
 import type { PackageJson, WorkspacePackage } from '@alexaegis/workspace-tools';
-import { join } from 'node:path';
+import p from 'node:path';
 import type { LibraryFormats } from 'vite';
 import {
 	PACKAGE_JSON_KIND,
@@ -207,7 +207,7 @@ export class Pakk {
 		const path =
 			packageJsonKind === PACKAGE_JSON_KIND.DISTRIBUTION
 				? toAbsolute(
-						join(
+						p.join(
 							this.context.workspacePackage.packagePath,
 							this.options.outDir,
 							'package.json',
@@ -215,7 +215,7 @@ export class Pakk {
 						this.options,
 					)
 				: toAbsolute(
-						join(this.context.workspacePackage.packagePath, 'package.json'),
+						p.join(this.context.workspacePackage.packagePath, 'package.json'),
 						this.options,
 					);
 

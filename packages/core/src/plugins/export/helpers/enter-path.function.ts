@@ -1,4 +1,4 @@
-import { posix } from 'node:path';
+import p from 'node:path';
 
 /**
  * Moves one directory in into a path. It strips one directory off from
@@ -8,9 +8,9 @@ import { posix } from 'node:path';
  * @example 'foo/bar/file' => 'bar/file'
  */
 export const enterPathPosix = (path: string, enterCount = 1): string => {
-	const explodedPath = posix.normalize(path).split(posix.sep);
+	const explodedPath = p.posix.normalize(path).split(p.posix.sep);
 	const directoryCount = explodedPath.length - 1;
 	explodedPath.splice(0, Math.min(enterCount, directoryCount));
 	const prefix = path.startsWith('./') ? './' : '';
-	return prefix + posix.join(...explodedPath);
+	return prefix + p.posix.join(...explodedPath);
 };
