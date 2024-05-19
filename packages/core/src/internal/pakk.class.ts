@@ -14,6 +14,7 @@ import { AutoDirective } from '../plugins/directive/auto-directive.class.js';
 import { AutoExportStatic } from '../plugins/export-static/auto-export-static.class.js';
 import { AutoExport } from '../plugins/export/auto-export.class.js';
 import { createDefaultViteFileNameFn } from '../plugins/export/helpers/bundle-file-name.function.js';
+import { AutoRemoveWorkspaceDirective } from '../plugins/index.js';
 import { AutoMetadata } from '../plugins/metadata/auto-metadata.class.js';
 import type { PackageExaminationResult, PakkFeature } from '../plugins/pakk-feature.type.js';
 import { AutoPeer } from '../plugins/peer/auto-peer.class.js';
@@ -44,6 +45,7 @@ export const pakkFeatureMap = {
 	peer: AutoPeer,
 	sort: AutoSort,
 	directive: AutoDirective,
+	'remove-workspace-directive': AutoRemoveWorkspaceDirective,
 } as const;
 
 export const pakkFeatures = Object.keys(pakkFeatureMap) as PakkFeatureName[];

@@ -280,8 +280,8 @@ importers:
         specifier: ^0.9.1
         version: 0.9.1
       '@pakk/core':
-        specifier: ^0.9.0
-        version: 0.9.0
+        specifier: workspace:^0.9.0
+        version: link:../core
       '@types/node':
         specifier: ^20.12.12
         version: 20.12.12
@@ -396,8 +396,8 @@ importers:
         specifier: ^0.9.1
         version: 0.9.1
       '@pakk/core':
-        specifier: ^0.9.0
-        version: 0.9.0
+        specifier: workspace:^0.9.0
+        version: link:../core
       '@types/node':
         specifier: ^20.12.12
         version: 20.12.12
