@@ -130,6 +130,17 @@ export interface PakkOptions
 	 * Generate dts definitions using https://github.com/qmhc/vite-plugin-dts
 	 */
 	dts?: boolean | undefined;
+
+	/**
+	 * An option to preserve import attributes in output bundles.
+	 * It can preserve both 'assert' and 'with' attributes but by default it
+	 * only keeps asserts.
+	 *
+	 * Set to false to turn it off.
+	 *
+	 * @default 'assert'
+	 */
+	preserveImportAttributes?: boolean | 'both' | 'assert' | 'with' | undefined;
 }
 
 export type NormalizedPakkOptions = Defined<
@@ -158,6 +169,7 @@ export const normalizePakkOptions = (options?: PakkOptions): NormalizedPakkOptio
 		disabledFeatures: options?.disabledFeatures ?? [],
 		autoPrettier: options?.autoPrettier ?? true,
 		dts: options?.dts ?? true,
+		preserveImportAttributes: options?.preserveImportAttributes ?? 'assert',
 		targetPackageJsonKind: options?.targetPackageJsonKind,
 	};
 };

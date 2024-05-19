@@ -57,6 +57,12 @@
 		},
 		"./example": "./static/example.json",
 		"./package.json": "./package.json",
+		"./preserve-import-attributes": {
+			"types": "./src/preserve-import-attributes.ts",
+			"import": "./dist/preserve-import-attributes.js",
+			"require": "./dist/preserve-import-attributes.cjs",
+			"default": "./dist/preserve-import-attributes.js"
+		},
 		"./readme": "./readme.md"
 	},
 	"dependencies": {

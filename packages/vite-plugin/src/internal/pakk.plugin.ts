@@ -4,6 +4,7 @@ import { DEFAULT_EXPORT_FORMATS, Pakk, normalizePakkOptions, type PakkOptions } 
 import p from 'node:path';
 import type { Plugin, UserConfig } from 'vite';
 import dts from 'vite-plugin-dts';
+import { preserveImportAttributes } from './preserve-import-attributes.js';
 import { createLazyAutoExternalsFunction } from './rollup-externals.function.js';
 
 /**
@@ -135,6 +136,7 @@ export const pakk = (rawOptions?: PakkOptions): Plugin[] => {
 	} as Plugin;
 
 	const plugins = [pakkPlugin];
+
 	if (options.dts) {
 		plugins.push(
 			dts({
@@ -144,5 +146,10 @@ export const pakk = (rawOptions?: PakkOptions): Plugin[] => {
 			}),
 		);
 	}
+
+	if (options.preserveImportAttributes) {
+		plugins.push(preserveImportAttributes(options.preserveImportAttributes));
+	}
+
 	return plugins;
 };
