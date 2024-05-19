@@ -53,6 +53,7 @@
 			"require": "./src/index.cjs",
 			"default": "./src/index.js"
 		},
+		"./package.json": "./package.json",
 		"./readme": "./readme.md"
 	},
 	"bin": {

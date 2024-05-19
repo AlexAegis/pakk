@@ -6,7 +6,24 @@ import {
 	DEFAULT_PACKAGE_EXPORT_IGNORES,
 } from '../../internal/defaults.const.js';
 
-export interface AutoExportOptions {
+export const DEFAULT_PACKAGE_JSON_EXPORT_PATH = './package.json';
+
+export interface AutoExportAndExportStaticCommonOptions {
+	/**
+	 * Whether or not automatically export the package.json file too.
+	 *
+	 * Note: If you want to refer to the actual distributed
+	 * package.json in your scripts, you should import it through an export
+	 * and not use a direct json import, your bundler will bundle your
+	 * compile time package.json in, and your users will end up using that
+	 * information, not what was published.
+	 *
+	 * @defaultValue true
+	 */
+	exportPackageJson?: boolean | undefined;
+}
+
+export interface AutoExportOptions extends AutoExportAndExportStaticCommonOptions {
 	/**
 	 * ### AutoExport
 	 *
@@ -99,5 +116,6 @@ export const normalizeAutoExportOptions = (
 		developmentPackageJsonExportsTarget:
 			options?.developmentPackageJsonExportsTarget ?? PackageJsonExportTarget.DIST,
 		svelte: options?.svelte ?? false,
+		exportPackageJson: options?.exportPackageJson ?? true,
 	};
 };

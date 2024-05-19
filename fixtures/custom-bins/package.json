@@ -58,6 +58,7 @@
 			"require": "./dist/custom.config.cjs",
 			"default": "./dist/custom.config.js"
 		},
+		"./package.json": "./package.json",
 		"./some": {
 			"types": "./source/some.d.ts",
 			"import": "./dist/some.js",

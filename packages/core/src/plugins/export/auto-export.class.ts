@@ -16,6 +16,7 @@ import {
 	type PathMap,
 } from '../../package-json/index.js';
 import {
+	DEFAULT_PACKAGE_JSON_EXPORT_PATH,
 	normalizeAutoExportOptions,
 	type AutoExportOptions,
 	type NormalizedAutoExportOptions,
@@ -124,7 +125,12 @@ export class AutoExport implements PakkFeature {
 	 * There's an alternative mode however that will target the source files.
 	 */
 	process(_packageJson: PackageJson, pathContext: PackageExportPathContext): PackageJson {
-		const entryExports: Record<string, PackageJsonExportConditions> = {};
+		const entryExports: Record<string, PackageJsonExportConditions | string> = {};
+
+		if (this.options.exportPackageJson) {
+			this.context.logger.debug('adding the package.json export entry');
+			entryExports[DEFAULT_PACKAGE_JSON_EXPORT_PATH] = DEFAULT_PACKAGE_JSON_EXPORT_PATH;
+		}
 
 		for (const [key, pathVariants] of Object.entries(this.exportMap)) {
 			let path: string;

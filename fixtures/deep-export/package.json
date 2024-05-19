@@ -52,7 +52,8 @@
 			"import": "./dist/bar/yod/zed.js",
 			"require": "./dist/bar/yod/zed.cjs",
 			"default": "./dist/bar/yod/zed.js"
-		}
+		},
+		"./package.json": "./package.json"
 	},
 	"devDependencies": {
 		"@alexaegis/eslint-config-vitest": "^0.10.4",

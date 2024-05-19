@@ -57,6 +57,7 @@
 			"svelte": "./src/direct.svelte",
 			"default": "./src/direct.svelte"
 		},
+		"./package.json": "./package.json",
 		"./readme": "./readme.md"
 	},
 	"dependencies": {

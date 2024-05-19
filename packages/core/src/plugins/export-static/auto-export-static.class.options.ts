@@ -1,7 +1,8 @@
 import type { Defined } from '@alexaegis/common';
 import { DEFAULT_STATIC_EXPORT_GLOBS } from '../../internal/defaults.const.js';
+import type { AutoExportAndExportStaticCommonOptions } from '../export/auto-export.class.options.js';
 
-export interface AutoExportStaticOptions {
+export interface AutoExportStaticOptions extends AutoExportAndExportStaticCommonOptions {
 	/**
 	 * ### AutoExportStatic
 	 *
@@ -21,5 +22,6 @@ export const normalizeAutoExportStaticOptions = (
 ): NormalizedAutoExportStaticOptions => {
 	return {
 		staticExports: options?.staticExports ?? DEFAULT_STATIC_EXPORT_GLOBS,
+		exportPackageJson: options?.exportPackageJson ?? true,
 	};
 };

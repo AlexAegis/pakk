@@ -3,9 +3,10 @@ import { globby } from 'globby';
 import { existsSync } from 'node:fs';
 import { cp } from 'node:fs/promises';
 import posix, { basename, join } from 'node:path/posix';
-import { PACKAGE_JSON_KIND } from '../../index.js';
 import type { NormalizedPakkContext } from '../../internal/pakk.class.options.js';
+import { PACKAGE_JSON_KIND } from '../../package-json/package-json-kind.enum.js';
 import type { PackageExportPathContext } from '../export/auto-export.class.js';
+import { DEFAULT_PACKAGE_JSON_EXPORT_PATH } from '../export/auto-export.class.options.js';
 import { stripFileExtension } from '../export/helpers/strip-file-extension.function.js';
 import type { PackageExaminationResult, PakkFeature } from '../pakk-feature.type.js';
 import {
@@ -70,6 +71,10 @@ export class AutoExportStatic implements PakkFeature {
 			this.context.workspacePackage.packagePath,
 			this.options.staticExports,
 		);
+
+		if (this.options.exportPackageJson) {
+			this.staticExports[DEFAULT_PACKAGE_JSON_EXPORT_PATH] = DEFAULT_PACKAGE_JSON_EXPORT_PATH;
+		}
 
 		return {};
 	}

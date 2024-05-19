@@ -16,6 +16,7 @@ export const yargsForAutoExport = <T>(yargs: Argv<T>): Argv<T & AutoExportOption
 				'defaultExportsIgnore',
 				'exportBaseDir',
 				'developmentPackageJsonExportsTarget',
+				'exportPackageJson',
 			],
 			'auto-export',
 		)
@@ -61,5 +62,10 @@ export const yargsForAutoExport = <T>(yargs: Argv<T>): Argv<T & AutoExportOption
 			default: PackageJsonExportTarget.DIST as
 				| PackageJsonExportTarget.DIST
 				| PackageJsonExportTarget.SOURCE,
+		})
+		.option('exportPackageJson', {
+			description: 'Whether or not automatically export the package.json file too.',
+			boolean: true,
+			default: true,
 		});
 };
