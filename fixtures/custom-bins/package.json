@@ -1,7 +1,7 @@
 {
 	"name": "@pakk/fixture-custom-bins",
 	"description": "custom bins example",
-	"version": "0.9.0",
+	"version": "0.10.0",
 	"license": "MIT",
 	"private": true,
 	"archetype": {

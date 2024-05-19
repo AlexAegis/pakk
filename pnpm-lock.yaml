@@ -280,7 +280,7 @@ importers:
         specifier: ^0.9.1
         version: 0.9.1
       '@pakk/core':
-        specifier: workspace:^0.9.0
+        specifier: workspace:^
         version: link:../core
       '@types/node':
         specifier: ^20.12.12
@@ -320,8 +320,8 @@ importers:
         specifier: ^0.2.8
         version: 0.2.8
       vite-plugin-pakk:
-        specifier: ^0.9.0
-        version: 0.9.0(rollup@4.17.2)
+        specifier: workspace:^
+        version: link:../vite-plugin
       vitest:
         specifier: ^1.6.0
         version: 1.6.0(@types/node@20.12.12)(@vitest/ui@1.6.0)(jsdom@24.0.0)
@@ -396,7 +396,7 @@ importers:
         specifier: ^0.9.1
         version: 0.9.1
       '@pakk/core':
-        specifier: workspace:^0.9.0
+        specifier: workspace:^
         version: link:../core
       '@types/node':
         specifier: ^20.12.12

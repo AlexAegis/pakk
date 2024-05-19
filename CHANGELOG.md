@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.10.0](https://github.com/AlexAegis/pakk/compare/v0.9.0...v0.10.0) (2024-05-19)
+
+
+### Features
+
+* **core:** remove workspace specifiers from version in distributed package jsons ([e2398ed](https://github.com/AlexAegis/pakk/commit/e2398edbc5aea6857f3bb38e48d87be07c8c6a05))
+* **core:** when removing the workpace version specifier, substitute the version when missing ([e68fcc7](https://github.com/AlexAegis/pakk/commit/e68fcc75dc7e8eef8bbb1987f7df55b7b6e5a23b))
+
 ## [0.9.0](https://github.com/AlexAegis/pakk/compare/v0.8.0...v0.9.0) (2024-03-23)
 
 ## [0.8.0](https://github.com/AlexAegis/pakk/compare/v0.7.0...v0.8.0) (2023-11-30)

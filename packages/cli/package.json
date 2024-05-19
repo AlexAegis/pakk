@@ -1,7 +1,7 @@
 {
 	"name": "@pakk/cli",
 	"description": "The standalone cli of pakk, that can manage your package.json for library development.",
-	"version": "0.9.0",
+	"version": "0.10.0",
 	"license": "MIT",
 	"private": false,
 	"archetype": {
@@ -82,7 +82,7 @@
 		"@types/yargs": "^17.0.32",
 		"publint": "^0.2.8",
 		"vite": "^5.2.11",
-		"vite-plugin-pakk": "workspace:^0.9.0",
+		"vite-plugin-pakk": "workspace:^",
 		"vitest": "^1.6.0"
 	}
 }
