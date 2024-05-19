@@ -11,6 +11,10 @@ export const createRollupExternalsFn = (...packageJsons: PackageJson[]) => {
 	const dependencyNames: string[] = [];
 
 	for (const packageJson of packageJsons) {
+		if (packageJson.name) {
+			dependencyNames.push(packageJson.name);
+		}
+
 		if (packageJson.dependencies) {
 			dependencyNames.push(...Object.keys(packageJson.dependencies));
 		}
