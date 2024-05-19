@@ -56,8 +56,8 @@
 		"./package.json": "./package.json"
 	},
 	"devDependencies": {
-		"@alexaegis/eslint-config-vitest": "^0.10.4",
-		"@alexaegis/ts": "^0.10.4",
+		"@alexaegis/eslint-config-vitest": "^0.11.2",
+		"@alexaegis/ts": "^0.11.2",
 		"@types/node": "^20.12.12",
 		"@vitest/coverage-v8": "^1.6.0",
 		"vite": "^5.2.11",

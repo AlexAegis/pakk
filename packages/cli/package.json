@@ -61,11 +61,11 @@
 		"sort-json": "./shims/sort-json.js"
 	},
 	"dependencies": {
-		"@alexaegis/cli-tools": "^0.9.1",
-		"@alexaegis/common": "^0.9.1",
-		"@alexaegis/fs": "^0.9.1",
-		"@alexaegis/logging": "^0.9.1",
-		"@alexaegis/workspace-tools": "^0.9.1",
+		"@alexaegis/cli-tools": "^0.10.0",
+		"@alexaegis/common": "^0.10.0",
+		"@alexaegis/fs": "^0.10.0",
+		"@alexaegis/logging": "^0.10.0",
+		"@alexaegis/workspace-tools": "^0.10.0",
 		"@pakk/core": "workspace:^",
 		"@types/node": "^20.12.12",
 		"prettier": "^3.2.5",
@@ -75,10 +75,10 @@
 		"yargs": "^17.7.2"
 	},
 	"devDependencies": {
-		"@alexaegis/eslint-config-vitest": "^0.10.4",
-		"@alexaegis/ts": "^0.10.4",
-		"@alexaegis/vite": "^0.10.4",
-		"@alexaegis/vitest": "^0.10.4",
+		"@alexaegis/eslint-config-vitest": "^0.11.2",
+		"@alexaegis/ts": "^0.11.2",
+		"@alexaegis/vite": "^0.11.2",
+		"@alexaegis/vitest": "^0.11.2",
 		"@types/node": "^20.12.12",
 		"@types/yargs": "^17.0.32",
 		"publint": "^0.2.8",
