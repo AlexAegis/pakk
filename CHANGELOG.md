@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.12.0](https://github.com/AlexAegis/pakk/compare/v0.11.0...v0.12.0) (2024-05-19)
+
+
+### Features
+
+* **vite-plugin-pakk:** added new option and plugin to preserve import attributes ([9beb34f](https://github.com/AlexAegis/pakk/commit/9beb34f14d601d5629ae3594739f4378b74432f8))
+* **vite-plugin-pakk:** treat self imports as external too ([0421cd9](https://github.com/AlexAegis/pakk/commit/0421cd95c4b6c30eb2f1a9acc88be18bb78cbf8c))
+
 ## [0.11.0](https://github.com/AlexAegis/pakk/compare/v0.10.0...v0.11.0) (2024-05-19)
 
 
