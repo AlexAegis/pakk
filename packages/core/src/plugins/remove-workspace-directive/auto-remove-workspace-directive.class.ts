@@ -5,6 +5,7 @@ import {
 	type WorkspacePackage,
 } from '@alexaegis/workspace-tools';
 
+import { mapObject } from '@alexaegis/common';
 import type { NormalizedPakkContext } from '../../index.js';
 import { PACKAGE_JSON_KIND, type PackageJsonKindType } from '../../package-json/index.js';
 import type { PakkFeature } from '../pakk-feature.type.js';
@@ -43,18 +44,15 @@ export class AutoRemoveWorkspaceDirective implements PakkFeature {
 				(packageJson, dependencyField) => {
 					const dependencies = packageJson[dependencyField];
 					if (dependencies) {
-						packageJson[dependencyField] = Object.fromEntries(
-							Object.entries(dependencies).map(([key, value]) => [
-								key,
-								value
-									? removeWorkspaceVersionDirective(
-											value,
-											this.context.allWorkspacePackages.find(
-												(pkg) => pkg.packageJson.name === key,
-											),
-										)
-									: value,
-							]),
+						packageJson[dependencyField] = mapObject(dependencies, (value, key) =>
+							value
+								? removeWorkspaceVersionDirective(
+										value,
+										this.context.allWorkspacePackages.find(
+											(pkg) => pkg.packageJson.name === key,
+										),
+									)
+								: value,
 						);
 					}
 
