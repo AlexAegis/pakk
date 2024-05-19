@@ -3,12 +3,14 @@ import {
 	collectWorkspacePackages,
 	type RegularWorkspacePackage,
 	type RootWorkspacePackage,
+	type WorkspacePackage,
 } from '@alexaegis/workspace-tools';
 import p from 'node:path';
 
 export interface CurrentWorkspacePackageWithRoot {
 	workspacePackage: RegularWorkspacePackage;
 	rootWorkspacePackage: RootWorkspacePackage;
+	allWorkspacePackages: WorkspacePackage[];
 }
 
 export const findCurrentAndRootWorkspacePackage = async (
@@ -34,5 +36,5 @@ export const findCurrentAndRootWorkspacePackage = async (
 		throw new Error('Package could not be determined');
 	}
 
-	return { workspacePackage, rootWorkspacePackage };
+	return { workspacePackage, rootWorkspacePackage, allWorkspacePackages: workspace };
 };

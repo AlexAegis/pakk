@@ -2,14 +2,23 @@ import {
 	PACKAGE_JSON_DEPENDENCY_FIELDS,
 	type PackageJson,
 	type RegularWorkspacePackage,
+	type WorkspacePackage,
 } from '@alexaegis/workspace-tools';
 
 import type { NormalizedPakkContext } from '../../index.js';
 import { PACKAGE_JSON_KIND, type PackageJsonKindType } from '../../package-json/index.js';
 import type { PakkFeature } from '../pakk-feature.type.js';
 
-export const removeWorkspaceVersionDirective = (version: string): string =>
-	version.replace(/^workspace:/, '');
+const removeWorkspaceVersionDirective = (
+	version: string,
+	pkg: WorkspacePackage | undefined,
+): string => {
+	const result = version.replace(/^workspace:/, '');
+
+	return pkg?.packageJson.version && (result.length === 0 || result === '^' || result === '~')
+		? result + pkg.packageJson.version
+		: result;
+};
 
 /**
  * Removes the workspace: dependency specifier
@@ -37,7 +46,14 @@ export class AutoRemoveWorkspaceDirective implements PakkFeature {
 						packageJson[dependencyField] = Object.fromEntries(
 							Object.entries(dependencies).map(([key, value]) => [
 								key,
-								value ? removeWorkspaceVersionDirective(value) : value,
+								value
+									? removeWorkspaceVersionDirective(
+											value,
+											this.context.allWorkspacePackages.find(
+												(pkg) => pkg.packageJson.name === key,
+											),
+										)
+									: value,
 							]),
 						);
 					}
