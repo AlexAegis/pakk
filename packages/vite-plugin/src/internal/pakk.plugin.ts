@@ -2,7 +2,7 @@ import { asyncFilterMap } from '@alexaegis/common';
 import { writeJson } from '@alexaegis/fs';
 import { DEFAULT_EXPORT_FORMATS, Pakk, normalizePakkOptions, type PakkOptions } from '@pakk/core';
 import p from 'node:path';
-import type { Plugin, UserConfig } from 'vite';
+import type { Plugin, PluginOption, UserConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 import { preserveImportAttributes } from './preserve-import-attributes.js';
 import { createLazyAutoExternalsFunction } from './rollup-externals.function.js';
@@ -28,7 +28,7 @@ import { createLazyAutoExternalsFunction } from './rollup-externals.function.js'
  * ```
  *
  */
-export const pakk = (rawOptions?: PakkOptions): Plugin[] => {
+export const pakk = (rawOptions?: PakkOptions): PluginOption => {
 	let pakk: Pakk;
 	const options = normalizePakkOptions(rawOptions);
 	const pakkPlugin: Plugin = {
