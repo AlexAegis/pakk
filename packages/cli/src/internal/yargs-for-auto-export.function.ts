@@ -3,11 +3,10 @@ import {
 	DEFAULT_PACKAGE_EXPORT_BASEDIR,
 	DEFAULT_PACKAGE_EXPORT_IGNORES,
 	PackageJsonExportTarget,
-	type AutoExportOptions,
 } from '@pakk/core';
 import type { Argv } from 'yargs';
 
-export const yargsForAutoExport = <T>(yargs: Argv<T>): Argv<T & AutoExportOptions> => {
+export const yargsForAutoExport = (yargs: Argv<unknown>): Argv<unknown> => {
 	return yargs
 		.group(
 			[

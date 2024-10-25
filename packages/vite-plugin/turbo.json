@@ -1,7 +1,7 @@
 {
 	"$schema": "https://turborepo.org/schema.json",
 	"extends": ["//"],
-	"pipeline": {
+	"tasks": {
 		"build-lib_": {
 			"dependsOn": ["^build-lib_", "@pakk/core#prebuild_"]
 		},
@@ -14,8 +14,7 @@
 				"!{src,static,public}/**/*.spec.{ts,js,tsx,jsx}",
 				"!vite*.config.*.*"
 			],
-			"outputs": ["{dist,build,.svelte-kit}/**/*"],
-			"outputMode": "new-only"
+			"outputs": ["{dist,build,.svelte-kit}/**/*"]
 		}
 	}
 }

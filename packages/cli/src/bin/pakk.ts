@@ -15,31 +15,25 @@ import { yargsForAutoExport } from '../internal/yargs-for-auto-export.function.j
 import { yargsForAutoMetadata } from '../internal/yargs-for-auto-metadata.function.js';
 import { yargsForPakk } from '../internal/yargs-for-pakk.function.js';
 
-const yarguments = yargsForDryOption(
-	yargsForCwdOption(
-		yargsForAutoMetadata(
-			yargsForAutoExportStatic(
-				yargsForAutoExport(
-					yargsForAutoBin(
-						yargsForLogLevelOption(
-							yargsForPakk(
-								defaultYargsFromPackageJson(packageJson as PackageJson)(
-									yargs(process.argv.splice(2)),
-								),
-							),
-						),
-					),
-				),
-			),
-		),
-	),
-);
+// ? The use of generics combined with the generics in yargs causes typescript
+// ? to stall and bail with an inifnitely deep type error.
+const a = defaultYargsFromPackageJson(packageJson as PackageJson)(
+	yargs(process.argv.splice(2)),
+) as any;
+const b = yargsForLogLevelOption(a) as any;
+const c = yargsForPakk(b) as any;
+const d = yargsForAutoBin(c) as any;
+const e = yargsForAutoExport(d) as any;
+const f = yargsForAutoExportStatic(e) as any;
+const g = yargsForAutoMetadata(f) as any;
+const h = yargsForCwdOption(g) as any;
+const yarguments = yargsForDryOption(h);
 
 void (async () => {
 	const options = await yarguments.parseAsync();
 	const logger = createLogger({
 		name: 'pakk',
-		minLevel: options.logLevel as number,
+		minLevel: options['logLevel'] as number,
 	});
 
 	logger.trace('Parsed options', options);

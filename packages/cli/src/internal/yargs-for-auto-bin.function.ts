@@ -4,11 +4,10 @@ import {
 	DEFAULT_BIN_DIR,
 	DEFAULT_BIN_GLOB,
 	DEFAULT_PACKAGE_EXPORT_IGNORES,
-	type AutoBinOptions,
 } from '@pakk/core';
 import type { Argv } from 'yargs';
 
-export const yargsForAutoBin = <T>(yargs: Argv<T>): Argv<T & AutoBinOptions> => {
+export const yargsForAutoBin = (yargs: Argv<unknown>): Argv<unknown> => {
 	return yargs
 		.group(
 			['bins', 'binIgnore', 'defaultBinIgnore', 'binBaseDir', 'enabledNpmHooks', 'shimDir'],
