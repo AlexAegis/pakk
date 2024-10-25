@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.12.3](https://github.com/AlexAegis/pakk/compare/v0.12.2...v0.12.3) (2024-10-25)
+
+
+### Bug Fixes
+
+* **vite-plugin-pakk:** update type ([848943b](https://github.com/AlexAegis/pakk/commit/848943b4ca27a4d5d4024be40b3409e1db1a9f04))
+
 ## [0.12.2](https://github.com/AlexAegis/pakk/compare/v0.12.1...v0.12.2) (2024-10-25)
 
 ## [0.12.1](https://github.com/AlexAegis/pakk/compare/v0.12.0...v0.12.1) (2024-05-19)
