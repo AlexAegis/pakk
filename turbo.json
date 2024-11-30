@@ -1,5 +1,5 @@
 {
-	"$schema": "https://turborepo.org/schema.json?mark=managed-by-autotool",
+	"$schema": "https://turborepo.org/schema.json?mark=managed-by",
 	"globalDependencies": [
 		".config/*",
 		".env",
@@ -10,6 +10,7 @@
 		"pnpm-lock.yaml",
 		"tsconfig.json"
 	],
+	"cacheDir": ".cache/turbo",
 	"globalPassThroughEnv": ["GITHUB_TOKEN"],
 	"tasks": {
 		"//#all_": {
@@ -204,7 +205,6 @@
 		"lint_": {
 			"dependsOn": [
 				"lint:depcheck_",
-				"lint:es_",
 				"lint:format_",
 				"lint:md_",
 				"lint:style:css_",

@@ -5,7 +5,7 @@ import { createJsonSortingPreferenceNormalizer } from '@alexaegis/workspace-tool
 
 import p from 'node:path';
 import yargs, { type Argv } from 'yargs';
-import packageJson from '../../package.json';
+import packageJson from '../../package.json' assert { type: 'json' };
 
 import { sortJsonFile } from '../sort/index.js';
 

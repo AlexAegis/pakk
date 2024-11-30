@@ -7,7 +7,7 @@ import {
 import { createLogger } from '@alexaegis/logging';
 import type { PackageJson } from '@alexaegis/workspace-tools';
 import yargs from 'yargs';
-import packageJson from '../../package.json';
+import packageJson from '../../package.json' assert { type: 'json' };
 import { pakkStandaloneRunner } from '../internal/pakk-standalone-runner.function.js';
 import { yargsForAutoBin } from '../internal/yargs-for-auto-bin.function.js';
 import { yargsForAutoExportStatic } from '../internal/yargs-for-auto-export-static.function.js';

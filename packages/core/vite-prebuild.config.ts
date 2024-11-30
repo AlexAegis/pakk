@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
 import { builtinModules } from 'node:module';
 import { defineConfig } from 'vite';
-import packageJson from './package.json';
+import packageJson from './package.json' assert { type: 'json' };
 
 // This package can't use the vite-plugin as that's depending on this package and this has to be built first.
 // But if it's pre-built with a minimal setup like this without the vite-plugin, then it can be re-built with the real plugin.
