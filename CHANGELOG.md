@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.13.1](https://github.com/AlexAegis/pakk/compare/v0.13.0...v0.13.1) (2024-11-30)
+
 ## [0.13.0](https://github.com/AlexAegis/pakk/compare/v0.12.3...v0.13.0) (2024-11-30)
 
 ## [0.12.3](https://github.com/AlexAegis/pakk/compare/v0.12.2...v0.12.3) (2024-10-25)
