@@ -1,5 +1,5 @@
 {
-	"$schema": "https://turborepo.org/schema.json?mark=managed-by",
+	"$schema": "https://turborepo.org/schema.json?mark=managed-by-autotool",
 	"globalDependencies": [
 		".config/*",
 		".env",
@@ -26,7 +26,6 @@
 				"!{.turbo,.cache,packages,libs,apps,fixtures,dist,build,.svelte-kit}/**/*",
 				"**/*.{ts,js,tsx,jsx,md,json,json5,yaml,yml,html,svelte,vue,astro,xml,php}"
 			],
-			"outputs": [".cache/prettier/**"],
 			"outputLogs": "new-only"
 		},
 		"//#lint:depcheck_": {
@@ -47,7 +46,6 @@
 				"!{.turbo,.cache,packages,libs,apps,fixtures,dist,build,.svelte-kit}/**/*",
 				"**/*.{ts,js,tsx,jsx,md,json,json5,yaml,yml,html,svelte,vue,astro,xml,php}"
 			],
-			"outputs": [".cache/prettier/**"],
 			"outputLogs": "new-only"
 		},
 		"//#lint:md_": {
@@ -139,7 +137,6 @@
 				"*.*",
 				"{src,static,public}/**/*.{ts,js,tsx,jsx,md,json,json5,yaml,yml,html,svelte,vue,astro,xml,php}"
 			],
-			"outputs": [".cache/prettier/**"],
 			"outputLogs": "new-only"
 		},
 		"lint:depcheck_": {
@@ -160,7 +157,6 @@
 				"*.*",
 				"{src,static,public}/**/*.{ts,js,tsx,jsx,md,json,json5,yaml,yml,html,svelte,vue,astro,xml,php}"
 			],
-			"outputs": [".cache/prettier/**"],
 			"outputLogs": "new-only"
 		},
 		"lint:md_": {
@@ -184,7 +180,6 @@
 		"lint:style:scss_": {
 			"dependsOn": [],
 			"inputs": [".stylelint*", "{src,static,public}/**/*.{scss,sass}"],
-			"outputs": [".cache/stylelintcache-scss"],
 			"outputLogs": "new-only"
 		},
 		"lint:style_": {
@@ -205,6 +200,7 @@
 		"lint_": {
 			"dependsOn": [
 				"lint:depcheck_",
+				"lint:es_",
 				"lint:format_",
 				"lint:md_",
 				"lint:style:css_",

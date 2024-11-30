@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-return */
 import { builtinModules } from 'node:module';
 import { defineConfig } from 'vite';
 import packageJson from './package.json' assert { type: 'json' };

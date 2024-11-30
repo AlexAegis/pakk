@@ -67,10 +67,10 @@
 		"svelte": "~4.0.0"
 	},
 	"devDependencies": {
-		"@alexaegis/eslint-config-svelte": "^0.11.6",
-		"@alexaegis/eslint-config-vitest": "^0.11.6",
-		"@alexaegis/svelte-config": "^0.11.6",
-		"@alexaegis/ts": "^0.11.6",
+		"@alexaegis/eslint-config-svelte": "^0.12.0",
+		"@alexaegis/eslint-config-vitest": "^0.12.0",
+		"@alexaegis/svelte-config": "^0.12.0",
+		"@alexaegis/ts": "^0.12.0",
 		"@pakk/cli": "workspace:^",
 		"@sveltejs/package": "^2.3.7",
 		"@types/node": "^22.10.1",
